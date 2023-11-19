@@ -1,5 +1,6 @@
 // MODULES IMPORT
 import { Metadata } from 'next';
+import SignOut from '../auth/sign-out';
 
 // PAGE NAME
 export const metadata: Metadata = {
@@ -9,6 +10,9 @@ export const metadata: Metadata = {
 // PAGE COMPONENT
 export default async function Home() {
     return (
-        <div>Home</div>
+        <div className='home'>
+            <div>Home</div>
+            <SignOut />
+        </div>
     )
 }

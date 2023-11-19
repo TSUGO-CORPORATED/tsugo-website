@@ -1,0 +1,98 @@
+.home {
+  background-color: $color-background-medium-grey;
+  height: 100vh;
+
+  &__nav-bar {
+    @include nav-bar();
+  }
+
+  &__account {
+    @include card();
+    @include flexCenter(column);
+    margin: 20px;
+    
+    &__header {
+      gap: 20px;
+      @include flexCenter(row);
+      width: 100%;
+      justify-content: flex-start;
+      padding: 1em;
+
+      &__title {
+        font-size: 1.6em;
+        font-weight: bold;
+      }
+
+      &__button-1 {
+        @include button($color-button-green);
+      }
+
+      &__button-2 {
+        @include button($color-button-blue);
+      }
+
+      &__button-3 {
+        @include button($color-button-yellow);
+      }
+    }
+
+    &__container {
+      // background-color: red;
+      @include flexCenter(row);
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 20px;
+      width: 100%;
+      padding: 1em;
+      padding-bottom: 2em;
+
+      &__card {
+        @include card(); 
+        @include flexCenter(column);
+        width: 25%;
+        padding: 10px;
+        border: solid black 2px;
+        
+        &:hover {
+          background-color: $color-background-green;
+        }
+
+        &__selected {
+          background-color: $color-background-green;
+        }
+
+        &__row {
+          @include flexCenter(row);
+          width: 100%;
+          justify-content: space-between;
+          margin-bottom: 10px;
+
+          &__account-name {
+            font-size: 20px;
+            font-weight: bold;
+          }
+
+          &__account-type {
+            font-size: 18px;
+            font-style: italic;
+          }
+
+          &__value {
+            @include flexCenter(row);
+            &__currency {
+              font-size: 18px;
+              margin-right: 10px;
+              font-weight: bold;
+            }
+  
+            &__amount {
+              font-size: 18px;
+              align-self: flex-end;
+            }
+          }
+        }
+      }
+    }
+
+  }
+}
