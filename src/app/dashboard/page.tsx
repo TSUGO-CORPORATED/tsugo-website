@@ -1,17 +1,20 @@
 // MODULES IMPORT
 import { Metadata } from 'next';
 import SignOut from '../auth/sign-out';
+import DashboardCard from './dashboard-card';
+
 
 // PAGE NAME
 export const metadata: Metadata = {
-    title: 'Home',
+    title: 'Dashboard',
 }
 
 // PAGE COMPONENT
-export default async function Home() {
+export default async function Dashboard() {
     return (
-        <div className='home'>
-            <div>Home</div>
+        <div className='dasboard'>
+            <div>Dashboard</div>
+            <DashboardCard />
             <SignOut />
         </div>
     )

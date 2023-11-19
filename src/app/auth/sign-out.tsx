@@ -13,7 +13,7 @@ export default function SignOut() {
     signOut(auth)
       .then(() => {
         alert('sign out successful');
-        router.push('/');
+        router.push('/log-in');
       })
       .catch((err) => {
         console.log(err);

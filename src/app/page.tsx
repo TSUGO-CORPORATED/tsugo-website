@@ -1,20 +1,17 @@
 // MODULES IMPORT
 import { Metadata } from 'next';
-import LogInCard from './log-in-card';
-import SkipLogIn from './auth/skip-log-in';
+import HomeRedirect from './home-redirect';
 
 // PAGE NAME
 export const metadata: Metadata = {
-  title: 'Log In',
+    title: 'Home',
 }
 
 // PAGE COMPONENT
-export default function LogIn(): JSX.Element {
-  return (
-      <div className="log-in">
-        <SkipLogIn />
-        <LogInCard />
-
-      </div>
-  )
+export default function Home(): JSX.Element {
+    return (
+        <div className="home">
+            <HomeRedirect />
+        </div>
+    )
 }

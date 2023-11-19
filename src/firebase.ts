@@ -14,7 +14,7 @@ type config = {
   appId: string
 }
 
-const firebaseConfig = {
+const firebaseConfig: config = {
   apiKey: "AIzaSyBsHTk6fK2zVx5IPefn4SLO6TnIHCRAhpg",
   authDomain: "senior-project-a5c2f.firebaseapp.com",
   projectId: "senior-project-a5c2f",

@@ -1,11 +1,11 @@
 'use client';
 
 // MODULES IMPORT
-import { auth } from '../firebase';
+import { auth } from '../../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
 
 
@@ -34,7 +34,7 @@ export default function LogInCard(): JSX.Element {
     
     if (response) {
       alert('Successful login');
-      router.push('/home');
+      router.push('/dashboard');
     } 
     else alert('Invalid username or password');
   }

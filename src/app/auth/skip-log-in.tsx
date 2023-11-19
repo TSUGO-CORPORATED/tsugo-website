@@ -12,7 +12,7 @@ export default function SkipLogIn() {
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user: any) => {
       // console.log(user);
-      if (user) router.push('/home');
+      if (user) router.push('/dashboard');
     });
 
     return () => {

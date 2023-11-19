@@ -108,7 +108,7 @@ export default function SignUp(): JSX.Element {
         </div>
         <button type="submit" className='sign-up__card__form__box__sign-up-button'>Sign up</button>
         </form>
-        <Link href="/" className='sign-up__card__log-in-link'><p>Go Back to Log In</p></Link>
+        <Link href="/log-in" className='sign-up__card__log-in-link'><p>Go Back to Log In</p></Link>
     </div>
   )
 }
