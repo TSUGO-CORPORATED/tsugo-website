@@ -18,14 +18,14 @@ export default function DashboardTabs() {
                 <div>
                     <p>render accepted appointment in here?</p>
                     <Link href="/user-translator-appointment/page">
-                            <a><button>Go to Request Translator</button></a>
+                            <button>Go to Request Translator</button>
                     </Link>
                     </div>)}
                 {currentTab === 'Find' && (
                     <div>
                         <p>render accepted req in here?</p>
                         <Link href="/user-client-appointment">
-                            <a><button>Go to Search Requests</button></a>
+                            <button>Go to Search Requests</button>
                         </Link>
                     </div>
                 )}
