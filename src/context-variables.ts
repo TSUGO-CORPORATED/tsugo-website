@@ -2,7 +2,7 @@
 
 import { createContext, Dispatch, SetStateAction } from 'react';
 
-interface MyContext {
+interface ContextVariables {
   userId: number;
   userEmail: string;
   userFirstName: string;
@@ -24,5 +24,5 @@ const defaultState = {
   setUserLastName: () => {},
 }
 
-export const MyContext = createContext<MyContext>(defaultState);
+export const ContextVariables = createContext<ContextVariables>(defaultState);
 

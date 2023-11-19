@@ -1,5 +1,5 @@
 // IMPORT MODULES
-import ContextVariable from './ContextVariable';
+import LayoutSub from './layout-sub';
 import '../css/styles.css';
   // These styles apply to every route in the application
 
@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode}) {
   return (
     <html lang="en">
-      <ContextVariable childrenProp={children}/>
+      <LayoutSub childrenProp={children}/>
     </html>
   )
 }

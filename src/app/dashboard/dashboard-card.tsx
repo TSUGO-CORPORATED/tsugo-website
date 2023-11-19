@@ -1,12 +1,12 @@
 'use client';
 
 // MODULES IMPORT
-import { MyContext } from '../../MyContext';
+import { ContextVariables } from '../../context-variables';
 import { useContext } from 'react';
 
 // PAGE COMPONENT
 export default function DashboardCard(): JSX.Element {
-    const { userId, userEmail, userFirstName, userLastName } = useContext(MyContext);
+    const { userId, userEmail, userFirstName, userLastName } = useContext(ContextVariables);
     console.log(userId, userEmail, userFirstName, userLastName);
     return (
         <></>
