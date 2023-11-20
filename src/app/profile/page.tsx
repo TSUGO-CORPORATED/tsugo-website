@@ -1,38 +1,28 @@
-'use client';
-import React, { useContext } from 'react';
-import { ContextVariables } from '../../context-variables';
-import axios from "axios"
+// MODULES IMPORT
+import { Metadata } from 'next';
+import SignOut from '../auth/sign-out';
+import Profile from './profile-components'
 import Link from 'next/link';
 
-export default function Profile() {
-    const { userId, userEmail, userFirstName, userLastName } = useContext(ContextVariables);
 
-    // useEffect(() => {
-    // }, []);
+// PAGE NAME
+export const metadata: Metadata = {
+    title: 'Profile',
+}
 
-    // const updateUser = async () => {
-    //     try {const response = await axios.post('/api/update-user', {
-    //             userId, 
-    //             userEmail, 
-    //             userFirstName, 
-    //             userLastName
-    //         });
-    //     } catch (error) {
-    //     }
-    // }
-
+// PAGE COMPONENT
+export default async function ProfilePage() {
     return (
-        <div>
-        <div className='profile-container'>
-            <h1>User Profile</h1>
-            <p>ID: {userId}</p>
-            <p>Email: {userEmail}</p>
-            <p>First Name: {userFirstName}</p>
-            <p>Last Name: {userLastName}</p>
-        </div>
-        <Link href="/dashboard">
+        <div className='profile_header'>
+            <Link href="/dashboard">
                 <button>Home</button>
-        </Link>
+            </Link> 
+            <Link href="/profile">
+                <button>Profile</button>
+            </Link>
+            <SignOut /> 
+            <Profile />
+
         </div>
-    );
+    )
 }
