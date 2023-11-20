@@ -10,8 +10,8 @@ export default function DashboardTabs() {
     return (
         <div className="dashboard-tabs">
 <div className="dashboard-tabs__buttons-row">
-    <button onClick={() => setCurrentTab('Request')} className="dashboard-tabs__buttons-row__button">Request</button>
-    <button onClick={() => setCurrentTab('Find')} className="dashboard-tabs__buttons-row__button">Find</button>
+    <button onClick={() => setCurrentTab('Request')} className="dashboard-tabs__tab__button">Request</button>
+    <button onClick={() => setCurrentTab('Find')} className="dashboard-tabs__tab__button">Find</button>
 </div>
             <div className="dashboard-tabs__content">
                 {currentTab === 'Request' && (

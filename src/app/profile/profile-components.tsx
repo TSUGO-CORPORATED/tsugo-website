@@ -30,6 +30,7 @@ export default function Profile() {
             <p>First Name: {userFirstName}</p>
             <p>Last Name: {userLastName}</p>
         </div>
+        <button>edit</button>
         </div>
     );
 }

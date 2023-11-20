@@ -16,7 +16,7 @@ export default function UserClientAppointment() {
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         if (!isAgreed) {
-            alert("Please agree to the disclaimer before submitting.");
+            alert("Please agree to the disclaimer before Requesting .");
             return;
         }
     };
@@ -51,7 +51,7 @@ export default function UserClientAppointment() {
                         I agree to the Disclaimer
                     </label>
                 </div>
-                <button type="submit">Submit</button>
+                <button type="submit">Send Request</button>
             </form>
         </div>
     );
