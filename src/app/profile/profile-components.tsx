@@ -7,6 +7,7 @@ import Link from 'next/link';
 export default function Profile() {
     const { userId, userEmail, userFirstName, userLastName } = useContext(ContextVariables);
 
+    //Fetch User Rating from backend Maybe Divide Translator rating /Client Rating?
     // useEffect(() => {
     // }, []);
 
@@ -29,8 +30,13 @@ export default function Profile() {
             <p>Email: {userEmail}</p>
             <p>First Name: {userFirstName}</p>
             <p>Last Name: {userLastName}</p>
+            <p>Language:</p>
         </div>
         <button>edit</button>
+        <button>delete</button>
+
+        <button>help/supprot</button>
+        <button>Agreement</button>
         </div>
     );
 }
