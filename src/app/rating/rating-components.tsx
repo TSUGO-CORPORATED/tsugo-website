@@ -5,9 +5,9 @@ export default function Rating() {
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
 
-    const handleClick = (value) => {
-        setRating(value);
-    };
+    // const handleClick = (value) => {
+    //     setRating(value);
+    // };
 
     //innstall react-star-ratings - npm
     //react-star-rating-component - npm
@@ -23,7 +23,7 @@ export default function Rating() {
                             type="radio" 
                             name="rating" 
                             value={ratingValue} 
-                            onClick={() => handleClick(ratingValue)}
+                            // onClick={() => handleClick(ratingValue)}
                         />
                         <span 
                             className="star"
