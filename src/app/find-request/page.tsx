@@ -1,20 +1,19 @@
 // MODULES IMPORT
 import { Metadata } from 'next';
 import SignOut from '../auth/sign-out';
-import DashboardCard from './dashboard-card';
-import DashboardTabs from './dashboard-tabs'
 import Link from 'next/link';
+import FindRequest from './check-appointment';
 
 
 // PAGE NAME
 export const metadata: Metadata = {
-    title: 'Dashboard',
+    title: 'Translator',
 }
 
 // PAGE COMPONENT
-export default async function Dashboard() {
+export default async function findRequest() {
     return (
-        <div className='dasboard'>
+        <div className='find_Header'>
             <Link href="/dashboard">
                 <button>Home</button>
             </Link> 
@@ -22,8 +21,7 @@ export default async function Dashboard() {
                 <button>Profile</button>
             </Link>
             <SignOut /> 
-            <DashboardCard />
-            <DashboardTabs />
+            <FindRequest />
 
         </div>
     )
