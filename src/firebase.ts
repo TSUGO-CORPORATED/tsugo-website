@@ -15,12 +15,12 @@ type config = {
 }
 
 const firebaseConfig: config = {
-  apiKey: "AIzaSyA807o7zbpvUjuGOku5oMudiJTCh85-SOs",
-  authDomain: "senior-project-b33ea.firebaseapp.com",
-  projectId: "senior-project-b33ea",
-  storageBucket: "senior-project-b33ea.appspot.com",
-  messagingSenderId: "25987002189",
-  appId: "1:25987002189:web:282ca14b7578db08359104"
+  apiKey: "AIzaSyBsHTk6fK2zVx5IPefn4SLO6TnIHCRAhpg",
+  authDomain: "senior-project-a5c2f.firebaseapp.com",
+  projectId: "senior-project-a5c2f",
+  storageBucket: "senior-project-a5c2f.appspot.com",
+  messagingSenderId: "353310434546",
+  appId: "1:353310434546:web:daaf467447ad819c6adc6b"
 };
 
 // Initialize Firebase
