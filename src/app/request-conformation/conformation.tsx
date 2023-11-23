@@ -97,6 +97,10 @@ export default function Confirmation() {
               mapContainerStyle={mapContainerStyle}
               center={center}
               zoom={15}
+              // ズーム レベル 0-6: 大陸や国などの大規模な地域が表示されます。
+              // ズーム レベル 7-10: 都市や州などの中規模な地域が表示されます。
+              // ズーム レベル 11-15: 市街地や建物などの詳細な地域が表示されます。
+              // ズーム レベル 16-20: 道路、建物の詳細、公園など非常に詳細な情報が表示されます。
             >
               <Marker position={center} />
             </GoogleMap>
