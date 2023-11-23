@@ -1,6 +1,8 @@
 "use client";
+import Link from 'next/link';
 import React, { useState } from "react";
 import axios from "axios";
+import { useRouter, } from 'next/router';
 
 type Coordinates = {
     lat: number;
@@ -17,7 +19,9 @@ export default function UserClientAppointment() {
     const [isAgreed, setIsAgreed] = useState(false);
     const [interpretationType, setInterpretationType] = useState("videoChat");
     const [locationCoordinates, setLocationCoordinates] = useState<Coordinates | null>(null);
+    const [note, setNote] = useState("");
     const [error, setError] = useState("");
+    const router = useRouter();
 
     const fetchCoordinates = async (location: string) => {
         const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
@@ -96,122 +100,158 @@ export default function UserClientAppointment() {
                 return;
             }
         }
+        const formData = {
+            title,
+            hospital,
+            dateTime,
+            location,
+            desireLanguage,
+            communicateLanguage,
+            interpretationType,
+            note,
+            lat: locationCoordinates?.lat.toString(),
+            lng: locationCoordinates?.lng.toString(),
+          };
+        router.push({
+            pathname: '/request-confirmation',
+            query: formData,
+          });
     };
 
     return (
-        <div>
-            <h1>Make an Appointment</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Title:</label>
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Category:</label>
-                    <select
-                        value={hospital}
-                        onChange={(e) => setHospital(e.target.value)}
-                        required
-                    >
-                        {hospitalTypes.map((type) => (
-                            <option key={type} value={type}>
-                                {type}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div>
-                    <label>Date and Time:</label>
-                    <input
-                        type="datetime-local"
-                        value={dateTime}
-                        onChange={(e) => setDateTime(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>
-                        <input
-                            type="radio"
-                            name="interpretationType"
-                            value="videoChat"
-                            checked={interpretationType === "videoChat"}
-                            onChange={() => setInterpretationType("videoChat")}
-                            required
-                        />
-                        Video Chat Interpretation
-                    </label>
-                </div>
-                <div>
-                    <label>
-                        <input
-                            type="radio"
-                            name="interpretationType"
-                            value="inPerson"
-                            checked={interpretationType === "inPerson"}
-                            onChange={() => setInterpretationType("inPerson")}
-                            required
-                        />
-                        In-person Interpretation
-                    </label>
-                </div>
-                {interpretationType !== "videoChat" && (
-                    <div>
-                        <label>Location:</label>
-                        <input
-                            type="text"
-                            value={location}
-                            onChange={(e) => setLocation(e.target.value)}
-                            required
-                        />
-                    </div>
-                )}
-                <div>
-                    <label>Desired Language:</label>
-                    <select
-                        value={desireLanguage}
-                        onChange={(e) => setDesireLanguage(e.target.value)}
-                        required
-                    >
-                        {languages.map((language) => (
-                            <option key={language} value={language}>
-                                {language}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div>
-                    <label>Communication Language:</label>
-                    <select
-                        value={communicateLanguage}
-                        onChange={(e) => setCommunicateLanguage(e.target.value)}
-                        required
-                    >
-                        {languages.map((language) => (
-                            <option key={language} value={language}>
-                                {language}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div>
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={isAgreed}
-                            onChange={(e) => setIsAgreed(e.target.checked)}
-                            required
-                        />
-                        I agree to the Disclaimer
-                    </label>
-                </div>
-                <button type="submit">Send Request</button>
-            </form>
+<div className='add_request'>
+    <h1 className='add_request_title'>Make an Appointment</h1>
+    <form onSubmit={handleSubmit} className='add_request_form'>
+      <div className='add_request_box'>
+        <label className='add_request_label'>Title:</label>
+        <input 
+          type="text" 
+          value={title} 
+          onChange={(e) => setTitle(e.target.value)} 
+          required 
+          className='add_request_input' 
+        />
+      </div>
+      <div className='add_request_box'>
+        <label className='add_request_label'>Category:</label>
+        <select 
+          value={hospital} 
+          onChange={(e) => setHospital(e.target.value)} 
+          required 
+          className='add_request_input' 
+        >
+          {hospitalTypes.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className='add_request_box'>
+        <label className='add_request_label'>Date and Time:</label>
+        <input 
+          type="datetime-local" 
+          value={dateTime} 
+          onChange={(e) => setDateTime(e.target.value)} 
+          required 
+          className='add_request_input' 
+        />
+      </div>
+      <div className='add_request_box'>
+        <label className='add_request_label'>
+          <input 
+            type="radio" 
+            name="interpretationType" 
+            value="videoChat" 
+            checked={interpretationType === "videoChat"} 
+            onChange={() => setInterpretationType("videoChat")} 
+            required 
+            className='add_request_radio' 
+          />
+          Video Chat Interpretation
+        </label>
+      </div>
+      <div className='add_request_box'>
+        <label className='add_request_label'>
+          <input 
+            type="radio" 
+            name="interpretationType" 
+            value="inPerson" 
+            checked={interpretationType === "inPerson"} 
+            onChange={() => setInterpretationType("inPerson")} 
+            required 
+            className='add_request_radio' 
+          />
+          In-person Interpretation
+        </label>
+      </div>
+      {interpretationType !== "videoChat" && (
+        <div className='add_request_box'>
+          <label className='add_request_label'>Location:</label>
+          <input 
+            type="text" 
+            value={location} 
+            onChange={(e) => setLocation(e.target.value)} 
+            required 
+            className='add_request_input' 
+          />
         </div>
+      )}
+      <div className='add_request_box'>
+        <label className='add_request_label'>Desired Language:</label>
+        <select 
+          value={desireLanguage} 
+          onChange={(e) => setDesireLanguage(e.target.value)} 
+          required 
+          className='add_request_input' 
+        >
+          {languages.map((language) => (
+            <option key={language} value={language}>
+              {language}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className='add_request_box'>
+        <label className='add_request_label'>Communication Language:</label>
+        <select 
+          value={communicateLanguage} 
+          onChange={(e) => setCommunicateLanguage(e.target.value)} 
+          required 
+          className='add_request_input' 
+        >
+          {languages.map((language) => (
+            <option key={language} value={language}>
+              {language}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className='add_request_box'>
+                <label className='add_request_label'>Memo:</label>
+                <textarea
+                    value={note}
+                    onChange={(e) => setNote(e.target.value)}
+                    className='add_request_textarea'
+                ></textarea>
+            </div>
+      <div className='add_request_box'>
+        <label className='add_request_label'>
+          <input 
+            type="checkbox" 
+            checked={isAgreed} 
+            onChange={(e) => setIsAgreed(e.target.checked)} 
+            required 
+            className='add_request_checkbox' 
+          />
+          I agree to the Disclaimer
+        </label>
+      </div>
+      <button type="submit" className='add_request_submit_button'>Send Request</button>
+        <Link href="/dashboard">
+            <button className='add_request_cancel_button'>Cancel</button>
+        </Link>
+    </form>
+  </div>
     );
 }
