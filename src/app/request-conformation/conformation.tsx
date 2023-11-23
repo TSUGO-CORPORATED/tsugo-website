@@ -47,7 +47,7 @@ export default function Confirmation() {
         interpretationType:query.interpretationType,
       };
 
-      const response = await axios.post("FakeAPI", requestData);
+    const response = await axios.post("FakeAPI", requestData);
       console.log(response.data);
       alert("Request sent!");
       router.push("/dashboard");
@@ -96,7 +96,7 @@ export default function Confirmation() {
             <GoogleMap
               mapContainerStyle={mapContainerStyle}
               center={center}
-              zoom={8}
+              zoom={15}
             >
               <Marker position={center} />
             </GoogleMap>
