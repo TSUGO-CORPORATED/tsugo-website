@@ -259,7 +259,10 @@ export default function UserClientAppointment() {
           I agree to the Disclaimer
         </label>
       </div>
-      <button type="submit" className='add_request_submit_button'>Send Request</button>
+      <Link href="/requestconformation">
+            <button className='add_request_send_button'>send request</button>
+        </Link>
+      {/* <button type="submit" className='add_request_submit_button'>Send Request</button> */}
         <Link href="/dashboard">
             <button className='add_request_cancel_button'>Cancel</button>
         </Link>

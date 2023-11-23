@@ -1,15 +1,19 @@
 "use client";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
+import { useRouter, } from 'next/navigation';
 import React, { useEffect, useContext } from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import axios from "axios";
 //for userID temporary
 import { ContextVariables } from "../../context-variables";
 
-const { userId } = useContext(ContextVariables);
-export default function Confirmation() {
+
+export default function Conformation() {
+ 
   const router = useRouter();
   const { query } = router;
+  const { userId } = useContext(ContextVariables);
+
 
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
 
