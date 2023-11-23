@@ -2,14 +2,15 @@
 import Link from 'next/link';
 import React, { useState } from "react";
 import axios from "axios";
-import { useRouter, } from 'next/router';
+import { useRouter, } from 'next/navigation';
 
 type Coordinates = {
     lat: number;
     lng: number;
 };
 
-export default function UserClientAppointment() {
+export default function UserClientAppointment() { 
+    const router = useRouter();
     const [title, setTitle] = useState("");
     const [hospital, setHospital] = useState("内科/Internal Medicine");
     const [dateTime, setDateTime] = useState("");
@@ -21,7 +22,7 @@ export default function UserClientAppointment() {
     const [locationCoordinates, setLocationCoordinates] = useState<Coordinates | null>(null);
     const [note, setNote] = useState("");
     const [error, setError] = useState("");
-    const router = useRouter();
+   
 
     const fetchCoordinates = async (location: string) => {
         const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
@@ -112,11 +113,22 @@ export default function UserClientAppointment() {
             lat: locationCoordinates?.lat.toString(),
             lng: locationCoordinates?.lng.toString(),
           };
-        router.push({
-            pathname: '/request-confirmation',
-            query: formData,
-          });
-    };
+          // router.push({
+          //   pathname: '/request-confirmation',
+          //   query: {
+          //     title: formData.title,
+          //     hospital: formData.hospital,
+          //     dateTime: formData.dateTime,
+          //     location: formData.location,
+          //     desireLanguage: formData.desireLanguage,
+          //     communicateLanguage: formData.communicateLanguage,
+          //     interpretationType: formData.interpretationType,
+          //     note: formData.note,
+          //     lat: locationCoordinates?.lat?.toString() || '',
+          //     lng: locationCoordinates?.lng?.toString() || '',
+          //   },
+          // });
+        }
 
     return (
 <div className='add_request'>
