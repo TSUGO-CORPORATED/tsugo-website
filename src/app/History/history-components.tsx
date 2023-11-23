@@ -97,6 +97,7 @@ export default function History() {
                             <div className="history__details">
                                 {/* more details here */}
                                 {/* <p>Appointment Note: {eachHistory.appointmentNote}</p> */}
+                                
                             </div>
                         )}                
                 </div>
