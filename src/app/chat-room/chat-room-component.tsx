@@ -31,7 +31,7 @@ export default function ChatRoomSub(): React.JSX.Element{
 
             return () => {
                 socket.current?.disconnect();
-            }
+            }   
         }, []);
 
     return (
