@@ -21,10 +21,9 @@ export default async function Dashboard() {
             <Link href="/profile">
                 <button>Profile</button>
             </Link>
-            <SignOut /> 
+            
             <DashboardCard />
-            <DashboardTabs />
-
+            <SignOut /> 
         </div>
     )
 }

@@ -1,5 +1,9 @@
 .home {
   background-color: $color-background-medium-grey;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
   height: 100vh;
 
   &__nav-bar {

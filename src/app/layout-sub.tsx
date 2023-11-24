@@ -4,6 +4,8 @@
 import { ContextVariables } from '../context-variables';
 import { useState } from 'react';
 import { inter } from '@/fonts';
+import ResponsiveAppBar from './responsive-app-bar';
+import Navbar from './navbar';
 
 // DATA TYPE
 interface Props {
@@ -19,7 +21,10 @@ export default function LayoutSub(props: Props): JSX.Element {
 
     return (
         <ContextVariables.Provider value={{userId, userEmail, userFirstName, userLastName, setUserId, setUserEmail, setUserFirstName, setUserLastName}}>
-            <body className={`${inter.className}`}>{props.childrenProp}</body>
+            <body className={`${inter.className}`}>
+                <div className='navbar-layout'><Navbar /></div>
+                <div className='childrenprops-layout'>{props.childrenProp}</div>
+            </body>
         </ContextVariables.Provider>
     )
 }
