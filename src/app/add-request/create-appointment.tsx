@@ -1,215 +1,165 @@
-"use client";
-import Link from 'next/link';
-import React, { useState } from "react";
+'use client';
+import React, { useState, useContext } from "react";
 import axios from "axios";
-import { useRouter, } from 'next/navigation';
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { useRouter } from 'next/navigation';
+import { ContextVariables } from "../../context-variables";
 
-type Coordinates = {
-    lat: number;
-    lng: number;
-};
+type Coordinates = { lat: number; lng: number; } | null;
 
-export default function UserClientAppointment() { 
-    const router = useRouter();
-    const [title, setTitle] = useState("");
-    const [hospital, setHospital] = useState("内科/Internal Medicine");
-    const [dateTime, setDateTime] = useState("");
-    const [location, setLocation] = useState("");
-    const [desireLanguage, setDesireLanguage] = useState("Japanese");
-    const [communicateLanguage, setCommunicateLanguage] = useState("English");
-    const [isAgreed, setIsAgreed] = useState(false);
-    const [interpretationType, setInterpretationType] = useState("videoChat");
-    const [locationCoordinates, setLocationCoordinates] = useState<Coordinates | null>(null);
-    const [note, setNote] = useState("");
-    const [error, setError] = useState("");
-   
+const CreateAppointment = () => {
+  const router = useRouter();
+  const { userId } = useContext(ContextVariables);
 
-    const fetchCoordinates = async (location: string) => {
-        const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-        const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(location)}&key=${apiKey}`;
-    
-        const response = await axios.get(apiUrl);
-        if (response.data.results.length === 0) {
-            throw new Error("No results found");
-        }
-    
-        const { lat, lng } = response.data.results[0].geometry.location;
-        return { lat, lng };
-    };   
+  const [title, setTitle] = useState("");
+  const [dateTime, setDateTime] = useState("");
+  const [location, setLocation] = useState("");
+  const [desireLanguage, setDesireLanguage] = useState("Japanese");
+  const [communicateLanguage, setCommunicateLanguage] = useState("English");
+  const [interpretationType, setInterpretationType] = useState("videoChat");
+  const [note, setNote] = useState("");
+  const [isAgreed, setIsAgreed] = useState(false);
+  const [isConfirmed, setIsConfirmed] = useState(false);
+  const [locationCoordinates, setLocationCoordinates] = useState<Coordinates>(null);
+  const [error, setError] = useState("");
+
+  const mapApiKey = process.env.REACT_APP_GOOGLEMAP_API_KEY as string
+  const fetchCoordinates = async (location: string) => {
+    try {
+      const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+      const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(location)}&key=${apiKey}`);
+      const { lat, lng } = response.data.results[0].geometry.location;
+      setLocationCoordinates({ lat, lng });
+    } catch (error) {
+      console.error("Error fetching coordinates: ", error);
+      setError("Error fetching coordinates.");
+    }
+  };
+
+  const languages = [
+    "Japanese",
+    "English",
+    "Mandarin Chinese",
+    "Hindi",
+    "Spanish",
+    "French",
+    "Arabic",
+    "Russian",
+    "Portuguese",
+    "Indonesian",
+    "Korean",
+    "Italian",
+    "German",
+    "Telugu",
+    "Vietnamese",
+    "Turkish",
+];
 
 
-    const languages = [
-        "Japanese",
-        "English",
-        "Mandarin Chinese",
-        "Hindi",
-        "Spanish",
-        "French",
-        "Arabic",
-        "Russian",
-        "Portuguese",
-        "Indonesian",
-        "Korean",
-        "Italian",
-        "German",
-        "Telugu",
-        "Vietnamese",
-        "Turkish",
-    ];
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setError("");
+    if (!isAgreed) {
+      alert("Please agree to the disclaimer before requesting.");
+      return;
+    }
 
-    const hospitalTypes = [
-        "内科/Internal Medicine",
-        "外科/Surgery",
-        "小児科/Pediatrics",
-        "産婦人科/Obstetrics and Gynecology",
-        "眼科/Ophthalmology",
-        "耳鼻咽喉科/Otolaryngology",
-        "皮膚科/Dermatology",
-        "整形外科/Orthopedics",
-        "精神科/Psychiatry",
-        "神経科/Neurology",
-        "泌尿器科/Urology",
-        "循環器科/Cardiology",
-        "消化器科/Gastroenterology",
-        "呼吸器科/Pulmonology",
-        "アレルギー科/Allergology",
-        "歯科/Dentistry",
-        "健康診断/Health Screening",
-        "予防接種/Immunization",
-    ];
+    if (interpretationType === 'inPerson' && location) {
+      await fetchCoordinates(location);
+    }
+    setIsConfirmed(true);
+  };
 
-    const handleSubmit = async  (event: React.FormEvent) => {
-        event.preventDefault();
-        setError("");
-        if (!isAgreed) {
-            alert("Please agree to the disclaimer before requesting.");
-            return;
-        }
+  const handleSendRequest = async () => {
+    try {
+      const requestData = {
+        title,
+        dateTime,
+        location,
+        desireLanguage,
+        communicateLanguage,
+        interpretationType,
+        note,
+        lat: locationCoordinates?.lat,
+        lng: locationCoordinates?.lng,
+        clientUserId: userId
+      };
+      const response = await axios.post("/api/endpoint", requestData);
+      alert("Request sent successfully!");
+      router.push("/dashboard");
+    } catch (error) {
+      console.error("Error sending request: ", error);
+      setError("Error sending request.");
+    }
+  };
 
-        if (interpretationType !== "videoChat" && !location) {
-            alert("Please enter a location.");
-            return;
-        }
-        // in future not alert, error
-        if (interpretationType === 'inPerson' && location) {
-            try {
-                const coordinates = await fetchCoordinates(location);
-                setLocationCoordinates(coordinates)
-                console.log("Coordinates:", coordinates); 
-            } catch (error) {
-                setError("Error fetching location coordinates.");
-                return;
-            }
-        }
-        const formData = {
-            title,
-            hospital,
-            dateTime,
-            location,
-            desireLanguage,
-            communicateLanguage,
-            interpretationType,
-            note,
-            lat: locationCoordinates?.lat.toString(),
-            lng: locationCoordinates?.lng.toString(),
-          };
-          // router.push({
-          //   pathname: '/request-confirmation',
-          //   query: {
-          //     title: formData.title,
-          //     hospital: formData.hospital,
-          //     dateTime: formData.dateTime,
-          //     location: formData.location,
-          //     desireLanguage: formData.desireLanguage,
-          //     communicateLanguage: formData.communicateLanguage,
-          //     interpretationType: formData.interpretationType,
-          //     note: formData.note,
-          //     lat: locationCoordinates?.lat?.toString() || '',
-          //     lng: locationCoordinates?.lng?.toString() || '',
-          //   },
-          // });
-        }
-
+  if (!isConfirmed) {
     return (
-<div className='add_request'>
-    <h1 className='add_request_title'>Make an Appointment</h1>
-    <form onSubmit={handleSubmit} className='add_request_form'>
-      <div className='add_request_box'>
-        <label className='add_request_label'>Title:</label>
-        <input 
-          type="text" 
-          value={title} 
-          onChange={(e) => setTitle(e.target.value)} 
-          required 
-          className='add_request_input' 
-        />
-      </div>
-      <div className='add_request_box'>
-        <label className='add_request_label'>Category:</label>
-        <select 
-          value={hospital} 
-          onChange={(e) => setHospital(e.target.value)} 
-          required 
-          className='add_request_input' 
-        >
-          {hospitalTypes.map((type) => (
-            <option key={type} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className='add_request_box'>
-        <label className='add_request_label'>Date and Time:</label>
-        <input 
-          type="datetime-local" 
-          value={dateTime} 
-          onChange={(e) => setDateTime(e.target.value)} 
-          required 
-          className='add_request_input' 
-        />
-      </div>
-      <div className='add_request_box'>
-        <label className='add_request_label'>
-          <input 
-            type="radio" 
-            name="interpretationType" 
-            value="videoChat" 
-            checked={interpretationType === "videoChat"} 
-            onChange={() => setInterpretationType("videoChat")} 
-            required 
-            className='add_request_radio' 
-          />
-          Video Chat Interpretation
-        </label>
-      </div>
-      <div className='add_request_box'>
-        <label className='add_request_label'>
-          <input 
-            type="radio" 
-            name="interpretationType" 
-            value="inPerson" 
-            checked={interpretationType === "inPerson"} 
-            onChange={() => setInterpretationType("inPerson")} 
-            required 
-            className='add_request_radio' 
-          />
-          In-person Interpretation
-        </label>
-      </div>
-      {interpretationType !== "videoChat" && (
-        <div className='add_request_box'>
-          <label className='add_request_label'>Location:</label>
-          <input 
-            type="text" 
-            value={location} 
-            onChange={(e) => setLocation(e.target.value)} 
-            required 
-            className='add_request_input' 
-          />
-        </div>
-      )}
-      <div className='add_request_box'>
+      <div className='add_request'>
+        <h1 className='add_request_title'>Make an Appointment</h1>
+        <form onSubmit={handleSubmit} className='add_request_form'>
+          {/* Form fields */}
+          <div className='add_request_box'>
+            <label className='add_request_label'>Title:</label>
+            <input 
+              type="text" 
+              value={title} 
+              onChange={(e) => setTitle(e.target.value)} 
+              required 
+              className='add_request_input' 
+            />
+          </div>
+          <div className='add_request_box'>
+            <label className='add_request_label'>Date and Time:</label>
+            <input 
+              type="datetime-local" 
+              value={dateTime} 
+              onChange={(e) => setDateTime(e.target.value)} 
+              required 
+              className='add_request_input' 
+            />
+          </div>
+          <div className='add_request_box'>
+            <label className='add_request_label'>
+              <input 
+                type="radio" 
+                name="interpretationType" 
+                value="videoChat" 
+                checked={interpretationType === "videoChat"} 
+                onChange={() => setInterpretationType("videoChat")} 
+                required 
+                className='add_request_radio' 
+              />
+              Video Chat Interpretation
+            </label>
+          </div>
+          <div className='add_request_box'>
+            <label className='add_request_label'>
+              <input 
+                type="radio" 
+                name="interpretationType" 
+                value="inPerson" 
+                checked={interpretationType === "inPerson"} 
+                onChange={() => setInterpretationType("inPerson")} 
+                required 
+                className='add_request_radio' 
+              />
+              In-person Interpretation
+            </label>
+          </div>
+          {interpretationType !== "videoChat" && (
+            <div className='add_request_box'>
+              <label className='add_request_label'>Location:</label>
+              <input 
+                type="text" 
+                value={location} 
+                onChange={(e) => setLocation(e.target.value)} 
+                required 
+                className='add_request_input' 
+              />
+            </div>
+          )}
+       <div className='add_request_box'>
         <label className='add_request_label'>Desired Language:</label>
         <select 
           value={desireLanguage} 
@@ -239,34 +189,59 @@ export default function UserClientAppointment() {
           ))}
         </select>
       </div>
-      <div className='add_request_box'>
-                <label className='add_request_label'>Memo:</label>
-                <textarea
-                    value={note}
-                    onChange={(e) => setNote(e.target.value)}
-                    className='add_request_textarea'
-                ></textarea>
-            </div>
-      <div className='add_request_box'>
-        <label className='add_request_label'>
-          <input 
-            type="checkbox" 
-            checked={isAgreed} 
-            onChange={(e) => setIsAgreed(e.target.checked)} 
-            required 
-            className='add_request_checkbox' 
-          />
-          I agree to the Disclaimer
-        </label>
+          <div className='add_request_box'>
+            <label className='add_request_label'>Memo:</label>
+            <textarea
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                className='add_request_textarea'
+            ></textarea>
+          </div>
+          <div className='add_request_box'>
+            <label className='add_request_label'>
+              <input 
+                type="checkbox" 
+                checked={isAgreed} 
+                onChange={(e) => setIsAgreed(e.target.checked)} 
+                required 
+                className='add_request_checkbox' 
+              />
+              I agree to the Disclaimer
+            </label>
+          </div>
+          <button type="submit" className='add_request_submit_button'>Confirm</button>
+          <button type="button" className='add_request_cancel_button' onClick={() => router.push('/dashboard')}>Cancel</button>
+        </form>
       </div>
-      <Link href="/requestconformation">
-            <button className='add_request_send_button'>send request</button>
-        </Link>
-      {/* <button type="submit" className='add_request_submit_button'>Send Request</button> */}
-        <Link href="/dashboard">
-            <button className='add_request_cancel_button'>Cancel</button>
-        </Link>
-    </form>
-  </div>
     );
-}
+  } else {
+    return (
+      <div>
+        <h1>Appointment Confirmation</h1>
+        <p>Title: {title}</p>
+        <p>Date and Time: {dateTime}</p>
+        <p>Location: {location}</p>
+        <p>Desired Language: {desireLanguage}</p>
+        <p>Communication Language: {communicateLanguage}</p>
+        <p>Interpretation Type: {interpretationType}</p>
+        <p>Memo: {note}</p>
+        {locationCoordinates && (
+          <LoadScript googleMapsApiKey={mapApiKey}>
+            <GoogleMap
+              mapContainerStyle={{ width: '400px', height: '400px' }}
+              center={{ lat: locationCoordinates.lat, lng: locationCoordinates.lng }}
+              zoom={15}
+            >
+              <Marker position={{ lat: locationCoordinates.lat, lng: locationCoordinates.lng }} />
+            </GoogleMap>
+          </LoadScript>
+        )}
+        <button onClick={handleSendRequest}>Send Request</button>
+        <button onClick={() => setIsConfirmed(false)}>Back to Form</button>
+      </div>
+    );
+  }
+};
+
+export default CreateAppointment;
+
