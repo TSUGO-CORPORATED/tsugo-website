@@ -4,6 +4,7 @@ import SignOut from '../auth/sign-out';
 import DashboardCard from './dashboard-card';
 import DashboardTabs from './dashboard-tabs'
 import Link from 'next/link';
+import CheckAuth from '../auth/check-auth';
 
 
 // PAGE NAME
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
 export default async function Dashboard() {
     return (
         <div className='dasboard'>
+            <CheckAuth />
             <Link href="/dashboard">
                 <button>Home</button>
             </Link> 
