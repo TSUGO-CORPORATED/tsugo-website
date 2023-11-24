@@ -4,9 +4,12 @@
 @import './mixins';
 
 // CSS per page
-@import './sign-in';
+@import './log-in';
 @import './sign-up';
 @import './sign-out';
 @import './home';
 @import './dashboardcard';
 @import './dashboardtabs';
+
+//CSS Global Component
+@import './navbar';
