@@ -8,9 +8,10 @@ import DashboardTabs from './dashboard-tabs';
 
 // PAGE COMPONENT
 export default function DashboardCard(): JSX.Element {
-    const { userId, userEmail, userFirstName, userLastName } = useContext(ContextVariables);
-    console.log(userId, userEmail, userFirstName, userLastName);
-    
+
+    const { userId, userFirstName, userLastName } = useContext(ContextVariables);
+    console.log(userId, userFirstName, userLastName);
+
     return (
         <div className="dashboard-card">
             <div className='dashboard-card-card'>

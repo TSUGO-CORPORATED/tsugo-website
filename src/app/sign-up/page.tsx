@@ -12,7 +12,6 @@ export const metadata: Metadata = {
 export default async function SignUp() {
     return (
         <div className="sign-up">
-            <SkipLogIn />
             <SignUpCard />
         </div>
     )

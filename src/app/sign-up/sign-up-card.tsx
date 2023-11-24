@@ -8,12 +8,21 @@ import { auth } from '../../firebase';
 import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import axios from 'axios';
 
+
+// DATA TYPE INTERFACES
+interface Language {
+  language: string,
+  proficiency: string,
+  certifications?: string,
+}
+
 // PAGE COMPONENT
 export default function SignUp(): JSX.Element {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
+  const [languages, setLanguages] = useState<Language[]>([]);
 
   const router = useRouter();
 
@@ -25,32 +34,34 @@ export default function SignUp(): JSX.Element {
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCredintial) => {
         // Indicate success
-        console.log(userCredintial);
+        // console.log(userCredintial);
         alert("Create user successful in firebase");
+
+        // Registering user to the backend
+        const newUserData = {
+          uid: userCredintial.user.uid,
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+          languages: languages,
+        };
+        const url: string = 'http://localhost:8080/user';
+        // const url: string = ' https://senior-project-server-8090ce16e15d.herokuapp.com/user';
+        await axios.post(url, newUserData)
+          .then(res => {
+            // console.log(res);
+            alert(res.data);
+          })
+          .catch(error => console.log(error)); 
 
         // Logging out and sent to sign in page
         signOut(auth)
-          .then(() => {
-            router.push('/');
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-
-        // // Registering user to the backend
-        // const newUserData = {
-        //   email: email,
-        //   firstName: firstName,
-        //   lastName: lastName
-        // };
-        // const url: string = 'http://localhost:3000/user';
-        // // const url: string = 'https://senior-project-server.onrender.com/user';
-        // await axios.post(url, newUserData)
-        //   .then(res => {
-        //     // console.log(res);
-        //     alert(res.data);
-        //   })
-        //   .catch(error => console.log(error)); 
+        .then(() => {
+          router.push('/log-in');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       })
       .catch((error) => {
         console.log(error);

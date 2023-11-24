@@ -4,22 +4,22 @@ import { createContext, Dispatch, SetStateAction } from 'react';
 
 interface ContextVariables {
   userId: number;
-  userEmail: string;
+  // userEmail: string;
   userFirstName: string;
   userLastName: string;
   setUserId: Dispatch<SetStateAction<number>>;
-  setUserEmail: Dispatch<SetStateAction<string>>;
+  // setUserEmail: Dispatch<SetStateAction<string>>;
   setUserFirstName: Dispatch<SetStateAction<string>>;
   setUserLastName: Dispatch<SetStateAction<string>>;
 }
 
 const defaultState = {
   userId: 0,
-  userEmail: "testEmail",
-  userFirstName: "testFirstName",
-  userLastName: "testLastName",
+  // userEmail: "NoEmail",
+  userFirstName: "NoFirstName",
+  userLastName: "NoLastName",
   setUserId: () => {},
-  setUserEmail: () => {},
+  // setUserEmail: () => {},
   setUserFirstName: () => {},
   setUserLastName: () => {},
 }
