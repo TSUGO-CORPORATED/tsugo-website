@@ -4,7 +4,7 @@
 import { ContextVariables } from '../context-variables';
 import { useState } from 'react';
 import { inter } from '@/fonts';
-import ResponsiveAppBar from './responsive-app-bar';
+//import ResponsiveAppBar from './responsive-app-bar';
 import Navbar from './navbar';
 
 // DATA TYPE
