@@ -1,6 +1,7 @@
 $color-background-green: #4bbb7d;
 $color-background-light-grey: #ffffff;
 $color-background-medium-grey: #f2f2f2;
+$color-background-black: #000000;
 
 
 $color-button-blue: (
@@ -30,6 +31,12 @@ $color-button-white: (
 $color-button-green: (
   "initial": #36875a,
   "hover": #215438,
+  "text": #ffffff,
+);
+
+$color-button-black: (
+  "initial": #000000,
+  "hover": #cecece,
   "text": #ffffff,
 );
 
