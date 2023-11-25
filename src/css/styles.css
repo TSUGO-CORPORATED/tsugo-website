@@ -11,7 +11,11 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  background-color: #4bbb7d;
+  background-color: #000000;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
 }
 .log-in__card {
   display: flex;
@@ -80,7 +84,7 @@
   border: solid black 1px;
   padding: 12px;
   border-radius: 12px;
-  background-color: #00639b;
+  background-color: #000000;
   font-weight: bold;
   color: #ffffff;
   cursor: pointer;
@@ -90,7 +94,7 @@
   width: 100%;
 }
 .log-in__card__form__box__log-in-button:hover {
-  background-color: #003256;
+  background-color: #cecece;
 }
 .log-in__card__sign-up {
   display: flex;
@@ -117,7 +121,11 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  background-color: #4bbb7d;
+  background-color: #000000;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
 }
 .sign-up__card {
   display: flex;
@@ -169,7 +177,7 @@
   border: solid black 1px;
   padding: 12px;
   border-radius: 12px;
-  background-color: #00639b;
+  background-color: #000000;
   font-weight: bold;
   color: #ffffff;
   cursor: pointer;
@@ -179,7 +187,7 @@
   width: 100%;
 }
 .sign-up__card__form__box__sign-up-button:hover {
-  background-color: #003256;
+  background-color: #cecece;
 }
 .sign-up__card__log-in-link {
   display: flex;
@@ -212,6 +220,10 @@
 
 .home {
   background-color: #f2f2f2;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
   height: 100vh;
 }
 .home__nav-bar {
@@ -366,11 +378,25 @@
 }
 
 .dashboard-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: #000000;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
+}
+
+.dashboard-card-card {
   padding: 20px;
   margin: 10px 0;
   background-color: #f8f8f8;
 }
-.dashboard-card p {
+.dashboard-card-card p {
   font-size: 45px;
   margin: 0;
   font-weight: bold;
@@ -381,17 +407,17 @@
   flex-direction: column;
   align-items: center;
 }
-.dashboard-tabs__buttons-row {
+.dashboard-tabs__buttons-tab {
   display: flex;
 }
-.dashboard-tabs__buttons-row__button {
+.dashboard-tabs__buttons-tab__button {
   margin: 10px;
   padding: 5px 10px;
   background-color: lightgray;
   border: none;
   cursor: pointer;
 }
-.dashboard-tabs__buttons-row__button:hover {
+.dashboard-tabs__buttons-tab__button:hover {
   background-color: gray;
   color: white;
 }
@@ -430,4 +456,48 @@
 }
 .profile-and-signout__button {
   margin-left: 10px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 12px;
+  overflow: hidden;
+  background-color: black;
+  position: relative;
+  top: 0;
+  width: 100%;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 24px;
+  height: 64px;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  border-bottom-width: 0;
+  border-style: solid;
+  border-bottom-color: #e2e2e2;
+  z-index: 2002;
+  box-sizing: border-box;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+li a {
+  display: block;
+  padding: 8px 24px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+}
+
+li a:hover {
+  background-color: gray;
+}
+
+.logo-navbar {
+  float: left;
+}
+
+.profile-navbar, .logout-navbar {
+  float: right;
 }/*# sourceMappingURL=styles.css.map */
