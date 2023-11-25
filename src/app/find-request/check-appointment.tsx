@@ -1,7 +1,8 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext  } from 'react';
 import axios from 'axios';
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { ContextVariables } from "../../context-variables";
 
 type Appointment = {
     id: number;
@@ -18,7 +19,6 @@ type Appointment = {
     reviewRating: number | null; 
     reviewNote: string | null; 
     location: string | undefined;
-    hospitalType: string;
     title: string;
     interpretationType:string,
   };
@@ -29,8 +29,10 @@ export default function FindRequest() {
     const [selectedType, setSelectedType] = useState('all');
     const [selectedAppointmentId, setSelectedAppointmentId] = useState<number | null>(null);
     const [currentPosition, setCurrentPosition] = useState({ lat: 35.6895, lng: 139.6917 });
+    const [rating, setRating] = useState(0);
+    const [hover, setHover] = useState(0);
     const apiKey = process.env.REACT_APP_GOOGLE_API_KEY || "FAKE_API_KEY";
-    
+    const { userId } = useContext(ContextVariables);
     useEffect(() => {
         const fetchAppointments = async () => {
           try {
@@ -67,10 +69,15 @@ export default function FindRequest() {
       selectedType === 'all' || appointment.interpretationType === selectedType
     );
 
-      const mapContainerStyle = {
+      const mapSize = {
         width: "100%",
         height: "400px",
       };
+
+
+    //   const handleAcceptRequest = async (appointmentId) => {
+
+    //   };
 
     return (
         <div>
@@ -79,7 +86,7 @@ export default function FindRequest() {
             
             <LoadScript googleMapsApiKey={apiKey}>
         <GoogleMap
-          mapContainerStyle={mapContainerStyle}
+          mapContainerStyle={mapSize}
           center={currentPosition}
           zoom={10} 
         >
@@ -126,17 +133,17 @@ export default function FindRequest() {
         </label>
       </div>
         <div>
-        {appointments.map((appointment) => (
+        {filteredAppointments.map((appointment) => (
           <div key={appointment.id} onClick={() => showDetails(appointment.id)}>
             <h2>{appointment.title}</h2>
             <p>Date and Time: {appointment.appointmentDateTime}</p>
-            <p>Hospital Type: {appointment.hospitalType}</p>
             <p>Interpretation Type: {appointment.interpretationType}</p>
             <p>Client Spoken Language: {appointment.clientSpokenLanguage}</p>
             <p>Client Desired Language: {appointment.clientDesiredLanguage}</p>
   
             {selectedAppointmentId === appointment.id && (
               <div>
+                {/* need to add Accept Button Here */}
                 {appointment.location && <p>Location: {appointment.location}</p>}
                 {appointment.appointmentNote && <p>Note: {appointment.appointmentNote}</p>}
                 {appointment.reviewRating != null && <p>Rating: {appointment.reviewRating}</p>}
