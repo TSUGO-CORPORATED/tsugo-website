@@ -34,6 +34,7 @@ type Reviews = {
 };
 
 type StatusFilter = "Requesting" | "Accepted" | "Cancelled" | "Completed" | "";
+type NewStatus = "Accepted" | "Cancelled" | "Completed";
 
 export default function History() {
   const [history, setHistory] = useState<Appointment[]>([]);
@@ -41,8 +42,12 @@ export default function History() {
   const [reviews, setReviews] = useState<Reviews>({});
   const [selectedStatus, setSelectedStatus] = useState("");
   const [filteredHistory, setFilteredHistory] = useState<Appointment[]>([]);
-  const [selectedHistoryId, setSelectedHistoryId] = useState<number | null>(null);
-  const [selectedReviewRating, setSelectedReviewRating] = useState<number | null>(null);
+  const [selectedHistoryId, setSelectedHistoryId] = useState<number | null>(
+    null
+  );
+  const [selectedReviewRating, setSelectedReviewRating] = useState<
+    number | null
+  >(null);
   const [selectedReviewNote, setSelectedReviewNote] = useState<string>("");
   const { userId } = useContext(ContextVariables);
 
@@ -50,7 +55,9 @@ export default function History() {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await axios.get("https://senior-project-server-8090ce16e15d.herokuapp.com/appointment");
+        const response = await axios.get(
+          "https://senior-project-server-8090ce16e15d.herokuapp.com/appointment"
+        );
         setHistory(response.data);
       } catch (error) {
         console.error("Error fetching History:", error);
@@ -121,6 +128,40 @@ export default function History() {
     }));
   };
 
+  const handleStatusChange = async (
+    appointmentId: number,
+    newStatus: NewStatus
+  ) => {
+    try {
+      let url;
+      switch (newStatus) {
+        case "Accepted":
+          url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/accept/${appointmentId}/${userId}`;
+          break;
+        case "Cancelled":
+          url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/cancel/${appointmentId}`;
+          break;
+        case "Completed":
+          url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/complete/${appointmentId}`;
+          break;
+        default:
+          return;
+      }
+      await axios.patch(url);
+      alert(`Appointment ${newStatus} successfully!`);
+      // Update local state
+      const updatedAppointments = history.map((appointment) =>
+        appointment.id === appointmentId
+          ? { ...appointment, status: newStatus }
+          : appointment
+      );
+      setHistory(updatedAppointments);
+    } catch (error) {
+      console.error(`Error updating appointment status: `, error);
+      alert("Failed to update appointment status.");
+    }
+  };
+
   const handleSubmitRating = async (appointmentId: number) => {
     try {
       const reviewData = reviews[appointmentId];
@@ -128,16 +169,14 @@ export default function History() {
         alert("Please provide a rating and a review note.");
         return;
       }
-
       const requestData = {
         reviewRating: reviewData.rating,
         reviewNote: reviewData.note,
       };
       await axios.patch(
-        `/FAKEAPI/${appointmentId}`,
+        `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/review/${appointmentId}`,
         requestData
       );
-      // Success handling
       alert("Thank you for Rating!");
     } catch (error) {
       console.error("Error submitting rating:", error);
@@ -229,6 +268,34 @@ export default function History() {
                     handleReviewNoteChange(e.target.value, eachHistory.id)
                   }
                 />
+                {/* change status button */}
+                {eachHistory.status === "Requesting" && (
+                  <button
+                    onClick={() =>
+                      handleStatusChange(eachHistory.id, "Accepted")
+                    }
+                  >
+                    Accept
+                  </button>
+                )}
+                {eachHistory.status === "Accepted" && (
+                  <>
+                    <button
+                      onClick={() =>
+                        handleStatusChange(eachHistory.id, "Cancelled")
+                      }
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={() =>
+                        handleStatusChange(eachHistory.id, "Completed")
+                      }
+                    >
+                      Complete
+                    </button>
+                  </>
+                )}
                 {/* Submit button */}
                 <button onClick={() => handleSubmitRating(eachHistory.id)}>
                   Submit Rating
