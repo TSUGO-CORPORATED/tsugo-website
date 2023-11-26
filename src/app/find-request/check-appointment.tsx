@@ -4,6 +4,8 @@ import axios from 'axios';
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { ContextVariables } from "../../context-variables";
 
+
+type StatusFilter = "Requesting" | "Accepted" | "Cancelled" | "Completed" | "";
 type Appointment = {
     id: number;
     status: string;
@@ -31,7 +33,7 @@ export default function FindRequest() {
     const [currentPosition, setCurrentPosition] = useState({ lat: 35.6895, lng: 139.6917 });
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
-    const apiKey = process.env.REACT_APP_GOOGLE_API_KEY || "FAKE_API_KEY";
+    const apiKey = process.env.REACT_APP_GOOGLE_API_KEY ||  "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM";
     const { userId } = useContext(ContextVariables);
     useEffect(() => {
         const fetchAppointments = async () => {
