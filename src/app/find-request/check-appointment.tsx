@@ -159,7 +159,7 @@ export default function FindRequest() {
                 {appointment.location && <p>Location: {appointment.location}</p>}
                 {appointment.appointmentNote && <p>Note: {appointment.appointmentNote}</p>}
                 {appointment.reviewRating != null && <p>Rating: {appointment.reviewRating}</p>}
-                <button onClick={() => handleAcceptRequest(appointment.id)}>Accept</button>
+                <button key={appointment.id} onClick={() => handleAcceptRequest(appointment.id)}>Accept</button>
               </div>
             )}
           </div>
