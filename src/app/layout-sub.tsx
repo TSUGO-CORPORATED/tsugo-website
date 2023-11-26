@@ -15,11 +15,12 @@ interface Props {
 // PAGE COMPONENT
 export default function LayoutSub(props: Props): JSX.Element {
     const [userId, setUserId] = useState<number>(0);
-    const [userFirstName, setUserFirstName] = useState<string>('testFirstName');
-    const [userLastName, setUserLastName] = useState<string>('testLastName');
+    const [userUid, setUserUid] = useState<string>('noUid');
+    const [userFirstName, setUserFirstName] = useState<string>('noFirstName');
+    const [userLastName, setUserLastName] = useState<string>('noLastName');
 
     return (
-        <ContextVariables.Provider value={{userId, userFirstName, userLastName, setUserId, setUserFirstName, setUserLastName}}>
+        <ContextVariables.Provider value={{userId, userUid, userFirstName, userLastName, setUserId, setUserUid, setUserFirstName, setUserLastName}}>
             <body className={`${inter.className}`}>
                 <div className='navbar-layout'><Navbar /></div>
                 <div className='childrenprops-layout'>{props.childrenProp}</div>
