@@ -1,23 +1,120 @@
 'use client';
 
 // MODULES IMPORT
-import { useContext } from 'react';
-// import style from '../../../css/_dashboardcard.scss'; 
+import { useState, useContext, useEffect } from 'react';
 import { ContextVariables } from '../../context-variables';
-import DashboardTabs from './dashboard-tabs';
+import Link from 'next/link';
+import axios from 'axios';
 
 // PAGE COMPONENT
 export default function DashboardCard(): JSX.Element {
+    // INTERFACE 
+    interface AppointmentOverview {
+        id: number;
+        status: string;
+        appointmentTitle: string,
+        appointmentType: string,
+        clientSpokenLanguage: string;
+        interpreterSpokenLanguage: string;
+        locationLatitude: number;
+        locationLongitude: number;
+        appointmentDateTime: Date;
+      }
 
+
+    // STATE VARIABLES
+    const [currentTab, setCurrentTab] = useState<string>('Client');
+    const [clientCurrentAppointment, setClientCurrentAppointment] = useState<AppointmentOverview[]>([]);
+    const [translatorCurrentAppointment, setTranslatorCurrentAppointment] = useState<AppointmentOverview[]>([]);
+    
+    // CONTEXT VARIABLES
     const { userId, userFirstName, userLastName } = useContext(ContextVariables);
-    console.log(userId, userFirstName, userLastName);
+    // console.log(userId, userFirstName, userLastName);
 
+    // HELPER FUNCTION
+    // Get client current appointment
+    async function getClientCurrentAppointment(): Promise<void> {
+        const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/client/current/${userId}`;
+        const retrievedData = await axios.get(url);
+        console.log(retrievedData);
+        setClientCurrentAppointment(retrievedData.data);
+    }
+
+    async function getTranslatorCurrentAppointment(): Promise<void> {
+        const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/translator/current/${userId}`;
+        const retrievedData = await axios.get(url);
+        console.log(retrievedData);
+        setTranslatorCurrentAppointment(retrievedData.data);
+    }
+    useEffect(() => {
+        getClientCurrentAppointment();
+        getTranslatorCurrentAppointment();
+    }, []);
+
+    // JSX ELEMENTS
     return (
-        <div className="dashboard-card">
-            <div className='dashboard-card-card'>
+        <div className='dashboard__card'>
                 <h1>Welcome, {userFirstName} {userLastName}!</h1>
-                <DashboardTabs />
-            </div>
+                <div className='dashboard__card__role-switch'>
+                    <button onClick={() => setCurrentTab('Client')} className='dashboard__card__role-switch__button'>Client</button>
+                    <button onClick={() => setCurrentTab('Translator')} className='dashboard__card__role-switch__button'>Translator</button>
+                </div>
+                {currentTab === 'Client' && (
+                    <div className='dashboard__card__role-content'>
+                        <div className='dashboard__card__role-content__button-row'>
+                            <Link href="/add-request">
+                                <button className="dashboard__card__role-content__button-row__button">Add Request</button>
+                            </Link>
+                            <Link href="/history">
+                                <button className="dashboard__card__role-content__button-row__button">History</button>
+                            </Link>
+                        </div>
+                        <div className='dashboard__card__role-content__appointment-list'>
+                            {clientCurrentAppointment?.map((appointment, index) => {
+                                return (
+                                    <div key={index} className='dashboard__card__role-content__appointment-list__element'>
+                                        <div>{appointment.status}</div>
+                                        <div>{appointment.appointmentTitle}</div>
+                                        <div>{appointment.appointmentType}</div>
+                                        <div>{appointment.clientSpokenLanguage}</div>
+                                        <div>{appointment.interpreterSpokenLanguage}</div>
+                                        <div>{appointment.locationLatitude}</div>
+                                        <div>{appointment.locationLongitude}</div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
+                {currentTab === 'Translator' && (
+                    <div className='dashboard__card__role-content'>
+                        <div className='dashboard__card__role-content__button-row'>
+                            <Link href="/find-request">
+                                <button className="dashboard__card__role-content__button-row__button">Find Request</button>
+                            </Link>
+                            <Link href="/history">
+                                <button className="dashboard__card__role-content__button-row__button">History</button>
+                            </Link>
+                            <div className='dashboard__card__role-content__appointment-list'>
+                            {translatorCurrentAppointment?.map((appointment, index) => {
+                                return (
+                                    <div key={index} className='dashboard__card__role-content__appointment-list__element'>
+                                        <div>{appointment.status}</div>
+                                        <div>{appointment.appointmentTitle}</div>
+                                        <div>{appointment.appointmentType}</div>
+                                        <div>{appointment.clientSpokenLanguage}</div>
+                                        <div>{appointment.interpreterSpokenLanguage}</div>
+                                        <div>{appointment.locationLatitude}</div>
+                                        <div>{appointment.locationLongitude}</div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                        </div>
+                        <div className='dashboard__card__role-content__appointment-list'>
+                        </div>
+                    </div>
+                )}
         </div>
     )
 }

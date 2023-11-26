@@ -17,7 +17,7 @@ interface Language {
 }
 
 // PAGE COMPONENT
-export default function SignUp(): JSX.Element {
+export default function SignUpCard(): JSX.Element {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');
@@ -46,7 +46,7 @@ export default function SignUp(): JSX.Element {
           languages: languages,
         };
         // const url: string = 'http://localhost:8080/user';
-        const url: string = ' https://senior-project-server-8090ce16e15d.herokuapp.com/user';
+        const url: string = 'https://senior-project-server-8090ce16e15d.herokuapp.com/user';
         await axios.post(url, newUserData)
           .then(res => {
             // console.log(res);
