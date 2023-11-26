@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { ContextVariables } from "../../context-variables";
 
 type Coordinates = { lat: number; lng: number; } | null;
-
+type StatusFilter = "Requesting" | "Accepted" | "Cancelled" | "Completed" | "";
 const CreateAppointment = () => {
   const router = useRouter();
   const { userId } = useContext(ContextVariables);
@@ -23,11 +23,20 @@ const CreateAppointment = () => {
   const [locationCoordinates, setLocationCoordinates] = useState<Coordinates>(null);
   const [error, setError] = useState("");
 
-  const mapApiKey = process.env.REACT_APP_GOOGLEMAP_API_KEY as string
+  //this is my apikey for temporary but its not working !!
+  const apiKey = "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM"
+  // const apiKey = process.env.REACT_APP_GOOGLE_API_KEY as string;
   const fetchCoordinates = async (location: string) => {
     try {
-      const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+
       const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(location)}&key=${apiKey}`);
+  
+      if (response.data.results.length === 0) {
+        setError("No results found for the given location.");
+        console.error("No results found:", response.data);
+        return;
+      }
+  
       const { lat, lng } = response.data.results[0].geometry.location;
       setLocationCoordinates({ lat, lng });
     } catch (error) {
@@ -72,19 +81,20 @@ const CreateAppointment = () => {
 
   const handleSendRequest = async () => {
     try {
-      const requestData = {
-        title,
-        dateTime,
-        location,
-        desireLanguage,
-        communicateLanguage,
-        interpretationType,
-        note,
-        lat: locationCoordinates?.lat,
-        lng: locationCoordinates?.lng,
-        clientUserId: userId
+        const requestData = {
+          status: "Requesting", 
+          clientUserId: userId, 
+          clientSpokenLanguage: communicateLanguage, 
+          interpreterSpokenLanguage: desireLanguage, 
+          locationLatitude: locationCoordinates?.lat, 
+          locationLongitude: locationCoordinates?.lng, 
+          appointmentDateTime: dateTime, 
+          appointmentNote: note,    
+          interpretationType: interpretationType,
+          location: location, 
+          title: title 
       };
-      const response = await axios.post("/api/endpoint", requestData);
+      await axios.post("https://senior-project-server-8090ce16e15d.herokuapp.com/appointment", requestData);
       alert("Request sent successfully!");
       router.push("/dashboard");
     } catch (error) {
@@ -226,7 +236,7 @@ const CreateAppointment = () => {
         <p>Interpretation Type: {interpretationType}</p>
         <p>Memo: {note}</p>
         {locationCoordinates && (
-          <LoadScript googleMapsApiKey={mapApiKey}>
+          <LoadScript googleMapsApiKey={apiKey}>
             <GoogleMap
               mapContainerStyle={{ width: '400px', height: '400px' }}
               center={{ lat: locationCoordinates.lat, lng: locationCoordinates.lng }}
