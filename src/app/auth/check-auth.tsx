@@ -21,8 +21,8 @@ export default function CheckAuth() {
       console.log(user);
       if (user && userUid === 'noUid') {
         // Retrieve user data from backend database
-        const url: string = `http://localhost:8080/user/${user.uid}`;
-        // const url: string = ` https://senior-project-server-8090ce16e15d.herokuapp.com/user/${user.uid}`;
+        // const url: string = `http://localhost:8080/user/${user.uid}`;
+        const url: string = ` https://senior-project-server-8090ce16e15d.herokuapp.com/user/${user.uid}`;
         const userData = await axios.get(url);
         // console.log(userData);
 
