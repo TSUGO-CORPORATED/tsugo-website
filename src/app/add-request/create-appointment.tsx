@@ -11,12 +11,12 @@ const CreateAppointment = () => {
   const router = useRouter();
   const { userId } = useContext(ContextVariables);
 
-  const [title, setTitle] = useState("");
+  const [appointmentTitle, setAppointmentTitle] = useState("");
   const [dateTime, setDateTime] = useState("");
   const [location, setLocation] = useState("");
   const [desireLanguage, setDesireLanguage] = useState("Japanese");
   const [communicateLanguage, setCommunicateLanguage] = useState("English");
-  const [interpretationType, setInterpretationType] = useState("videoChat");
+  const [appointmentType, setAppointmentType] = useState("videoChat");
   const [note, setNote] = useState("");
   const [isAgreed, setIsAgreed] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
@@ -73,7 +73,7 @@ const CreateAppointment = () => {
       return;
     }
 
-    if (interpretationType === 'inPerson' && location) {
+    if (appointmentType === 'inPerson' && location) {
       await fetchCoordinates(location);
     }
     setIsConfirmed(true);
@@ -81,19 +81,20 @@ const CreateAppointment = () => {
 
   const handleSendRequest = async () => {
     try {
+        const convertedDateTime: string = (new Date(dateTime)).toISOString();
         const requestData = {
-          status: "Requesting", 
+          appointmentTitle: appointmentTitle,
+          appointmentType: appointmentType,
           clientUserId: userId, 
           clientSpokenLanguage: communicateLanguage, 
           interpreterSpokenLanguage: desireLanguage, 
           locationLatitude: locationCoordinates?.lat, 
           locationLongitude: locationCoordinates?.lng, 
-          appointmentDateTime: dateTime, 
+          locationDetail: location, 
+          appointmentDateTime: convertedDateTime, 
           appointmentNote: note,    
-          interpretationType: interpretationType,
-          location: location, 
-          title: title 
       };
+      console.log(requestData);
       await axios.post("https://senior-project-server-8090ce16e15d.herokuapp.com/appointment", requestData);
       alert("Request sent successfully!");
       router.push("/dashboard");
@@ -113,8 +114,8 @@ const CreateAppointment = () => {
             <label className='add_request_label'>Title:</label>
             <input 
               type="text" 
-              value={title} 
-              onChange={(e) => setTitle(e.target.value)} 
+              value={appointmentTitle} 
+              onChange={(e) => setAppointmentTitle(e.target.value)} 
               required 
               className='add_request_input' 
             />
@@ -135,8 +136,8 @@ const CreateAppointment = () => {
                 type="radio" 
                 name="interpretationType" 
                 value="videoChat" 
-                checked={interpretationType === "videoChat"} 
-                onChange={() => setInterpretationType("videoChat")} 
+                checked={appointmentType === "videoChat"} 
+                onChange={() => setAppointmentType("videoChat")} 
                 required 
                 className='add_request_radio' 
               />
@@ -149,15 +150,15 @@ const CreateAppointment = () => {
                 type="radio" 
                 name="interpretationType" 
                 value="inPerson" 
-                checked={interpretationType === "inPerson"} 
-                onChange={() => setInterpretationType("inPerson")} 
+                checked={appointmentType === "inPerson"} 
+                onChange={() => setAppointmentType("inPerson")} 
                 required 
                 className='add_request_radio' 
               />
               In-person Interpretation
             </label>
           </div>
-          {interpretationType !== "videoChat" && (
+          {appointmentType !== "videoChat" && (
             <div className='add_request_box'>
               <label className='add_request_label'>Location:</label>
               <input 
@@ -228,12 +229,12 @@ const CreateAppointment = () => {
     return (
       <div>
         <h1>Appointment Confirmation</h1>
-        <p>Title: {title}</p>
+        <p>Title: {appointmentTitle}</p>
         <p>Date and Time: {dateTime}</p>
         <p>Location: {location}</p>
         <p>Desired Language: {desireLanguage}</p>
         <p>Communication Language: {communicateLanguage}</p>
-        <p>Interpretation Type: {interpretationType}</p>
+        <p>Interpretation Type: {appointmentType}</p>
         <p>Memo: {note}</p>
         {locationCoordinates && (
           <LoadScript googleMapsApiKey={apiKey}>
