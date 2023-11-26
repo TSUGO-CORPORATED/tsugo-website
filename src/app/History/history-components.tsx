@@ -42,12 +42,8 @@ export default function History() {
   const [reviews, setReviews] = useState<Reviews>({});
   const [selectedStatus, setSelectedStatus] = useState("");
   const [filteredHistory, setFilteredHistory] = useState<Appointment[]>([]);
-  const [selectedHistoryId, setSelectedHistoryId] = useState<number | null>(
-    null
-  );
-  const [selectedReviewRating, setSelectedReviewRating] = useState<
-    number | null
-  >(null);
+  const [selectedHistoryId, setSelectedHistoryId] = useState<number | null>(null);
+  const [selectedReviewRating, setSelectedReviewRating] = useState<number | null>(null);
   const [selectedReviewNote, setSelectedReviewNote] = useState<string>("");
   const { userId } = useContext(ContextVariables);
 
