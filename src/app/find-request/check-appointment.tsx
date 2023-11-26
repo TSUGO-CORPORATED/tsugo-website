@@ -4,8 +4,6 @@ import axios from 'axios';
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { ContextVariables } from "../../context-variables";
 
-
-type StatusFilter = "Requesting" | "Accepted" | "Cancelled" | "Completed" | "";
 type Appointment = {
     id: number;
     status: string;
@@ -76,10 +74,23 @@ export default function FindRequest() {
         height: "400px",
       };
 
+      const handleAcceptRequest = async (appointmentId: number) => {
+        try {
+          const url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/accept/${appointmentId}/${userId}`;
+          await axios.patch(url);
+          alert("Appointment accepted successfully!");
+      
+        
+          const updatedAppointments = appointments.map(appointment =>
+            appointment.id === appointmentId ? { ...appointment, status: "Ongoing" } : appointment
+          );
+          setAppointments(updatedAppointments);
+        } catch (error) {
+          console.error("Error accepting appointment: ", error);
+          alert("Failed to accept appointment.");
+        }
+      };
 
-    //   const handleAcceptRequest = async (appointmentId) => {
-
-    //   };
 
     return (
         <div>
@@ -145,10 +156,10 @@ export default function FindRequest() {
   
             {selectedAppointmentId === appointment.id && (
               <div>
-                {/* need to add Accept Button Here */}
                 {appointment.location && <p>Location: {appointment.location}</p>}
                 {appointment.appointmentNote && <p>Note: {appointment.appointmentNote}</p>}
                 {appointment.reviewRating != null && <p>Rating: {appointment.reviewRating}</p>}
+                <button onClick={() => handleAcceptRequest(appointment.id)}>Accept</button>
               </div>
             )}
           </div>
