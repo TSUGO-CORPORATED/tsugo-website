@@ -5,22 +5,20 @@ import Link from 'next/link';
 export default function Navbar() {
     return (
         <ul>
-            <li><a href='logo-navbar' className='logo-navbar'>
+            <li className='logo-navbar'>
                 <Link href="/dashboard">
-                    Tsugo/都合
+                    <div>Tsugo/都合</div>
                 </Link>
-                </a>
             </li> 
             
             <li><a href='logout-navbar' className='logout-navbar'>
-                    <SignOut />
+                    <div><SignOut /></div>
                 </a>
             </li>
-            <li><a href='profile-navbar' className='profile-navbar'>
+            <li className='profile-navbar'>
                 <Link href="/profile">
-                    Profile
+                    <div>Profile</div>
                 </Link>
-                </a>
             </li>
         </ul>
     )

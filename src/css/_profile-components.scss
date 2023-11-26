@@ -1,0 +1,5 @@
+.profile-container {
+    @include flexCenter(column);
+    @include card();
+    width: 600px;
+}
