@@ -1,0 +1,39 @@
+.find_Header {
+    @include flexCenter(column);
+    height: 100vh;
+    width: 100vw;
+    background-color: $color-background-black;
+    background-image: url(../../public/tokyo.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 40%;
+}
+
+.find_request_container {
+    @include flexCenter(column);
+    @include card();
+    width: 600px;
+    height: 100vh;
+}
+
+.find_request_header {
+    order: 1;
+    height: 10%;
+}
+
+.map_container {
+    width: 100%;
+    order: 2;
+    height: 90%;
+}
+ .appointment-container {
+    border: 2px solid black;
+    overflow-y: auto;
+    height: 35%;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    &__appointment {
+        border: 1px solid black;
+    }
+ }

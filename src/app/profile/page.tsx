@@ -14,16 +14,16 @@ export const metadata: Metadata = {
 export default async function ProfilePage() {
     return (
         <div className='profile'>
-            <div className='profile_header'>
+            {/* <div className='profile_header'>
                 <Link href="/dashboard">
                     <button>Home</button>
                 </Link> 
                 <Link href="/profile">
                     <button>Profile</button>
-                </Link>
-                <SignOut /> 
+                </Link> */}
+                {/* <SignOut />  */}
                 <Profile />
-            </div>
+            {/* </div> */}
         </div>
     )
 }

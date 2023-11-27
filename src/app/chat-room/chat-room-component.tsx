@@ -1,19 +1,36 @@
 'use client';
 import socketIO, { Socket } from "socket.io-client";
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { ContextVariables } from '../../context-variables';
+
 
 
 
 export default function ChatRoomSub(): React.JSX.Element{
+    const { userId } = useContext(ContextVariables);
 
     const [messages, setMessages] = useState<string[]>([]);
     const [error, setError] = useState<any>(null); //TODO: Determine type properly
     const socket = useRef<Socket>();
+    const textRef = useRef<HTMLTextAreaElement>(null);
+
     let sendMessage = (message: string) => {
-        if(socket.current!.connected) socket.current!.send(message);
+        let date = (new Date()).toISOString();
+        const obj = {
+            appointment: 1,
+            user: userId,
+            content: message,
+            timestamp: date
+        }
+        const jsobj = JSON.stringify(obj);
+        if(socket.current!.connected) socket.current!.send(jsobj);
     };
+
+
         useEffect(() => {
-            socket.current = socketIO("http://localhost:8080"); //TODO: Set env variable
+            socket.current = socketIO("https://senior-project-server-8090ce16e15d.herokuapp.com/"); //TODO: Set env variable  http://localhost:8080
+            socket.current.emit("CONNECT_ROOM", '{"room": 1}'); //TOD: Need buttons for selecting which room you want, default to 1 for now
+
             socket.current.on("connect", () => {
                 console.log("connected to server!");
             });
@@ -28,12 +45,23 @@ export default function ChatRoomSub(): React.JSX.Element{
                 console.log("received message");
                 setMessages((prevMessages) => [...prevMessages, message]);
             });
+            socket.current.on("history", async (message) => {
+                console.log("received message history");
+                // let parsedHistory = await JSON.parse(message);
+                // for(let i = 0; i < parsedHistory.length; i++) {
+
+                // }
+                setMessages((prevMessages) => [...prevMessages, message]);
+            });
+
+           
 
             return () => {
                 socket.current?.disconnect();
             }   
         }, []);
 
+        //Button to connect to session, have a button for every session the user has
     return (
         <div>
             <div>
@@ -41,7 +69,8 @@ export default function ChatRoomSub(): React.JSX.Element{
                     {messages.map((message, index) => <li key={index}>{message}</li>)}
                 </ul>
             </div>
-            <button onClick={() => {sendMessage("Take this!")}}>Press me!</button>
+            <textarea ref={textRef} placeholder="..."></textarea>
+            <button onClick={() => {if(textRef.current!.value != null) sendMessage(textRef.current!.value)}}>Send</button>
         </div>
     )
 }
