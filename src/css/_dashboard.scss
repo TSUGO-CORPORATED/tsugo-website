@@ -1,4 +1,4 @@
-.dashboard-card {
+.dashboard {
   @include flexCenter(column);
   height: 100vh;
   width: 100vw;
@@ -7,18 +7,23 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 40%;
-}
-.dashboard-card-card  {
+
+  &__card {
     @include flexCenter(column);
     @include card();
     width: 600px;
-    padding: 20px;
-    margin: 10px 0;
-    background-color: black;
+    height: 600px;
 
-    p {
-        font-size: 45px; 
-        margin: 0;
-        font-weight: bold;
+    &__role-switch {
+      border: 1px solid red;
+
+      &__button {
+        width: 200px;
+      }
     }
+  }
+}
+
+h1 {
+  border: 1px solid red;
 }

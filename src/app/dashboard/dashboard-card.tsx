@@ -36,20 +36,22 @@ export default function DashboardCard(): JSX.Element {
     async function getClientCurrentAppointment(): Promise<void> {
         const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/client/current/${userId}`;
         const retrievedData = await axios.get(url);
-        console.log(retrievedData);
+        // console.log(retrievedData);
         setClientCurrentAppointment(retrievedData.data);
     }
 
     async function getTranslatorCurrentAppointment(): Promise<void> {
         const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/translator/current/${userId}`;
         const retrievedData = await axios.get(url);
-        console.log(retrievedData);
+        // console.log(retrievedData);
         setTranslatorCurrentAppointment(retrievedData.data);
     }
     useEffect(() => {
-        getClientCurrentAppointment();
-        getTranslatorCurrentAppointment();
-    }, []);
+        if (userId !== 0) {
+            getClientCurrentAppointment();
+            getTranslatorCurrentAppointment();
+        }
+    }, [userId]);
 
     // JSX ELEMENTS
     return (

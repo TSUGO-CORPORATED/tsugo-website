@@ -377,7 +377,7 @@
   align-self: flex-end;
 }
 
-.dashboard-card {
+.dashboard {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -390,8 +390,7 @@
   background-repeat: no-repeat;
   background-position: 40%;
 }
-
-.dashboard-card-card {
+.dashboard__card {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -400,14 +399,17 @@
   border-radius: 10px;
   box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
   width: 600px;
-  padding: 20px;
-  margin: 10px 0;
-  background-color: black;
+  height: 600px;
 }
-.dashboard-card-card p {
-  font-size: 45px;
-  margin: 0;
-  font-weight: bold;
+.dashboard__card__role-switch {
+  border: 1px solid red;
+}
+.dashboard__card__role-switch__button {
+  width: 200px;
+}
+
+h1 {
+  border: 1px solid red;
 }
 
 .dashboard-tabs {
