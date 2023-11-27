@@ -104,7 +104,7 @@ export default function FindRequest() {
       };
 
 
-    return (
+    return ( 
         <div className='find_request_container'>
             <h1 className='find_request_header'>Check Appointments</h1>
         <div className='map_container'>

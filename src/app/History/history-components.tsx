@@ -261,7 +261,6 @@ export default function History() {
                   query: {slug: eachHistory.id}
                 }}><button>More Details</button></Link>
 
-
                  {/* {eachHistory.appointmentNote && (
                   <p>Appointment Note: {eachHistory.appointmentNote}</p>
                 )}

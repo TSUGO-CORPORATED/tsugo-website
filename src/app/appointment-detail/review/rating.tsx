@@ -11,7 +11,7 @@ export default function Rating() {
 
     //innstall react-star-ratings - npm
     //react-star-rating-component - npm
-
+ 
     return (
         <div>
             <h1>Rating</h1>
@@ -24,7 +24,7 @@ export default function Rating() {
                             name="rating" 
                             value={ratingValue} 
                             // onClick={() => handleClick(ratingValue)}
-                        />
+                        /> 
                         <span 
                             className="star"
                             onMouseEnter={() => setHover(ratingValue)}
