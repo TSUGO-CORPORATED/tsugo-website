@@ -33,7 +33,7 @@ type Reviews = {
   [appointmentId: string]: ReviewData;
 };
 
-type StatusFilter = "Requesting" | "Accepted" | "Cancelled" | "Completed" | "";
+type StatusFilter = "Requested" | "Accepted" | "Cancelled" | "Completed" | "";
 type NewStatus = "Accepted" | "Cancelled" | "Completed";
 
 export default function History() {
@@ -65,11 +65,11 @@ export default function History() {
   const getFilteredHistory = () => {
     return history.filter((eachHistory) => {
       const dateTimeLower = eachHistory.appointmentDateTime.toLowerCase();
-      const titleLower = eachHistory.title.toLowerCase();
+      const titleLower = eachHistory.title?.toLowerCase();
       const desireLanguageLower =
-        eachHistory.clientDesiredLanguage.toLowerCase();
+        eachHistory.clientDesiredLanguage?.toLowerCase();
       const communicateLanguageLower =
-        eachHistory.clientSpokenLanguage.toLowerCase();
+        eachHistory.clientSpokenLanguage?.toLowerCase();
       const locationString = `${eachHistory.locationLatitude}, ${eachHistory.locationLongitude}`;
 
       const searchMatch =
@@ -190,7 +190,7 @@ export default function History() {
       <div>
         <button
           className="history__requesting__button"
-          onClick={() => handleStatusFilter("Requesting")}
+          onClick={() => handleStatusFilter("Requested")}
         >
           Requesting
         </button>
@@ -265,7 +265,7 @@ export default function History() {
                   }
                 />
                 {/* change status button */}
-                {eachHistory.status === "Requesting" && (
+                {eachHistory.status === "Requested" && (
                   <button
                     onClick={() =>
                       handleStatusChange(eachHistory.id, "Accepted")
