@@ -2,6 +2,7 @@
 import { Metadata } from 'next';
 import CheckAuth from '../auth/check-auth';
 import Link from 'next/link';
+import AppointmentDetailCard from './appointment-detail-card';
 
 // PAGE NAME
 export const metadata: Metadata = {
@@ -11,9 +12,9 @@ export const metadata: Metadata = {
 // PAGE COMPONENT
 export default async function AppointmentDetail() {
     return (
-        <div className='A'>
+        <div className='appointment-detail'>
             <CheckAuth />
-            
+            <AppointmentDetailCard />
         </div>
     )
 }
