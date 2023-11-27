@@ -39,19 +39,22 @@ export default function DashboardCard(): JSX.Element {
         // console.log(retrievedData);
         setClientCurrentAppointment(retrievedData.data);
     }
-
+    // Get translator current appointment
     async function getTranslatorCurrentAppointment(): Promise<void> {
         const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/translator/current/${userId}`;
         const retrievedData = await axios.get(url);
         // console.log(retrievedData);
         setTranslatorCurrentAppointment(retrievedData.data);
     }
+
+    // Initial Use effect
     useEffect(() => {
         if (userId !== 0) {
             getClientCurrentAppointment();
             getTranslatorCurrentAppointment();
         }
     }, [userId]);
+
 
     // JSX ELEMENTS
     return (
@@ -82,6 +85,12 @@ export default function DashboardCard(): JSX.Element {
                                         <div>{appointment.interpreterSpokenLanguage}</div>
                                         <div>{appointment.locationLatitude}</div>
                                         <div>{appointment.locationLongitude}</div>
+                                        <Link href={{
+                                            pathname: '/appointment-detail',
+                                            query: {slug: appointment.id}
+                                        }}>
+                                            <button className="dashboard__card__role-content__appointment-list__element__button">Detail</button>
+                                        </Link>
                                     </div>
                                 );
                             })}
