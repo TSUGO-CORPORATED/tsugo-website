@@ -96,6 +96,18 @@ export default function History() {
     setSelectedStatus(status);
   };
 
+
+
+
+
+
+
+
+
+
+
+
+  // NOT REQUIRED ANYMORE
   const handleHistoryClick = (id: number) => {
     if (selectedHistoryId === id) {
       setSelectedHistoryId(null);
@@ -124,6 +136,8 @@ export default function History() {
     }));
   };
 
+
+  // MIGRATE TO APPOINTMENT DETAIL
   const handleStatusChange = async (
     appointmentId: number,
     newStatus: NewStatus
@@ -178,6 +192,11 @@ export default function History() {
       console.error("Error submitting rating:", error);
     }
   };
+
+
+
+
+
 
   return (
     <div>
@@ -239,6 +258,15 @@ export default function History() {
                 Location: {eachHistory.location}
               </p>
             )}
+
+
+
+
+
+
+
+
+            {/* MIGRATE TO APPOINTMENT DETAIL */}
             {selectedHistoryId === eachHistory.id && (
               <div className="history__details">
                 {eachHistory.appointmentNote && (
@@ -298,6 +326,11 @@ export default function History() {
                 </button>
               </div>
             )}
+
+
+
+
+
           </div>
         ))}
       </div>
