@@ -3,6 +3,7 @@ import React, { useEffect, useState, useContext  } from 'react';
 import axios from 'axios';
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { ContextVariables } from "../../context-variables";
+import Link from 'next/link';
 
 type Appointment = {
     id: number;
@@ -60,6 +61,17 @@ export default function FindRequest() {
           );
         }
       }, []);
+
+      const timeConvert =(isoDateString : string)=>{
+        const dateObject = new Date(isoDateString);
+        const year = dateObject.getFullYear();
+        const month = dateObject.getMonth() + 1; 
+        const day = dateObject.getDate();
+        const hours = dateObject.getHours();
+        const minutes = dateObject.getMinutes();
+        const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+          return formattedDate      
+        }
 
       const showDetails = (id: number) => {
         setSelectedAppointmentId(selectedAppointmentId === id ? null : id);
@@ -149,18 +161,28 @@ export default function FindRequest() {
         {filteredAppointments.map((appointment) => (
           <div className='appointment-container__appointment' key={appointment.id} onClick={() => showDetails(appointment.id)}>
             <h2>{appointment.title}</h2>
-            <p>Date and Time: {appointment.appointmentDateTime}</p>
+            <p>Date and Time: {timeConvert(appointment.appointmentDateTime)}</p>           
             <p>Interpretation Type: {appointment.interpretationType}</p>
             <p>Client Spoken Language: {appointment.clientSpokenLanguage}</p>
             <p>Client Desired Language: {appointment.clientDesiredLanguage}</p>
   
             {selectedAppointmentId === appointment.id && (
               <div>
-                {appointment.location && <p>Location: {appointment.location}</p>}
+                <Link href={{
+                  pathname: '/appointment-detail',
+                  query: {slug: appointment.id}
+                }}><button>More Details</button></Link>
+                {/* {appointment.location && <p>Location: {appointment.location}</p>}
                 {appointment.appointmentNote && <p>Note: {appointment.appointmentNote}</p>}
                 {appointment.reviewRating != null && <p>Rating: {appointment.reviewRating}</p>}
-                <button key={appointment.id} onClick={() => handleAcceptRequest(appointment.id)}>Accept</button>
+                <button key={appointment.id} onClick={() => handleAcceptRequest(appointment.id)}>Accept</button> */}
               </div>
+              // <div>
+              //   {appointment.location && <p>Location: {appointment.location}</p>}
+              //   {appointment.appointmentNote && <p>Note: {appointment.appointmentNote}</p>}
+              //   {appointment.reviewRating != null && <p>Rating: {appointment.reviewRating}</p>}
+              //   <button key={appointment.id} onClick={() => handleAcceptRequest(appointment.id)}>Accept</button>
+              // </div>
             )}
           </div>
         ))}

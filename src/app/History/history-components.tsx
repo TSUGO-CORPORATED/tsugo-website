@@ -104,80 +104,95 @@ export default function History() {
     }
   };
 
-  const handleRatingChange = (rating: number, appointmentId: number) => {
-    setReviews((prevReviews) => ({
-      ...prevReviews,
-      [appointmentId.toString()]: {
-        ...prevReviews[appointmentId.toString()],
-        rating,
-      },
-    }));
+  const timeConvert = (isoDateString: string) => {
+    const dateObject = new Date(isoDateString);
+    const year = dateObject.getFullYear();
+    const month = dateObject.getMonth() + 1;
+    const day = dateObject.getDate();
+    const hours = dateObject.getHours();
+    const minutes = dateObject.getMinutes();
+    const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
+      .toString()
+      .padStart(2, "0")} ${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}`;
+    return formattedDate;
   };
 
-  const handleReviewNoteChange = (note: string, appointmentId: number) => {
-    setReviews((prevReviews) => ({
-      ...prevReviews,
-      [appointmentId.toString()]: {
-        ...prevReviews[appointmentId.toString()],
-        note,
-      },
-    }));
-  };
+  // const handleRatingChange = (rating: number, appointmentId: number) => {
+  //   setReviews((prevReviews) => ({
+  //     ...prevReviews,
+  //     [appointmentId.toString()]: {
+  //       ...prevReviews[appointmentId.toString()],
+  //       rating,
+  //     },
+  //   }));
+  // };
 
-  const handleStatusChange = async (
-    appointmentId: number,
-    newStatus: NewStatus
-  ) => {
-    try {
-      let url;
-      switch (newStatus) {
-        case "Accepted":
-          url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/accept/${appointmentId}/${userId}`;
-          break;
-        case "Cancelled":
-          url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/cancel/${appointmentId}`;
-          break;
-        case "Completed":
-          url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/complete/${appointmentId}`;
-          break;
-        default:
-          return;
-      }
-      await axios.patch(url);
-      alert(`Appointment ${newStatus} successfully!`);
-      // Update local state
-      const updatedAppointments = history.map((appointment) =>
-        appointment.id === appointmentId
-          ? { ...appointment, status: newStatus }
-          : appointment
-      );
-      setHistory(updatedAppointments);
-    } catch (error) {
-      console.error(`Error updating appointment status: `, error);
-      alert("Failed to update appointment status.");
-    }
-  };
+  // const handleReviewNoteChange = (note: string, appointmentId: number) => {
+  //   setReviews((prevReviews) => ({
+  //     ...prevReviews,
+  //     [appointmentId.toString()]: {
+  //       ...prevReviews[appointmentId.toString()],
+  //       note,
+  //     },
+  //   }));
+  // };
 
-  const handleSubmitRating = async (appointmentId: number) => {
-    try {
-      const reviewData = reviews[appointmentId];
-      if (!reviewData) {
-        alert("Please provide a rating and a review note.");
-        return;
-      }
-      const requestData = {
-        reviewRating: reviewData.rating,
-        reviewNote: reviewData.note,
-      };
-      await axios.patch(
-        `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/review/${appointmentId}`,
-        requestData
-      );
-      alert("Thank you for Rating!");
-    } catch (error) {
-      console.error("Error submitting rating:", error);
-    }
-  };
+  // const handleStatusChange = async (
+  //   appointmentId: number,
+  //   newStatus: NewStatus
+  // ) => {
+  //   try {
+  //     let url;
+  //     switch (newStatus) {
+  //       case "Accepted":
+  //         url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/accept/${appointmentId}/${userId}`;
+  //         break;
+  //       case "Cancelled":
+  //         url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/cancel/${appointmentId}`;
+  //         break;
+  //       case "Completed":
+  //         url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/complete/${appointmentId}`;
+  //         break;
+  //       default:
+  //         return;
+  //     }
+  //     await axios.patch(url);
+  //     alert(`Appointment ${newStatus} successfully!`);
+  //     // Update local state
+  //     const updatedAppointments = history.map((appointment) =>
+  //       appointment.id === appointmentId
+  //         ? { ...appointment, status: newStatus }
+  //         : appointment
+  //     );
+  //     setHistory(updatedAppointments);
+  //   } catch (error) {
+  //     console.error(`Error updating appointment status: `, error);
+  //     alert("Failed to update appointment status.");
+  //   }
+  // };
+
+  // const handleSubmitRating = async (appointmentId: number) => {
+  //   try {
+  //     const reviewData = reviews[appointmentId];
+  //     if (!reviewData) {
+  //       alert("Please provide a rating and a review note.");
+  //       return;
+  //     }
+  //     const requestData = {
+  //       reviewRating: reviewData.rating,
+  //       reviewNote: reviewData.note,
+  //     };
+  //     await axios.patch(
+  //       `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/review/${appointmentId}`,
+  //       requestData
+  //     );
+  //     alert("Thank you for Rating!");
+  //   } catch (error) {
+  //     console.error("Error submitting rating:", error);
+  //   }
+  // };
 
   return (
     <div>
@@ -228,7 +243,7 @@ export default function History() {
           >
             <p className="history__title">Title: {eachHistory.title}</p>
             <p className="history__when">
-              Date and Time: {eachHistory.appointmentDateTime}
+              Date and Time: {timeConvert(eachHistory.appointmentDateTime)}
             </p>
             <p className="history__status">Status: {eachHistory.status}</p>
             <p className="history__interpretationType">
@@ -241,7 +256,13 @@ export default function History() {
             )}
             {selectedHistoryId === eachHistory.id && (
               <div className="history__details">
-                {eachHistory.appointmentNote && (
+              <Link href={{
+                  pathname: '/appointment-detail',
+                  query: {slug: eachHistory.id}
+                }}><button>More Details</button></Link>
+
+
+                 {/* {eachHistory.appointmentNote && (
                   <p>Appointment Note: {eachHistory.appointmentNote}</p>
                 )}
                 <select
@@ -265,7 +286,7 @@ export default function History() {
                   }
                 />
                 {/* change status button */}
-                {eachHistory.status === "Requested" && (
+                {/* {eachHistory.status === "Requested" && (
                   <button
                     onClick={() =>
                       handleStatusChange(eachHistory.id, "Accepted")
@@ -293,9 +314,9 @@ export default function History() {
                   </>
                 )}
                 {/* Submit button */}
-                <button onClick={() => handleSubmitRating(eachHistory.id)}>
+                {/* <button onClick={() => handleSubmitRating(eachHistory.id)}>
                   Submit Rating
-                </button>
+                </button>   */}
               </div>
             )}
           </div>
