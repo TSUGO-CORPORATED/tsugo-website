@@ -1,18 +1,17 @@
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
-// import styles from '../../../css/dashboardtabs.module.scss';
 
 
 export default function DashboardTabs() {
-    const [currentTab, setCurrentTab] = useState('Request');
+    const [currentTab, setCurrentTab] = useState<string>('Request');
 
     return (
         <div className="dashboard-tabs">
-<div className="dashboard-tabs__buttons-row">
-    <button onClick={() => setCurrentTab('Request')} className="dashboard-tabs__tab__button">Request</button>
-    <button onClick={() => setCurrentTab('Find')} className="dashboard-tabs__tab__button">Find</button>
-</div>
+            <div className="dashboard-tabs__buttons-row">
+                <button onClick={() => setCurrentTab('Request')} className="dashboard-tabs__tab__button">Request</button>
+                <button onClick={() => setCurrentTab('Find')} className="dashboard-tabs__tab__button">Find</button>
+            </div>
             <div className="dashboard-tabs__content">
                 {currentTab === 'Request' && (
                     <div className="dashboard-tabs__request__section">
