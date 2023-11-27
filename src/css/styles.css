@@ -627,9 +627,14 @@ h1 {
 }
 
 .appointment-container {
-  border: 1px solid black;
+  border: 2px solid black;
   overflow-y: auto;
   height: 35%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.appointment-container__appointment {
+  border: 1px solid black;
 }
 
 ul {

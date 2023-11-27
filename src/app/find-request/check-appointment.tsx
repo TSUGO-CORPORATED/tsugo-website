@@ -147,7 +147,7 @@ export default function FindRequest() {
       </div>
         <div className='appointment-container'>
         {filteredAppointments.map((appointment) => (
-          <div key={appointment.id} onClick={() => showDetails(appointment.id)}>
+          <div className='appointment-container__appointment' key={appointment.id} onClick={() => showDetails(appointment.id)}>
             <h2>{appointment.title}</h2>
             <p>Date and Time: {appointment.appointmentDateTime}</p>
             <p>Interpretation Type: {appointment.interpretationType}</p>

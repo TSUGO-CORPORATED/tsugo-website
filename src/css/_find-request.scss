@@ -27,7 +27,13 @@
     height: 90%;
 }
  .appointment-container {
-    border: 1px solid black;
+    border: 2px solid black;
     overflow-y: auto;
     height: 35%;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    &__appointment {
+        border: 1px solid black;
+    }
  }
