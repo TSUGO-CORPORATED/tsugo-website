@@ -3,6 +3,8 @@ import React, { useEffect, useState, useContext  } from 'react';
 import axios from 'axios';
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { ContextVariables } from "../../context-variables";
+import format from 'date-fns/format';
+import Link from 'next/link';
 
 type Appointment = {
     id: number;
@@ -33,10 +35,11 @@ export default function FindRequest() {
     const [hover, setHover] = useState(0);
     const apiKey = process.env.REACT_APP_GOOGLE_API_KEY ||  "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM";
     const { userId } = useContext(ContextVariables);
+   
     useEffect(() => {
         const fetchAppointments = async () => {
           try {
-            const response = await axios.get('https://senior-project-server-8090ce16e15d.herokuapp.com/appointment');
+            const response = await axios.get('https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/find/${userID}');
            console.log(response.data)
             setAppointments(response.data);
           } catch (error) {
@@ -92,6 +95,16 @@ export default function FindRequest() {
       //   }
       // };
 
+      const timeConvert =(isoDateString : string)=>{
+        const dateObject = new Date(isoDateString);
+        const year = dateObject.getFullYear();
+        const month = dateObject.getMonth() + 1; 
+        const day = dateObject.getDate();
+        const hours = dateObject.getHours();
+        const minutes = dateObject.getMinutes();
+        const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+          return formattedDate      
+        }
 
     return (
         <div className='find_request_container'>
@@ -149,22 +162,28 @@ export default function FindRequest() {
         <div className='appointment-container'>
         {filteredAppointments.map((appointment) => (
           <div key={appointment.id} onClick={() => showDetails(appointment.id)}>
-            <h2>{appointment.title}</h2>
-            <p>Date and Time: {appointment.appointmentDateTime}</p>
+            <h2>{appointment.appointmentTitle}</h2>
+            
+            {/* <p>Date and Time: {format(appointment.appointmentDateTime, 'yyyy-MM-dd HH:mm')}</p> */}
+            <p>Date and Time: {timeConvert(appointment.appointmentDateTime)}</p>
             <p>Interpretation Type: {appointment.appointmentType}</p>
-            {/* {appointment.} */}
+            {appointment.location && <p>Location: {appointment.location}</p>}
             <p>Client Spoken Language: {appointment.clientSpokenLanguage}</p>
             <p>Client Desired Language: {appointment.interpreterSpokenLanguage}</p>
 
-{/*   
+  
             {selectedAppointmentId === appointment.id && (
               <div>
-                {appointment.location && <p>Location: {appointment.location}</p>}
+                <Link href={{
+                  pathname: '/appointment-detail',
+                  query: {slug: appointment.id}
+                }}><button>More Details</button></Link>
+                {/* {appointment.location && <p>Location: {appointment.location}</p>}
                 {appointment.appointmentNote && <p>Note: {appointment.appointmentNote}</p>}
                 {appointment.reviewRating != null && <p>Rating: {appointment.reviewRating}</p>}
-                <button key={appointment.id} onClick={() => handleAcceptRequest(appointment.id)}>Accept</button>
+                <button key={appointment.id} onClick={() => handleAcceptRequest(appointment.id)}>Accept</button> */}
               </div>
-            )} */}
+            )}
           </div>
         ))}
       </div>
