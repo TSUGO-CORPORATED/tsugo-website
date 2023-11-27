@@ -7,8 +7,6 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-
-
 // PAGE COMPONENT
 export default function LogInCard(): JSX.Element {
   const [email, setEmail] = useState<string>('');
@@ -24,7 +22,7 @@ export default function LogInCard(): JSX.Element {
       .then((userCredintial) => {
         // console.log(userCredintial);
         // console.log(userCredintial.user.email);
-        return userCredintial.user.email;
+        return userCredintial.user.uid;
       })
       .catch((error) => {
         console.log(error);

@@ -6,28 +6,37 @@ import { useRouter } from 'next/navigation';
 import { ContextVariables } from "../../context-variables";
 
 type Coordinates = { lat: number; lng: number; } | null;
-
+type StatusFilter = "Requesting" | "Accepted" | "Cancelled" | "Completed" | "";
 const CreateAppointment = () => {
   const router = useRouter();
   const { userId } = useContext(ContextVariables);
 
-  const [title, setTitle] = useState("");
+  const [appointmentTitle, setAppointmentTitle] = useState("");
   const [dateTime, setDateTime] = useState("");
   const [location, setLocation] = useState("");
   const [desireLanguage, setDesireLanguage] = useState("Japanese");
   const [communicateLanguage, setCommunicateLanguage] = useState("English");
-  const [interpretationType, setInterpretationType] = useState("videoChat");
+  const [appointmentType, setAppointmentType] = useState("videoChat");
   const [note, setNote] = useState("");
   const [isAgreed, setIsAgreed] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [locationCoordinates, setLocationCoordinates] = useState<Coordinates>(null);
   const [error, setError] = useState("");
 
-  const mapApiKey = process.env.REACT_APP_GOOGLEMAP_API_KEY as string
+  //this is my apikey for temporary but its not working !!
+  const apiKey = "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM"
+  // const apiKey = process.env.REACT_APP_GOOGLE_API_KEY as string;
   const fetchCoordinates = async (location: string) => {
     try {
-      const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+
       const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(location)}&key=${apiKey}`);
+  
+      if (response.data.results.length === 0) {
+        setError("No results found for the given location.");
+        console.error("No results found:", response.data);
+        return;
+      }
+  
       const { lat, lng } = response.data.results[0].geometry.location;
       setLocationCoordinates({ lat, lng });
     } catch (error) {
@@ -64,7 +73,7 @@ const CreateAppointment = () => {
       return;
     }
 
-    if (interpretationType === 'inPerson' && location) {
+    if (appointmentType === 'inPerson' && location) {
       await fetchCoordinates(location);
     }
     setIsConfirmed(true);
@@ -72,19 +81,21 @@ const CreateAppointment = () => {
 
   const handleSendRequest = async () => {
     try {
-      const requestData = {
-        title,
-        dateTime,
-        location,
-        desireLanguage,
-        communicateLanguage,
-        interpretationType,
-        note,
-        lat: locationCoordinates?.lat,
-        lng: locationCoordinates?.lng,
-        clientUserId: userId
+        const convertedDateTime: string = (new Date(dateTime)).toISOString();
+        const requestData = {
+          appointmentTitle: appointmentTitle,
+          appointmentType: appointmentType,
+          clientUserId: userId, 
+          clientSpokenLanguage: communicateLanguage, 
+          interpreterSpokenLanguage: desireLanguage, 
+          locationLatitude: locationCoordinates?.lat, 
+          locationLongitude: locationCoordinates?.lng, 
+          locationDetail: location, 
+          appointmentDateTime: convertedDateTime, 
+          appointmentNote: note,    
       };
-      const response = await axios.post("/api/endpoint", requestData);
+      console.log(requestData);
+      await axios.post("https://senior-project-server-8090ce16e15d.herokuapp.com/appointment", requestData);
       alert("Request sent successfully!");
       router.push("/dashboard");
     } catch (error) {
@@ -103,8 +114,8 @@ const CreateAppointment = () => {
             <label className='add_request_label'>Title:</label>
             <input 
               type="text" 
-              value={title} 
-              onChange={(e) => setTitle(e.target.value)} 
+              value={appointmentTitle} 
+              onChange={(e) => setAppointmentTitle(e.target.value)} 
               required 
               className='add_request_input' 
             />
@@ -125,8 +136,8 @@ const CreateAppointment = () => {
                 type="radio" 
                 name="interpretationType" 
                 value="videoChat" 
-                checked={interpretationType === "videoChat"} 
-                onChange={() => setInterpretationType("videoChat")} 
+                checked={appointmentType === "videoChat"} 
+                onChange={() => setAppointmentType("videoChat")} 
                 required 
                 className='add_request_radio' 
               />
@@ -139,15 +150,15 @@ const CreateAppointment = () => {
                 type="radio" 
                 name="interpretationType" 
                 value="inPerson" 
-                checked={interpretationType === "inPerson"} 
-                onChange={() => setInterpretationType("inPerson")} 
+                checked={appointmentType === "inPerson"} 
+                onChange={() => setAppointmentType("inPerson")} 
                 required 
                 className='add_request_radio' 
               />
               In-person Interpretation
             </label>
           </div>
-          {interpretationType !== "videoChat" && (
+          {appointmentType !== "videoChat" && (
             <div className='add_request_box'>
               <label className='add_request_label'>Location:</label>
               <input 
@@ -218,15 +229,15 @@ const CreateAppointment = () => {
     return (
       <div>
         <h1>Appointment Confirmation</h1>
-        <p>Title: {title}</p>
+        <p>Title: {appointmentTitle}</p>
         <p>Date and Time: {dateTime}</p>
         <p>Location: {location}</p>
         <p>Desired Language: {desireLanguage}</p>
         <p>Communication Language: {communicateLanguage}</p>
-        <p>Interpretation Type: {interpretationType}</p>
+        <p>Interpretation Type: {appointmentType}</p>
         <p>Memo: {note}</p>
         {locationCoordinates && (
-          <LoadScript googleMapsApiKey={mapApiKey}>
+          <LoadScript googleMapsApiKey={apiKey}>
             <GoogleMap
               mapContainerStyle={{ width: '400px', height: '400px' }}
               center={{ lat: locationCoordinates.lat, lng: locationCoordinates.lng }}

@@ -1,7 +1,8 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext  } from 'react';
 import axios from 'axios';
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { ContextVariables } from "../../context-variables";
 
 type Appointment = {
     id: number;
@@ -18,7 +19,6 @@ type Appointment = {
     reviewRating: number | null; 
     reviewNote: string | null; 
     location: string | undefined;
-    hospitalType: string;
     title: string;
     interpretationType:string,
   };
@@ -29,12 +29,14 @@ export default function FindRequest() {
     const [selectedType, setSelectedType] = useState('all');
     const [selectedAppointmentId, setSelectedAppointmentId] = useState<number | null>(null);
     const [currentPosition, setCurrentPosition] = useState({ lat: 35.6895, lng: 139.6917 });
-    const apiKey = process.env.REACT_APP_GOOGLE_API_KEY || "FAKE_API_KEY";
-    
+    const [rating, setRating] = useState(0);
+    const [hover, setHover] = useState(0);
+    const apiKey = process.env.REACT_APP_GOOGLE_API_KEY ||  "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM";
+    const { userId } = useContext(ContextVariables);
     useEffect(() => {
         const fetchAppointments = async () => {
           try {
-            const response = await axios.get('FAKE_API_URL');
+            const response = await axios.get('https://senior-project-server-8090ce16e15d.herokuapp.com/appointment');
             setAppointments(response.data);
           } catch (error) {
             console.error('Error fetching appointments:', error);
@@ -67,10 +69,28 @@ export default function FindRequest() {
       selectedType === 'all' || appointment.interpretationType === selectedType
     );
 
-      const mapContainerStyle = {
+      const mapSize = {
         width: "100%",
         height: "400px",
       };
+
+      const handleAcceptRequest = async (appointmentId: number) => {
+        try {
+          const url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/accept/${appointmentId}/${userId}`;
+          await axios.patch(url);
+          alert("Appointment accepted successfully!");
+      
+        
+          const updatedAppointments = appointments.map(appointment =>
+            appointment.id === appointmentId ? { ...appointment, status: "Ongoing" } : appointment
+          );
+          setAppointments(updatedAppointments);
+        } catch (error) {
+          console.error("Error accepting appointment: ", error);
+          alert("Failed to accept appointment.");
+        }
+      };
+
 
     return (
         <div>
@@ -79,7 +99,7 @@ export default function FindRequest() {
             
             <LoadScript googleMapsApiKey={apiKey}>
         <GoogleMap
-          mapContainerStyle={mapContainerStyle}
+          mapContainerStyle={mapSize}
           center={currentPosition}
           zoom={10} 
         >
@@ -126,11 +146,10 @@ export default function FindRequest() {
         </label>
       </div>
         <div>
-        {appointments.map((appointment) => (
+        {filteredAppointments.map((appointment) => (
           <div key={appointment.id} onClick={() => showDetails(appointment.id)}>
             <h2>{appointment.title}</h2>
             <p>Date and Time: {appointment.appointmentDateTime}</p>
-            <p>Hospital Type: {appointment.hospitalType}</p>
             <p>Interpretation Type: {appointment.interpretationType}</p>
             <p>Client Spoken Language: {appointment.clientSpokenLanguage}</p>
             <p>Client Desired Language: {appointment.clientDesiredLanguage}</p>
@@ -140,6 +159,7 @@ export default function FindRequest() {
                 {appointment.location && <p>Location: {appointment.location}</p>}
                 {appointment.appointmentNote && <p>Note: {appointment.appointmentNote}</p>}
                 {appointment.reviewRating != null && <p>Rating: {appointment.reviewRating}</p>}
+                <button key={appointment.id} onClick={() => handleAcceptRequest(appointment.id)}>Accept</button>
               </div>
             )}
           </div>

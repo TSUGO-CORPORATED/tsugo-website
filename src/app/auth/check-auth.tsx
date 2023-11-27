@@ -9,7 +9,7 @@ import axios from 'axios';
 
 export default function CheckAuth() {
   const router = useRouter();
-  const { setUserId, setUserFirstName, setUserLastName } = useContext(ContextVariables);
+  const { userUid, setUserId, setUserUid, setUserFirstName, setUserLastName } = useContext(ContextVariables);
 
   // function checkCurrentUser() {
   //   console.log(userId, userEmail, userFirstName, userLastName);
@@ -19,18 +19,21 @@ export default function CheckAuth() {
     // Check if user is log-ed in. If not, return to sign in. If yes, assign context variable
     const listen = onAuthStateChanged(auth, async (user: any) => {
       console.log(user);
-      if (user) {
+      if (user && userUid === 'noUid') {
+        // Apply use context variable if user is log in and context variable is not assigned yet 
+
         // Retrieve user data from backend database
-        const url: string = `http://localhost:8080/user/${user.uid}`;
-        // const url: string = ` https://senior-project-server-8090ce16e15d.herokuapp.com/user/${user.uid}`;
+        // const url: string = `http://localhost:8080/user/${user.uid}`;
+        const url: string = ` https://senior-project-server-8090ce16e15d.herokuapp.com/user/${user.uid}`;
         const userData = await axios.get(url);
-        // console.log(userData);
+        console.log(userData);
 
         // Assign to global variables
         setUserId(userData.data.id);
+        setUserUid(user.uid);
         setUserFirstName(userData.data.firstName);
         setUserLastName(userData.data.lastName);
-      } else {
+      } else if (!user) {
         // Redirect to sign in if there is no log in
         router.push("/log-in");
       }

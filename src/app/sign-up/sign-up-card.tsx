@@ -45,8 +45,8 @@ export default function SignUp(): JSX.Element {
           lastName: lastName,
           languages: languages,
         };
-        const url: string = 'http://localhost:8080/user';
-        // const url: string = ' https://senior-project-server-8090ce16e15d.herokuapp.com/user';
+        // const url: string = 'http://localhost:8080/user';
+        const url: string = ' https://senior-project-server-8090ce16e15d.herokuapp.com/user';
         await axios.post(url, newUserData)
           .then(res => {
             // console.log(res);
