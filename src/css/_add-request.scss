@@ -1,0 +1,37 @@
+.requestHeader{
+    @include flexCenter(column);
+    height: 100vh;
+    width: 100vw;
+    background-color: $color-background-black;
+    background-image: url(../../public/tokyo.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 40%;
+}
+
+.add_request {
+    @include flexCenter(column);
+    @include card();
+    width: 600px;
+    height: 600px;
+
+    &_title {
+        order: 1;
+        margin-top: 15px;
+        height: 20%;
+    }
+
+    &_form {
+        order: 2;
+        height: 80%;
+    }
+
+    &_box {
+        order: 2;
+    }
+
+    &_submit_button, &_cancel_button {
+        order: 3;
+        
+    }
+}

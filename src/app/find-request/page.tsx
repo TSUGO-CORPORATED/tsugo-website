@@ -14,13 +14,13 @@ export const metadata: Metadata = {
 export default async function findRequest() {
     return (
         <div className='find_Header'>
-            <Link href="/dashboard">
+            {/* <Link href="/dashboard">
                 <button>Home</button>
             </Link> 
             <Link href="/profile">
                 <button>Profile</button>
             </Link>
-            <SignOut /> 
+            <SignOut />  */}
             <FindRequest />
 
         </div>

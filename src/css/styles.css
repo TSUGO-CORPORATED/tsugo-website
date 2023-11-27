@@ -47,6 +47,7 @@
   margin-top: 1em;
   margin-bottom: 0.3em;
   font-size: 32px;
+  order: 1;
 }
 .log-in__card__form {
   display: flex;
@@ -54,6 +55,7 @@
   align-items: center;
   flex-direction: column;
   width: 75%;
+  order: 2;
 }
 .log-in__card__form__box {
   justify-content: left;
@@ -102,6 +104,7 @@
   align-items: center;
   flex-direction: column;
   margin: 1em;
+  order: 3;
 }
 .log-in__card__sign-up__link {
   width: 100%;
@@ -142,6 +145,7 @@
   margin-top: 1em;
   margin-bottom: 0em;
   font-size: 32px;
+  order: 1;
 }
 .sign-up__card__form {
   display: flex;
@@ -149,6 +153,7 @@
   align-items: center;
   flex-direction: column;
   width: 75%;
+  order: 2;
 }
 .sign-up__card__form__box {
   justify-content: left;
@@ -199,6 +204,7 @@
   font-weight: bold;
   margin-top: 0.7em;
   margin-bottom: 0.8em;
+  order: 3;
 }
 .sign-up__card__log-in-link:hover {
   color: #7e9ae6;
@@ -377,7 +383,7 @@
   align-self: flex-end;
 }
 
-.dashboard-card {
+.dashboard {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -390,8 +396,7 @@
   background-repeat: no-repeat;
   background-position: 40%;
 }
-
-.dashboard-card-card {
+.dashboard__card {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -399,15 +404,44 @@
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
+  justify-content: space-between;
   width: 600px;
-  padding: 20px;
-  margin: 10px 0;
-  background-color: #f8f8f8;
+  height: 600px;
 }
-.dashboard-card-card p {
-  font-size: 45px;
-  margin: 0;
-  font-weight: bold;
+.dashboard__card__role-switch {
+  height: 20%;
+  width: 100%;
+  order: 1;
+}
+.dashboard__card__role-switch__button {
+  width: 50%;
+  height: 50%;
+}
+.dashboard__card__role-content {
+  height: 60%;
+  width: 100%;
+  order: 3;
+}
+.dashboard__card__role-content__button-row {
+  height: 15%;
+  width: 100%;
+}
+.dashboard__card__role-content__button-row__button {
+  width: 50%;
+  height: 100%;
+}
+.dashboard__card__role-content__appointment-list {
+  border: 1px solid black;
+  height: 80%;
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 2%;
+}
+
+h1 {
+  margin-top: 15px;
+  height: 20%;
+  order: 2;
 }
 
 .dashboard-tabs {
@@ -489,6 +523,118 @@
   border-radius: 10px;
   box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
   width: 600px;
+  height: 600px;
+}
+
+.profile-header {
+  order: 1;
+  margin-top: 15px;
+  height: 20%;
+}
+
+.profile-p {
+  order: 2;
+  height: 40%;
+  align-self: flex-start;
+  margin-left: 12px;
+}
+
+.profile-button {
+  order: 3;
+  height: 20%;
+  align-self: flex-start;
+  margin: 12px;
+  font-size: 12px;
+  width: 20%;
+}
+
+.requestHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: #000000;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
+}
+
+.add_request {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
+  width: 600px;
+  height: 600px;
+}
+.add_request_title {
+  order: 1;
+  margin-top: 15px;
+  height: 20%;
+}
+.add_request_form {
+  order: 2;
+  height: 80%;
+}
+.add_request_box {
+  order: 2;
+}
+.add_request_submit_button, .add_request_cancel_button {
+  order: 3;
+}
+
+.find_Header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: #000000;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
+}
+
+.find_request_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
+  width: 600px;
+  height: 100vh;
+}
+
+.find_request_header {
+  order: 1;
+  height: 10%;
+}
+
+.map_container {
+  width: 100%;
+  order: 2;
+  height: 90%;
+}
+
+.appointment-container {
+  border: 2px solid black;
+  overflow-y: auto;
+  height: 35%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.appointment-container__appointment {
+  border: 1px solid black;
 }
 
 ul {
