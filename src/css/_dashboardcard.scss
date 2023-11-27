@@ -1,5 +1,5 @@
 .dashboard-card {
-    @include flexCenter(column);
+  @include flexCenter(column);
   height: 100vh;
   width: 100vw;
   background-color: $color-background-black;
@@ -9,6 +9,9 @@
   background-position: 40%;
 }
 .dashboard-card-card  {
+    @include flexCenter(column);
+    @include card();
+    width: 600px;
     padding: 20px;
     margin: 10px 0;
     background-color: #f8f8f8;

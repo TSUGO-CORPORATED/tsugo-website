@@ -15,17 +15,17 @@ export const metadata: Metadata = {
 // PAGE COMPONENT
 export default async function Dashboard() {
     return (
-        <div className='dasboard'>
+        <div className='dashboard'>
             <CheckAuth />
-            <Link href="/dashboard">
+            {/* <Link href="/dashboard">
                 <button>Home</button>
             </Link> 
             <Link href="/profile">
                 <button>Profile</button>
-            </Link>
+            </Link> */}
             
             <DashboardCard />
-            <SignOut /> 
+            {/* <SignOut />  */}
         </div>
     )
 }

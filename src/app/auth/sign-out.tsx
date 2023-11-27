@@ -32,6 +32,6 @@ export default function SignOut() {
   }
 
   return (
-    <button onClick={userSignOut} className='sign-out__button'>Sign Out</button>
+    <div onClick={userSignOut}>Sign Out</div>
   )
 }
