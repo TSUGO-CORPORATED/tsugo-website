@@ -23,11 +23,13 @@ export default function AppointmentDetailCard(): JSX.Element {
         appointmentDateTime: Date;
         appointmentNote: string | null;
         status: string;
+        clientUserId: number;
         clientUser: {
           firstName: string;
           lastName: string;
           profilePicture?: any;
         };
+        interpreterUserId: number | null;
         interpreterUser: {
           firstName: string;
           lastName: string;
@@ -61,7 +63,7 @@ export default function AppointmentDetailCard(): JSX.Element {
         setAppointmentDetail(retrievedData.data);
     }
 
-    async function handleStatusChange( appointmentId: number, newStatus: NewStatus ) {
+    async function handleStatusChange(newStatus: NewStatus) {
         try {
             // Updating appointment status in the backend server
             let url;
@@ -83,7 +85,10 @@ export default function AppointmentDetailCard(): JSX.Element {
 
           // Update local state
           const updatedAppointmentDetail: AppointmentDetail | undefined = appointmentDetail;
-          if (updatedAppointmentDetail) updatedAppointmentDetail['status'] = newStatus;
+          if (updatedAppointmentDetail) {
+              updatedAppointmentDetail['status'] = newStatus;
+              setAppointmentDetail(updatedAppointmentDetail);
+          }
         } catch (error) {
           console.error(`Error updating appointment status: `, error);
           alert("Failed to update appointment status.");
@@ -147,37 +152,35 @@ export default function AppointmentDetailCard(): JSX.Element {
                     <div>{appointmentDetail?.reviewClientNote}</div>
                     <div>{appointmentDetail?.reviewInterpreterRating}</div>
                     <div>{appointmentDetail?.reviewInterpreterNote}</div>
-                    <div>
-                        <p>Buttons</p>
-                        {/* change status button */}
-                        {appointmentDetail?.status === "Requested" && (
-                        <button
-                            onClick={() =>
-                            handleStatusChange(appointmentDetail?.id, "Accepted")
-                            }
-                        >
-                            Accept
-                        </button>
-                        )}
-                        {appointmentDetail?.status === "Accepted" && (
+                </div>
+                <div>
+                    <p>Buttons</p>
+                    {/* change status button */}
+                    {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId !== userId && (
                         <>
-                            <button
-                            onClick={() =>
-                                handleStatusChange(appointmentDetail?.id, "Cancelled")
-                            }
-                            >
-                            Cancel
-                            </button>
-                            <button
-                            onClick={() =>
-                                handleStatusChange(appointmentDetail?.id, "Completed")
-                            }
-                            >
-                            Complete
-                            </button>
+                            <button onClick={() => handleStatusChange("Accepted")}>Accept</button>
+                            <button onClick={() => handleStatusChange("Cancelled")}>Cancel</button>
                         </>
-                        )}
-                    </div>
+                    )}
+                    {appointmentDetail?.status === "Accepted" && appointmentDetail.clientUserId === userId && (
+                        <>
+                            <button onClick={() => handleStatusChange("Cancelled")}>Cancel</button>
+                            <button onClick={() => handleStatusChange("Completed")}>Complete</button>
+                            <Link href={{
+                                pathname: '/appointment-detail/chat-room',
+                                query: {slug: appointmentDetail?.id}
+                            }}>
+                                <button>Go to chat room</button>
+                            </Link>
+                        </>
+                    )}
+                    {appointmentDetail?.status === "Complete" 
+                    && ((userId === appointmentDetail.clientUserId && appointmentDetail.reviewClientRating === null) || (userId === appointmentDetail.interpreterUserId && appointmentDetail.reviewInterpreterRating === null))
+                    && (
+                        <>
+                            <Link href="/appointment-detail/review"><button>Add review</button></Link>
+                        </>
+                    )}
                 </div>
             </div>
         </div>
