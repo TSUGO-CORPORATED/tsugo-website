@@ -18,7 +18,7 @@ export default function CheckAuth() {
   useEffect(() => {
     // Check if user is log-ed in. If not, return to sign in. If yes, assign context variable
     const listen = onAuthStateChanged(auth, async (user: any) => {
-      console.log(user);
+      // console.log(user);
       if (user && userUid === 'noUid') {
         // Apply use context variable if user is log in and context variable is not assigned yet 
 
@@ -26,7 +26,7 @@ export default function CheckAuth() {
         // const url: string = `http://localhost:8080/user/${user.uid}`;
         const url: string = ` https://senior-project-server-8090ce16e15d.herokuapp.com/user/${user.uid}`;
         const userData = await axios.get(url);
-        console.log(userData);
+        // console.log(userData);
 
         // Assign to global variables
         setUserId(userData.data.id);
