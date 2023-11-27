@@ -69,6 +69,9 @@ export default function AppointmentDetailCard(): JSX.Element {
     const convertedDateTime = tempDateTime ? format(new Date(tempDateTime), "EEE',' dd MMM yy") : null;
     return (
         <div className='appointment-detail__card'>
+            <Link href="/dashboard">
+                <button>Go back to dashboard</button>
+            </Link>
             <div className='dashboard__card__role-content__appointment-list'>
                 <div className='dashboard__card__role-content__appointment-list__element'>
                     <div>{appointmentDetail?.id}</div>
@@ -87,6 +90,11 @@ export default function AppointmentDetailCard(): JSX.Element {
                     <div>{appointmentDetail?.locationLongitude}</div>
                     <div>{appointmentDetail?.locationDetail}</div>
                     <div>{convertedDateTime}</div>
+                    <div>{appointmentDetail?.appointmentNote}</div>
+                    <div>{appointmentDetail?.reviewClientRating}</div>
+                    <div>{appointmentDetail?.reviewClientNote}</div>
+                    <div>{appointmentDetail?.reviewInterpreterRating}</div>
+                    <div>{appointmentDetail?.reviewInterpreterNote}</div>
                 </div>
             </div>
         </div>
