@@ -9,7 +9,7 @@ type Appointment = {
     status: string;
     clientUserId: number;
     clientSpokenLanguage: string;
-    clientDesiredLanguage: string;
+    interpreterSpokenLanguage: string;
     translatorUserId: number | null; 
     translatorLanguage: string | undefined; 
     locationLatitude: number | null; 
@@ -19,8 +19,8 @@ type Appointment = {
     reviewRating: number | null; 
     reviewNote: string | null; 
     location: string | undefined;
-    title: string;
-    interpretationType:string,
+    appointmentTitle: string;
+    appointmentType:string,
   };
 
 
@@ -37,6 +37,7 @@ export default function FindRequest() {
         const fetchAppointments = async () => {
           try {
             const response = await axios.get('https://senior-project-server-8090ce16e15d.herokuapp.com/appointment');
+           console.log(response.data)
             setAppointments(response.data);
           } catch (error) {
             console.error('Error fetching appointments:', error);
@@ -64,9 +65,9 @@ export default function FindRequest() {
       const showDetails = (id: number) => {
         setSelectedAppointmentId(selectedAppointmentId === id ? null : id);
       };
-      
+      console.log(appointments)
       const filteredAppointments = appointments.filter((appointment) =>
-      selectedType === 'all' || appointment.interpretationType === selectedType
+      selectedType === 'all' || appointment.appointmentType === selectedType
     );
 
       const mapSize = {
@@ -74,22 +75,22 @@ export default function FindRequest() {
         height: "400px",
       };
 
-      const handleAcceptRequest = async (appointmentId: number) => {
-        try {
-          const url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/accept/${appointmentId}/${userId}`;
-          await axios.patch(url);
-          alert("Appointment accepted successfully!");
+      // const handleAcceptRequest = async (appointmentId: number) => {
+      //   try {
+      //     const url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/accept/${appointmentId}/${userId}`;
+      //     await axios.patch(url);
+      //     alert("Appointment accepted successfully!");
       
         
-          const updatedAppointments = appointments.map(appointment =>
-            appointment.id === appointmentId ? { ...appointment, status: "Ongoing" } : appointment
-          );
-          setAppointments(updatedAppointments);
-        } catch (error) {
-          console.error("Error accepting appointment: ", error);
-          alert("Failed to accept appointment.");
-        }
-      };
+      //     const updatedAppointments = appointments.map(appointment =>
+      //       appointment.id === appointmentId ? { ...appointment, status: "Ongoing" } : appointment
+      //     );
+      //     setAppointments(updatedAppointments);
+      //   } catch (error) {
+      //     console.error("Error accepting appointment: ", error);
+      //     alert("Failed to accept appointment.");
+      //   }
+      // };
 
 
     return (
@@ -101,14 +102,14 @@ export default function FindRequest() {
         <GoogleMap
           mapContainerStyle={mapSize}
           center={currentPosition}
-          zoom={10} 
+          zoom={12} 
         >
           {appointments.map((appointment) => (
             appointment.locationLatitude && appointment.locationLongitude && (
             <Marker
             // need to put detail on popup
               key={appointment.id}
-              position={{ lat: appointment.locationLatitude, lng: appointment.locationLongitude }}
+              position={{ lat: Number(appointment.locationLatitude), lng: Number(appointment.locationLongitude) }}
             /> )
           ))}
         </GoogleMap>
@@ -148,12 +149,14 @@ export default function FindRequest() {
         <div>
         {filteredAppointments.map((appointment) => (
           <div key={appointment.id} onClick={() => showDetails(appointment.id)}>
-            <h2>{appointment.title}</h2>
+            <h2>{appointment.appointmentTitle}</h2>
             <p>Date and Time: {appointment.appointmentDateTime}</p>
-            <p>Interpretation Type: {appointment.interpretationType}</p>
+            <p>Interpretation Type: {appointment.appointmentType}</p>
+            {/* {appointment.} */}
             <p>Client Spoken Language: {appointment.clientSpokenLanguage}</p>
-            <p>Client Desired Language: {appointment.clientDesiredLanguage}</p>
-  
+            <p>Client Desired Language: {appointment.interpreterSpokenLanguage}</p>
+
+{/*   
             {selectedAppointmentId === appointment.id && (
               <div>
                 {appointment.location && <p>Location: {appointment.location}</p>}
@@ -161,7 +164,7 @@ export default function FindRequest() {
                 {appointment.reviewRating != null && <p>Rating: {appointment.reviewRating}</p>}
                 <button key={appointment.id} onClick={() => handleAcceptRequest(appointment.id)}>Accept</button>
               </div>
-            )}
+            )} */}
           </div>
         ))}
       </div>

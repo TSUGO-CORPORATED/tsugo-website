@@ -21,6 +21,7 @@ const CreateAppointment = () => {
   const [isAgreed, setIsAgreed] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [locationCoordinates, setLocationCoordinates] = useState<Coordinates>(null);
+  const [scriptLoaded, setScriptLoaded] = useState(true);
   const [error, setError] = useState("");
 
   //this is my apikey for temporary but its not working !!
@@ -28,7 +29,7 @@ const CreateAppointment = () => {
   // const apiKey = process.env.REACT_APP_GOOGLE_API_KEY as string;
   const fetchCoordinates = async (location: string) => {
     try {
-
+      console.log(location)
       const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(location)}&key=${apiKey}`);
   
       if (response.data.results.length === 0) {
@@ -38,6 +39,7 @@ const CreateAppointment = () => {
       }
   
       const { lat, lng } = response.data.results[0].geometry.location;
+      console.log(lat, lng);
       setLocationCoordinates({ lat, lng });
     } catch (error) {
       console.error("Error fetching coordinates: ", error);
@@ -77,6 +79,15 @@ const CreateAppointment = () => {
       await fetchCoordinates(location);
     }
     setIsConfirmed(true);
+  };
+
+  const resetLoadScript = () => {
+    setScriptLoaded(false);
+    setIsConfirmed(false);
+    setTimeout(() => {
+      setScriptLoaded(true);
+      
+    }, 50);
   };
 
   const handleSendRequest = async () => {
@@ -236,7 +247,7 @@ const CreateAppointment = () => {
         <p>Communication Language: {communicateLanguage}</p>
         <p>Interpretation Type: {appointmentType}</p>
         <p>Memo: {note}</p>
-        {locationCoordinates && (
+        {locationCoordinates &&  scriptLoaded&&(
           <LoadScript googleMapsApiKey={apiKey}>
             <GoogleMap
               mapContainerStyle={{ width: '400px', height: '400px' }}
@@ -248,7 +259,7 @@ const CreateAppointment = () => {
           </LoadScript>
         )}
         <button onClick={handleSendRequest}>Send Request</button>
-        <button onClick={() => setIsConfirmed(false)}>Back to Form</button>
+        <button onClick={resetLoadScript}>Back to Form</button>
       </div>
     );
   }
