@@ -14,13 +14,13 @@ export const metadata: Metadata = {
 export default async function requestAppointment() {
     return (
         <div className='requestHeader'>
-            <Link href="/dashboard">
+            {/* <Link href="/dashboard">
                 <button>Home</button>
             </Link> 
             <Link href="/profile">
                 <button>Profile</button>
             </Link>
-            <SignOut /> 
+            <SignOut />  */}
             <UserClientAppointment />
 
         </div>

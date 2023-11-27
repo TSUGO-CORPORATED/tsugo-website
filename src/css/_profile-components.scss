@@ -2,4 +2,27 @@
     @include flexCenter(column);
     @include card();
     width: 600px;
+    height: 600px;
+}
+
+.profile-header {
+    order: 1;
+    margin-top: 15px;
+    height: 20%;
+}
+
+.profile-p {
+    order: 2;
+    height: 40%;
+    align-self: flex-start;
+    margin-left: 12px;
+}
+
+.profile-button {
+    order: 3;
+    height: 20%;
+    align-self: flex-start;
+    margin: 12px;
+    font-size: 12px;
+    width: 20%;
 }

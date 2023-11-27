@@ -93,9 +93,9 @@ export default function FindRequest() {
 
 
     return (
-        <div>
-            <h1>Check Appointments</h1>
-        <div>
+        <div className='find_request_container'>
+            <h1 className='find_request_header'>Check Appointments</h1>
+        <div className='map_container'>
             
             <LoadScript googleMapsApiKey={apiKey}>
         <GoogleMap
@@ -145,7 +145,7 @@ export default function FindRequest() {
           In-person
         </label>
       </div>
-        <div>
+        <div className='appointment-container'>
         {filteredAppointments.map((appointment) => (
           <div key={appointment.id} onClick={() => showDetails(appointment.id)}>
             <h2>{appointment.title}</h2>

@@ -23,19 +23,18 @@ export default function Profile() {
     // }
 
     return (
-        <div>
+        
         <div className='profile-container'>
-            <h1>User Profile</h1>
-            <p>ID: {userId}</p>
-            <p>First Name: {userFirstName}</p>
-            <p>Last Name: {userLastName}</p>
-            <p>Language:</p>
-        </div>
-        <button>edit</button>
-        <button>delete</button>
-
-        <button>help/supprot</button>
-        <button>Agreement</button>
+            <h1 className='profile-header'>User Profile</h1>
+            <p className='profile-p'>ID: {userId}</p>
+            <p className='profile-p'>First Name: {userFirstName}</p>
+            <p className='profile-p'>Last Name: {userLastName}</p>
+            <p className='profile-p'>Language:</p>
+        
+            <button className='profile-button'>edit</button>
+            <button className='profile-button'>delete</button>
+            <button className='profile-button'>help/supprot</button>
+            <button className='profile-button'>Agreement</button>
         </div>
     );
 }
