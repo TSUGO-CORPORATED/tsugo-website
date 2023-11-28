@@ -13,44 +13,56 @@
   font-weight: bold;
   color: map-get($map: $button-color, $key: text);
   cursor: pointer;
-  box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
+  // box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
   &:hover {
     background-color: map-get($map: $button-color, $key: hover);
   }
 }
 
-@mixin nav-bar() {
-  @include flexCenter(row);
-  justify-content: space-between;
-  background-color: $color-background-green;
-  width: 100%;
-  height: 80px;
+// @mixin nav-bar() {
+//   @include flexCenter(row);
+//   justify-content: space-between;
+//   background-color: $color-background-green;
+//   width: 100%;
+//   height: 80px;
 
 
 
-  &__title {
-    margin-left: 1em;
-    color: $color-text-white;
-    text-decoration: none;
-    font-size: 32px;
-    font-weight: bold;
+//   &__title {
+//     margin-left: 1em;
+//     color: $color-text-white;
+//     text-decoration: none;
+//     font-size: 32px;
+//     font-weight: bold;
 
-    // &.custom-link {
-    //   cursor: none;
-    // }
-  }
+//     // &.custom-link {
+//     //   cursor: none;
+//     // }
+//   }
 
-  &__button {
-    @include flexCenter(row);
-    margin: 1em;
-    gap: 20px;
-  }
-}
+//   &__button {
+//     @include flexCenter(row);
+//     margin: 1em;
+//     gap: 20px;
+//   }
+// }
 
 @mixin card() {
-  background-color: $color-background-light-grey;
+  background-color: $color-background-white;
   border-radius: 10px;
   box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
+}
+
+@mixin block() {
+  background-color: $color-background-white;
+  border-radius: 10px;
+  border: solid $color-background-medium-grey 2px;
+  width: 100%;
+  @include flexCenter(column);
+
+  // &__test {
+
+  // }
 }
 
 @mixin text($font-size, $font-weight) {
