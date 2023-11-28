@@ -91,7 +91,7 @@ const CreateAppointment = () => {
           interpreterSpokenLanguage: desireLanguage, 
           locationLatitude: locationCoordinates?.lat, 
           locationLongitude: locationCoordinates?.lng, 
-          locationDetail: location, 
+          locationName: location, 
           appointmentDateTime: convertedDateTime, 
           appointmentNote: note,    
       };

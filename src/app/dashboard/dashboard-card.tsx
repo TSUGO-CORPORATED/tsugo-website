@@ -17,6 +17,7 @@ export default function DashboardCard(): JSX.Element {
         appointmentType: string,
         clientSpokenLanguage: string;
         interpreterSpokenLanguage: string;
+        locationName: string;
         locationLatitude: number;
         locationLongitude: number;
         appointmentDateTime: Date;
@@ -96,6 +97,7 @@ export default function DashboardCard(): JSX.Element {
                                         <div>{appointment.appointmentType}</div>
                                         <div>{appointment.clientSpokenLanguage}</div>
                                         <div>{appointment.interpreterSpokenLanguage}</div>
+                                        <div>{appointment.locationName}</div>
                                         <div>{appointment.locationLatitude}</div>
                                         <div>{appointment.locationLongitude}</div>
                                         <Link href={{
@@ -137,6 +139,7 @@ export default function DashboardCard(): JSX.Element {
                                         <div>{appointment.appointmentType}</div>
                                         <div>{appointment.clientSpokenLanguage}</div>
                                         <div>{appointment.interpreterSpokenLanguage}</div>
+                                        <div>{appointment.locationName}</div>
                                         <div>{appointment.locationLatitude}</div>
                                         <div>{appointment.locationLongitude}</div>
                                         <Link href={{

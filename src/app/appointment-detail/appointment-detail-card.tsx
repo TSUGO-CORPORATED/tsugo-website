@@ -19,7 +19,7 @@ export default function AppointmentDetailCard(): JSX.Element {
         interpreterSpokenLanguage: string;
         locationLatitude: string | number | null,
         locationLongitude: string | number | null,
-        locationDetail: string | null;
+        locationName: string | null;
         appointmentDateTime: Date;
         appointmentNote: string | null;
         status: string;
@@ -150,7 +150,7 @@ export default function AppointmentDetailCard(): JSX.Element {
                     <div>{appointmentDetail?.interpreterSpokenLanguage}</div>
                     <div>{appointmentDetail?.locationLatitude}</div>
                     <div>{appointmentDetail?.locationLongitude}</div>
-                    <div>{appointmentDetail?.locationDetail}</div>
+                    <div>{appointmentDetail?.locationName}</div>
                     <div>{convertedDateTime}</div>
                     <div>{appointmentDetail?.appointmentNote}</div>
                     <div>{appointmentDetail?.reviewClientRating}</div>

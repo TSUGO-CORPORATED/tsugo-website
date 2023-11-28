@@ -13,6 +13,7 @@ type Appointment = {
     interpreterSpokenLanguage: string;
     translatorUserId: number | null; 
     translatorLanguage: string | undefined; 
+    locationName: string | null;
     locationLatitude: number | null; 
     locationLongitude: number | null; 
     appointmentDateTime: string;
