@@ -88,10 +88,11 @@ export default function EditProfile() {
     }
 
     return (
-        <div className='update-profile-card'>
-            <h1>EditProfile</h1>
+        <div className='edit-profile__card'>
+            <h1 className="edit-profile__header">EditProfile</h1>
+                <div className="updateform">
                 <label>Update First Name</label>
-                <p className='profile-p'>First Name: {userProfile?.firstName}</p>
+                <p className='edit-profile-p'>First Name: {userProfile?.firstName}</p>
                 <input 
                     type='text'
                     id='firstName'
@@ -102,7 +103,7 @@ export default function EditProfile() {
                 <br></br>
 
                 <label>Update Last Name</label>
-                <p className='profile-p'>Last Name: {userProfile?.lastName}</p>
+                <p className='edit-profile-p'>Last Name: {userProfile?.lastName}</p>
                 <input 
                     type='text'
                     id='lasttName'
@@ -110,6 +111,7 @@ export default function EditProfile() {
                     value={lastNameUpdate}
                     defaultValue={userProfile?.lastName}
                 />
+                </div>
                 <br></br>
                
                 
