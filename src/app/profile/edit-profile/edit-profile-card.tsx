@@ -28,7 +28,7 @@ export default function EditProfile() {
     const [userProfile, setUserProfile] = useState<UserDetails | null>();
     const [updated, setUpdated] = useState<Boolean>(false);
     const [firstNameUpdate, setFirstNameUpdate] = useState<string | number | readonly string[] | undefined>("");
-    const [lastNameUpdate, setLastNameUpdate] = useState<String|undefined|null>(userProfile?.lastName);
+    const [lastNameUpdate, setLastNameUpdate] = useState<string | number | readonly string[] | undefined>(userProfile?.lastName);
     const [aboutUpdate, setAboutUpdate] = useState<String|undefined|null>(userProfile?.about);
 
     const dummy = [{id: 69, language: "English", proficiency: "Native"}];
@@ -101,6 +101,7 @@ export default function EditProfile() {
                 />
                 <br></br>
 
+                <label>Update Last Name</label>
                 <p className='profile-p'>Last Name: {userProfile?.lastName}</p>
                 <input 
                     type='text'
@@ -110,11 +111,11 @@ export default function EditProfile() {
                     defaultValue={userProfile?.lastName}
                 />
                 <br></br>
-                <p className='profile-p'>Language: {}</p>
+               
                 
 
                 
                 <button className='edit-profile-button' id='edit-button' onClick={handleUpdate}>Save Changes</button>
-            </div>
+        </div>
     );
 }
