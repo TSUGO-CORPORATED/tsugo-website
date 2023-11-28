@@ -22,7 +22,7 @@ export default function ChatRoomSub(): React.JSX.Element{
     let sendMessage = (message: string) => {
         let date = (new Date()).toISOString();
         const obj = {
-            appointment: 1,
+            appointment: appointmentId,
             user: userId,
             content: message,
             timestamp: date
@@ -34,7 +34,7 @@ export default function ChatRoomSub(): React.JSX.Element{
 
         useEffect(() => {
             socket.current = socketIO("https://senior-project-server-8090ce16e15d.herokuapp.com/"); //TODO: Set env variable  http://localhost:8080
-            socket.current.emit("CONNECT_ROOM", '{"room": 1}'); //TOD: Need buttons for selecting which room you want, default to 1 for now
+            socket.current.emit("CONNECT_ROOM", `{"room": ${appointmentId}}`); //TOD: Need buttons for selecting which room you want, default to 1 for now
 
             socket.current.on("connect", () => {
                 console.log("connected to server!");
