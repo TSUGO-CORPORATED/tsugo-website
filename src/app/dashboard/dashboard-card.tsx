@@ -48,7 +48,7 @@ export default function DashboardCard(): JSX.Element {
         setInterpreterCurrentAppointment(retrievedData.data);
     }
 
-    // Initial Use effect
+    // INITIAL USE EFFECT
     useEffect(() => {
         if (userId !== 0) {
             getClientCurrentAppointment();
@@ -56,26 +56,29 @@ export default function DashboardCard(): JSX.Element {
         }
     }, [userId]);
 
+    // CONDITIONAL CSS CLASS
+    const classRoleSwitch = currentTab === 'Client' ? 'dashboard__card__role-switch__button dashboard__card__role-switch__button__selected' : 'dashboard__card__role-switch__button';
+
     // JSX ELEMENTS
     return (
         <div className='dashboard__card'>
-                <h1>Welcome, {userFirstName} {userLastName}!</h1>
+                {/* <h1>Welcome, {userFirstName} {userLastName}!</h1> */}
                 <div className='dashboard__card__role-switch'>
-                    <button onClick={() => setCurrentTab('Client')} className='dashboard__card__role-switch__button'>Client</button>
-
-                    <button onClick={() => setCurrentTab('Interpreter')} className='dashboard__card__role-switch__button'>Interpreter</button>
+                    <div onClick={() => setCurrentTab('Client')} className={currentTab === 'Client' ? 'dashboard__card__role-switch__button dashboard__card__role-switch__button__selected' : 'dashboard__card__role-switch__button'}>Client</div>
+                    <div onClick={() => setCurrentTab('Interpreter')} className={currentTab === 'Interpreter' ? 'dashboard__card__role-switch__button dashboard__card__role-switch__button__selected' : 'dashboard__card__role-switch__button'}>Interpreter</div>
                 </div>
+                <div className='dashboard__card__separator'></div>
                 {currentTab === 'Client' && (
                     <div className='dashboard__card__role-content'>
                         <div className='dashboard__card__role-content__button-row'>
-                            <Link href="/add-request">
-                                <button className="dashboard__card__role-content__button-row__button">Add Request</button>
+                            <Link href="/add-request" className="dashboard__card__role-content__button-row__button-add-request">
+                                <div>Add Request</div>
                             </Link>
                             <Link href={{
                                 pathname: "/check-history",
-                                query: {slug: "client"}
-                            }}>
-                                <button className="dashboard__card__role-content__button-row__button">History</button>
+                                query: {slug: "client"},
+                            }} className="dashboard__card__role-content__button-row__button-history">
+                                <div>History</div>
                             </Link>
                         </div>
                         <div className='dashboard__card__role-content__appointment-list'>
