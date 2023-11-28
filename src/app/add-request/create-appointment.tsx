@@ -30,7 +30,7 @@ const CreateAppointment = () => {
     try {
 
       const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(location)}&key=${apiKey}`);
-  
+     
       if (response.data.results.length === 0) {
         setError("No results found for the given location.");
         console.error("No results found:", response.data);
@@ -38,6 +38,7 @@ const CreateAppointment = () => {
       }
   
       const { lat, lng } = response.data.results[0].geometry.location;
+      console.log({ lat, lng })
       setLocationCoordinates({ lat, lng });
     } catch (error) {
       console.error("Error fetching coordinates: ", error);
@@ -241,7 +242,7 @@ const CreateAppointment = () => {
             <GoogleMap
               mapContainerStyle={{ width: '400px', height: '400px' }}
               center={{ lat: locationCoordinates.lat, lng: locationCoordinates.lng }}
-              zoom={15}
+              zoom={17}
             >
               <Marker position={{ lat: locationCoordinates.lat, lng: locationCoordinates.lng }} />
             </GoogleMap>
