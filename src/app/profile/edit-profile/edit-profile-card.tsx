@@ -1,10 +1,11 @@
 'use client';
-import React, { useContext, useEffect, useState } from 'react';
-import { ContextVariables } from '../../context-variables';
-import axios from "axios"
-import Link from 'next/link';
+import React, {useContext, useEffect, useState} from "react";
+import { ContextVariables } from "@/context-variables";
+import axios from "axios";
+import Link from "next/link";
 
-export default function Profile() {
+export default function EditProfile() {
+
     interface UserDetails{
         id: number;
         email: string;
@@ -87,34 +88,33 @@ export default function Profile() {
     }
 
     return (
-        
-        <div className='profile-container'>
-            <h1 className='profile-header'>User Profile</h1>
-            <p className='profile-p'>ID: {userProfile?.id}</p>
-            <p className='profile-p'>First Name: {userProfile?.firstName}</p>
-            <p className='profile-p'>Last Name: {userProfile?.lastName}</p>
-            {/* {userProfile?.userLanguage.map((language, index)=> {
-                return (
-                    <div>
-                    <div>{language.id}</div>
-                    <div>{language.language}</div>
-                    <div>{language.proficiency}</div>
-                    </div>
-                )
-            })} */}
-            <p className='profile-p'>Language: {}</p>
-        
-            
-            <Link href="/profile/edit-profile">
-                <div className='profile-button' id='edit-button'>
-                edit
-                </div>
-            </Link>
+        <div className='update-profile-card'>
+            <h1>EditProfile</h1>
+                <label>Update First Name</label>
+                <p className='profile-p'>First Name: {userProfile?.firstName}</p>
+                <input 
+                    type='text'
+                    id='firstName'
+                    onChange={(e) => setFirstNameUpdate(e.target.value)}
+                    value={firstNameUpdate}
+                    defaultValue={userProfile?.firstName}
+                />
+                <br></br>
+
+                <p className='profile-p'>Last Name: {userProfile?.lastName}</p>
+                <input 
+                    type='text'
+                    id='lasttName'
+                    onChange={(e) => setLastNameUpdate(e.target.value)}
+                    value={lastNameUpdate}
+                    defaultValue={userProfile?.lastName}
+                />
+                <br></br>
+                <p className='profile-p'>Language: {}</p>
                 
-            
-            <button className='profile-button'>delete</button>
-            <button className='profile-button'>help/supprot</button>
-            <button className='profile-button'>Agreement</button>
-        </div>
+
+                
+                <button className='edit-profile-button' id='edit-button' onClick={handleUpdate}>Save Changes</button>
+            </div>
     );
 }
