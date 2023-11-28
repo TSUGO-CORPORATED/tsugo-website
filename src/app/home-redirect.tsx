@@ -3,7 +3,7 @@
 // MODULES IMPORT
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import ChatRoomSub from "./chat-room/chat-room-component"
+import ChatRoomSub from "./appointment-detail/chat-room/chat-room-component"
 
 // PAGE COMPONENT
 export default function HomeRedirect(): JSX.Element {

@@ -1,8 +1,8 @@
 'use client';
 import socketIO, { Socket } from "socket.io-client";
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import { ContextVariables } from '../../context-variables';
-
+import { ContextVariables } from '../../../context-variables';
+import { useSearchParams } from 'next/navigation';
 
 
 
@@ -13,6 +13,11 @@ export default function ChatRoomSub(): React.JSX.Element{
     const [error, setError] = useState<any>(null); //TODO: Determine type properly
     const socket = useRef<Socket>();
     const textRef = useRef<HTMLTextAreaElement>(null);
+
+    // SEARCH PARAMS
+    const searchParams = useSearchParams();
+    const appointmentId = searchParams.get('slug');
+    // console.log(appointmentId);
 
     let sendMessage = (message: string) => {
         let date = (new Date()).toISOString();

@@ -96,6 +96,18 @@ export default function History() {
     setSelectedStatus(status);
   };
 
+
+
+
+
+
+
+
+
+
+
+
+  // NOT REQUIRED ANYMORE
   const handleHistoryClick = (id: number) => {
     if (selectedHistoryId === id) {
       setSelectedHistoryId(null);
@@ -129,6 +141,43 @@ export default function History() {
   //   }));
   // };
 
+
+
+  // MIGRATE TO APPOINTMENT DETAIL
+  const handleStatusChange = async (
+    appointmentId: number,
+    newStatus: NewStatus
+  ) => {
+    try {
+      let url;
+      switch (newStatus) {
+        case "Accepted":
+          url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/accept/${appointmentId}/${userId}`;
+          break;
+        case "Cancelled":
+          url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/cancel/${appointmentId}`;
+          break;
+        case "Completed":
+          url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/complete/${appointmentId}`;
+          break;
+        default:
+          return;
+      }
+      await axios.patch(url);
+      alert(`Appointment ${newStatus} successfully!`);
+      // Update local state
+      const updatedAppointments = history.map((appointment) =>
+        appointment.id === appointmentId
+          ? { ...appointment, status: newStatus }
+          : appointment
+      );
+      setHistory(updatedAppointments);
+    } catch (error) {
+      console.error(`Error updating appointment status: `, error);
+      alert("Failed to update appointment status.");
+    }
+  };
+
   // const handleReviewNoteChange = (note: string, appointmentId: number) => {
   //   setReviews((prevReviews) => ({
   //     ...prevReviews,
@@ -138,6 +187,7 @@ export default function History() {
   //     },
   //   }));
   // };
+
 
   // const handleStatusChange = async (
   //   appointmentId: number,
@@ -193,6 +243,11 @@ export default function History() {
   //     console.error("Error submitting rating:", error);
   //   }
   // };
+
+
+
+
+
 
   return (
     <div>
@@ -254,6 +309,15 @@ export default function History() {
                 Location: {eachHistory.location}
               </p>
             )}
+
+
+
+
+
+
+
+
+            {/* MIGRATE TO APPOINTMENT DETAIL */}
             {selectedHistoryId === eachHistory.id && (
               <div className="history__details">
               <Link href={{
@@ -318,6 +382,11 @@ export default function History() {
                 </button>   */}
               </div>
             )}
+
+
+
+
+
           </div>
         ))}
       </div>
