@@ -5,13 +5,12 @@ import { useState, useContext, useEffect } from 'react';
 import { ContextVariables } from '../../context-variables';
 import Link from 'next/link';
 import axios from 'axios';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import format from 'date-fns/format';
-
 
 // PAGE COMPONENT
 export default function AppointmentDetailCard(): JSX.Element {
-    // INTERFACE
+    // TYPESCRIPT DATA TYPES
     interface AppointmentDetail {
         id: number;
         appointmentTitle: string,
@@ -24,11 +23,13 @@ export default function AppointmentDetailCard(): JSX.Element {
         appointmentDateTime: Date;
         appointmentNote: string | null;
         status: string;
+        clientUserId: number;
         clientUser: {
           firstName: string;
           lastName: string;
           profilePicture?: any;
         };
+        interpreterUserId: number | null;
         interpreterUser: {
           firstName: string;
           lastName: string;
@@ -40,14 +41,20 @@ export default function AppointmentDetailCard(): JSX.Element {
         reviewInterpreterNote: string | null,
     } 
 
+    type NewStatus = "Accepted" | "Cancelled" | "Completed";
+
     // SEARCH PARAMS
-    // Retrieving appoint id from search params
     const searchParams = useSearchParams();
     const appointmentId = searchParams.get('slug');
     // console.log(appointmentId);
 
     // STATE VARIABLES
     const [appointmentDetail, setAppointmentDetail] = useState<AppointmentDetail>();
+
+    const router = useRouter();
+
+    // CONTEXT VARIABLES
+    const { userId } = useContext(ContextVariables);
 
     // HELPER FUNCTION
     // Get appointment detail information
@@ -58,20 +65,75 @@ export default function AppointmentDetailCard(): JSX.Element {
         setAppointmentDetail(retrievedData.data);
     }
 
+    async function handleStatusChange(newStatus: NewStatus) {
+        try {
+            // Updating appointment status in the backend server
+            let url;
+            switch (newStatus) {
+                case "Accepted":
+                url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/accept/${appointmentId}/${userId}`;
+                break;
+                case "Cancelled":
+                url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/cancel/${appointmentId}`;
+                break;
+                case "Completed":
+                url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/complete/${appointmentId}`;
+                break;
+                default:
+                return;
+            }
+            await axios.patch(url);
+            alert(`Appointment ${newStatus} successfully!`);
+
+            // Redirect to homepage
+            router.push('/dashboard');
+            
+        } catch (error) {
+          console.error(`Error updating appointment status: `, error);
+          alert("Failed to update appointment status.");
+        }
+    };
+
+    async function test() {
+        console.log(appointmentDetail);
+    }
+    
+    //   const handleSubmitRating = async (appointmentId: number) => {
+    //     try {
+    //       const reviewData = reviews[appointmentId];
+    //       if (!reviewData) {
+    //         alert("Please provide a rating and a review note.");
+    //         return;
+    //       }
+    //       const requestData = {
+    //         reviewRating: reviewData.rating,
+    //         reviewNote: reviewData.note,
+    //       };
+    //       await axios.patch(
+    //         `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/review/${appointmentId}`,
+    //         requestData
+    //       );
+    //       alert("Thank you for Rating!");
+    //     } catch (error) {
+    //       console.error("Error submitting rating:", error);
+    //     }
+    //   };
+
     // Initial Use effect
     useEffect(() => {
         getAppointmentDetail();
-        
     }, []);
 
     // Process date
     const tempDateTime = appointmentDetail?.appointmentDateTime;
     const convertedDateTime = tempDateTime ? format(new Date(tempDateTime), "EEE',' dd MMM yy") : null;
+    
     return (
         <div className='appointment-detail__card'>
             <Link href="/dashboard">
                 <button>Go back to dashboard</button>
             </Link>
+            <button onClick={test}>Test</button>
             <div className='dashboard__card__role-content__appointment-list'>
                 <div className='dashboard__card__role-content__appointment-list__element'>
                     <div>{appointmentDetail?.id}</div>
@@ -95,6 +157,42 @@ export default function AppointmentDetailCard(): JSX.Element {
                     <div>{appointmentDetail?.reviewClientNote}</div>
                     <div>{appointmentDetail?.reviewInterpreterRating}</div>
                     <div>{appointmentDetail?.reviewInterpreterNote}</div>
+                </div>
+                <div>
+                    <p>Buttons</p>
+                    {/* change status button */}
+                    {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId !== userId && (
+                        <>
+                            <button onClick={() => handleStatusChange("Accepted")}>Accept</button>
+                        </>
+                    )}
+                    {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId === userId && (
+                        <>
+                            <button onClick={() => handleStatusChange("Cancelled")}>Cancel</button>
+                        </>
+                    )}
+                    {appointmentDetail?.status === "Accepted" && appointmentDetail.clientUserId === userId && (
+                        <>
+                            <button onClick={() => handleStatusChange("Cancelled")}>Cancel</button>
+                            <button onClick={() => handleStatusChange("Completed")}>Complete</button>
+
+                        </>
+                    )}
+                    {appointmentDetail?.status === "Accepted" && (
+                        <Link href={{
+                            pathname: '/appointment-detail/chat-room',
+                            query: {slug: appointmentDetail?.id}
+                        }}>
+                            <button>Go to chat room</button>
+                        </Link>
+                    )}
+                    {appointmentDetail?.status === "Complete" 
+                    && ((userId === appointmentDetail.clientUserId && appointmentDetail.reviewClientRating === null) || (userId === appointmentDetail.interpreterUserId && appointmentDetail.reviewInterpreterRating === null))
+                    && (
+                        <>
+                            <Link href="/appointment-detail/review"><button>Add review</button></Link>
+                        </>
+                    )}
                 </div>
             </div>
         </div>

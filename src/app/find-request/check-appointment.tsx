@@ -38,10 +38,9 @@ export default function FindRequest() {
     useEffect(() => {
         const fetchAppointments = async () => {
           try {
-            // console.log(userId)
-            const url ="https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/find/"+userId
-            // console.log(url)
-            const response = await axios.get(url);
+
+            const response = await axios.get(`https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/find/${userId}`);
+
             setAppointments(response.data);
           } catch (error) {
             console.error('Error fetching appointments:', error);

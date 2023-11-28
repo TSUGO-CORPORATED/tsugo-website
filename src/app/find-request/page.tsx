@@ -7,7 +7,7 @@ import FindRequest from './check-appointment';
 
 // PAGE NAME
 export const metadata: Metadata = {
-    title: 'Translator',
+    title: 'Find appointment',
 }
 
 // PAGE COMPONENT
