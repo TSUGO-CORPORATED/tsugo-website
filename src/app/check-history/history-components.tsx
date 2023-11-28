@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 
 //TYPESCRIPT THING
 type Appointment = {
-  id: number;
+  id: number; 
   status: string; 
   clientUserId: number;
   clientSpokenLanguage: string;
