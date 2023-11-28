@@ -190,7 +190,15 @@ export default function AppointmentDetailCard(): JSX.Element {
                     && ((userId === appointmentDetail.clientUserId && appointmentDetail.reviewClientRating === null) || (userId === appointmentDetail.interpreterUserId && appointmentDetail.reviewInterpreterRating === null))
                     && (
                         <>
-                            <Link href="/appointment-detail/review"><button>Add review</button></Link>
+                            <Link href={{
+                                pathname: '/appointment-detail/review',
+                                query: {
+                                    appointmentId: appointmentDetail?.id,
+                                    role: userId === appointmentDetail.clientUserId ? 'client': 'interpreter',
+                                }
+                            }}>
+                                <button>Add review</button>
+                            </Link>
                         </>
                     )}
                 </div>
