@@ -72,7 +72,7 @@ export default function DashboardCard(): JSX.Element {
                                 <button className="dashboard__card__role-content__button-row__button">Add Request</button>
                             </Link>
                             <Link href={{
-                                pathname: "/history",
+                                pathname: "/check-history",
                                 query: {slug: "client"}
                             }}>
                                 <button className="dashboard__card__role-content__button-row__button">History</button>
@@ -114,7 +114,7 @@ export default function DashboardCard(): JSX.Element {
                                 <button className="dashboard__card__role-content__button-row__button">Find Request</button>
                             </Link>
                             <Link href={{
-                                pathname: "/history",
+                                pathname: "/check-history",
                                 query: {slug: "interpreter"}
                             }}>
                                 <button className="dashboard__card__role-content__button-row__button">History</button>
