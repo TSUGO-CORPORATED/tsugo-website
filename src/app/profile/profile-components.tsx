@@ -1,11 +1,27 @@
 'use client';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ContextVariables } from '../../context-variables';
 import axios from "axios"
 import Link from 'next/link';
 
 export default function Profile() {
+    const url: string = 'https://senior-project-server-8090ce16e15d.herokuapp.com/user/';
     const { userId, userFirstName, userLastName } = useContext(ContextVariables);
+    const [userProfile, setUserProfile] = useState<Object>({});
+
+    const serverProfile = async () => {
+        try {
+            const fetchUserProfile = await axios.get(url + userId);
+            setUserProfile(fetchUserProfile);
+            console.log("user profile: ", fetchUserProfile)
+        } catch(error) {
+            console.log("error: ", error);
+        }
+    } 
+
+    useEffect(() => {
+        serverProfile();
+    }, []);
 
     //Fetch User Rating from backend Maybe Divide Translator rating /Client Rating?
     // useEffect(() => {
