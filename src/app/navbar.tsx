@@ -11,9 +11,9 @@ export default function Navbar() {
                 </Link>
             </li> 
             
-            <li><a href='logout-navbar' className='logout-navbar'>
+            <li><Link href="/log-in" className='logout-navbar'>
                     <div><SignOut /></div>
-                </a>
+                </Link>
             </li>
             <li className='profile-navbar'>
                 <Link href="/profile">
