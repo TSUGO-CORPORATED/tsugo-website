@@ -62,7 +62,7 @@ export default function DashboardCard(): JSX.Element {
                 <h1>Welcome, {userFirstName} {userLastName}!</h1>
                 <div className='dashboard__card__role-switch'>
                     <button onClick={() => setCurrentTab('Client')} className='dashboard__card__role-switch__button'>Client</button>
-                    <button onClick={() => setCurrentTab('Translator')} className='dashboard__card__role-switch__button'>Translator</button>
+                    <button onClick={() => setCurrentTab('Translator')} className='dashboard__card__role-switch__button'>Interpreter</button>
                 </div>
                 {currentTab === 'Client' && (
                     <div className='dashboard__card__role-content'>
@@ -70,7 +70,10 @@ export default function DashboardCard(): JSX.Element {
                             <Link href="/add-request">
                                 <button className="dashboard__card__role-content__button-row__button">Add Request</button>
                             </Link>
-                            <Link href="/history">
+                            <Link href={{
+                                pathname: "/history",
+                                query: {slug: "client"}
+                            }}>
                                 <button className="dashboard__card__role-content__button-row__button">History</button>
                             </Link>
                         </div>
@@ -103,7 +106,10 @@ export default function DashboardCard(): JSX.Element {
                             <Link href="/find-request">
                                 <button className="dashboard__card__role-content__button-row__button">Find Request</button>
                             </Link>
-                            <Link href="/history">
+                            <Link href={{
+                                pathname: "/history",
+                                query: {slug: "interpreter"}
+                            }}>
                                 <button className="dashboard__card__role-content__button-row__button">History</button>
                             </Link>
                             <div className='dashboard__card__role-content__appointment-list'>

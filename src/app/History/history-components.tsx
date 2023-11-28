@@ -3,6 +3,7 @@ import React, { useEffect, useState, useContext } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { ContextVariables } from "../../context-variables";
+import { useSearchParams } from 'next/navigation';
 
 //TYPESCRIPT THING
 type Appointment = {
@@ -10,7 +11,7 @@ type Appointment = {
   status: string;
   clientUserId: number;
   clientSpokenLanguage: string;
-  clientDesiredLanguage: string;
+  interpreterSpokenLanguage: string;
   translatorUserId: number | null;
   translatorLanguage: string | undefined;
   locationLatitude: number | null;
@@ -20,8 +21,8 @@ type Appointment = {
   reviewRating: number | null;
   reviewNote: string | null;
   location: string | undefined;
-  title: string;
-  interpretationType: string;
+  appointmentTitle: string;
+  appointmentType: string;
 };
 
 type ReviewData = {
@@ -46,14 +47,23 @@ export default function History() {
   const [selectedReviewRating, setSelectedReviewRating] = useState<number | null>(null);
   const [selectedReviewNote, setSelectedReviewNote] = useState<string>("");
   const { userId } = useContext(ContextVariables);
+  
+  const searchParams = useSearchParams();
+  const role = searchParams.get('slug');
 
   //USEEFFECT TO GET HISTORY DATA FROM BACKEND
   useEffect(() => {
     const fetchHistory = async () => {
       try {
+        console.log(userId)
+        
+        const timeframe = "hisotry"; 
+        const url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/${role}/${timeframe}/${userId}`;
         const response = await axios.get(
-          "https://senior-project-server-8090ce16e15d.herokuapp.com/appointment"
+          url
         );
+        console.log(url);
+        console.log(response.data);
         setHistory(response.data);
       } catch (error) {
         console.error("Error fetching History:", error);
@@ -65,12 +75,12 @@ export default function History() {
   const getFilteredHistory = () => {
     return history.filter((eachHistory) => {
       const dateTimeLower = eachHistory.appointmentDateTime.toLowerCase();
-      const titleLower = eachHistory.title?.toLowerCase();
+      const titleLower = eachHistory.appointmentTitle?.toLowerCase();
       const desireLanguageLower =
-        eachHistory.clientDesiredLanguage?.toLowerCase();
+        eachHistory.interpreterSpokenLanguage?.toLowerCase();
       const communicateLanguageLower =
         eachHistory.clientSpokenLanguage?.toLowerCase();
-      const locationString = `${eachHistory.locationLatitude}, ${eachHistory.locationLongitude}`;
+      const locationString = eachHistory.location?.toLowerCase();
 
       const searchMatch =
         searchTerm === "" ||
@@ -78,7 +88,7 @@ export default function History() {
         titleLower.includes(searchTerm.toLowerCase()) ||
         desireLanguageLower.includes(searchTerm.toLowerCase()) ||
         communicateLanguageLower.includes(searchTerm.toLowerCase()) ||
-        locationString.includes(searchTerm);
+        locationString?.includes(searchTerm.toLowerCase());
 
       const statusMatch =
         selectedStatus === "" || eachHistory.status === selectedStatus;
@@ -203,12 +213,12 @@ export default function History() {
         onChange={(e) => setSearchTerm(e.target.value)}
       />
       <div>
-        <button
+        {/* <button
           className="history__requesting__button"
           onClick={() => handleStatusFilter("Requested")}
         >
           Requesting
-        </button>
+        </button> */}
         <button
           className="history__ongoing__button"
           onClick={() => handleStatusFilter("Accepted")}
@@ -241,13 +251,13 @@ export default function History() {
             className="history__list__block"
             onClick={() => handleHistoryClick(eachHistory.id)}
           >
-            <p className="history__title">Title: {eachHistory.title}</p>
+            <p className="history__title">Title: {eachHistory.appointmentTitle}</p>
             <p className="history__when">
               Date and Time: {timeConvert(eachHistory.appointmentDateTime)}
             </p>
             <p className="history__status">Status: {eachHistory.status}</p>
             <p className="history__interpretationType">
-              Interpretation Type: {eachHistory.interpretationType}
+              Interpretation Type: {eachHistory.appointmentType}
             </p>
             {eachHistory.location && (
               <p className="history__location">

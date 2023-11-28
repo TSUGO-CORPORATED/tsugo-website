@@ -15,29 +15,19 @@ export default function Rating() {
     return (
         <div>
             <h1>Rating</h1>
-            {[...Array(5)].map((star, index) => {
-                const ratingValue = (index + 1) * 2;
-                return (
-                    <label key={index}>
-                        <input 
-                            type="radio" 
-                            name="rating" 
-                            value={ratingValue} 
-                            // onClick={() => handleClick(ratingValue)}
-                        /> 
-                        <span 
-                            className="star"
-                            onMouseEnter={() => setHover(ratingValue)}
-                            onMouseLeave={() => setHover(0)}
-                            style={{ color: hover >= ratingValue || rating >= ratingValue ? "gold" : "lightgray" }}
-                        >
-                            &#9733;
-                        </span>
-                    </label>
-                );
-            })}
-            <p>The rating is: {rating / 5}</p>
+            <div>
+            <h1>Rating</h1>
+            <select value={rating} onChange={(e) => setRating(Number(e.target.value))}>
+                <option value="0">Select Rating...</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <p>The rating is: {rating}</p>
             <button>Submit</button>
+            </div>
         </div>
     );
 }
