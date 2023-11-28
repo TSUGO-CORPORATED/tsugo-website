@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState, useContext  } from 'react';
 import axios from 'axios';
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import { ContextVariables } from "../../context-variables";
 import Link from 'next/link';
 
@@ -32,6 +32,7 @@ export default function FindRequest() {
     const [currentPosition, setCurrentPosition] = useState({ lat: 35.6895, lng: 139.6917 });
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
+    const [selectedMarker, setSelectedMarker] = useState(null);
     const apiKey = process.env.REACT_APP_GOOGLE_API_KEY ||  "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM";
     const { userId } = useContext(ContextVariables);
 
@@ -116,7 +117,7 @@ export default function FindRequest() {
         <GoogleMap
           mapContainerStyle={mapSize}
           center={currentPosition}
-          zoom={10} 
+          zoom={14} 
         >
           {appointments.map((appointment) => (
             appointment.locationLatitude && appointment.locationLongitude && (

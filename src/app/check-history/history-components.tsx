@@ -57,11 +57,13 @@ export default function History() {
       try {
         console.log(userId)
         
-        const timeframe = "hisotry"; 
+        const timeframe = "history"; 
+        // const timeframe =  "current";
         const url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/${role}/${timeframe}/${userId}`;
         const response = await axios.get(
           url
         );
+        console.log(role)
         console.log(url);
         console.log(response.data);
         setHistory(response.data);
@@ -105,13 +107,6 @@ export default function History() {
   const handleStatusFilter = (status: StatusFilter) => {
     setSelectedStatus(status);
   };
-
-
-
-
-
-
-
 
 
 
