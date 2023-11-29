@@ -801,7 +801,7 @@ h1 {
   background-color: white;
 }
 
-ul {
+.navbar-ul {
   list-style-type: none;
   margin: 0;
   padding: 12px;
@@ -825,7 +825,7 @@ ul {
   padding-right: 0;
 }
 
-li a {
+.navbar-li a, .logo-navbar a, .profile-navbar a {
   display: block;
   padding: 8px 24px;
   text-align: center;
@@ -833,7 +833,7 @@ li a {
   color: white;
 }
 
-li a:hover {
+.navbar-li a:hover, .logo-navbar a:hover, .profile-navbar a:hover {
   background-color: gray;
 }
 
