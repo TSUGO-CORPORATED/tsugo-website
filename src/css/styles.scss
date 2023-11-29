@@ -1,0 +1,23 @@
+// Import general items
+@import './resets';
+@import './_variables';
+@import './mixins';
+
+// CSS per page
+@import './log-in';
+@import './sign-up';
+@import './dashboard';
+@import './profile';
+@import './profile-components';
+@import './add-request';
+@import './find-request';
+@import './edit-profile';
+@import './chat-room';
+@import './appointment-block';
+@import './history';
+@import './appointment-detail-card';
+
+
+
+//CSS Global Component
+@import './navbar';

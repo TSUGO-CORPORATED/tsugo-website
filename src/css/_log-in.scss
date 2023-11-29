@@ -1,0 +1,100 @@
+.log-in {
+  @include flexCenter(column);
+  height: 100vh;
+  width: 100vw;
+  background-color: $color-background-black;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
+
+  &__card {
+    @include flexCenter(column);
+    @include card();
+    width: 600px;
+
+    &__logo {
+      @include flexCenter(column);
+      margin-top: 2em;
+
+      &__picture {
+        width: 7em;
+        height: 7em;
+      }
+
+      &__text {
+        font-family: 'Playpen Sans', cursive;
+        font-size: 32px;
+      }
+    }
+  
+    &__title {
+      @include text(large, large);
+      margin-top: 1em;
+      margin-bottom: 0.3em;
+      font-size: 32px;
+      order: 1;
+    }
+
+    &__form {
+      @include flexCenter(column);
+      width: 75%;
+      order: 2;
+      
+      &__box {
+        justify-content: left;
+        @include flexCenter(column);
+        text-align: left; 
+        // align-items: ;
+        width: 100%;
+        text-align: left;
+  
+        &__label {
+          width: 100%;
+          margin-top: 1em;
+          margin-bottom: 0.5em;
+          
+          @include text(regular, regular);
+          // font-size: 30px;
+          // color:red;
+        }
+  
+        &__input {
+          padding: 1em;
+          // margin-top: 0.5em;
+          // margin-bottom: 0.5em;
+          @include text(medium, regular );
+          height: 100%;
+          width: 100%;
+          box-sizing: border-box;
+          // text-align: left;
+        }
+
+        &__log-in-button {
+          @include button($color-button-black);
+          font-size: 20px;
+          margin-top: 2em;
+          width: 100%;
+        }
+      }
+    }
+  
+    &__sign-up {
+      @include flexCenter(column);
+      margin: 1em;
+      order: 3;
+  
+      &__link {
+        width: 100%;
+        color: $color-link-initial;
+        font-weight: bold;
+        margin-top: 0.3em;
+        margin-bottom: 0.8em;
+  
+        &:hover {
+          color: $color-link-hover;
+        }
+      }
+    }
+  }
+}

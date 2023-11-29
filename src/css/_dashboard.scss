@@ -1,0 +1,103 @@
+.dashboard {
+  @include flexCenter(column);
+  height: 100vh;
+  width: 100vw;
+  // background-color: $color-background-black;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
+
+  &__card {
+    @include flexCenter(column);
+    @include card();
+    justify-content: flex-start;
+    width: 75%;
+    height: 75%;
+
+    &__role-switch {
+      @include flexCenter(row);
+      justify-content: space-around;
+      height: 15%;
+      width: 100%;
+      // order: 1;
+
+      &__button {
+        @include flexCenter(column);
+        font-weight: bold;
+        font-size: 24px;
+        width: 40%;
+        height: 100%;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $color-background-light-grey;
+        }
+
+        &__selected {
+          border-bottom: solid black 5px;
+        }
+      }
+    }
+
+    &__separator {
+      width: 100%;
+      height: 1px;
+      background-color: $color-background-medium-grey;
+      margin-bottom: 3%;
+    }
+
+    &__role-content {
+      height: 75%;
+      width: 90%;
+      // order: 3;
+
+      &__button-row {
+        @include flexCenter(row);
+        justify-content: space-around;
+        height: 8%;
+        width: 100%;
+        margin-bottom: 5%;
+        
+        &__button-request {
+          @include flexCenter(row);
+          text-decoration: none;
+          @include button($color-button-black);
+          width: 30%;
+          height: 100%;
+        }
+
+        &__button-history {
+          @include flexCenter(row);
+          text-decoration: none;
+          @include button($color-button-white);
+          width: 30%;
+          height: 100%;
+        }
+      }
+
+      &__list-title {
+        @include flexCenter(row);
+        // justify-content: flex-start;
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 2%;
+      }
+
+      &__appointment-list {
+        // border: 1px solid black;
+        @include flexCenter(column);
+        justify-content: flex-start;
+        width: 100%;
+        height: 75%;
+        overflow-y: auto;
+      }
+    }
+  }
+}
+
+// h1 {
+//   margin-top: 15px;
+//   height: 20%;
+//   order: 2;
+// }

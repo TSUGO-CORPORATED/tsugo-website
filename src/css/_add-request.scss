@@ -1,0 +1,154 @@
+.add_request, .confirm_section {
+    background-image: url('../../public/tokyo.jpg');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: auto;
+  }
+  
+  .add_request_container  {
+    background-color: white;
+    width: 75%;
+    max-height: 75%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10vh; 
+    overflow: auto; 
+  }
+  .confirm_section_container{
+    background-color: white;
+    width: 75%;
+    padding: 40px;
+    word-wrap: break-word;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: center;
+    margin-top: 10vh; 
+    overflow: auto; 
+  }
+  
+  .add_request_title {
+    color: black;
+    font-size: 24px; 
+    text-overflow: ellipsis; 
+    white-space: nowrap; 
+    margin-top: 20vh; 
+    margin-bottom: 10px;
+    order: -1;
+  }
+  .confirm_title {
+    color: black;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .add_request_form, .confirm_section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .add_request_box, .confirm_detail {
+    margin: 10px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .add_request_label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .add_request_input, .add_request_textarea, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  .add_request_agree{color: red}
+  
+  .add_request_submit_button, .add_request_cancel_button, .confirm_send_btn, .confirm_back_btn {
+    padding: 10px 20px;
+    font-weight: bold;
+    width:45%;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    &:hover {
+      background-color: #8f8f8f;
+    }
+  }
+  
+  .add_request_cancel_button, .confirm_back_btn {
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+  }
+  
+  .button_group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .confirm_detail {
+    // display: flex;
+    // align-items: center;
+    font-size: 16px;
+    color: black;
+    margin-bottom: 5px;
+  
+    .confirm_appointmentTitle,
+    .confirm_dateTime,
+    .confirm_location,
+    .confirm_desire,
+    .confirm_communication,
+    .confirm_type,
+    .confirm_note {
+      margin-left: 10px;
+      font-weight: bold;
+    }
+  }
+  .button_box {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px; 
+  
+    .confirm_send_btn, .confirm_back_btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: black;
+      color: white;
+      margin: 0 10px; 
+  
+      &:hover {
+        background-color: #333;
+      }
+  
+      &:last-child {
+        background-color: white;
+        color: black;
+        border: 1px solid #ccc;
+      }
+    }
+  }

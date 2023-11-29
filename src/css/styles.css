@@ -1,0 +1,965 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.log-in {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: #000000;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
+}
+.log-in__card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 10px;
+  width: 600px;
+}
+.log-in__card__logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2em;
+}
+.log-in__card__logo__picture {
+  width: 7em;
+  height: 7em;
+}
+.log-in__card__logo__text {
+  font-family: "Playpen Sans", cursive;
+  font-size: 32px;
+}
+.log-in__card__title {
+  font-size: 28px;
+  margin-top: 1em;
+  margin-bottom: 0.3em;
+  font-size: 32px;
+  order: 1;
+}
+.log-in__card__form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 75%;
+  order: 2;
+}
+.log-in__card__form__box {
+  justify-content: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
+  text-align: left;
+}
+.log-in__card__form__box__label {
+  width: 100%;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-size: 14px;
+  font-weight: 400;
+}
+.log-in__card__form__box__input {
+  padding: 1em;
+  font-size: 18px;
+  font-weight: 400;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+.log-in__card__form__box__log-in-button {
+  border: solid black 1px;
+  padding: 12px;
+  border-radius: 12px;
+  background-color: #000000;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 20px;
+  margin-top: 2em;
+  width: 100%;
+}
+.log-in__card__form__box__log-in-button:hover {
+  background-color: #1f1e1e;
+}
+.log-in__card__sign-up {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 1em;
+  order: 3;
+}
+.log-in__card__sign-up__link {
+  width: 100%;
+  color: blue;
+  font-weight: bold;
+  margin-top: 0.3em;
+  margin-bottom: 0.8em;
+}
+.log-in__card__sign-up__link:hover {
+  color: #7e9ae6;
+}
+
+.sign-up {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: #000000;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
+}
+.sign-up__card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 10px;
+  width: 600px;
+}
+.sign-up__card__title {
+  font-size: 28px;
+  margin-top: 1em;
+  margin-bottom: 0em;
+  font-size: 32px;
+  order: 1;
+}
+.sign-up__card__form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 75%;
+  order: 2;
+}
+.sign-up__card__form__box {
+  justify-content: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+.sign-up__card__form__box__label {
+  width: 100%;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-size: 14px;
+  font-weight: 400;
+}
+.sign-up__card__form__box__input {
+  padding: 1em;
+  font-size: 18px;
+  font-weight: 400;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+.sign-up__card__form__box__sign-up-button {
+  border: solid black 1px;
+  padding: 12px;
+  border-radius: 12px;
+  background-color: #000000;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 20px;
+  margin-top: 1.5em;
+  width: 100%;
+}
+.sign-up__card__form__box__sign-up-button:hover {
+  background-color: #1f1e1e;
+}
+.sign-up__card__log-in-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  color: blue;
+  font-weight: bold;
+  margin-top: 0.7em;
+  margin-bottom: 0.8em;
+  order: 3;
+}
+.sign-up__card__log-in-link:hover {
+  color: #7e9ae6;
+}
+
+.dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
+}
+.dashboard__card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 10px;
+  justify-content: flex-start;
+  width: 75%;
+  height: 75%;
+}
+.dashboard__card__role-switch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 15%;
+  width: 100%;
+}
+.dashboard__card__role-switch__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 24px;
+  width: 40%;
+  height: 100%;
+  cursor: pointer;
+}
+.dashboard__card__role-switch__button:hover {
+  background-color: #f3f3f3;
+}
+.dashboard__card__role-switch__button__selected {
+  border-bottom: solid black 5px;
+}
+.dashboard__card__separator {
+  width: 100%;
+  height: 1px;
+  background-color: #cfcfcf;
+  margin-bottom: 3%;
+}
+.dashboard__card__role-content {
+  height: 75%;
+  width: 90%;
+}
+.dashboard__card__role-content__button-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 8%;
+  width: 100%;
+  margin-bottom: 5%;
+}
+.dashboard__card__role-content__button-row__button-request {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  text-decoration: none;
+  border: solid black 1px;
+  padding: 12px;
+  border-radius: 12px;
+  background-color: #000000;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+  width: 30%;
+  height: 100%;
+}
+.dashboard__card__role-content__button-row__button-request:hover {
+  background-color: #1f1e1e;
+}
+.dashboard__card__role-content__button-row__button-history {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  text-decoration: none;
+  border: solid black 1px;
+  padding: 12px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  font-weight: bold;
+  color: #000000;
+  cursor: pointer;
+  width: 30%;
+  height: 100%;
+}
+.dashboard__card__role-content__button-row__button-history:hover {
+  background-color: #cccccc;
+}
+.dashboard__card__role-content__list-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 2%;
+}
+.dashboard__card__role-content__appointment-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  height: 75%;
+  overflow-y: auto;
+}
+
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: #000000;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
+}
+
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 10px;
+  width: 600px;
+  height: 600px;
+  align-items: center;
+}
+
+.profile-header {
+  order: 1;
+  margin-top: 15px;
+  height: 20%;
+}
+
+.profile-pic {
+  order: 2;
+  border-radius: 50%;
+}
+
+.profile-p {
+  order: 2;
+  height: 40%;
+  align-self: center;
+  margin-left: 12px;
+}
+
+.edit-link {
+  order: 3;
+  align-self: center;
+  border: 1px solid black;
+  margin: 12px;
+  font-size: 12px;
+  color: black;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  background-color: lightgray;
+}
+
+#edit-button {
+  align-self: center;
+}
+
+.profile-button {
+  order: 3;
+  height: 20%;
+  align-self: center;
+  margin: 12px;
+  font-size: 12px;
+  width: 20%;
+}
+
+.add_request, .confirm_section {
+  background-image: url("../../public/tokyo.jpg");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: auto;
+}
+
+.add_request_container {
+  background-color: white;
+  width: 75%;
+  max-height: 75%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10vh;
+  overflow: auto;
+}
+
+.confirm_section_container {
+  background-color: white;
+  width: 75%;
+  padding: 40px;
+  word-wrap: break-word;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 10vh;
+  overflow: auto;
+}
+
+.add_request_title {
+  color: black;
+  font-size: 24px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 20vh;
+  margin-bottom: 10px;
+  order: -1;
+}
+
+.confirm_title {
+  color: black;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.add_request_form, .confirm_section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add_request_box, .confirm_detail {
+  margin: 10px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.add_request_label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.add_request_input, .add_request_textarea, select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.add_request_agree {
+  color: red;
+}
+
+.add_request_submit_button, .add_request_cancel_button, .confirm_send_btn, .confirm_back_btn {
+  padding: 10px 20px;
+  font-weight: bold;
+  width: 45%;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+}
+.add_request_submit_button:hover, .add_request_cancel_button:hover, .confirm_send_btn:hover, .confirm_back_btn:hover {
+  background-color: #8f8f8f;
+}
+
+.add_request_cancel_button, .confirm_back_btn {
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+}
+
+.button_group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.confirm_detail {
+  font-size: 16px;
+  color: black;
+  margin-bottom: 5px;
+}
+.confirm_detail .confirm_appointmentTitle,
+.confirm_detail .confirm_dateTime,
+.confirm_detail .confirm_location,
+.confirm_detail .confirm_desire,
+.confirm_detail .confirm_communication,
+.confirm_detail .confirm_type,
+.confirm_detail .confirm_note {
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.button_box {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+.button_box .confirm_send_btn, .button_box .confirm_back_btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  margin: 0 10px;
+}
+.button_box .confirm_send_btn:hover, .button_box .confirm_back_btn:hover {
+  background-color: #333;
+}
+.button_box .confirm_send_btn:last-child, .button_box .confirm_back_btn:last-child {
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+}
+
+.find-request {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
+}
+.find-request__card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  justify-content: flex-start;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  width: 75%;
+  height: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.find-request__card__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 36px;
+  height: 10%;
+}
+.find-request__card__filter {
+  height: 10%;
+}
+.find-request__card__map-container {
+  width: 90%;
+  height: 50%;
+}
+.find-request__card__appointment-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  height: 30%;
+  overflow-y: auto;
+}
+.find-request__card__appointment-container__appointment {
+  border: 1px solid black;
+}
+
+.edit-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: #000000;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
+}
+.edit-profile__card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 10px;
+  width: 600px;
+  height: 600px;
+}
+.edit-profile__header {
+  order: 1;
+  margin-top: 15px;
+  height: 10%;
+}
+
+.edit-profile-p {
+  order: 2;
+  height: 10%;
+  margin-left: 12px;
+}
+
+.updateform {
+  order: 3;
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  width: 100%;
+  align-items: center;
+}
+
+.edit-profile-button {
+  order: 4;
+  align-self: center;
+  margin: 12px;
+  font-size: 12px;
+  width: 20%;
+  height: 10%;
+}
+
+.chat-room {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: #000000;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
+}
+
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: 500px;
+  margin: 0px;
+  padding: 10px;
+  background-color: white;
+  gap: 10px;
+}
+
+.messageContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-room-message {
+  position: relative;
+}
+
+.chat-room-text-input {
+  width: 600px;
+  height: 60px;
+  margin: 0px;
+  resize: none;
+}
+
+.chat-room-send-button {
+  height: 30px;
+  width: 600px;
+  justify-content: left;
+  align-self: left;
+}
+
+.appointment-block {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: solid #cfcfcf 2px;
+  width: 100%;
+  height: 100px;
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+.appointment-block__info {
+  width: 90%;
+}
+.appointment-block__info__row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+}
+.appointment-block__info__row__piece {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.appointment-block__info__row__piece__label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+.appointment-block__detail {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: #000000;
+  height: 100%;
+  padding: auto;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  color: white;
+  text-decoration: none;
+}
+.appointment-block__detail:hover {
+  background-color: #1f1e1e;
+}
+
+.history {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
+}
+.history__card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  justify-content: flex-start;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  width: 75%;
+  height: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.history__card__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 36px;
+  height: 10%;
+}
+.history__card__filter {
+  height: 10%;
+}
+.history__card__appointment-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  height: 80%;
+  overflow-y: auto;
+}
+
+.appointment_detail_page {
+  background-image: url("../../public/tokyo.jpg");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: auto;
+}
+
+.appointment_detail__card {
+  background-color: white;
+  width: 80%;
+  max-height: 90vh;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.appointment_detail__content {
+  width: 80%;
+  overflow-y: auto;
+  margin-right: 10px;
+}
+
+.appointment_detail__id,
+.appointment_detail__status,
+.appointment_detail__title,
+.appointment_detail__type,
+.appointment_detail__client_firstname,
+.appointment_detail__client_lastname,
+.appointment_detail__client_profile_picture,
+.appointment_detail__client_spoken_language,
+.appointment_detail__interpreter_firstname,
+.appointment_detail__interpreter_lastname,
+.appointment_detail__interpreter_profile_picture,
+.appointment_detail__interpreter_spoken_language,
+.appointment_detail__location_name,
+.appointment_detail__converted_date_time,
+.appointment_detail__note,
+.appointment_detail__review_client_rating,
+.appointment_detail__review_client_note,
+.appointment_detail__review_interpreter_rating,
+.appointment_detail__review_interpreter_note {
+  display: flex;
+  align-items: center;
+}
+.appointment_detail__id .appointment_detail__label + *,
+.appointment_detail__status .appointment_detail__label + *,
+.appointment_detail__title .appointment_detail__label + *,
+.appointment_detail__type .appointment_detail__label + *,
+.appointment_detail__client_firstname .appointment_detail__label + *,
+.appointment_detail__client_lastname .appointment_detail__label + *,
+.appointment_detail__client_profile_picture .appointment_detail__label + *,
+.appointment_detail__client_spoken_language .appointment_detail__label + *,
+.appointment_detail__interpreter_firstname .appointment_detail__label + *,
+.appointment_detail__interpreter_lastname .appointment_detail__label + *,
+.appointment_detail__interpreter_profile_picture .appointment_detail__label + *,
+.appointment_detail__interpreter_spoken_language .appointment_detail__label + *,
+.appointment_detail__location_name .appointment_detail__label + *,
+.appointment_detail__converted_date_time .appointment_detail__label + *,
+.appointment_detail__note .appointment_detail__label + *,
+.appointment_detail__review_client_rating .appointment_detail__label + *,
+.appointment_detail__review_client_note .appointment_detail__label + *,
+.appointment_detail__review_interpreter_rating .appointment_detail__label + *,
+.appointment_detail__review_interpreter_note .appointment_detail__label + * {
+  margin-left: 8px;
+}
+
+.appointment_detail__buttons button {
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.appointment_detail__buttons button:hover {
+  background-color: #555;
+}
+
+.appointment_detail__label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.navbar-ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 12px;
+  overflow: hidden;
+  background-color: black;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 24px;
+  height: 64px;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  border-bottom-width: 0;
+  border-style: solid;
+  border-bottom-color: #e2e2e2;
+  z-index: 2002;
+  box-sizing: border-box;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.navbar-li a, .logo-navbar a, .profile-navbar a {
+  display: block;
+  padding: 8px 24px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+}
+
+.navbar-li a:hover, .logo-navbar a:hover, .profile-navbar a:hover {
+  background-color: gray;
+}
+
+.logo-navbar {
+  float: left;
+}
+
+.profile-navbar, .logout-navbar, .avatar-navbar {
+  float: right;
+}
+
+.avatar-navbar {
+  height: 42px;
+  width: 42px;
+}
+
+.navbar-avatar {
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+}/*# sourceMappingURL=styles.css.map */

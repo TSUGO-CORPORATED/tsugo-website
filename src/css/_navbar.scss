@@ -1,0 +1,54 @@
+.navbar-ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 12px;
+    overflow: hidden;
+    background-color: black;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 24px;
+    height: 64px;
+    padding-bottom: 12px;
+    padding-top: 12px;
+    border-bottom-width: 0;
+    border-style: solid;
+    border-bottom-color: #e2e2e2;
+    z-index: 2002;
+    box-sizing: border-box;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.navbar-li a, .logo-navbar a, .profile-navbar a {
+    display: block;
+    padding: 8px 24px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+}
+
+.navbar-li a:hover, .logo-navbar a:hover, .profile-navbar a:hover {
+    background-color: gray;
+}
+
+.logo-navbar {
+    float: left;
+}
+
+.profile-navbar, .logout-navbar, .avatar-navbar {
+    float: right;
+}
+
+.avatar-navbar {
+    height: 42px;
+    width: 42px;
+}
+
+.navbar-avatar {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+}

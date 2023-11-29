@@ -1,0 +1,47 @@
+.edit-profile {
+    @include flexCenter(column);
+    height: 100vh;
+    width: 100vw;
+    background-color: $color-background-black;
+    background-image: url(../../public/tokyo.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 40%;
+
+    &__card {
+        @include flexCenter(column);
+        @include card();
+        width: 600px;
+        height: 600px; 
+    }
+
+    &__header {
+        order: 1;
+        margin-top: 15px;
+        height: 10%;
+    }
+  }
+
+.edit-profile-p {
+    order: 2;
+    height: 10%;
+    margin-left: 12px;
+}
+
+.updateform {
+    order: 3;
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    width: 100%;
+    align-items: center;
+}
+
+.edit-profile-button {
+    order: 4;
+    align-self: center;
+    margin: 12px;
+    font-size: 12px;
+    width: 20%;
+    height: 10%;
+}
