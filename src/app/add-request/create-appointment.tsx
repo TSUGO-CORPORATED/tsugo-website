@@ -30,7 +30,7 @@ const CreateAppointment = () => {
     try {
 
       const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(location)}&key=${apiKey}`);
-  
+     
       if (response.data.results.length === 0) {
         setError("No results found for the given location.");
         console.error("No results found:", response.data);
@@ -38,6 +38,7 @@ const CreateAppointment = () => {
       }
   
       const { lat, lng } = response.data.results[0].geometry.location;
+      console.log({ lat, lng })
       setLocationCoordinates({ lat, lng });
     } catch (error) {
       console.error("Error fetching coordinates: ", error);
@@ -90,7 +91,7 @@ const CreateAppointment = () => {
           interpreterSpokenLanguage: desireLanguage, 
           locationLatitude: locationCoordinates?.lat, 
           locationLongitude: locationCoordinates?.lng, 
-          locationDetail: location, 
+          locationName: location, 
           appointmentDateTime: convertedDateTime, 
           appointmentNote: note,    
       };
@@ -107,9 +108,12 @@ const CreateAppointment = () => {
   if (!isConfirmed) {
     return (
       <div className='add_request'>
-        <h1 className='add_request_title'>Make an Appointment</h1>
+  
+        <div className="add_request_container">
+            <h1 className='add_request_title'>Make an Appointment</h1>         
         <form onSubmit={handleSubmit} className='add_request_form'>
-          {/* Form fields */}
+          {/* Form fields */}   
+
           <div className='add_request_box'>
             <label className='add_request_label'>Title:</label>
             <input 
@@ -217,42 +221,50 @@ const CreateAppointment = () => {
                 required 
                 className='add_request_checkbox' 
               />
-              I agree to the Disclaimer
+              <span className="add_request_agree">I agree to the Disclaimer</span>
             </label>
           </div>
+          <div className="button_box">
           <button type="submit" className='add_request_submit_button'>Confirm</button>
           <button type="button" className='add_request_cancel_button' onClick={() => router.push('/dashboard')}>Cancel</button>
+          </div>
         </form>
+        </div>
       </div>
     );
   } else {
     return (
-      <div>
-        <h1>Appointment Confirmation</h1>
-        <p>Title: {appointmentTitle}</p>
-        <p>Date and Time: {dateTime}</p>
-        <p>Location: {location}</p>
-        <p>Desired Language: {desireLanguage}</p>
-        <p>Communication Language: {communicateLanguage}</p>
-        <p>Interpretation Type: {appointmentType}</p>
-        <p>Memo: {note}</p>
+      <div className="confirm_section">
+      <div className="confirm_section_container">
+        <h2 className="confirm_title">Appointment Confirmation</h2>
+        <p className="confirm_detail">Title: <span className="confirm_appointmentTitle">{appointmentTitle}</span> </p>
+        <p className="confirm_detail">Date and Time: <span className="confirm_dateTime"> {dateTime}</span> </p>
+        <p className="confirm_detail">Location: <span className="confirm_location"> {location}</span></p>
+        <p className="confirm_detail">Desired Language: <span className="confirm_desire">{desireLanguage}</span> </p>
+        <p className="confirm_detail">Communication Language: <span className="confirm_communication"> {communicateLanguage}</span></p>
+        <p className="confirm_detail">Interpretation Type: <span className="confirm_type">{appointmentType}</span> </p>
+        <p className="confirm_detail">Memo: <span className="confirm_note">{note}</span> </p>   
         {locationCoordinates && (
-          <LoadScript googleMapsApiKey={apiKey}>
-            <GoogleMap
-              mapContainerStyle={{ width: '400px', height: '400px' }}
-              center={{ lat: locationCoordinates.lat, lng: locationCoordinates.lng }}
-              zoom={15}
-            >
-              <Marker position={{ lat: locationCoordinates.lat, lng: locationCoordinates.lng }} />
-            </GoogleMap>
-          </LoadScript>
+          <div className="confirm_map_container">
+            <LoadScript googleMapsApiKey={apiKey}>
+              <GoogleMap
+                mapContainerStyle={{ width: '300px', height: '300px' }}
+                center={{ lat: locationCoordinates.lat, lng: locationCoordinates.lng }}
+                zoom={17}
+              >
+                <Marker position={{ lat: locationCoordinates.lat, lng: locationCoordinates.lng }} />
+              </GoogleMap>
+            </LoadScript>
+          </div>
         )}
-        <button onClick={handleSendRequest}>Send Request</button>
-        <button onClick={() => setIsConfirmed(false)}>Back to Form</button>
+        <div className="button_box">
+        <button onClick={handleSendRequest} className="confirm_send_btn">Send Request</button>
+        <button onClick={() => setIsConfirmed(false)} className="confirm_back_btn">Back to Form</button>
+      </div>
+      </div>
       </div>
     );
   }
-};
-
+}
 export default CreateAppointment;
 

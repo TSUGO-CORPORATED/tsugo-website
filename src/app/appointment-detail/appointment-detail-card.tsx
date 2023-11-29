@@ -5,7 +5,7 @@ import { useState, useContext, useEffect } from 'react';
 import { ContextVariables } from '../../context-variables';
 import Link from 'next/link';
 import axios from 'axios';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import format from 'date-fns/format';
 
 // PAGE COMPONENT
@@ -19,7 +19,7 @@ export default function AppointmentDetailCard(): JSX.Element {
         interpreterSpokenLanguage: string;
         locationLatitude: string | number | null,
         locationLongitude: string | number | null,
-        locationDetail: string | null;
+        locationName: string | null;
         appointmentDateTime: Date;
         appointmentNote: string | null;
         status: string;
@@ -51,6 +51,8 @@ export default function AppointmentDetailCard(): JSX.Element {
     // STATE VARIABLES
     const [appointmentDetail, setAppointmentDetail] = useState<AppointmentDetail>();
 
+    const router = useRouter();
+
     // CONTEXT VARIABLES
     const { userId } = useContext(ContextVariables);
 
@@ -80,20 +82,21 @@ export default function AppointmentDetailCard(): JSX.Element {
                 default:
                 return;
             }
-          await axios.patch(url);
-          alert(`Appointment ${newStatus} successfully!`);
+            await axios.patch(url);
+            alert(`Appointment ${newStatus} successfully!`);
 
-          // Update local state
-          const updatedAppointmentDetail: AppointmentDetail | undefined = appointmentDetail;
-          if (updatedAppointmentDetail) {
-              updatedAppointmentDetail['status'] = newStatus;
-              setAppointmentDetail(updatedAppointmentDetail);
-          }
+            // Redirect to homepage
+            router.push('/dashboard');
+            
         } catch (error) {
           console.error(`Error updating appointment status: `, error);
           alert("Failed to update appointment status.");
         }
-      };
+    };
+
+    async function test() {
+        console.log(appointmentDetail);
+    }
     
     //   const handleSubmitRating = async (appointmentId: number) => {
     //     try {
@@ -124,11 +127,13 @@ export default function AppointmentDetailCard(): JSX.Element {
     // Process date
     const tempDateTime = appointmentDetail?.appointmentDateTime;
     const convertedDateTime = tempDateTime ? format(new Date(tempDateTime), "EEE',' dd MMM yy") : null;
+    
     return (
         <div className='appointment-detail__card'>
             <Link href="/dashboard">
                 <button>Go back to dashboard</button>
             </Link>
+            <button onClick={test}>Test</button>
             <div className='dashboard__card__role-content__appointment-list'>
                 <div className='dashboard__card__role-content__appointment-list__element'>
                     <div>{appointmentDetail?.id}</div>
@@ -145,7 +150,7 @@ export default function AppointmentDetailCard(): JSX.Element {
                     <div>{appointmentDetail?.interpreterSpokenLanguage}</div>
                     <div>{appointmentDetail?.locationLatitude}</div>
                     <div>{appointmentDetail?.locationLongitude}</div>
-                    <div>{appointmentDetail?.locationDetail}</div>
+                    <div>{appointmentDetail?.locationName}</div>
                     <div>{convertedDateTime}</div>
                     <div>{appointmentDetail?.appointmentNote}</div>
                     <div>{appointmentDetail?.reviewClientRating}</div>
@@ -159,6 +164,10 @@ export default function AppointmentDetailCard(): JSX.Element {
                     {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId !== userId && (
                         <>
                             <button onClick={() => handleStatusChange("Accepted")}>Accept</button>
+                        </>
+                    )}
+                    {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId === userId && (
+                        <>
                             <button onClick={() => handleStatusChange("Cancelled")}>Cancel</button>
                         </>
                     )}
@@ -166,19 +175,30 @@ export default function AppointmentDetailCard(): JSX.Element {
                         <>
                             <button onClick={() => handleStatusChange("Cancelled")}>Cancel</button>
                             <button onClick={() => handleStatusChange("Completed")}>Complete</button>
-                            <Link href={{
-                                pathname: '/appointment-detail/chat-room',
-                                query: {slug: appointmentDetail?.id}
-                            }}>
-                                <button>Go to chat room</button>
-                            </Link>
+
                         </>
+                    )}
+                    {appointmentDetail?.status === "Accepted" && (
+                        <Link href={{
+                            pathname: '/appointment-detail/chat-room',
+                            query: {slug: appointmentDetail?.id}
+                        }}>
+                            <button>Go to chat room</button>
+                        </Link>
                     )}
                     {appointmentDetail?.status === "Complete" 
                     && ((userId === appointmentDetail.clientUserId && appointmentDetail.reviewClientRating === null) || (userId === appointmentDetail.interpreterUserId && appointmentDetail.reviewInterpreterRating === null))
                     && (
                         <>
-                            <Link href="/appointment-detail/review"><button>Add review</button></Link>
+                            <Link href={{
+                                pathname: '/appointment-detail/review',
+                                query: {
+                                    appointmentId: appointmentDetail?.id,
+                                    role: userId === appointmentDetail.clientUserId ? 'client': 'interpreter',
+                                }
+                            }}>
+                                <button>Add review</button>
+                            </Link>
                         </>
                     )}
                 </div>
