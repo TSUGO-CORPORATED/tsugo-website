@@ -57,9 +57,9 @@
         justify-content: space-around;
         height: 8%;
         width: 100%;
-        margin-bottom: 3%;
+        margin-bottom: 5%;
         
-        &__button-add-request {
+        &__button-request {
           @include flexCenter(row);
           text-decoration: none;
           @include button($color-button-black);
@@ -76,14 +76,69 @@
         }
       }
 
+      &__list-title {
+        @include flexCenter(row);
+        // justify-content: flex-start;
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 2%;
+      }
+
       &__appointment-list {
         // border: 1px solid black;
         @include flexCenter(column);
         justify-content: flex-start;
         width: 100%;
+        height: 75%;
 
-        &__element {
-          @include block();
+        &__block {
+          background-color: $color-background-white;
+          border-radius: 10px;
+          border: solid $color-background-medium-grey 2px;
+          width: 100%;
+          height: 100%;
+          margin-bottom: 1em;
+          @include flexCenter(row);
+          @include card();
+          
+
+          &__info {
+            width: 90%;
+
+            &__row {
+              @include flexCenter(row);
+              width: 100%;
+              justify-content: space-around;
+
+              &__piece {
+                @include flexCenter(row);
+
+                &__label {
+                  font-weight: bold;
+                  margin-right: 5px;
+
+                }
+                &__data {
+
+                }
+              }
+            }
+          }
+
+          &__detail {
+            width: 10%;
+            @include flexCenter(row);
+            background-color: $color-background-black;
+            height: 100%;
+            padding: auto;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            &:hover {
+              background-color: #1f1e1e;
+            }
+            color: white;
+            text-decoration: none; 
+          }
         }
       }
     }
