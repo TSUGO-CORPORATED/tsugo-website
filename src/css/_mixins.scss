@@ -50,7 +50,18 @@
 @mixin card() {
   background-color: $color-background-white;
   border-radius: 10px;
-  box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
+  // box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
+}
+
+@mixin pageCard() {
+  background-color: $color-background-white;
+  border-radius: 10px;
+  justify-content: flex-start;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  width: 75%;
+  height: 75%;
+  @include flexCenter(column);
 }
 
 @mixin text($font-size, $font-weight) {
