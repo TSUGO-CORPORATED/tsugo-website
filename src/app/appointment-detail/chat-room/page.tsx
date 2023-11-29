@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 // PAGE COMPONENT
 export default function ChatRoom(): JSX.Element {
   return (
-      <div className="message-box">
+      <div className="chat-room">
         <ChatRoomSub />
       </div>
   )

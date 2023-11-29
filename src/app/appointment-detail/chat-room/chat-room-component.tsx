@@ -36,6 +36,7 @@ export default function ChatRoomSub(): React.JSX.Element{
                 content: message,
                 timestamp: date
             }
+            textRef.current!.value = "";
             const jsobj = JSON.stringify(obj);
             if(socket.current!.connected) socket.current!.send(jsobj);
         }
@@ -83,14 +84,14 @@ export default function ChatRoomSub(): React.JSX.Element{
         }, []);
 
     return (
-        <div>
-            <div>
-                <ul>
+        <>
+            <div >
+                <ul className="messageContainer">
                     {messages.map((message, index) => <li key={index}> <div><p>User:{message.user} {"\n"} {message.content} {"\n"} {message.timestamp} </p></div> </li>)}
                 </ul>
             </div>
             <textarea ref={textRef} placeholder="..."></textarea>
             <button onClick={() => {if(textRef.current!.value != null) sendMessage(textRef.current!.value)}}>Send</button>
-        </div>
+        </>
     )
 }
