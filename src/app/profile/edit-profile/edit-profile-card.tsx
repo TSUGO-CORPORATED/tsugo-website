@@ -111,12 +111,7 @@ export default function EditProfile() {
                     value={lastNameUpdate}
                     defaultValue={userProfile?.lastName}
                 />
-                </div>
-                <br></br>
-               
-                
-
-                
+                </div>                
                 <button className='edit-profile-button' id='edit-button' onClick={handleUpdate}>Save Changes</button>
         </div>
     );

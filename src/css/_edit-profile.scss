@@ -17,27 +17,30 @@
 
     &__header {
         order: 1;
-    margin-top: 15px;
-    height: 20%;
+        margin-top: 15px;
+        height: 10%;
     }
   }
 
 .edit-profile-p {
     order: 2;
-    height: 40%;
+    height: 10%;
     align-self: flex-start;
     margin-left: 12px;
 }
 
 .updateform {
     order: 3;
+    height: 80%;
+    width: 100%;
 }
 
 .edit-profile-button {
     order: 4;
-    height: 20%;
+    border: 1px solid blue;
     align-self: flex-start;
     margin: 12px;
     font-size: 12px;
     width: 20%;
+    height: 10%;
 }

@@ -105,7 +105,7 @@ export default function Profile() {
             <p className='profile-p'>Language: {}</p>
         
             
-            <Link href="/profile/edit-profile">
+            <Link className='edit-link' href="/profile/edit-profile">
                 <div className='profile-button' id='edit-button'>
                 edit
                 </div>
@@ -113,7 +113,7 @@ export default function Profile() {
                 
             
             <button className='profile-button'>delete</button>
-            <button className='profile-button'>help/supprot</button>
+            <button className='profile-button'>help/support</button>
             <button className='profile-button'>Agreement</button>
         </div>
     );
