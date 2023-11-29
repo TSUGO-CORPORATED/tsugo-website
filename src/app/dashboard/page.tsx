@@ -16,15 +16,7 @@ export default async function Dashboard() {
     return (
         <div className='dashboard'>
             <CheckAuth />
-            {/* <Link href="/dashboard">
-                <button>Home</button>
-            </Link> 
-            <Link href="/profile">
-                <button>Profile</button>
-            </Link> */}
-            
             <DashboardCard />
-            {/* <SignOut />  */}
         </div>
     )
 }
