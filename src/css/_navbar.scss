@@ -1,10 +1,10 @@
-ul {
+.navbar-ul {
     list-style-type: none;
     margin: 0;
     padding: 12px;
     overflow: hidden;
     background-color: black;
-    position: relative;
+    position: fixed;
     top: 0;
     width: 100%;
     font-size: 16px;
@@ -22,7 +22,7 @@ ul {
     padding-right: 0;
 }
 
-li a {
+.navbar-li a, .logo-navbar a, .profile-navbar a {
     display: block;
     padding: 8px 24px;
     text-align: center;
@@ -30,7 +30,7 @@ li a {
     color: white;
 }
 
-li a:hover {
+.navbar-li a:hover, .logo-navbar a:hover, .profile-navbar a:hover {
     background-color: gray;
 }
 
@@ -38,6 +38,17 @@ li a:hover {
     float: left;
 }
 
-.profile-navbar, .logout-navbar {
+.profile-navbar, .logout-navbar, .avatar-navbar {
     float: right;
+}
+
+.avatar-navbar {
+    height: 42px;
+    width: 42px;
+}
+
+.navbar-avatar {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
 }

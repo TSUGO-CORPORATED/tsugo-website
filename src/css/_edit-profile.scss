@@ -25,20 +25,21 @@
 .edit-profile-p {
     order: 2;
     height: 10%;
-    align-self: flex-start;
     margin-left: 12px;
 }
 
 .updateform {
     order: 3;
+    display: flex;
+    flex-direction: column;
     height: 80%;
     width: 100%;
+    align-items: center;
 }
 
 .edit-profile-button {
     order: 4;
-    border: 1px solid blue;
-    align-self: flex-start;
+    align-self: center;
     margin: 12px;
     font-size: 12px;
     width: 20%;
