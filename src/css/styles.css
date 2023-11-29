@@ -24,7 +24,6 @@
   flex-direction: column;
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
   width: 600px;
 }
 .log-in__card__logo {
@@ -136,7 +135,6 @@
   flex-direction: column;
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
   width: 600px;
 }
 .sign-up__card__title {
@@ -214,6 +212,7 @@
   align-items: center;
   flex-direction: column;
   height: 100vh;
+  width: 100vw;
   background-image: url(../../public/tokyo.jpg);
   background-size: cover;
   background-repeat: no-repeat;
@@ -226,7 +225,6 @@
   flex-direction: column;
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
   justify-content: flex-start;
   width: 75%;
   height: 75%;
@@ -264,7 +262,7 @@
   margin-bottom: 3%;
 }
 .dashboard__card__role-content {
-  height: 80%;
+  height: 75%;
   width: 90%;
 }
 .dashboard__card__role-content__button-row {
@@ -332,121 +330,7 @@
   justify-content: flex-start;
   width: 100%;
   height: 75%;
-}
-.dashboard__card__role-content__appointment-list__block {
-  background-color: #ffffff;
-  border-radius: 10px;
-  border: solid #cfcfcf 2px;
-  width: 100%;
-  height: 100%;
-  margin-bottom: 1em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
-}
-.dashboard__card__role-content__appointment-list__block__info {
-  width: 90%;
-}
-.dashboard__card__role-content__appointment-list__block__info__row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  width: 100%;
-  justify-content: space-around;
-}
-.dashboard__card__role-content__appointment-list__block__info__row__piece {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-}
-.dashboard__card__role-content__appointment-list__block__info__row__piece__label {
-  font-weight: bold;
-  margin-right: 5px;
-}
-.dashboard__card__role-content__appointment-list__block__detail {
-  width: 10%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  background-color: #000000;
-  height: 100%;
-  padding: auto;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  color: white;
-  text-decoration: none;
-}
-.dashboard__card__role-content__appointment-list__block__detail:hover {
-  background-color: #1f1e1e;
-}
-
-h1 {
-  margin-top: 15px;
-  height: 20%;
-  order: 2;
-}
-
-.dashboard-tabs {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.dashboard-tabs__buttons-tab {
-  display: flex;
-}
-.dashboard-tabs__buttons-tab__button {
-  margin: 10px;
-  padding: 5px 10px;
-  background-color: lightgray;
-  border: none;
-  cursor: pointer;
-}
-.dashboard-tabs__buttons-tab__button:hover {
-  background-color: gray;
-  color: white;
-}
-.dashboard-tabs__content {
-  padding: 20px;
-  border: 1px solid #ddd;
-}
-.dashboard-tabs__request__section, .dashboard-tabs__find__section {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.dashboard-tabs__request__section__buttons, .dashboard-tabs__find__section__buttons {
-  display: flex;
-  margin-bottom: 10px;
-}
-.dashboard-tabs__request__section__buttons__button, .dashboard-tabs__find__section__buttons__button {
-  margin-right: 10px;
-  padding: 10px 15px;
-  background-color: lightblue;
-  border: 1px solid #ccc;
-  cursor: pointer;
-}
-.dashboard-tabs__request__section__buttons__button:hover, .dashboard-tabs__find__section__buttons__button:hover {
-  background-color: blue;
-  color: white;
-}
-.dashboard-tabs__request__section__status, .dashboard-tabs__find__section__status {
-  margin-top: 15px;
-}
-
-.profile-and-signout {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-.profile-and-signout__button {
-  margin-left: 10px;
+  overflow-y: auto;
 }
 
 .profile {
@@ -470,7 +354,6 @@ h1 {
   flex-direction: column;
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
   width: 600px;
   height: 600px;
   align-items: center;
@@ -588,7 +471,7 @@ h1 {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .add_request_label {
@@ -675,51 +558,58 @@ h1 {
   border: 1px solid #ccc;
 }
 
-.find_Header {
+.find-request {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  background-color: #000000;
   background-image: url(../../public/tokyo.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 40%;
 }
-
-.find_request_container {
+.find-request__card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  justify-content: flex-start;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  width: 75%;
+  height: 75%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
-  width: 600px;
-  height: 100vh;
 }
-
-.find_request_header {
-  order: 1;
+.find-request__card__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 36px;
   height: 10%;
 }
-
-.map_container {
+.find-request__card__filter {
+  height: 10%;
+}
+.find-request__card__map-container {
+  width: 90%;
+  height: 50%;
+}
+.find-request__card__appointment-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
   width: 100%;
-  order: 2;
-  height: 90%;
-}
-
-.appointment-container {
-  border: 2px solid black;
+  height: 30%;
   overflow-y: auto;
-  height: 35%;
-  margin-left: 10px;
-  margin-right: 10px;
 }
-.appointment-container__appointment {
+.find-request__card__appointment-container__appointment {
   border: 1px solid black;
 }
 
@@ -743,7 +633,6 @@ h1 {
   flex-direction: column;
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
   width: 600px;
   height: 600px;
 }
@@ -823,6 +712,107 @@ h1 {
   width: 600px;
   justify-content: left;
   align-self: left;
+}
+
+.appointment-block {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: solid #cfcfcf 2px;
+  width: 100%;
+  height: 100px;
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+.appointment-block__info {
+  width: 90%;
+}
+.appointment-block__info__row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+}
+.appointment-block__info__row__piece {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.appointment-block__info__row__piece__label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+.appointment-block__detail {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: #000000;
+  height: 100%;
+  padding: auto;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  color: white;
+  text-decoration: none;
+}
+.appointment-block__detail:hover {
+  background-color: #1f1e1e;
+}
+
+.history {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
+}
+.history__card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  justify-content: flex-start;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  width: 75%;
+  height: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.history__card__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 36px;
+  height: 10%;
+}
+.history__card__filter {
+  height: 10%;
+}
+.history__card__appointment-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  height: 80%;
+  overflow-y: auto;
 }
 
 .appointment_detail_page {

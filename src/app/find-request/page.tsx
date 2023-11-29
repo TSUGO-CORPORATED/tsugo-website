@@ -1,28 +1,18 @@
 // MODULES IMPORT
 import { Metadata } from 'next';
-import SignOut from '../auth/sign-out';
-import Link from 'next/link';
-import FindRequest from './check-appointment';
+import FindRequestCard from './find-request-card';
 
 
 // PAGE NAME
 export const metadata: Metadata = {
-    title: 'Find appointment',
+    title: 'Find Request',
 }
 
 // PAGE COMPONENT
-export default async function findRequest() {
+export default async function FindRequest() {
     return (
-        <div className='find_Header'>
-            {/* <Link href="/dashboard">
-                <button>Home</button>
-            </Link> 
-            <Link href="/profile">
-                <button>Profile</button>
-            </Link>
-            <SignOut />  */}
-            <FindRequest />
-
+        <div className='find-request'>
+            <FindRequestCard />
         </div>
     )
 }

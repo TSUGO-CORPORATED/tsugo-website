@@ -1,15 +1,10 @@
 import React from 'react';
-import Link from 'next/link';
-import History from './history-components'
+import HistoryCard from './history-card';
 
-export default function HistoryPage() {
-    return (
-        <div>
-            <Link href="/dashboard">
-                <button>Go Home</button>
-            </Link>
-            < History />
-            
+export default function History() {
+    return ( 
+        <div className='history'>
+            <HistoryCard />
         </div>
     );
 }
