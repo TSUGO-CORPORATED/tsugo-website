@@ -488,6 +488,23 @@ h1 {
   margin-left: 12px;
 }
 
+.edit-link {
+  order: 3;
+  align-self: flex-start;
+  border: 1px solid black;
+  margin: 12px;
+  font-size: 12px;
+  color: black;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  background-color: lightgray;
+}
+
+#edit-button {
+  align-self: center;
+}
+
 .profile-button {
   order: 3;
   height: 20%;
@@ -700,6 +717,21 @@ h1 {
   border: 1px solid black;
 }
 
+
+.edit-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: #000000;
+  background-image: url(../../public/tokyo.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 40%;
+}
+
 .chat-room {
   display: flex;
   justify-content: center;
@@ -713,6 +745,47 @@ h1 {
   background-repeat: no-repeat;
   background-position: 40%;
 }
+
+.edit-profile__card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
+  width: 600px;
+  height: 600px;
+}
+.edit-profile__header {
+  order: 1;
+  margin-top: 15px;
+  height: 10%;
+}
+
+.edit-profile-p {
+  order: 2;
+  height: 10%;
+  align-self: flex-start;
+  margin-left: 12px;
+}
+
+.updateform {
+  order: 3;
+  height: 80%;
+  width: 100%;
+}
+
+.edit-profile-button {
+  order: 4;
+  border: 1px solid blue;
+  align-self: flex-start;
+  margin: 12px;
+  font-size: 12px;
+  width: 20%;
+  height: 10%;
+}
+
 
 .messageContainer {
   display: flex;

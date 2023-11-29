@@ -1,10 +1,11 @@
 'use client';
-import React, { useContext, useEffect, useState } from 'react';
-import { ContextVariables } from '../../context-variables';
-import axios from "axios"
-import Link from 'next/link';
+import React, {useContext, useEffect, useState} from "react";
+import { ContextVariables } from "@/context-variables";
+import axios from "axios";
+import Link from "next/link";
 
-export default function Profile() {
+export default function EditProfile() {
+
     interface UserDetails{
         id: number;
         email: string;
@@ -27,7 +28,7 @@ export default function Profile() {
     const [userProfile, setUserProfile] = useState<UserDetails | null>();
     const [updated, setUpdated] = useState<Boolean>(false);
     const [firstNameUpdate, setFirstNameUpdate] = useState<string | number | readonly string[] | undefined>("");
-    const [lastNameUpdate, setLastNameUpdate] = useState<String|undefined|null>(userProfile?.lastName);
+    const [lastNameUpdate, setLastNameUpdate] = useState<string | number | readonly string[] | undefined>(userProfile?.lastName);
     const [aboutUpdate, setAboutUpdate] = useState<String|undefined|null>(userProfile?.about);
 
     const dummy = [{id: 69, language: "English", proficiency: "Native"}];
@@ -87,34 +88,31 @@ export default function Profile() {
     }
 
     return (
-        
-        <div className='profile-container'>
-            <h1 className='profile-header'>User Profile</h1>
-            <p className='profile-p'>ID: {userProfile?.id}</p>
-            <p className='profile-p'>First Name: {userProfile?.firstName}</p>
-            <p className='profile-p'>Last Name: {userProfile?.lastName}</p>
-            {/* {userProfile?.userLanguage.map((language, index)=> {
-                return (
-                    <div>
-                    <div>{language.id}</div>
-                    <div>{language.language}</div>
-                    <div>{language.proficiency}</div>
-                    </div>
-                )
-            })} */}
-            <p className='profile-p'>Language: {}</p>
-        
-            
-            <Link className='edit-link' href="/profile/edit-profile">
-                <div className='profile-button' id='edit-button'>
-                edit
-                </div>
-            </Link>
-                
-            
-            <button className='profile-button'>delete</button>
-            <button className='profile-button'>help/support</button>
-            <button className='profile-button'>Agreement</button>
+        <div className='edit-profile__card'>
+            <h1 className="edit-profile__header">EditProfile</h1>
+                <div className="updateform">
+                <label>Update First Name</label>
+                <p className='edit-profile-p'>First Name: {userProfile?.firstName}</p>
+                <input 
+                    type='text'
+                    id='firstName'
+                    onChange={(e) => setFirstNameUpdate(e.target.value)}
+                    value={firstNameUpdate}
+                    defaultValue={userProfile?.firstName}
+                />
+                <br></br>
+
+                <label>Update Last Name</label>
+                <p className='edit-profile-p'>Last Name: {userProfile?.lastName}</p>
+                <input 
+                    type='text'
+                    id='lasttName'
+                    onChange={(e) => setLastNameUpdate(e.target.value)}
+                    value={lastNameUpdate}
+                    defaultValue={userProfile?.lastName}
+                />
+                </div>                
+                <button className='edit-profile-button' id='edit-button' onClick={handleUpdate}>Save Changes</button>
         </div>
     );
 }
