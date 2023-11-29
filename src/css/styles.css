@@ -473,6 +473,7 @@ h1 {
   box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
   width: 600px;
   height: 600px;
+  align-items: center;
 }
 
 .profile-header {
@@ -481,16 +482,21 @@ h1 {
   height: 20%;
 }
 
+.profile-pic {
+  order: 2;
+  border-radius: 50%;
+}
+
 .profile-p {
   order: 2;
   height: 40%;
-  align-self: flex-start;
+  align-self: center;
   margin-left: 12px;
 }
 
 .edit-link {
   order: 3;
-  align-self: flex-start;
+  align-self: center;
   border: 1px solid black;
   margin: 12px;
   font-size: 12px;
@@ -508,7 +514,7 @@ h1 {
 .profile-button {
   order: 3;
   height: 20%;
-  align-self: flex-start;
+  align-self: center;
   margin: 12px;
   font-size: 12px;
   width: 20%;
@@ -750,20 +756,21 @@ h1 {
 .edit-profile-p {
   order: 2;
   height: 10%;
-  align-self: flex-start;
   margin-left: 12px;
 }
 
 .updateform {
   order: 3;
+  display: flex;
+  flex-direction: column;
   height: 80%;
   width: 100%;
+  align-items: center;
 }
 
 .edit-profile-button {
   order: 4;
-  border: 1px solid blue;
-  align-self: flex-start;
+  align-self: center;
   margin: 12px;
   font-size: 12px;
   width: 20%;
@@ -918,7 +925,7 @@ ul {
   padding: 12px;
   overflow: hidden;
   background-color: black;
-  position: relative;
+  position: fixed;
   top: 0;
   width: 100%;
   font-size: 16px;
@@ -952,6 +959,17 @@ li a:hover {
   float: left;
 }
 
-.profile-navbar, .logout-navbar {
+.profile-navbar, .logout-navbar, .avatar-navbar {
   float: right;
+}
+
+.avatar-navbar {
+  height: 42px;
+  width: 42px;
+}
+
+.navbar-avatar {
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
 }/*# sourceMappingURL=styles.css.map */

@@ -3,6 +3,8 @@ import React, {useContext, useEffect, useState} from "react";
 import { ContextVariables } from "@/context-variables";
 import axios from "axios";
 import Link from "next/link";
+import Image from "next/image";
+import profilePic from '../../../../public/Mark.jpg'
 
 export default function EditProfile() {
 
@@ -90,9 +92,16 @@ export default function EditProfile() {
     return (
         <div className='edit-profile__card'>
             <h1 className="edit-profile__header">EditProfile</h1>
+            <Image 
+                src={profilePic}
+                alt='Avatar'
+                className='profile-pic'
+                width={200}
+                height={200}
+            />
                 <div className="updateform">
                 <label>Update First Name</label>
-                <p className='edit-profile-p'>First Name: {userProfile?.firstName}</p>
+                {/* <p className='edit-profile-p'>First Name: {userProfile?.firstName}</p> */}
                 <input 
                     type='text'
                     id='firstName'
@@ -103,7 +112,7 @@ export default function EditProfile() {
                 <br></br>
 
                 <label>Update Last Name</label>
-                <p className='edit-profile-p'>Last Name: {userProfile?.lastName}</p>
+                {/* <p className='edit-profile-p'>Last Name: {userProfile?.lastName}</p> */}
                 <input 
                     type='text'
                     id='lasttName'
