@@ -53,18 +53,6 @@
   box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
 }
 
-@mixin block() {
-  background-color: $color-background-white;
-  border-radius: 10px;
-  border: solid $color-background-medium-grey 2px;
-  width: 100%;
-  @include flexCenter(column);
-
-  // &__test {
-
-  // }
-}
-
 @mixin text($font-size, $font-weight) {
   font-size: map-get($map: $font-sizes, $key: $font-size);
   font-weight: map-get($font-weights, $font-weight);
