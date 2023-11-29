@@ -231,7 +231,7 @@ export default function AppointmentDetailCard(): JSX.Element {
                             && (
                                 <>
                                     <Link href={{
-                                        pathname: '/appointment_detail/review',
+                                        pathname: '/appointment-detail/review',
                                         query: {
                                             appointmentId: appointmentDetail?.id,
                                             role: userId === appointmentDetail.clientUserId ? 'client' : 'interpreter',
