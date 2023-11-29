@@ -12,13 +12,13 @@ export default function Navbar() {
     return (
         <>
             {pathname === '/' || pathname === '/log-in' || pathname === '/sign-up' ? (
-                <ul>
+                <ul className='navbar-ul'>
                     <li className='logo-navbar'>
                         <Link href="/">
                             <div>Tsugo/都合</div>
                         </Link>
                     </li> 
-                    <li><Link href="/log-in" className='logout-navbar'>
+                    <li className='navbar-li'><Link href="/log-in" className='logout-navbar'>
                             <div>Log in</div>
                         </Link>
                     </li>
@@ -29,7 +29,7 @@ export default function Navbar() {
                     </li>
                 </ul>
             ) : (
-                <ul>
+                <ul className='navbar-ul'>
                     <li className='logo-navbar'>
                         <Link href="/dashboard">
                             <div>Tsugo/都合</div>
@@ -48,7 +48,7 @@ export default function Navbar() {
                         </div>
                     </li>
                     
-                    <li><Link href="/log-in" className='logout-navbar'>
+                    <li className='navbar-li'><Link href="/log-in" className='logout-navbar'>
                             <div><SignOut /></div>
                         </Link>
                     </li>
