@@ -57,9 +57,9 @@ export default function DashboardCard(): JSX.Element {
         }
     }, [userId]);
 
-    // CONDITIONAL CSS CLASS
-    const classRoleSwitch = currentTab === 'Client' ? 'dashboard__card__role-switch__button dashboard__card__role-switch__button__selected' : 'dashboard__card__role-switch__button';
-
+    // CONDITIONAL TAB
+    const shownAppointmentBlock = currentTab === 'Client' ? clientCurrentAppointment : interpreterCurrentAppointment;
+    
     // JSX ELEMENTS
     return (
         <div className='dashboard__card'>
@@ -69,94 +69,95 @@ export default function DashboardCard(): JSX.Element {
                     <div onClick={() => setCurrentTab('Interpreter')} className={currentTab === 'Interpreter' ? 'dashboard__card__role-switch__button dashboard__card__role-switch__button__selected' : 'dashboard__card__role-switch__button'}>Interpreter</div>
                 </div>
                 <div className='dashboard__card__separator'></div>
-                {currentTab === 'Client' && (
-                    <div className='dashboard__card__role-content'>
-                        <div className='dashboard__card__role-content__button-row'>
-                            <Link href="/add-request" className="dashboard__card__role-content__button-row__button-add-request">
-                                <div>Add Request</div>
-                            </Link>
-                            <Link href={{
-                                pathname: "/check-history",
-                                query: {slug: "client"},
-                            }} className="dashboard__card__role-content__button-row__button-history">
-                                <div>History</div>
-                            </Link>
-                        </div>
-                        <div className='dashboard__card__role-content__appointment-list'>
-                            {clientCurrentAppointment?.map((appointment, index) => {
-                                // Process date
-                                const tempDateTime = appointment.appointmentDateTime;
-                                const convertedDateTime = tempDateTime ? format(new Date(tempDateTime), "EEE',' dd MMM yy") : null;
-
-                                return (
-                                    <div key={index} className='dashboard__card__role-content__appointment-list__element'>
-                                        <div>{appointment.id}</div>
-                                        <div>{appointment.status}</div>
-                                        <div>{appointment.appointmentTitle}</div>
-                                        <div>{convertedDateTime}</div>
-                                        <div>{appointment.appointmentType}</div>
-                                        <div>{appointment.clientSpokenLanguage}</div>
-                                        <div>{appointment.interpreterSpokenLanguage}</div>
-                                        <div>{appointment.locationName}</div>
-                                        <div>{appointment.locationLatitude}</div>
-                                        <div>{appointment.locationLongitude}</div>
-                                        <Link href={{
-                                            pathname: '/appointment-detail',
-                                            query: {slug: appointment.id}
-                                        }}>
-                                            <button className="dashboard__card__role-content__appointment-list__element__button">Detail</button>
-                                        </Link>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                )}
-                {currentTab === 'Interpreter' && (
-                    <div className='dashboard__card__role-content'>
-                        <div className='dashboard__card__role-content__button-row'>
-                            <Link href="/find-request">
-                                <button className="dashboard__card__role-content__button-row__button">Find Request</button>
+                <div className='dashboard__card__role-content'>
+                    <div className='dashboard__card__role-content__button-row'>
+                        {currentTab === 'Client' ? (
+                            <>
+                                <Link href="/add-request" className="dashboard__card__role-content__button-row__button-request">
+                                    <div>Add Request</div>
+                                </Link>
+                                <Link href={{
+                                    pathname: "/check-history",
+                                    query: {slug: "client"},
+                                }} className="dashboard__card__role-content__button-row__button-history">
+                                    <div>History</div>
+                                </Link>
+                            </>
+                        ) : 
+                        <>
+                            <Link href="/find-request" className="dashboard__card__role-content__button-row__button-request">
+                                <div>Find Request</div>
                             </Link>
                             <Link href={{
                                 pathname: "/check-history",
                                 query: {slug: "interpreter"}
-                            }}>
-                                <button className="dashboard__card__role-content__button-row__button">History</button>
+                            }} className="dashboard__card__role-content__button-row__button-history">
+                                <div>History</div>
                             </Link>
-                            <div className='dashboard__card__role-content__appointment-list'>
-                            {interpreterCurrentAppointment?.map((appointment, index) => {
-                                // Process date
-                                const tempDateTime = appointment.appointmentDateTime;
-                                const convertedDateTime = tempDateTime ? format(new Date(tempDateTime), "EEE',' dd MMM yy") : null;
+                        </>}
+                    </div>
+                    <div className='dashboard__card__role-content__list-title'>Current Appointment</div>
+                    <div className='dashboard__card__role-content__appointment-list'>
+                        {shownAppointmentBlock?.map((appointment, index) => {
+                            // Process date
+                            const tempDateTime = appointment.appointmentDateTime;
+                            const convertedDateTime = tempDateTime ? format(new Date(tempDateTime), "EEE',' dd MMM yy") : null;
 
-                                return (
-                                    <div key={index} className='dashboard__card__role-content__appointment-list__element'>
-                                        <div>{appointment.id}</div>
-                                        <div>{appointment.status}</div>
-                                        <div>{appointment.appointmentTitle}</div>
-                                        <div>{convertedDateTime}</div>
-                                        <div>{appointment.appointmentType}</div>
-                                        <div>{appointment.clientSpokenLanguage}</div>
-                                        <div>{appointment.interpreterSpokenLanguage}</div>
-                                        <div>{appointment.locationName}</div>
-                                        <div>{appointment.locationLatitude}</div>
-                                        <div>{appointment.locationLongitude}</div>
+                            return (
+                                <div key={index} className='dashboard__card__role-content__appointment-list__block'>
+                                    <div className='dashboard__card__role-content__appointment-list__block__info'>
+                                        <div className='dashboard__card__role-content__appointment-list__block__info__row'>
+                                            <div className='dashboard__card__role-content__appointment-list__block__info__row__piece'>
+                                                <label className='dashboard__card__role-content__appointment-list__block__info__row__piece__label'>ID:</label>
+                                                <p className='dashboard__card__role-content__appointment-list__block__info__row__piece__data'>{appointment.id}</p>
+                                            </div>
+                                            <div className='dashboard__card__role-content__appointment-list__block__info__row__piece'>
+                                                <label className='dashboard__card__role-content__appointment-list__block__info__row__piece__label'>Status:</label>
+                                                <p className='dashboard__card__role-content__appointment-list__block__info__row__piece__data'>{appointment.status}</p>
+                                            </div>
+                                            <div className='dashboard__card__role-content__appointment-list__block__info__row__piece'>
+                                                <label className='dashboard__card__role-content__appointment-list__block__info__row__piece__label'>Title:</label>
+                                                <p className='dashboard__card__role-content__appointment-list__block__info__row__piece__data'>{appointment.appointmentTitle}</p>
+                                            </div>
+                                        </div>
+                                        <div className='dashboard__card__role-content__appointment-list__block__info__row'>
+                                            <div className='dashboard__card__role-content__appointment-list__block__info__row__piece'>
+                                                <label className='dashboard__card__role-content__appointment-list__block__info__row__piece__label'>Time:</label>
+                                                <p className='dashboard__card__role-content__appointment-list__block__info__row__piece__data'>{convertedDateTime}</p>
+                                            </div>
+                                            <div className='dashboard__card__role-content__appointment-list__block__info__row__piece'>
+                                                <label className='dashboard__card__role-content__appointment-list__block__info__row__piece__label'>Type:</label>
+                                                <p className='dashboard__card__role-content__appointment-list__block__info__row__piece__data'>{appointment.appointmentType}</p>
+                                            </div>
+                                            <div className='dashboard__card__role-content__appointment-list__block__info__row__piece'>
+                                                <label className='dashboard__card__role-content__appointment-list__block__info__row__piece__label'>Location:</label>
+                                                <p className='dashboard__card__role-content__appointment-list__block__info__row__piece__data'>{appointment.locationName}</p>
+                                            </div>
+                                        </div>
+                                        <div className='dashboard__card__role-content__appointment-list__block__info__row'>
+                                            <div className='dashboard__card__role-content__appointment-list__block__info__row__piece'>
+                                                <label className='dashboard__card__role-content__appointment-list__block__info__row__piece__label'>Your Language:</label>
+                                                <p className='dashboard__card__role-content__appointment-list__block__info__row__piece__data'>{appointment.clientSpokenLanguage}</p>
+                                            </div>
+                                            <div className='dashboard__card__role-content__appointment-list__block__info__row__piece'>
+                                                <label className='dashboard__card__role-content__appointment-list__block__info__row__piece__label'>Interpreter Language:</label>
+                                                <p className='dashboard__card__role-content__appointment-list__block__info__row__piece__data'>{appointment.interpreterSpokenLanguage}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* <div className='dashboard__card__role-content__appointment-list__block__detail'> */}
                                         <Link href={{
                                             pathname: '/appointment-detail',
                                             query: {slug: appointment.id}
-                                        }}>
-                                            <button className="dashboard__card__role-content__appointment-list__element__button">Detail</button>
+                                        }} className="dashboard__card__role-content__appointment-list__block__detail">
+                                            &gt;
                                         </Link>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                        </div>
-                        <div className='dashboard__card__role-content__appointment-list'>
-                        </div>
+                                    {/* </div> */}
+                                </div>
+                            );
+                        })}
                     </div>
-                )}
+                </div>
         </div>
     )
 }
