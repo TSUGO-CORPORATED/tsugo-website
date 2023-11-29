@@ -220,7 +220,7 @@ export default function AppointmentDetailCard(): JSX.Element {
                         )}
                         {appointmentDetail?.status === "Accepted" && (
                             <Link href={{
-                                pathname: '/appointment_detail/chat_room',
+                                pathname: '/appointment-detail/chat_room',
                                 query: { slug: appointmentDetail?.id }
                             }}>
                                 <button className='chat_room_button'>Go to chat room</button>
@@ -231,7 +231,7 @@ export default function AppointmentDetailCard(): JSX.Element {
                             && (
                                 <>
                                     <Link href={{
-                                        pathname: '/appointment_detail/review',
+                                        pathname: '/appointment-detail/review',
                                         query: {
                                             appointmentId: appointmentDetail?.id,
                                             role: userId === appointmentDetail.clientUserId ? 'client' : 'interpreter',
