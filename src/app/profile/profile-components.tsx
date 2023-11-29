@@ -3,6 +3,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ContextVariables } from '../../context-variables';
 import axios from "axios"
 import Link from 'next/link';
+import Image from 'next/image';
+import profilePic from '../../../public/Mark.jpg';
 
 export default function Profile() {
     interface UserDetails{
@@ -90,7 +92,14 @@ export default function Profile() {
         
         <div className='profile-container'>
             <h1 className='profile-header'>User Profile</h1>
-            <p className='profile-p'>ID: {userProfile?.id}</p>
+            <Image 
+                src={profilePic}
+                alt='Avatar'
+                className='profile-pic'
+                width={200}
+                height={200}
+            />
+            {/* <p className='profile-p'>ID: {userProfile?.id}</p> */}
             <p className='profile-p'>First Name: {userProfile?.firstName}</p>
             <p className='profile-p'>Last Name: {userProfile?.lastName}</p>
             {/* {userProfile?.userLanguage.map((language, index)=> {
