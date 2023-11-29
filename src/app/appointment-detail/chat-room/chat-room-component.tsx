@@ -86,12 +86,15 @@ export default function ChatRoomSub(): React.JSX.Element{
     return (
         <>
             <div >
-                <ul className="messageContainer">
-                    {messages.map((message, index) => <li key={index}> <div><p>User:{message.user} {"\n"} {message.content} {"\n"} {message.timestamp} </p></div> </li>)}
+                <ul className="chatContainer">
+                    {messages.map((message, index) => {
+                        if(message.user == userId) return <li key={index} className="chat-room-message" style={{left: "300px"}}> <div className="messageContainer"><p>User:{message.user} </p> <p>{message.content} </p> <p>{message.timestamp} </p></div> </li>
+                        return <li key={index} className="chat-room-message"> <div className="messageContainer"><p>User:{message.user} </p> <p> {message.content} </p> <p> {message.timestamp} </p></div> </li>
+                    })}
                 </ul>
             </div>
-            <textarea ref={textRef} placeholder="..."></textarea>
-            <button onClick={() => {if(textRef.current!.value != null) sendMessage(textRef.current!.value)}}>Send</button>
+            <textarea ref={textRef} className="chat-room-text-input" placeholder="..."></textarea>
+            <button className="chat-room-send-button" onClick={() => {if(textRef.current!.value != null) sendMessage(textRef.current!.value)}}>Send</button>
         </>
     )
 }
