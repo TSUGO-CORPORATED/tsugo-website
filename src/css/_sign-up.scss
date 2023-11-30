@@ -18,13 +18,13 @@
       margin-top: 1em;
       margin-bottom: 0em;
       font-size: 32px;
-      order: 1;
+      // order: 1;
     }
 
     &__form {
       @include flexCenter(column);
       width: 75%;
-      order: 2;
+      // order: 2;
       
       &__box {
         justify-content: left;
@@ -56,14 +56,14 @@
       }
     }
   
-    &__log-in-link {
+    &__log-in-linka {
       @include flexCenter(column);
       width: 100%;
       color: blue;
       font-weight: bold;
-      margin-top: 0.7em;
-      margin-bottom: 0.8em;
-      order: 3;
+      // margin-top: 0.7em;
+      // margin-bottom: 0.8em;
+      // order: 3;
 
       &:hover {
         color: $color-link-hover;

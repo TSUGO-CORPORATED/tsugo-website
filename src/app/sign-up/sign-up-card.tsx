@@ -5,10 +5,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
 import { auth } from '../../firebase';
-import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 import axios from 'axios';
 
 
+const provider = new GoogleAuthProvider();
+  
 // DATA TYPE INTERFACES
 interface Language {
   language: string,
@@ -56,12 +58,12 @@ export default function SignUpCard(): JSX.Element {
 
         // Logging out and sent to sign in page
         signOut(auth)
-        .then(() => {
-          router.push('/log-in');
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+          .then(() => {
+            router.push('/log-in');
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((error) => {
         console.log(error);
@@ -69,57 +71,88 @@ export default function SignUpCard(): JSX.Element {
       });
   }
 
+  async function googleSignUp() {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
+
+        // The signed-in user info.
+        const user = result.user;
+        console.log(user);
+        router.push('/dashboard');
+        
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  }
+
   return (
     <div className='sign-up__card'>
         <h1 className='sign-up__card__title'>Create Account</h1>
         <form onSubmit={signUp} className='sign-up__card__form'>
-        <div className='sign-up__card__form__box'>
-            <label className='sign-up__card__form__box__label'>Email</label>
-            <input 
-            type="email" 
-            placeholder='Enter your email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value) }
-            className='sign-up__card__form__box__input'
-            required
-            ></input>
-        </div>
-        <div className='sign-up__card__form__box'>
-            <label className='sign-up__card__form__box__label'>Password</label>
-            <input 
-            type="password" 
-            placeholder='Enter your password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value) }
-            className='sign-up__card__form__box__input'
-            required
-            ></input>
-        </div>
-        <div className='sign-up__card__form__box'>
-            <label className='sign-up__card__form__box__label'>First Name</label>
-            <input 
-            type="text" 
-            placeholder='Enter your first name'
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value) }
-            className='sign-up__card__form__box__input'
-            required
-            ></input>
-        </div>
-        <div className='sign-up__card__form__box'>
-            <label className='sign-up__card__form__box__label'>Last Name</label>
-            <input 
-            type="text" 
-            placeholder='Enter your last name'
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value) }
-            className='sign-up__card__form__box__input'
-            required
-            ></input>
-        </div>
-        <button type="submit" className='sign-up__card__form__box__sign-up-button'>Sign up</button>
+          <div className='sign-up__card__form__box'>
+              <label className='sign-up__card__form__box__label'>Email</label>
+              <input 
+              type="email" 
+              placeholder='Enter your email'
+              value={email}
+              onChange={(e) => setEmail(e.target.value) }
+              className='sign-up__card__form__box__input'
+              required
+              ></input>
+          </div>
+          <div className='sign-up__card__form__box'>
+              <label className='sign-up__card__form__box__label'>Password</label>
+              <input 
+              type="password" 
+              placeholder='Enter your password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value) }
+              className='sign-up__card__form__box__input'
+              required
+              ></input>
+          </div>
+          <div className='sign-up__card__form__box'>
+              <label className='sign-up__card__form__box__label'>First Name</label>
+              <input 
+              type="text" 
+              placeholder='Enter your first name'
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value) }
+              className='sign-up__card__form__box__input'
+              required
+              ></input>
+          </div>
+          <div className='sign-up__card__form__box'>
+              <label className='sign-up__card__form__box__label'>Last Name</label>
+              <input 
+              type="text" 
+              placeholder='Enter your last name'
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value) }
+              className='sign-up__card__form__box__input'
+              required
+              ></input>
+          </div>
+          <button type="submit" className='sign-up__card__form__box__sign-up-button'>Sign up</button>
         </form>
-        <Link href="/log-in" className='sign-up__card__log-in-link'><p>Go Back to Log In</p></Link>
+        <div>
+          <p>Already have an account?</p>
+          <Link href="/log-in" className='sign-up__card__log-in-linka'><p>Log in here.</p></Link>
+        </div>
+        <div>---------------or----------------</div>
+        <div onClick={googleSignUp}>Sign up with Google</div>
     </div>
   )
 }
