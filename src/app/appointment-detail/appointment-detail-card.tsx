@@ -202,14 +202,14 @@ export default function AppointmentDetailCard(): JSX.Element {
 
                             </div>
                             <div className='appointment_detail__review_interpreter_rating'>
-                                <p>review client thumb</p>
+                                <p>review interpreter thumb</p>
                                 <p>
                                     {appointmentDetail?.reviewInterpreterThumb === true ? 'Yes' : null}
                                     {appointmentDetail?.reviewInterpreterThumb === false ? 'No' : null}
                                 </p>
                             </div>
                             <div className='appointment_detail__review_interpreter_note'>
-                                <p>review client note</p><p>{appointmentDetail?.reviewInterpreterNote}</p>
+                                <p>review interpreter note</p><p>{appointmentDetail?.reviewInterpreterNote}</p>
                             </div>
                         </div>
                     </div>

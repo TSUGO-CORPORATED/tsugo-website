@@ -24,14 +24,14 @@ export default function ReviewCard() {
     // HELPER FUNCTION
     async function submitReview() {
         const reviewData = {
-            appointmentId: appointmentId,
+            appointmentId: Number(appointmentId),
             role: role,
             reviewThumb: reviewThumb,
             reviewNote: reviewNote,
         }
-
+        console.log(reviewData);
         const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/review`;
-        await axios.post(url, reviewData);
+        await axios.patch(url, reviewData);
         alert('Review submitted successfully!');
         router.push(`/appointment-detail?appointmentId=${appointmentId}`);
     };
