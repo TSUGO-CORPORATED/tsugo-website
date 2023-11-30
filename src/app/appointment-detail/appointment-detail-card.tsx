@@ -241,7 +241,7 @@ export default function AppointmentDetailCard(): JSX.Element {
                                 </Link>
                             )}
                             {appointmentDetail?.status === "Completed"
-                                && ((userId === appointmentDetail.clientUserId && appointmentDetail.reviewClientRating === null) || (userId === appointmentDetail.interpreterUserId && appointmentDetail.reviewInterpreterRating === null))
+                                && ((userId === appointmentDetail.clientUserId && appointmentDetail.reviewClientThumb === null) || (userId === appointmentDetail.interpreterUserId && appointmentDetail.reviewInterpreterThumb === null))
                                 && (
                                     <>
                                         <Link href={{
