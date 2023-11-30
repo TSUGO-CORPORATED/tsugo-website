@@ -100,27 +100,6 @@ export default function AppointmentDetailCard(): JSX.Element {
         console.log(appointmentDetail);
     }
     
-    //   const handleSubmitRating = async (appointmentId: number) => {
-    //     try {
-    //       const reviewData = reviews[appointmentId];
-    //       if (!reviewData) {
-    //         alert("Please provide a rating and a review note.");
-    //         return;
-    //       }
-    //       const requestData = {
-    //         reviewRating: reviewData.rating,
-    //         reviewNote: reviewData.note,
-    //       };
-    //       await axios.patch(
-    //         `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/review/${appointmentId}`,
-    //         requestData
-    //       );
-    //       alert("Thank you for Rating!");
-    //     } catch (error) {
-    //       console.error("Error submitting rating:", error);
-    //     }
-    //   };
-
     // Initial Use effect
     useEffect(() => {
         getAppointmentDetail();
@@ -224,6 +203,12 @@ export default function AppointmentDetailCard(): JSX.Element {
                             {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId === userId && (
                                 <>
                                     <button onClick={() => handleStatusChange("Cancelled")} className='cancel_button'>Cancel</button>
+                                    <Link href={{
+                                        pathname: '/appointment-detail/update-appointment',  
+                                        query: { appointmentId: appointmentDetail?.id }
+                                    }}>
+                                        <button className='chat_room_button'>Update appointment</button>
+                                    </Link>
                                 </>
                             )}
                             {appointmentDetail?.status === "Accepted" && appointmentDetail.clientUserId === userId && (
@@ -233,12 +218,20 @@ export default function AppointmentDetailCard(): JSX.Element {
                                 </>
                             )}
                             {appointmentDetail?.status === "Accepted" && (
-                                <Link href={{
-                                    pathname: '/appointment-detail/chat-room',  
-                                    query: { slug: appointmentDetail?.id }
-                                }}>
-                                    <button className='chat_room_button'>Go to chat room</button>
-                                </Link>
+                                <>
+                                    <Link href={{
+                                        pathname: '/appointment-detail/chat-room',  
+                                        query: { slug: appointmentDetail?.id }
+                                    }}>
+                                        <button className='chat_room_button'>Go to chat room</button>
+                                    </Link>
+                                    <Link href={{
+                                        pathname: '/appointment-detail/update-appointment',  
+                                        query: { appointmentId: appointmentDetail?.id }
+                                    }}>
+                                        <button className='chat_room_button'>Update appointment</button>
+                                    </Link>
+                                </>
                             )}
                             {appointmentDetail?.status === "Completed"
                                 && ((userId === appointmentDetail.clientUserId && appointmentDetail.reviewClientThumb === null) || (userId === appointmentDetail.interpreterUserId && appointmentDetail.reviewInterpreterThumb === null))

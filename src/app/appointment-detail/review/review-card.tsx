@@ -22,7 +22,8 @@ export default function ReviewCard() {
     // console.log(role);
 
     // HELPER FUNCTION
-    async function submitReview() {
+    async function submitReview(event: React.FormEvent) {
+        event.preventDefault();
         const reviewData = {
             appointmentId: Number(appointmentId),
             role: role,
@@ -48,7 +49,7 @@ export default function ReviewCard() {
             <h1>Test</h1>
             <h1>Test</h1>
             <h1>Review</h1>
-            <div>
+            <form onSubmit={submitReview}>
                 {/* <label>Rating</label>
                 <select value={reviewRating} onChange={(e) => setReviewRating(Number(e.target.value))} required>
                 <option disabled> -- Select Rating -- </option>
@@ -68,7 +69,7 @@ export default function ReviewCard() {
                     className='a'
                 ></input>
                 <button type='submit' onClick={submitReview}>Submit</button>
-            </div>
+            </form>
             <Link href={{
                 pathname: '/appointment-detail',
                 query: {
