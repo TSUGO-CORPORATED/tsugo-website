@@ -67,7 +67,7 @@ export default function AppointmentBlock({appointment}: {appointment: Appointmen
                         </div>
                         <Link href={{
                             pathname: '/appointment-detail',
-                            query: {slug: appointment.id}
+                            query: {appointmentId: appointment.id}
                         }} className="appointment-block__detail">
                             &gt;
                         </Link>
