@@ -226,7 +226,7 @@ export default function AppointmentDetailCard(): JSX.Element {
                                 <button className='chat_room_button'>Go to chat room</button>
                             </Link>
                         )}
-                        {appointmentDetail?.status === "Complete"
+                        {appointmentDetail?.status === "Completed"
                             && ((userId === appointmentDetail.clientUserId && appointmentDetail.reviewClientRating === null) || (userId === appointmentDetail.interpreterUserId && appointmentDetail.reviewInterpreterRating === null))
                             && (
                                 <>
