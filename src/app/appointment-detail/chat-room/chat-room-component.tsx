@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { ContextVariables } from '../../../context-variables';
 import { useSearchParams } from 'next/navigation';
 import { Interface } from "readline";
+//import cv from 'opencv4nodejs';
 
 interface chatMessage {
     appointment: number,
@@ -11,6 +12,11 @@ interface chatMessage {
     content: string,
     timestamp: string
 }
+
+const constraints = {
+    audio: false,
+    video: true,
+  };
 
 
 
@@ -21,6 +27,31 @@ export default function ChatRoomSub(): React.JSX.Element{
     const [error, setError] = useState<any>(null); //TODO: Determine type properly
     const socket = useRef<Socket>();
     const textRef = useRef<HTMLTextAreaElement>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
+   // const navigator = new MediaDevices();
+    navigator.mediaDevices.getUserMedia(constraints)
+  .then((stream) => {
+    const videoTracks = stream.getVideoTracks();
+    console.log("Got stream with constraints:", constraints);
+    console.log(`Using video device: ${videoTracks[0].label}`);
+    stream.onremovetrack = () => {
+      console.log("Stream ended");
+    };
+    videoRef.current!.srcObject = stream;
+  })
+  .catch((error) => {
+    if (error.name === "OverconstrainedError") {
+      console.error(
+        "resolution not supported"//`The resolution ${constraints.video.width.exact}x${constraints.video.height.exact} px is not supported by your device.`,
+      );
+    } else if (error.name === "NotAllowedError") {
+      console.error(
+        "You need to grant this page permission to access your camera and microphone.",
+      );
+    } else {
+      console.error(`getUserMedia error: ${error.name}`, error);
+    }
+  });
 
     // SEARCH PARAMS
     const searchParams = useSearchParams();
@@ -95,6 +126,9 @@ export default function ChatRoomSub(): React.JSX.Element{
             </div>
             <textarea ref={textRef} className="chat-room-text-input" placeholder="..."></textarea>
             <button className="chat-room-send-button" onClick={() => {if(textRef.current!.value != null) sendMessage(textRef.current!.value)}}>Send</button>
+            <video ref={videoRef} width="320" height="240" controls>
+                No Source!
+            </video>
         </>
     )
 }
