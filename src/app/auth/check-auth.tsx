@@ -9,10 +9,11 @@ import axios from 'axios';
 
 export default function CheckAuth(): JSX.Element {
   const router = useRouter();
-  const { userUid, setUserId, setUserUid, setUserFirstName, setUserLastName } = useContext(ContextVariables);
+  const { userUid, setUserId, setUserUid, setUserFirstName, setUserLastName, setUserPhotoUrl } = useContext(ContextVariables);
+  // const { userId, userFirstName, userLastName, userPhotoUrl } = useContext(ContextVariables);
 
   // function checkCurrentUser() {
-  //   console.log(userId, userEmail, userFirstName, userLastName);
+  //   console.log(userId, userFirstName, userLastName, userPhotoUrl);
   // }
 
   useEffect(() => {
@@ -33,6 +34,7 @@ export default function CheckAuth(): JSX.Element {
         setUserUid(user.uid);
         setUserFirstName(userData.data.firstName);
         setUserLastName(userData.data.lastName);
+        if (user.photoURL) setUserPhotoUrl(user.photoURL);
       } else if (!user) {
         // Redirect to sign in if there is no log in
         router.push("/log-in");

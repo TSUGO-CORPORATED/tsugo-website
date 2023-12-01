@@ -18,9 +18,10 @@ export default function LayoutSub(props: Props): JSX.Element {
     const [userUid, setUserUid] = useState<string>('noUid');
     const [userFirstName, setUserFirstName] = useState<string>('noFirstName');
     const [userLastName, setUserLastName] = useState<string>('noLastName');
+    const [userPhotoUrl, setUserPhotoUrl] = useState<string>('noPhotoUrl');
 
     return (
-        <ContextVariables.Provider value={{userId, userUid, userFirstName, userLastName, setUserId, setUserUid, setUserFirstName, setUserLastName}}>
+        <ContextVariables.Provider value={{userId, userUid, userFirstName, userLastName, userPhotoUrl, setUserId, setUserUid, setUserFirstName, setUserLastName, setUserPhotoUrl}}>
             <body className={`${inter.className}`}>
                 <div className='navbar-layout'><Navbar /></div>
                 <div className='childrenprops-layout'>{props.childrenProp}</div>
