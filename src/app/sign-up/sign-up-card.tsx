@@ -9,8 +9,6 @@ import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, si
 import axios from 'axios';
 
 
-const provider = new GoogleAuthProvider();
-  
 // DATA TYPE INTERFACES
 interface Language {
   language: string,
@@ -27,10 +25,13 @@ export default function SignUpCard(): JSX.Element {
   const [languages, setLanguages] = useState<Language[]>([]);
 
   const router = useRouter();
+  const provider = new GoogleAuthProvider();
 
-  async function signUp(e: any) {
+  async function passwordSignUp(e: any) {
     e.preventDefault();
       // this prevents the email and password to dissapear when button is clicked, achieved by removing default
+
+    auth.useDeviceLanguage();
 
     // Creating user
     createUserWithEmailAndPassword(auth, email, password)
@@ -73,18 +74,39 @@ export default function SignUpCard(): JSX.Element {
 
   async function googleSignUp() {
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const token = credential.accessToken;
+        // const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential ? credential.accessToken : null;
+
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
 
         // The signed-in user info.
         const user = result.user;
         console.log(user);
-        router.push('/dashboard');
         
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
+
+
+        // Registering user to the backend
+        const newUserData = {
+          uid: user.uid,
+          email: user.email,
+          firstName: user.displayName,
+          lastName: user.displayName,
+          languages: languages,
+        };
+        // const url: string = 'http://localhost:8080/user';
+        const url: string = 'https://senior-project-server-8090ce16e15d.herokuapp.com/user';
+        await axios.post(url, newUserData)
+          .then(res => {
+            // console.log(res);
+            alert(res.data);
+          })
+          .catch(error => console.log(error)); 
+
+        router.push('/dashboard');
+
       }).catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;
@@ -100,7 +122,7 @@ export default function SignUpCard(): JSX.Element {
   return (
     <div className='sign-up__card'>
         <h1 className='sign-up__card__title'>Create Account</h1>
-        <form onSubmit={signUp} className='sign-up__card__form'>
+        <form onSubmit={passwordSignUp} className='sign-up__card__form'>
           <div className='sign-up__card__form__box'>
               <label className='sign-up__card__form__box__label'>Email</label>
               <input 
