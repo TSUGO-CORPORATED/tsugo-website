@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import { ContextVariables } from '../../context-variables';
 import axios from 'axios';
 
-export default function CheckAuth() {
+export default function CheckAuth(): JSX.Element {
   const router = useRouter();
   const { userUid, setUserId, setUserUid, setUserFirstName, setUserLastName } = useContext(ContextVariables);
 

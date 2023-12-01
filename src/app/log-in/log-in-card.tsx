@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import GoogleLogIn from '../auth/google-log-in';
 
 // PAGE COMPONENT
 export default function LogInCard(): JSX.Element {
@@ -40,6 +41,8 @@ export default function LogInCard(): JSX.Element {
   return (
     <div className='log-in__card'>
       <h1 className='log-in__card__title'>Log In to Your Account</ h1>
+      <GoogleLogIn />
+      <div>----------------------------or---------------------------------</div>
       <form onSubmit={logIn} className='log-in__card__form'>
         <div className='log-in__card__form__box'>
           <label className='log-in__card__form__box__label'>Email</label>

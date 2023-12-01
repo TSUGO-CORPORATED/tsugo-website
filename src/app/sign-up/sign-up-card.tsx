@@ -3,18 +3,12 @@
 // MODULES IMPORT
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 import { auth } from '../../firebase';
-import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import axios from 'axios';
+import GoogleLogIn from '../auth/google-log-in';
 
-
-// DATA TYPE INTERFACES
-interface Language {
-  language: string,
-  proficiency: string,
-  certifications?: string,
-}
 
 // PAGE COMPONENT
 export default function SignUpCard(): JSX.Element {
@@ -22,16 +16,22 @@ export default function SignUpCard(): JSX.Element {
   const [password, setPassword] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
-  const [languages, setLanguages] = useState<Language[]>([]);
 
   const router = useRouter();
-  const provider = new GoogleAuthProvider();
 
-  async function passwordSignUp(e: any) {
+
+  async function passwordSignUp(e: any): Promise<void> {
     e.preventDefault();
       // this prevents the email and password to dissapear when button is clicked, achieved by removing default
-
-    auth.useDeviceLanguage();
+    
+    // Guard function, abort function if account is already registered
+    // const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/user/${email}`;
+    const url: string = `http://localhost:8080/user/check/${email}`;
+    const checkUserAvailability: boolean = await axios.get(url).then(res => res.data);
+    if (checkUserAvailability) {
+      alert('You are already registered, please log in');
+      return
+    }
 
     // Creating user
     createUserWithEmailAndPassword(auth, email, password)
@@ -46,7 +46,6 @@ export default function SignUpCard(): JSX.Element {
           email: email,
           firstName: firstName,
           lastName: lastName,
-          languages: languages,
         };
         // const url: string = 'http://localhost:8080/user';
         const url: string = 'https://senior-project-server-8090ce16e15d.herokuapp.com/user';
@@ -69,53 +68,6 @@ export default function SignUpCard(): JSX.Element {
       .catch((error) => {
         console.log(error);
         alert("invalid username and password");
-      });
-  }
-
-  async function googleSignUp() {
-    signInWithPopup(auth, provider)
-      .then(async (result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        // const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const token = credential ? credential.accessToken : null;
-
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
-
-        // The signed-in user info.
-        const user = result.user;
-        console.log(user);
-        
-
-
-        // Registering user to the backend
-        const newUserData = {
-          uid: user.uid,
-          email: user.email,
-          firstName: user.displayName,
-          lastName: user.displayName,
-          languages: languages,
-        };
-        // const url: string = 'http://localhost:8080/user';
-        const url: string = 'https://senior-project-server-8090ce16e15d.herokuapp.com/user';
-        await axios.post(url, newUserData)
-          .then(res => {
-            // console.log(res);
-            alert(res.data);
-          })
-          .catch(error => console.log(error)); 
-
-        router.push('/dashboard');
-
-      }).catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
       });
   }
 
@@ -174,7 +126,7 @@ export default function SignUpCard(): JSX.Element {
           <Link href="/log-in" className='sign-up__card__log-in-linka'><p>Log in here.</p></Link>
         </div>
         <div>---------------or----------------</div>
-        <div onClick={googleSignUp}>Sign up with Google</div>
+        <GoogleLogIn />
     </div>
   )
 }
