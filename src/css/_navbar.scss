@@ -22,15 +22,18 @@
     padding-right: 0;
 }
 
-.navbar-li a, .logo-navbar a, .profile-navbar a {
+.navbar-li a, .logo-navbar a, .profile-navbar a,.navbar-language-switcher {
     display: block;
     padding: 8px 24px;
     text-align: center;
     text-decoration: none;
     color: white;
 }
+.navbar-language-switcher,.navbar-dropdown-menu{
+    color: white;
+}
 
-.navbar-li a:hover, .logo-navbar a:hover, .profile-navbar a:hover {
+.navbar-li a:hover, .logo-navbar a:hover, .profile-navbar a:hover,.navbar-language-switcher {
     background-color: gray;
 }
 
@@ -38,7 +41,7 @@
     float: left;
 }
 
-.profile-navbar, .logout-navbar, .avatar-navbar {
+.profile-navbar, .logout-navbar, .avatar-navbar,.navbar-language-switcher {
     float: right;
 }
 

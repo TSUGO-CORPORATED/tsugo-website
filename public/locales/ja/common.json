@@ -1,4 +1,6 @@
 {
+    "languageEN":"英語",
+    "languageJP":"日本語",
     "authentication": {
       "logIn": "ログイン",
       "register": "登録",

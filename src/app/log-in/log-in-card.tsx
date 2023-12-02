@@ -6,9 +6,12 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+// import  useTranslation  from '../../../useTranslation';
 
 // PAGE COMPONENT
 export default function LogInCard(): JSX.Element {
+  // const { t } = useTranslation(); 
+
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 

@@ -1,4 +1,6 @@
 {
+    "languageEN":"EN",
+    "languageJP":"JP",
     "authentication": {
       "logIn": "Log in",
       "register": "Register",
