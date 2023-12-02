@@ -42,6 +42,7 @@ const CreateAppointment = () => {
   const [error, setError] = useState("");
   const [address, setAddress] = useState("");
   const libraries = ["places"];
+  const [locationError, setLocationError] = useState("");
 
   useEffect(() => {
     setLocation("");
@@ -73,6 +74,7 @@ const CreateAppointment = () => {
 
       const { lat, lng } = response.data.results[0].geometry.location;
       console.log({ lat, lng });
+      setError("");
       setLocationCoordinates({ lat, lng });
     } catch (error) {
       console.error("Error fetching coordinates: ", error);
@@ -106,7 +108,7 @@ const CreateAppointment = () => {
 
   const handleLocationSearch = async () => {
     await fetchCoordinates(location);
-    fetchAddress();
+    await fetchAddress();
   };
 
   const languages = [
@@ -128,7 +130,7 @@ const CreateAppointment = () => {
     "Turkish",
   ];
   const mainCategories: MainCategoriesType = {
-    Business: [
+    "Business": [
       "Company Visits",
       "Product Descriptions",
       "Market Research",
@@ -136,7 +138,7 @@ const CreateAppointment = () => {
       "Internal Presentations",
       "Others",
     ],
-    Educational: [
+    "Educational": [
       "School Education",
       "Universities and Colleges",
       "Academic Lectures",
@@ -146,7 +148,7 @@ const CreateAppointment = () => {
       "Parent-Teacher Meetings",
       "Others",
     ],
-    Tourism: [
+    "Tourism": [
       "Tourist Guidance",
       "Travel Assistance",
       "Guided Tours",
@@ -156,7 +158,7 @@ const CreateAppointment = () => {
       "Shopping and Ordering in Tourism",
       "Others",
     ],
-    Communication: ["Phone", "Video", "Online Meetings", "Webinars", "Others"],
+    "Communication": ["Phone", "Video", "Online Meetings", "Webinars", "Others"],
     "Culture and Arts": [
       "Art Exhibitions",
       "Museum Guiding",
@@ -165,7 +167,7 @@ const CreateAppointment = () => {
       "Literature and Books",
       "Others",
     ],
-    Technical: [
+    "Technical": [
       "Engineering",
       "IT and Software",
       "Scientific Research",
@@ -173,14 +175,14 @@ const CreateAppointment = () => {
       "Environmental Technology",
       "Others",
     ],
-    Sports: [
+    "Sports": [
       "Sports Events",
       "Athlete Support",
       "Interviews",
       "Sports Training",
       "Others",
     ],
-    Entertainment: [
+    "Entertainment": [
       "Movies and TV Shows",
       "Entertainment Events",
       "Live Shows",
@@ -211,7 +213,7 @@ const CreateAppointment = () => {
       "General Consultation and Information",
       "Others",
     ],
-    Hospital: [
+    "Hospital": [
       "General Medical Consultation",
       "Vaccination Procedures",
       "Health Consultation",
@@ -225,7 +227,7 @@ const CreateAppointment = () => {
       "Language Learning Workshops",
       "Others",
     ],
-    Others: ["Others"],
+    "Others": ["Others"],
   };
   const [selectedMainCategory, setSelectedMainCategory] = useState("Business");
   const [selectedSubCategory, setSelectedSubCategory] = useState(
@@ -260,7 +262,7 @@ const CreateAppointment = () => {
       const convertedDateTime: string = new Date(dateTime).toISOString();
       const requestData = {
         // appointmentTitle: appointmentTitle,
-        appointmentTitle: mainCategories+"-"+selectedSubCategory,
+        appointmentTitle: selectedMainCategory + "-" + selectedSubCategory,
         appointmentType: appointmentType,
         appointmentCategory:selectedMainCategory+"-"+selectedSubCategory,
         clientUserId: userId,
@@ -390,9 +392,11 @@ const CreateAppointment = () => {
                     type="text"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
+                    placeholder="Enter Adress or Location(e.g. TokyoStation)"
                     required
                     className="add_request_input"
                   />
+                   {error && <div className="add_request_error_message">{error}</div>}
                 </div>
                 <button
                   className="add_request_search_location_button"
