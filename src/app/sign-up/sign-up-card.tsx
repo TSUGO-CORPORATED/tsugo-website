@@ -25,8 +25,8 @@ export default function SignUpCard(): JSX.Element {
       // this prevents the email and password to dissapear when button is clicked, achieved by removing default
     
     // Guard function, abort function if account is already registered
-    // const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/user/${email}`;
-    const url: string = `http://localhost:8080/user/check/${email}`;
+    // const url: string = `http://localhost:8080/user/check/${email}`;
+    const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/user/check/${email}`;
     const checkUserAvailability: boolean = await axios.get(url).then(res => res.data);
     if (checkUserAvailability) {
       alert('You are already registered, please log in');
