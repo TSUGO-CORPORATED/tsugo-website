@@ -18,8 +18,8 @@ export default function ReviewCard() {
     const searchParams = useSearchParams();
     const appointmentId = searchParams.get('appointmentId');
     const role = searchParams.get('role');
-    // console.log(appointmentId);
-    // console.log(role);
+    console.log("ID",appointmentId);
+    console.log("role",role);
 
     // HELPER FUNCTION
     async function submitReview(event: React.FormEvent) {
@@ -30,7 +30,7 @@ export default function ReviewCard() {
             reviewThumb: reviewThumb,
             reviewNote: reviewNote,
         }
-        console.log(reviewData);
+        console.log("reveiwdata", reviewData);
         const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/review`;
         await axios.patch(url, reviewData);
         alert('Review submitted successfully!');
@@ -38,7 +38,7 @@ export default function ReviewCard() {
     };
 
     useEffect(() => {
-        console.log(reviewThumb);
+        console.log("thumb",reviewThumb);
     }, [reviewThumb])
 
     return (
