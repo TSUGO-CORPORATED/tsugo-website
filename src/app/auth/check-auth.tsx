@@ -20,7 +20,7 @@ export default function CheckAuth(): JSX.Element {
   useEffect(() => {
     // Check if user is log-ed in. If not, return to sign in. If yes, assign context variable
     const listen = onAuthStateChanged(auth, async (user: any) => {
-      console.log(user);
+      // console.log(user);
       if (user && userUid === 'noUid') {
         // Apply use context variable if user is log in and context variable is not assigned yet 
 

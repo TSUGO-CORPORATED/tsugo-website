@@ -3,21 +3,21 @@
 import React, {useContext, useState} from "react";
 import { ContextVariables } from "@/context-variables";
 import Link from "next/link";
-import { updatePassword, reauthenticateWithCredential, EmailAuthProvider, signOut } from 'firebase/auth';
+import { deleteUser, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 import { auth } from "../../../firebase";
 import { useRouter } from 'next/navigation';
+import axios from "axios";
 
-export default function UpdatePasswordCard(): JSX.Element {
+export default function DeleteAccountCard(): JSX.Element {
     // STATE VARIABLES
-    const [oldPassword, setOldPassword] = useState<string>("");
-    const [newPassword, setNewPassword] = useState<string>("");
+    const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-    const { userEmail } = useContext(ContextVariables);
+    const { userEmail, userUid } = useContext(ContextVariables);
 
     const router = useRouter();
 
     // HELPER FUNCTION
-    async function updatePasswordFunction(event: React.FormEvent) {
+    async function deleteAccountFunction(event: React.FormEvent) {
         event.preventDefault();
         if (auth.currentUser) {
             const user = auth.currentUser;
@@ -25,7 +25,7 @@ export default function UpdatePasswordCard(): JSX.Element {
             // Verify old password
             const credential = EmailAuthProvider.credential(
                 userEmail,
-                oldPassword
+                confirmPassword
              );
             // console.log(userEmail);
             // console.log(oldPassword);
@@ -33,18 +33,17 @@ export default function UpdatePasswordCard(): JSX.Element {
             reauthenticateWithCredential(user, credential).then(() => {
                 console.log('verified');
                 // If user re-authenticated, change password
-                updatePassword(user, newPassword).then(() => {
-                    // Update successful.
-                    alert("Update password successful, please log in again");
+                deleteUser(user).then(async () => {
+                    // Delete in the back end database         
+                    const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/user/${userUid}`;           
+                    await axios.delete(url);
+
+                    // Delete successful.
+                    alert("Account has been successfully deleted");
                     
-                    // Logging out and sent to sign in page
-                    signOut(auth)
-                        .then(() => {
-                            router.push('/log-in');
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                    });
+                    // Sent to home page
+                    router.push('/log-in');
+
                 }).catch((error) => {
                     // An error ocurred
                     console.log(error);
@@ -68,31 +67,22 @@ export default function UpdatePasswordCard(): JSX.Element {
             <Link href='/profile'>
                 <button className='aadsf'>Go back to profile</button>
             </Link>
-            <form onSubmit={updatePasswordFunction}>
+            <form onSubmit={deleteAccountFunction}>
                 <div className='add_request_box'>
-                    <label className='add_request_label'>Old password:</label>
+                    <label className='add_request_label'>Confirm password:</label>
                     <input 
                         type="text" 
-                        value={oldPassword} 
-                        onChange={(e) => setOldPassword(e.target.value)} 
+                        value={confirmPassword} 
+                        onChange={(e) => setConfirmPassword(e.target.value)} 
                         required 
                         className='add_request_input' 
                     />
                 </div>
-                <div className='add_request_box'>
-                    <label className='add_request_label'>New password:</label>
-                    <input 
-                        type="text" 
-                        value={newPassword} 
-                        onChange={(e) => setNewPassword(e.target.value)} 
-                        required 
-                        className='add_request_input' 
-                    />
-                </div>
+                <p>Warning blah... blah... blah...</p>
                 <div className="button_box">
-                    <button type="submit" className='add_request_submit_button'>Confirm</button>
+                    <button type="submit" className='add_request_submit_button'>Confirm delete account</button>
                 </div>
             </form>
         </div>
-    );
+    )
 }

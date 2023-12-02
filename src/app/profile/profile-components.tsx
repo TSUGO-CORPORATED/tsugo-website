@@ -131,6 +131,11 @@ export default function Profile() {
                 edit
                 </div>
             </Link>
+            <Link className='edit-link' href="/profile/delete-account">
+                <div className='profile-button' id='edit-button'>
+                    Delete Account
+                </div>
+            </Link>
 
             <button className='profile-button'>delete</button>
             <button className='profile-button'>help/support</button>
