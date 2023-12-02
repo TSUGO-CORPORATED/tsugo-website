@@ -26,27 +26,11 @@
   border-radius: 10px;
   width: 600px;
 }
-.log-in__card__logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 2em;
-}
-.log-in__card__logo__picture {
-  width: 7em;
-  height: 7em;
-}
-.log-in__card__logo__text {
-  font-family: "Playpen Sans", cursive;
-  font-size: 32px;
-}
 .log-in__card__title {
   font-size: 28px;
   margin-top: 1em;
   margin-bottom: 0.3em;
   font-size: 32px;
-  order: 1;
 }
 .log-in__card__form {
   display: flex;
@@ -54,7 +38,6 @@
   align-items: center;
   flex-direction: column;
   width: 75%;
-  order: 2;
 }
 .log-in__card__form__box {
   justify-content: left;
@@ -102,7 +85,6 @@
   align-items: center;
   flex-direction: column;
   margin: 1em;
-  order: 3;
 }
 .log-in__card__sign-up__link {
   width: 100%;
@@ -142,7 +124,6 @@
   margin-top: 1em;
   margin-bottom: 0em;
   font-size: 32px;
-  order: 1;
 }
 .sign-up__card__form {
   display: flex;
@@ -150,7 +131,6 @@
   align-items: center;
   flex-direction: column;
   width: 75%;
-  order: 2;
 }
 .sign-up__card__form__box {
   justify-content: left;
@@ -190,7 +170,7 @@
 .sign-up__card__form__box__sign-up-button:hover {
   background-color: #1f1e1e;
 }
-.sign-up__card__log-in-link {
+.sign-up__card__log-in-linka {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -198,11 +178,8 @@
   width: 100%;
   color: blue;
   font-weight: bold;
-  margin-top: 0.7em;
-  margin-bottom: 0.8em;
-  order: 3;
 }
-.sign-up__card__log-in-link:hover {
+.sign-up__card__log-in-linka:hover {
   color: #7e9ae6;
 }
 
@@ -446,7 +423,6 @@
 .add_request_title {
   color: black;
   font-size: 24px;
-  text-overflow: ellipsis;
   white-space: nowrap;
   margin-top: 20vh;
   margin-bottom: 10px;

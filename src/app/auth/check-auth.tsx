@@ -7,12 +7,14 @@ import { useRouter } from 'next/navigation'
 import { ContextVariables } from '../../context-variables';
 import axios from 'axios';
 
-export default function CheckAuth() {
+export default function CheckAuth(): JSX.Element {
   const router = useRouter();
-  const { userUid, setUserId, setUserUid, setUserFirstName, setUserLastName } = useContext(ContextVariables);
+  const { userUid, setUserId, setUserUid, setUserFirstName, setUserLastName, setUserEmail, setUserPhotoUrl } = useContext(ContextVariables);
+  // const { userId, userFirstName, userLastName, userPhotoUrl } = useContext(ContextVariables);
 
   // function checkCurrentUser() {
-  //   console.log(userId, userEmail, userFirstName, userLastName);
+  //   console.log(userId, userFirstName, userLastName, userPhotoUrl);
+  //   console.log(auth.currentUser);
   // }
 
   useEffect(() => {
@@ -33,6 +35,8 @@ export default function CheckAuth() {
         setUserUid(user.uid);
         setUserFirstName(userData.data.firstName);
         setUserLastName(userData.data.lastName);
+        setUserEmail(user.email);
+        if (user.photoURL) setUserPhotoUrl(user.photoURL);
       } else if (!user) {
         // Redirect to sign in if there is no log in
         router.push("/log-in");
