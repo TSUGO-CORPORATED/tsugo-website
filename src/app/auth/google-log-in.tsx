@@ -1,7 +1,7 @@
 'use client';
 
 import { auth } from '../../firebase';
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { signInWithPopup, GoogleAuthProvider, User } from 'firebase/auth';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
@@ -26,7 +26,7 @@ export default function GoogleLogIn(): JSX.Element {
             // ...
     
             // The signed-in user info.
-            const user = result.user;
+            const user: User = result.user;
             // console.log(user);
             
     
@@ -36,11 +36,14 @@ export default function GoogleLogIn(): JSX.Element {
             const checkUserAvailability: boolean = await axios.get(url1).then(res => res.data);
             if (!checkUserAvailability) {
               // Registering user to the backend
+              const firstName = user.displayName?.split(" ", 2)[0];
+              const lastName = user.displayName?.split(" ", 2)[1];
+              
               const newUserData = {
                 uid: user.uid,
                 email: user.email,
-                firstName: user.displayName,
-                lastName: user.displayName,
+                firstName: firstName,
+                lastName: lastName,
               };
       
               const url2: string = 'http://localhost:8080/user';
