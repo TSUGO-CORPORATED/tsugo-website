@@ -111,6 +111,7 @@ export default function UpdateAppointmentCard() {
         const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/detail/${appointmentId}`;
         const retrievedData = await axios.get(url);
         const data = retrievedData.data
+        console.log("detail",data)
 
         const processedDateTime = data.appointmentDateTime.substring(0, 16);
         // appointmentTitle: appointmentTitle,
@@ -139,6 +140,7 @@ export default function UpdateAppointmentCard() {
             appointmentType: appointmentType,
             clientSpokenLanguage: clientSpokenLanguage,
             interpreterSpokenLanguage: interpreterSpokenLanguage,
+            appointmentDateTime:appointmentDateTime,
             locationName: locationName,
             locationAddress: locationAddress,
             locationLatitude: locationCoordinates?.lat, 
@@ -332,11 +334,7 @@ export default function UpdateAppointmentCard() {
 
     return (
         <div>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Test</h1>
+
             <form onSubmit={updateAppointment}>
                 {/* <div className='add_request_box'>
                     <label className='add_request_label'>Title:</label>
@@ -390,8 +388,8 @@ export default function UpdateAppointmentCard() {
               <label className="add_request_label">Date and Time:</label>
               <input
                 type="datetime-local"
-                value={dateTime}
-                onChange={(e) => setDateTime(e.target.value)}
+                value={appointmentDateTime}
+                onChange={(e) => setAppointmentDateTime(e.target.value)}
                 min={dateTime}
                 required
                 className="add_request_input"
