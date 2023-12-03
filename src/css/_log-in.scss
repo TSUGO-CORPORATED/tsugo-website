@@ -12,34 +12,19 @@
     @include flexCenter(column);
     @include card();
     width: 600px;
-
-    &__logo {
-      @include flexCenter(column);
-      margin-top: 2em;
-
-      &__picture {
-        width: 7em;
-        height: 7em;
-      }
-
-      &__text {
-        font-family: 'Playpen Sans', cursive;
-        font-size: 32px;
-      }
-    }
   
     &__title {
       @include text(large, large);
       margin-top: 1em;
       margin-bottom: 0.3em;
       font-size: 32px;
-      order: 1;
+      // order: 1;
     }
 
     &__form {
       @include flexCenter(column);
       width: 75%;
-      order: 2;
+      // order: 2;
       
       &__box {
         justify-content: left;
@@ -82,7 +67,7 @@
     &__sign-up {
       @include flexCenter(column);
       margin: 1em;
-      order: 3;
+      // order: 3;
   
       &__link {
         width: 100%;

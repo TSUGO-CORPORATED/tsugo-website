@@ -4,7 +4,7 @@ import { ContextVariables } from '../../context-variables';
 import axios from "axios"
 import Link from 'next/link';
 import Image from 'next/image';
-import profilePic from '../../../public/default.jpg';
+import profilePic from '../../../public/Mark.jpg';
 
 export default function Profile() {
     interface UserDetails{
@@ -31,10 +31,18 @@ export default function Profile() {
     const [firstNameUpdate, setFirstNameUpdate] = useState<string | number | readonly string[] | undefined>("");
     const [lastNameUpdate, setLastNameUpdate] = useState<String|undefined|null>(userProfile?.lastName);
     const [aboutUpdate, setAboutUpdate] = useState<String|undefined|null>(userProfile?.about);
-    const [languageUpdate, setLanguageUpdate] = useState<string | number | readonly string[] | undefined | null | UserGetDetailLanguage[]>(userProfile?.userLanguage);
-    const [deleted, setDeleted] = useState<Boolean>(false);
 
     const dummy = [{id: 69, language: "English", proficiency: "Native"}];
+
+    // Check provider
+    async function checkProvider() {
+        const provider = auth.currentUser?.providerData[0].providerId;
+        // console.log(provider);
+        if (provider) setProvider(provider);
+    }
+    useEffect(() => {
+        checkProvider()
+    }, []);
 
     //get user profile from server by uid
     const serverProfile = async () => {
@@ -152,11 +160,21 @@ export default function Profile() {
                 edit
                 </div>
             </Link>
-                
-            
+            <Link className='edit-link' href="/profile/delete-account">
+                <div className='profile-button' id='edit-button'>
+                    Delete Account
+                </div>
+            </Link>
+
             <button className='profile-button'>delete</button>
             <button className='profile-button'>help/support</button>
             <button className='profile-button'>Agreement</button>
+
+            
+            {provider === "password" && (
+                <Link href="/profile/update-password">Update password</Link>
+            )}    
+            {/* <button onClick={checkProvider}>Check provider</button> */}
         </div>
     );
 }
