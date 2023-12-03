@@ -4,7 +4,7 @@ import { ContextVariables } from '../../context-variables';
 import axios from "axios"
 import Link from 'next/link';
 import Image from 'next/image';
-import profilePic from '../../../public/Mark.jpg';
+import profilePic from '../../../public/default.jpg';
 
 export default function Profile() {
     interface UserDetails{
@@ -31,6 +31,8 @@ export default function Profile() {
     const [firstNameUpdate, setFirstNameUpdate] = useState<string | number | readonly string[] | undefined>("");
     const [lastNameUpdate, setLastNameUpdate] = useState<String|undefined|null>(userProfile?.lastName);
     const [aboutUpdate, setAboutUpdate] = useState<String|undefined|null>(userProfile?.about);
+    const [languageUpdate, setLanguageUpdate] = useState<string | number | readonly string[] | undefined | null | UserGetDetailLanguage[]>(userProfile?.userLanguage);
+    const [deleted, setDeleted] = useState<Boolean>(false);
 
     const dummy = [{id: 69, language: "English", proficiency: "Native"}];
 
