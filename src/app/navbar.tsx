@@ -39,7 +39,7 @@ export default function Navbar() {
                     </li>
                     <li className='profile-navbar'>
                         <Link href="/sign-up">
-                            <div>Register</div>
+                            <div>Sign up</div>
                         </Link>
                     </li>
                 </ul>
