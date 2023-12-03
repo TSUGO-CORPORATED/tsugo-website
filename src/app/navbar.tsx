@@ -3,7 +3,7 @@ import SignOut from './auth/sign-out';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import profilePic from './../../public/Mark.jpg';
+import profilePic from './../../public/default.jpg';
 
 
 export default function Navbar() {
