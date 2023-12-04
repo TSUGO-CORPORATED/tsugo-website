@@ -84,7 +84,7 @@ export default function FindRequestCard() {
 
   const filteredAppointments = appointments.filter((appointment) => {
 
-    const timeFilter =  new Date(appointment.appointmentDateTime) > new Date(now);
+    // const timeFilter =  new Date(appointment.appointmentDateTime) > new Date();
     const typeFilter = selectedType === 'all' || appointment.appointmentType === selectedType;
     const keywordFilter = (
         appointment.status?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
