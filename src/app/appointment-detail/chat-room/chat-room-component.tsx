@@ -34,8 +34,11 @@ export default function ChatRoomSub(): React.JSX.Element{
     const textRef = useRef<HTMLTextAreaElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const video2Ref = useRef<HTMLVideoElement>(null);
-    const navigator = new Navigator();
+    //const navigator = new Navigator();
+ 
     
+
+  function startCamera() {
     navigator.mediaDevices.getUserMedia(constraints)
     .then((stream) => {
     const videoTracks = stream.getVideoTracks();
@@ -59,6 +62,7 @@ export default function ChatRoomSub(): React.JSX.Element{
       console.error(`getUserMedia error: ${error.name}`, error);
     }
   });
+  }
 
     // SEARCH PARAMS
     const searchParams = useSearchParams();
@@ -82,6 +86,7 @@ export default function ChatRoomSub(): React.JSX.Element{
 
 
         useEffect(() => {
+            startCamera();
             socket.current = socketIO("https://senior-project-server-8090ce16e15d.herokuapp.com/"); //TODO: Set env variable  http://localhost:8080
             socket.current.emit("CONNECT_ROOM", `{"room": ${appointmentId}}`); //TOD: Need buttons for selecting which room you want, default to 1 for now
 
