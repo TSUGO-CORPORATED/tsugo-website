@@ -1,9 +1,11 @@
 'use client';
 import socketIO, { Socket } from "socket.io-client";
+import { Peer } from "peerjs";
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { ContextVariables } from '../../../context-variables';
 import { useSearchParams } from 'next/navigation';
 import { Interface } from "readline";
+
 //import cv from 'opencv4nodejs';
 
 interface chatMessage {
@@ -22,15 +24,19 @@ const constraints = {
 
 export default function ChatRoomSub(): React.JSX.Element{
     const { userId } = useContext(ContextVariables);
+    const peer = new Peer();
+
 
     const [messages, setMessages] = useState<chatMessage[]>([]);
     const [error, setError] = useState<any>(null); //TODO: Determine type properly
+    const [peerId, setPeerId] = useState<string>();
     const socket = useRef<Socket>();
     const textRef = useRef<HTMLTextAreaElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
-   // const navigator = new MediaDevices();
+    const video2Ref = useRef<HTMLVideoElement>(null);
+   
     navigator.mediaDevices.getUserMedia(constraints)
-  .then((stream) => {
+    .then((stream) => {
     const videoTracks = stream.getVideoTracks();
     console.log("Got stream with constraints:", constraints);
     console.log(`Using video device: ${videoTracks[0].label}`);
@@ -94,6 +100,8 @@ export default function ChatRoomSub(): React.JSX.Element{
                 setMessages((prevMessages) => [...prevMessages, parsedMessage]);
             });
             socket.current.on("history", async (message) => {
+                socket.current!.emit('video-join', peerId);
+
                 console.log("received message history");
                 let parsedHistory = await JSON.parse(message);
                 let standardizedHistory: any = [];
@@ -106,6 +114,37 @@ export default function ChatRoomSub(): React.JSX.Element{
                 }
                 setMessages((prevMessages) => [...prevMessages, ...standardizedHistory]);
             });
+            socket.current.on('connect-user', (userId) => {
+                if (peerId === userId) return;
+                peer.connect(userId);
+                navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+                .then((stream) => {
+                    var call = peer.call(userId, stream);
+                    call.on('stream', function (remoteStream) {
+                      newVideo(remoteStream);
+                    });
+                  }).catch((err) => {
+                    console.log('Failed to get local stream', err);
+                  });
+              });
+
+              peer.on('connection', function (con) {
+                peer.on('call', function (call) {
+                  navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+                  .then((stream) => {
+                    call.answer(stream);
+                    call.on('stream', function (remoteStream) {
+                      newVideo(remoteStream);
+                    });
+                  }).catch( (err) => {
+                    console.log('Failed to get local stream', err);
+                  });
+                });
+              });
+              
+              peer.on('open', (id) => {
+                setPeerId(id);
+              });
 
            
 
@@ -114,8 +153,22 @@ export default function ChatRoomSub(): React.JSX.Element{
             }   
         }, []);
 
+        const newVideo = (stream: MediaStream) => {
+            //const video = document.createElement('video');
+            const videoContainer = document.getElementById('video-container');
+            if (video2Ref.current!.id == stream.id) return;
+            video2Ref.current!.id = stream.id;
+            video2Ref.current!.srcObject = stream;
+
+            
+            video2Ref.current!.addEventListener('loadedmetadata', () => {
+              video2Ref.current!.play();
+            });
+          };
+
     return (
-        <>
+        <>  
+         <script src="https://unpkg.com/peerjs@1.4.5/dist/peerjs.min.js"></script>
             <div >
                 <ul className="chatContainer">
                     {messages.map((message, index) => {
@@ -127,6 +180,9 @@ export default function ChatRoomSub(): React.JSX.Element{
             <textarea ref={textRef} className="chat-room-text-input" placeholder="..."></textarea>
             <button className="chat-room-send-button" onClick={() => {if(textRef.current!.value != null) sendMessage(textRef.current!.value)}}>Send</button>
             <video ref={videoRef} width="320" height="240" controls>
+                No Source!
+            </video>
+            <video ref={video2Ref} width="320" height="240" controls>
                 No Source!
             </video>
         </>
