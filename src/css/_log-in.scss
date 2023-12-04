@@ -1,17 +1,8 @@
 .log-in {
-  @include flexCenter(column);
-  height: 100vh;
-  width: 100vw;
-  background-color: $color-background-black;
-  background-image: url(../../public/tokyo.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 40%;
+  @include background();
 
   &__card {
-    @include flexCenter(column);
-    @include card();
-    width: 600px;
+    @include pageCard();
   
     &__title {
       @include text(large, large);

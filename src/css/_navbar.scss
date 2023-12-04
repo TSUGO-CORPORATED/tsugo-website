@@ -1,4 +1,4 @@
-.navbar-ul {
+.navbar {
     list-style-type: none;
     margin: 0;
     padding: 12px;
@@ -18,37 +18,64 @@
     border-bottom-color: #e2e2e2;
     z-index: 2002;
     box-sizing: border-box;
-    padding-left: 0;
-    padding-right: 0;
-}
+    padding-left: 10px;
+    padding-right: 10px;
+    @include flexCenter(row);
+    justify-content: space-between;
+    
+    &__left {
+        &__logo {
+            padding: 8px 24px;
+            text-align: center;
+            text-decoration: none;
+            color: $color-background-white;
+            font-weight: bold;
+            border-radius: 20px;
+        }
+    }
 
-.navbar-li a, .logo-navbar a, .profile-navbar a {
-    display: block;
-    padding: 8px 24px;
-    text-align: center;
-    text-decoration: none;
-    color: white;
-}
+    &__right {
+        @include flexCenter(row);
+        gap: 10px;
 
-.navbar-li a:hover, .logo-navbar a:hover, .profile-navbar a:hover {
-    background-color: gray;
-}
+        &__sign-up {
+            padding: 8px 24px;
+            text-align: center;
+            text-decoration: none;
+            color: $color-background-dark-grey;
+            font-weight: bold;
+            border-radius: 20px;
+    
+            &:hover {
+                background-color: rgb(56, 56, 56);
+                color: $color-background-white;
+            } 
+        }
+    
+        &__log-in {
+            padding: 8px 24px;
+            text-align: center;
+            text-decoration: none;
+            background-color: $color-background-white;
+            color: $color-background-black;
+            font-weight: bold;
+            border-radius: 20px;
+            &:hover {
+                font-weight: bold;
+                transform: scale(1.1);
+            }
+        }
+    }
 
-.logo-navbar {
-    float: left;
-}
 
-.profile-navbar, .logout-navbar, .avatar-navbar {
-    float: right;
-}
-
-.avatar-navbar {
-    height: 42px;
-    width: 42px;
-}
-
-.navbar-avatar {
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
+    &__avatar-navbar {
+        height: 42px;
+        width: 42px;
+    }
+    
+    &__navbar-avatar {
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+    }
 }
