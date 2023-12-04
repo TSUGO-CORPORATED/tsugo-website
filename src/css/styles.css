@@ -18,13 +18,15 @@
   background-position: 40%;
 }
 .log-in__card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  justify-content: flex-start;
+  width: 75%;
+  height: 75%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #ffffff;
-  border-radius: 10px;
-  width: 600px;
 }
 .log-in__card__title {
   font-size: 28px;
@@ -111,13 +113,15 @@
   background-position: 40%;
 }
 .sign-up__card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  justify-content: flex-start;
+  width: 75%;
+  height: 75%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #ffffff;
-  border-radius: 10px;
-  width: 600px;
 }
 .sign-up__card__title {
   font-size: 28px;
@@ -190,21 +194,22 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
+  background-color: #000000;
   background-image: url(../../public/tokyo.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 40%;
 }
 .dashboard__card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   background-color: #ffffff;
   border-radius: 10px;
   justify-content: flex-start;
   width: 75%;
   height: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 .dashboard__card__role-switch {
   display: flex;
@@ -553,8 +558,6 @@
   background-color: #ffffff;
   border-radius: 10px;
   justify-content: flex-start;
-  margin-top: 2em;
-  margin-bottom: 2em;
   width: 75%;
   height: 75%;
   display: flex;
@@ -765,8 +768,6 @@
   background-color: #ffffff;
   border-radius: 10px;
   justify-content: flex-start;
-  margin-top: 2em;
-  margin-bottom: 2em;
   width: 75%;
   height: 75%;
   display: flex;
@@ -891,7 +892,7 @@
   margin-bottom: 5px;
 }
 
-.landingpage {
+.home__landing-page {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -902,12 +903,7 @@
   width: 100%;
   overflow: hidden;
 }
-.landingpage__card {
-  display: flex;
-  width: 100%;
-  height: 100%;
-}
-.landingpage__video {
+.home__landing-page__video {
   width: auto;
   height: 100%;
   -o-object-fit: cover;
@@ -915,7 +911,7 @@
   -o-object-position: right bottom;
      object-position: right bottom;
 }
-.landingpage__header {
+.home__landing-page__header {
   color: white;
   justify-self: flex-start;
   width: 100%;
@@ -925,8 +921,7 @@
   margin-top: 24px;
   text-align: center;
 }
-
-.sign-up__card__log-in-link {
+.home__landing-page__log-in-link {
   color: black;
   z-index: 2;
   top: 15%;
@@ -935,20 +930,7 @@
   margin-top: 6em;
 }
 
-.home-page__login__div {
-  border: solid black 1px;
-  padding: 12px;
-  border-radius: 12px;
-  background-color: #000000;
-  font-weight: bold;
-  color: #ffffff;
-  cursor: pointer;
-}
-.home-page__login__div:hover {
-  background-color: #1f1e1e;
-}
-
-.navbar-ul {
+.navbar {
   list-style-type: none;
   margin: 0;
   padding: 12px;
@@ -968,36 +950,59 @@
   border-bottom-color: #e2e2e2;
   z-index: 2002;
   box-sizing: border-box;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
 }
-
-.navbar-li a, .logo-navbar a, .profile-navbar a {
-  display: block;
+.navbar__left__logo {
   padding: 8px 24px;
   text-align: center;
   text-decoration: none;
-  color: white;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 20px;
 }
-
-.navbar-li a:hover, .logo-navbar a:hover, .profile-navbar a:hover {
-  background-color: gray;
+.navbar__right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
 }
-
-.logo-navbar {
-  float: left;
+.navbar__right__sign-up {
+  padding: 8px 24px;
+  text-align: center;
+  text-decoration: none;
+  color: #9c9b9b;
+  font-weight: bold;
+  border-radius: 20px;
 }
-
-.profile-navbar, .logout-navbar, .avatar-navbar {
-  float: right;
+.navbar__right__sign-up:hover {
+  background-color: rgb(56, 56, 56);
+  color: #ffffff;
 }
-
-.avatar-navbar {
+.navbar__right__log-in {
+  padding: 8px 24px;
+  text-align: center;
+  text-decoration: none;
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: bold;
+  border-radius: 20px;
+}
+.navbar__right__log-in:hover {
+  font-weight: bold;
+  transform: scale(1.1);
+}
+.navbar__avatar-navbar {
   height: 42px;
   width: 42px;
 }
-
-.navbar-avatar {
+.navbar__navbar-avatar {
   border-radius: 50%;
   width: 35px;
   height: 35px;

@@ -1,19 +1,8 @@
 .dashboard {
-  @include flexCenter(column);
-  height: 100vh;
-  width: 100vw;
-  // background-color: $color-background-black;
-  background-image: url(../../public/tokyo.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 40%;
+  @include background();
 
   &__card {
-    @include flexCenter(column);
-    @include card();
-    justify-content: flex-start;
-    width: 75%;
-    height: 75%;
+    @include pageCard();
 
     &__role-switch {
       @include flexCenter(row);
@@ -95,9 +84,3 @@
     }
   }
 }
-
-// h1 {
-//   margin-top: 15px;
-//   height: 20%;
-//   order: 2;
-// }
