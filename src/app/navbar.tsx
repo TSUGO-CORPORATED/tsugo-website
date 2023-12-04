@@ -1,5 +1,7 @@
+'use client'
+
 // IMPORT MODULES
-import React, {useContext} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import Link from 'next/link';
 import { ContextVariables } from '@/context-variables';
 import { signOut } from 'firebase/auth';
@@ -28,8 +30,8 @@ import Modal from '@mui/material/Modal';
 // JSX COMPONENTS
 export default function Navbar() {
     // STATE VARIABLES, CONTEXT VARIABLES, DESIGNATION
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const [signOutWindowOpen, setSignOutWindowOpen] = React.useState(false);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [signOutWindowOpen, setSignOutWindowOpen] = useState<boolean>(false);
 
 
     const { userUid, userPhotoUrl, userFirstName, setUserId, setUserUid, setUserFirstName, setUserLastName } = useContext(ContextVariables);
@@ -74,6 +76,7 @@ export default function Navbar() {
     function signOutWindowHandleClose(): void {
         setSignOutWindowOpen(false);
     } 
+
     function userSignOut(): void {
         signOut(auth)
             .then(() => {
@@ -83,15 +86,21 @@ export default function Navbar() {
                 setUserFirstName('noFirstName');
                 setUserLastName('noLastName');
         
-                // alert('sign out successful');
-        
-                // push to homepage
+                // Close window
+                setSignOutWindowOpen(false);
+
+
+                // Push to homepage
                 router.push('/');
             })
             .catch((err) => {
                 console.log(err);
             });
     }
+
+    // useEffect(() => {
+    //     setSignOutWindowOpen(false);
+    // }, []);
 
     return (
             <div className='navbar'>
@@ -183,6 +192,7 @@ export default function Navbar() {
                                 onClose={signOutWindowHandleClose}
                                 aria-labelledby="modal-modal-title"
                                 aria-describedby="modal-modal-description"
+                                disableEnforceFocus
                             >
                                 <Box sx={signOutWindowStyle} className='navbar__right__sign-out-window'>
                                     <div className='navbar__right__sign-out-window__title'>Confirm Log-out</div>
@@ -194,6 +204,7 @@ export default function Navbar() {
                                 </Box>
                             </Modal>
                         </div>
+                        {/* <Button variant='contained' onClick={userSignOut} sx={buttonRed}>Confirm log-out</Button> */}
                     </>
                 )}
             </div>
