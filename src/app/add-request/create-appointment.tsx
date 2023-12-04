@@ -6,6 +6,8 @@ import { Autocomplete } from '@react-google-maps/api';
 import { useRouter } from 'next/navigation';
 import { ContextVariables } from "../../context-variables";
 import MapComponent from "../map-component/map"
+import Disclaimer from '../disclaimer';
+
 
 type Coordinates = { lat: number; lng: number; } | null;
 type StatusFilter = "Requesting" | "Accepted" | "Cancelled" | "Completed" | "";
@@ -14,6 +16,9 @@ type MainCategoriesType = {
 };
 
 const CreateAppointment = () => {
+
+  //Helper Function aquireing Now
+
   function getLocalDateTime() {
     const now = new Date();
     const year = now.getFullYear();
@@ -25,9 +30,15 @@ const CreateAppointment = () => {
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
   const now = getLocalDateTime();
+
+
+
+
+
   const router = useRouter();
   const { userId } = useContext(ContextVariables);
 
+  //State settings
   const [appointmentTitle, setAppointmentTitle] = useState("");
   const [dateTime, setDateTime] = useState(now);
   const [location, setLocation] = useState("");
@@ -43,6 +54,12 @@ const CreateAppointment = () => {
   const [address, setAddress] = useState("");
   const libraries = ["places"];
 
+
+
+  const [locationError, setLocationError] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
+  //use Effect on appointment change => clears the location input
   useEffect(() => {
     setLocation("");
   }, [appointmentType]);
@@ -58,6 +75,8 @@ const CreateAppointment = () => {
   //  if (!isLoaded) return <div>Loading Maps...</div>;
 
   // const apiKey = process.env.REACT_APP_GOOGLE_API_KEY as string;
+
+  //helper func to get lat,lng
   const fetchCoordinates = async (location: string) => {
     try {
       const response = await axios.get(
@@ -73,6 +92,10 @@ const CreateAppointment = () => {
 
       const { lat, lng } = response.data.results[0].geometry.location;
       console.log({ lat, lng });
+
+
+      setError("");
+
       setLocationCoordinates({ lat, lng });
     } catch (error) {
       console.error("Error fetching coordinates: ", error);
@@ -80,6 +103,8 @@ const CreateAppointment = () => {
     }
   };
 
+
+  //helper Function to get the Adress from lat,lng
   const fetchAddress = async () => {
     if (!locationCoordinates) return;
 
@@ -104,10 +129,25 @@ const CreateAppointment = () => {
     }
   };
 
+
   const handleLocationSearch = async () => {
     await fetchCoordinates(location);
     fetchAddress();
   };
+
+
+
+  //felper Func for recognizable Date
+  const formattedDateTime = new Date(dateTime).toLocaleString('en-US', {
+    month: '2-digit',
+    day: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true 
+  });
+
+  //select box lists
 
   const languages = [
     "Japanese",
@@ -128,6 +168,7 @@ const CreateAppointment = () => {
     "Turkish",
   ];
   const mainCategories: MainCategoriesType = {
+
     Business: [
       "Company Visits",
       "Product Descriptions",
@@ -136,6 +177,7 @@ const CreateAppointment = () => {
       "Internal Presentations",
       "Others",
     ],
+
     Educational: [
       "School Education",
       "Universities and Colleges",
@@ -146,6 +188,7 @@ const CreateAppointment = () => {
       "Parent-Teacher Meetings",
       "Others",
     ],
+
     Tourism: [
       "Tourist Guidance",
       "Travel Assistance",
@@ -156,6 +199,7 @@ const CreateAppointment = () => {
       "Shopping and Ordering in Tourism",
       "Others",
     ],
+
     Communication: ["Phone", "Video", "Online Meetings", "Webinars", "Others"],
     "Culture and Arts": [
       "Art Exhibitions",
@@ -165,6 +209,7 @@ const CreateAppointment = () => {
       "Literature and Books",
       "Others",
     ],
+
     Technical: [
       "Engineering",
       "IT and Software",
@@ -173,13 +218,16 @@ const CreateAppointment = () => {
       "Environmental Technology",
       "Others",
     ],
+
     Sports: [
+
       "Sports Events",
       "Athlete Support",
       "Interviews",
       "Sports Training",
       "Others",
     ],
+
     Entertainment: [
       "Movies and TV Shows",
       "Entertainment Events",
@@ -211,6 +259,7 @@ const CreateAppointment = () => {
       "General Consultation and Information",
       "Others",
     ],
+
     Hospital: [
       "General Medical Consultation",
       "Vaccination Procedures",
@@ -225,13 +274,19 @@ const CreateAppointment = () => {
       "Language Learning Workshops",
       "Others",
     ],
+
     Others: ["Others"],
   };
+
+
+    //select box lists use State
   const [selectedMainCategory, setSelectedMainCategory] = useState("Business");
   const [selectedSubCategory, setSelectedSubCategory] = useState(
     mainCategories["Business"][0]
   );
 
+
+  //handler Func for Category change
   const handleMainCategoryChange = (
     select: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -240,6 +295,8 @@ const CreateAppointment = () => {
     setSelectedSubCategory(mainCategories[category][0]);
   };
 
+
+  //Submit Func =>swithcing to Confirm 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setError("");
@@ -255,12 +312,15 @@ const CreateAppointment = () => {
     setIsConfirmed(true);
   };
 
+  //handler Func to send to Server
   const handleSendRequest = async () => {
     try {
       const convertedDateTime: string = new Date(dateTime).toISOString();
       const requestData = {
         // appointmentTitle: appointmentTitle,
+
         appointmentTitle: mainCategories+"-"+selectedSubCategory,
+        
         appointmentType: appointmentType,
         appointmentCategory:selectedMainCategory+"-"+selectedSubCategory,
         clientUserId: userId,
@@ -286,6 +346,16 @@ const CreateAppointment = () => {
     }
   };
 
+ //handler for Disclaimer box
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  //HTML 
   if (!isConfirmed) {
     return (
       <div className="add_request">
@@ -390,9 +460,12 @@ const CreateAppointment = () => {
                     type="text"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
+
+                    placeholder="Enter Adress or Location(e.g. TokyoStation)"
                     required
                     className="add_request_input"
                   />
+                   {error && <div className="add_request_error_message">{error}</div>}
                 </div>
                 <button
                   className="add_request_search_location_button"
@@ -459,11 +532,16 @@ const CreateAppointment = () => {
                   required
                   className="add_request_checkbox"
                 />
-                <span className="add_request_agree">
-                  I agree to the Disclaimer
-                </span>
+                  <span className="add_request_agree">
+                     I agree to the <span onClick={handleOpenModal} className="add_request_disclaimer-link">Disclaimer</span><br></br>
+                     Our site prohibits any financial transactions through its platform and<br></br>
+                    accepts no liability for any issues arising from interpretation services.
+                  </span>
               </label>
             </div>
+            {showModal && (
+               <Disclaimer handleCloseModal={handleCloseModal} />
+             )}
             <div className="add_request_button_box">
               <button type="submit" className="add_request_submit_button">
                 Confirm
@@ -493,7 +571,7 @@ const CreateAppointment = () => {
             Category: <span className="confirm_dateTime">{selectedMainCategory}-{selectedSubCategory}</span>{" "}
           </p>
           <p className="confirm_detail">
-            Date and Time: <span className="confirm_dateTime"> {dateTime}</span>{" "}
+            Date and Time: <span className="confirm_dateTime"> {formattedDateTime}</span>{" "}
           </p>
           <p className="confirm_detail">
             Location: <span className="confirm_location"> {location}</span>
@@ -503,7 +581,9 @@ const CreateAppointment = () => {
           </p>
           <p className="confirm_detail">
             Desired Language:{" "}
+
             <span className="confirm_desire">{desireLanguage}</span>{" "}
+
           </p>
           <p className="confirm_detail">
             Communication Language:{" "}

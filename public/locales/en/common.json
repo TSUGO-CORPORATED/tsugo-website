@@ -1,0 +1,234 @@
+{
+    "languageEN":"EN",
+    "languageJP":"JP",
+    "authentication": {
+      "logIn": "Log in",
+      "register": "Register",
+      "logInToYourAccount": "Log In to Your Account",
+      "email": "Email",
+      "password": "Password",
+      "dontHaveAnAccount": "Don't have an account?",
+      "signUp": "Sign Up"
+    },
+    "clientSection": {
+      "client": "Client",
+      "addRequest": "Add Request",
+      "history": "History",
+      "currentAppointment": "Current Appointment",
+      "makeAnAppointment": "Make an Appointment"
+    },
+    "appointmentForm": {
+      "mainCategoryLabel": "Main Category",
+      "subCategoryLabel": "Sub Category",
+      "memoLabel": "Memo",
+      "dateAndTimeLabel": "Date and Time",
+      "videoChatInterpretationLabel": "Video Chat Interpretation",
+      "inPersonInterpretationLabel": "In-person Interpretation",
+      "locationPlaceholder": "Enter Address or Location (e.g., Tokyo Station)",
+      "agreeDisclaimerLabel": "I agree to the Disclaimer",
+      "confirmButtonLabel": "Confirm",
+      "cancelButtonLabel": "Cancel",
+      "appointmentConfirmationTitle": "Appointment Confirmation",
+      "categoryLabel": "Category",
+      "locationLabel": "Location",
+      "addressLabel": "Address",
+      "desiredLanguageLabel": "Desired Language",
+      "communicationLanguageLabel": "Communication Language",
+      "interpretationTypeLabel": "Interpretation Type",
+      "sendRequestButtonLabel": "Send Request",
+      "backToFormButtonLabel": "Back to Form"
+    },
+    "languageOptions": {
+      "languageJapanese": "Japanese",
+      "languageEnglish": "English",
+      "languageMandarinChinese": "Mandarin Chinese",
+      "languageHindi": "Hindi",
+      "languageSpanish": "Spanish",
+      "languageFrench": "French",
+      "languageArabic": "Arabic",
+      "languageRussian": "Russian",
+      "languagePortuguese": "Portuguese",
+      "languageIndonesian": "Indonesian",
+      "languageKorean": "Korean",
+      "languageItalian": "Italian",
+      "languageGerman": "German",
+      "languageTelugu": "Telugu",
+      "languageVietnamese": "Vietnamese",
+      "languageTurkish": "Turkish"
+    },
+    "categories": {
+        "mainCategoryBusiness": "Business",
+        "subCategoryBusiness": [
+          "Company Visits",
+          "Product Descriptions",
+          "Market Research",
+          "Training Sessions",
+          "Internal Presentations",
+          "Others"
+        ],
+        "mainCategoryEducational": "Educational",
+        "subCategoryEducational": [
+          "School Education",
+          "Universities and Colleges",
+          "Academic Lectures",
+          "Research Meetings",
+          "Educational Programs",
+          "Career Counseling",
+          "Parent-Teacher Meetings",
+          "Others"
+        ],
+        "mainCategoryTourism": "Tourism",
+        "subCategoryTourism": [
+          "Tourist Guidance",
+          "Travel Assistance",
+          "Guided Tours",
+          "Cultural Heritage",
+          "Eco-Tourism",
+          "Adventure Sports",
+          "Shopping and Ordering in Tourism",
+          "Others"
+        ],
+        "mainCategoryCommunication": "Communication",
+        "subCategoryCommunication": [
+          "Phone",
+          "Video",
+          "Online Meetings",
+          "Webinars",
+          "Others"
+        ],
+        "mainCategoryCultureAndArts": "Culture and Arts",
+        "subCategoryCultureAndArts": [
+          "Art Exhibitions",
+          "Museum Guiding",
+          "Music Events",
+          "Performing Arts",
+          "Literature and Books",
+          "Others"
+        ],
+        "mainCategoryTechnical": "Technical",
+        "subCategoryTechnical": [
+          "Engineering",
+          "IT and Software",
+          "Scientific Research",
+          "Manufacturing",
+          "Environmental Technology",
+          "Others"
+        ],
+        "mainCategorySports": "Sports",
+        "subCategorySports": [
+          "Sports Events",
+          "Athlete Support",
+          "Interviews",
+          "Sports Training",
+          "Others"
+        ],
+        "mainCategoryEntertainment": "Entertainment",
+        "subCategoryEntertainment": [
+          "Movies and TV Shows",
+          "Entertainment Events",
+          "Live Shows",
+          "Games and Animation",
+          "Celebrity Events",
+          "Others"
+        ],
+        "mainCategoryRealEstate": "Real Estate",
+        "subCategoryRealEstate": [
+          "Property Viewing and Tours",
+          "Rental Agreements",
+          "Real Estate Purchasing",
+          "Mortgage Consulting",
+          "Real Estate Law",
+          "Others"
+        ],
+        "mainCategoryMunicipalServices": "Municipal Services",
+        "subCategoryMunicipalServices": [
+          "Resident Registration and Civil Status Procedures",
+          "Passport and ID Renewal",
+          "Taxes and Local Tax Consultation",
+          "Public Service Applications",
+          "General Inquiries",
+          "Others"
+        ],
+        "mainCategoryPoliceRelated": "Police-Related",
+        "subCategoryPoliceRelated": [
+          "Lost Property Reports",
+          "Traffic Accident Reports",
+          "Minor Crime Victim Reports",
+          "General Consultation and Information",
+          "Others"
+        ],
+        "mainCategoryHospital": "Hospital",
+        "subCategoryHospital": [
+          "General Medical Consultation",
+          "Vaccination Procedures",
+          "Health Consultation",
+          "Regular Check-up Appointments",
+          "Medication Explanation",
+          "Others"
+        ],
+        "mainCategoryLanguageLearning": "Language Learning",
+        "subCategoryLanguageLearning": [
+          "Language Classes",
+          "Language Skill Development",
+          "Language Learning Workshops",
+          "Others"
+        ],
+        "mainCategoryOthers": "Others",
+        "subCategoryOthers": [
+          "Others"
+        ]
+      },
+      "appointmentManagement": {
+        "checkAppointmentsTitle": "Check Appointments",
+        "searchAppointmentsPlaceholder": "Search appointments...",
+        "interpretationTypeAllLabel": "All",
+        "interpretationTypeVideoChatLabel": "Video Chat",
+        "interpretationTypeInPersonLabel": "In-person",
+        "selectInterpreterLanguageOption": "Select Interpreter Language",
+        "selectYourLanguageOption": "Select Your Language",
+        "historyTitle": "History",
+        "searchPlaceholder": "Search...",
+        "acceptedButtonLabel": "Accepted",
+        "cancelledButtonLabel": "Cancelled",
+        "completedButtonLabel": "Completed",
+        "clearButtonLabel": "Clear",
+        "idLabel": "ID",
+        "statusLabel": "Status",
+        "titleLabel": "Title",
+        "timeLabel": "Time",
+        "typeLabel": "Type",
+        "yourLanguageLabel": "Your Language",
+        "interpreterLanguageLabel": "Interpreter Language",
+        "appointmentTitle": "Appointment Title",
+        "locationName": "Location Name",
+        "locationAddress": "Location Address",
+        "languageInformation": "Language Information",
+        "detailsLinkText": "Details",
+        "moveToNearestButton": "Move to the Nearest"
+      },
+      "userProfile": {
+        "userProfileHeader": "User Profile",
+        "firstNameLabel": "First Name",
+        "lastNameLabel": "Last Name",
+        "languageLabel": "Language",
+        "editButton": "edit",
+        "deleteButton": "delete",
+        "helpSupportButton": "help/support",
+        "agreementButton": "Agreement",
+        "editProfileHeader": "Edit Profile",
+        "updateFirstNameLabel": "Update First Name",
+        "updateLastNameLabel": "Update Last Name",
+        "saveChangesButton": "Save Changes"
+      },
+      "accountCreation": {
+        "createAccountHeader": "Create Account",
+        "emailLabel": "Email",
+        "passwordLabel": "Password",
+        "emailPlaceholder": "Enter your email",
+        "passwordPlaceholder": "Enter your password",
+        "firstNamePlaceholder": "Enter your first name",
+        "lastNamePlaceholder": "Enter your last name",
+        "signUpButton": "Sign up",
+        "backToLogInLink": "Go Back to Log In"
+      }
+    }

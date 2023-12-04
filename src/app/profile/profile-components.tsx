@@ -4,7 +4,11 @@ import { ContextVariables } from '../../context-variables';
 import axios from "axios"
 import Link from 'next/link';
 import Image from 'next/image';
+
 import profilePic from '../../../public/default.jpg';
+
+import { auth } from "../../firebase";
+
 
 export default function Profile() {
     interface UserDetails{
@@ -31,8 +35,10 @@ export default function Profile() {
     const [firstNameUpdate, setFirstNameUpdate] = useState<string | number | readonly string[] | undefined>("");
     const [lastNameUpdate, setLastNameUpdate] = useState<String|undefined|null>(userProfile?.lastName);
     const [aboutUpdate, setAboutUpdate] = useState<String|undefined|null>(userProfile?.about);
+
     const [languageUpdate, setLanguageUpdate] = useState<string | number | readonly string[] | undefined | null | UserGetDetailLanguage[]>(userProfile?.userLanguage);
     const [deleted, setDeleted] = useState<Boolean>(false);
+    const [provider, setProvider] = useState<string>('');
 
     const dummy = [{id: 69, language: "English", proficiency: "Native"}];
 
@@ -173,9 +179,11 @@ export default function Profile() {
             <button className='profile-button'>Agreement</button>
 
             
-            {/* {provider === "password" && (
+
+            {provider === "password" && (
                 <Link href="/profile/update-password">Update password</Link>
-            )}     */}
+            )}    
+
             {/* <button onClick={checkProvider}>Check provider</button> */}
         </div>
     );

@@ -8,8 +8,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import GoogleLogIn from '../auth/google-log-in';
 
+
 // PAGE COMPONENT
 export default function LogInCard(): JSX.Element {
+  // const { t } = useTranslation(); 
+
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 

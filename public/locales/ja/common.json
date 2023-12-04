@@ -1,0 +1,235 @@
+{
+    "languageEN":"英語",
+    "languageJP":"日本語",
+    "authentication": {
+      "logIn": "ログイン",
+      "register": "登録",
+      "logInToYourAccount": "アカウントにログイン",
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "dontHaveAnAccount": "アカウントをお持ちではありませんか？",
+      "signUp": "サインアップ"
+    },
+    "clientSection": {
+      "client": "クライアント",
+      "addRequest": "リクエストを追加",
+      "history": "履歴",
+      "currentAppointment": "現在の予約",
+      "makeAnAppointment": "予約を取る"
+    },
+    "appointmentForm": {
+      "mainCategoryLabel": "メインカテゴリー",
+      "subCategoryLabel": "サブカテゴリー",
+      "memoLabel": "メモ",
+      "dateAndTimeLabel": "日付と時間",
+      "videoChatInterpretationLabel": "ビデオチャット通訳",
+      "inPersonInterpretationLabel": "対面通訳",
+      "locationPlaceholder": "住所または場所を入力してください（例：東京駅）",
+      "agreeDisclaimerLabel": "免責事項に同意する",
+      "confirmButtonLabel": "確認",
+      "cancelButtonLabel": "キャンセル",
+      "appointmentConfirmationTitle": "予約確認",
+      "categoryLabel": "カテゴリー",
+      "locationLabel": "場所",
+      "addressLabel": "住所",
+      "desiredLanguageLabel": "希望の言語",
+      "communicationLanguageLabel": "コミュニケーション言語",
+      "interpretationTypeLabel": "通訳タイプ",
+      "sendRequestButtonLabel": "リクエストを送信",
+      "backToFormButtonLabel": "フォームに戻る"
+    },
+    "languageOptions": {
+      "languageJapanese": "日本語",
+      "languageEnglish": "英語",
+      "languageMandarinChinese": "中国語",
+      "languageHindi": "ヒンディー語",
+      "languageSpanish": "スペイン語",
+      "languageFrench": "フランス語",
+      "languageArabic": "アラビア語",
+      "languageRussian": "ロシア語",
+      "languagePortuguese": "ポルトガル語",
+      "languageIndonesian": "インドネシア語",
+      "languageKorean": "韓国語",
+      "languageItalian": "イタリア語",
+      "languageGerman": "ドイツ語",
+      "languageTelugu": "テルグ語",
+      "languageVietnamese": "ベトナム語",
+      "languageTurkish": "トルコ語"
+    },
+    "categories": {
+      "mainCategoryBusiness": "ビジネス",
+      "subCategoryBusiness": [
+        "企業訪問",
+        "製品説明",
+        "市場調査",
+        "研修セッション",
+        "社内プレゼンテーション",
+        "その他"
+      ],
+      "mainCategoryEducational": "教育",
+      "subCategoryEducational": [
+        "学校教育",
+        "大学・専門学校",
+        "学術講義",
+        "研究会",
+        "教育プログラム",
+        "キャリアカウンセリング",
+        "保護者面談",
+        "その他"
+      ],
+      "mainCategoryTourism": "観光",
+      "subCategoryTourism": [
+        "観光ガイド",
+        "旅行アシスタント",
+        "ガイドツアー",
+        "文化遺産",
+        "エコツーリズム",
+        "アドベンチャースポーツ",
+        "観光でのショッピングと注文",
+        "その他"
+      ],
+      "mainCategoryCommunication": "コミュニケーション",
+      "subCategoryCommunication": [
+        "電話",
+        "ビデオ",
+        "オンラインミーティング",
+        "ウェビナー",
+        "その他"
+      ],
+      "mainCategoryCultureAndArts": "文化と芸術",
+      "subCategoryCultureAndArts": [
+        "アート展示会",
+        "博物館案内",
+        "音楽イベント",
+        "パフォーミングアーツ",
+        "文学と書籍",
+        "その他"
+      ],
+      "mainCategoryTechnical": "技術",
+      "subCategoryTechnical": [
+        "エンジニアリング",
+        "ITとソフトウェア",
+        "科学研究",
+        "製造",
+        "環境技術",
+        "その他"
+      ],
+      "mainCategorySports": "スポーツ",
+      "subCategorySports": [
+        "スポーツイベント",
+        "アスリートサポート",
+        "インタビュー",
+        "スポーツトレーニング",
+        "その他"
+      ],
+      "mainCategoryEntertainment": "エンターテイメント",
+      "subCategoryEntertainment": [
+        "映画とテレビ番組",
+        "エンターテイメントイベント",
+        "ライブショー",
+        "ゲームとアニメーション",
+        "セレブリティイベント",
+        "その他"
+      ],
+      "mainCategoryRealEstate": "不動産",
+      "subCategoryRealEstate": [
+        "物件見学とツアー",
+        "賃貸契約",
+        "不動産購入",
+        "モーゲージコンサルティング",
+        "不動産法",
+        "その他"
+      ],
+      "mainCategoryMunicipalServices": "市政サービス",
+      "subCategoryMunicipalServices": [
+        "住民登録および民事状況手続き",
+        "パスポートおよびID更新",
+        "税金および地方税コンサルテーション",
+        "公共サービス申請",
+        "一般問い合わせ",
+        "その他"
+      ],
+      "mainCategoryPoliceRelated": "警察関連",
+      "subCategoryPoliceRelated": [
+        "遺失物届",
+        "交通事故報告",
+        "軽犯罪被害者報告",
+        "一般相談および情報",
+        "その他"
+      ],
+      "mainCategoryHospital": "病院",
+      "subCategoryHospital": [
+        "一般医療相談",
+        "予防接種手続き",
+        "健康相談",
+        "定期健診",
+        "薬の説明",
+        "その他"
+      ],
+      "mainCategoryLanguageLearning": "言語学習",
+      "subCategoryLanguageLearning": [
+        "言語クラス",
+        "言語スキル開発",
+        "言語学習ワークショップ",
+        "その他"
+      ],
+      "mainCategoryOthers": "その他",
+      "subCategoryOthers": [
+        "その他"
+      ]
+    },
+    "appointmentManagement": {
+        "checkAppointmentsTitle": "予約確認",
+        "searchAppointmentsPlaceholder": "予約を検索...",
+        "interpretationTypeAllLabel": "全て",
+        "interpretationTypeVideoChatLabel": "ビデオチャット",
+        "interpretationTypeInPersonLabel": "対面",
+        "selectInterpreterLanguageOption": "通訳言語を選択",
+        "selectYourLanguageOption": "あなたの言語を選択",
+        "historyTitle": "履歴",
+        "searchPlaceholder": "検索...",
+        "acceptedButtonLabel": "承認済み",
+        "cancelledButtonLabel": "キャンセル済み",
+        "completedButtonLabel": "完了",
+        "clearButtonLabel": "クリア",
+        "idLabel": "ID",
+        "statusLabel": "ステータス",
+        "titleLabel": "タイトル",
+        "timeLabel": "時間",
+        "typeLabel": "タイプ",
+        "yourLanguageLabel": "あなたの言語",
+        "interpreterLanguageLabel": "通訳の言語",
+        "appointmentTitle": "予約タイトル",
+        "locationName": "場所名",
+        "locationAddress": "住所",
+        "languageInformation": "言語情報",
+        "detailsLinkText": "詳細",
+        "moveToNearestButton": "最寄りに移動"
+      },
+      "userProfile": {
+        "userProfileHeader": "ユーザープロファイル",
+        "firstNameLabel": "名",
+        "lastNameLabel": "姓",
+        "languageLabel": "言語",
+        "editButton": "編集",
+        "deleteButton": "削除",
+        "helpSupportButton": "ヘルプ/サポート",
+        "agreementButton": "同意事項",
+        "editProfileHeader": "プロファイル編集",
+        "updateFirstNameLabel": "名を更新",
+        "updateLastNameLabel": "姓を更新",
+        "saveChangesButton": "変更を保存"
+      },
+      "accountCreation": {
+        "createAccountHeader": "アカウント作成",
+        "emailLabel": "メールアドレス",
+        "passwordLabel": "パスワード",
+        "emailPlaceholder": "メールアドレスを入力",
+        "passwordPlaceholder": "パスワードを入力",
+        "firstNamePlaceholder": "名を入力",
+        "lastNamePlaceholder": "姓を入力",
+        "signUpButton": "サインアップ",
+        "backToLogInLink": "ログイン画面に戻る"
+      }
+
+    }

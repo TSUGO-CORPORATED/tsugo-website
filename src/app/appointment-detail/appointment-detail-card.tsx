@@ -7,6 +7,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import { useSearchParams, useRouter } from 'next/navigation';
 import format from 'date-fns/format';
+import Disclaimer from '../disclaimer';
 
 
 // PAGE COMPONENT
@@ -52,7 +53,8 @@ export default function AppointmentDetailCard(): JSX.Element {
 
     // STATE VARIABLES
     const [appointmentDetail, setAppointmentDetail] = useState<AppointmentDetail>();
-
+    const [isAgreed, setIsAgreed] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const router = useRouter();
 
     // CONTEXT VARIABLES
@@ -66,6 +68,18 @@ export default function AppointmentDetailCard(): JSX.Element {
         console.log(retrievedData);
         setAppointmentDetail(retrievedData.data);
     }
+
+    function FormattedDateTime(input:any) {
+        const dateTime = new Date(input);
+        return dateTime.toLocaleString('en-US', {
+          month: '2-digit',
+          day: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true
+        });
+      }
 
     async function handleStatusChange(newStatus: NewStatus) {
         try {
@@ -99,6 +113,14 @@ export default function AppointmentDetailCard(): JSX.Element {
     async function test() {
         console.log(appointmentDetail);
     }
+
+    const handleOpenModal = () => {
+        setShowModal(true);
+      };
+    
+      const handleCloseModal = () => {
+        setShowModal(false);
+      };
     
     // Initial Use effect
     useEffect(() => {
@@ -162,7 +184,7 @@ export default function AppointmentDetailCard(): JSX.Element {
                                 <p className="appointment_detail__label">Location Address:</p>{appointmentDetail?.locationAddress}
                             </div>
                             <div className='appointment_detail__converted_date_time'>
-                                <p className="appointment_detail__label">Date Time:</p>{convertedDateTime}
+                                <p className="appointment_detail__label">Date Time:</p>{FormattedDateTime(convertedDateTime)}
                             </div>
                             <div className='appointment_detail__note'>
                                 <p className="appointment_detail__label">Note:</p>{appointmentDetail?.appointmentNote}
@@ -196,7 +218,26 @@ export default function AppointmentDetailCard(): JSX.Element {
                         <div className='appointment_detail__buttons'>
                             {/* change status button */}
                             {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId !== userId && (
-                                <>
+                                <>            
+                                <div className="appointment_detail_check_box">
+                                <label className="appointment_detail_check_label">
+                                  <input
+                                    type="checkbox"
+                                    checked={isAgreed}
+                                    onChange={(e) => setIsAgreed(e.target.checked)}
+                                    required
+                                    className="add_request_checkbox"
+                                  />
+                                    <span className="appointment_detail_agree">
+                                       I agree to the <span onClick={handleOpenModal} className="appointment_detail_disclaimer-link">Disclaimer</span><br></br>
+                                       Our site prohibits any financial transactions through its platform and<br></br>
+                                      accepts no liability for any issues arising from interpretation services.
+                                    </span>
+                                </ label>
+                              </div>
+                              {showModal && (
+                                <Disclaimer handleCloseModal={handleCloseModal} />
+                                    )}
                                     <button onClick={() => handleStatusChange("Accepted")} className='accept_button'>Accept</button>
                                 </>
                             )}
@@ -244,11 +285,11 @@ export default function AppointmentDetailCard(): JSX.Element {
                                                 role: userId === appointmentDetail.clientUserId ? 'client' : 'interpreter',
                                             }
                                         }}>
-                                            <button className='add_review_button'>Add review</button>
+                                            <button className='appointment_detail_add_review_button'>Add review</button>
                                         </Link>
                                     </>
                                 
-                            )}
+                            )} <button className='back_to _dashboard'  onClick={() => router.push("/dashboard")}>Go back to the list</button>
                         </div>
                     </div>
                 </div>
