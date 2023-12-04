@@ -34,7 +34,8 @@ export default function ChatRoomSub(): React.JSX.Element{
     const textRef = useRef<HTMLTextAreaElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const video2Ref = useRef<HTMLVideoElement>(null);
-   
+    const navigator = new Navigator();
+    
     navigator.mediaDevices.getUserMedia(constraints)
     .then((stream) => {
     const videoTracks = stream.getVideoTracks();
