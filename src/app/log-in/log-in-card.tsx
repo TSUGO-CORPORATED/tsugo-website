@@ -44,7 +44,7 @@ export default function LogInCard(): JSX.Element {
     // console.log(response);
     
     if (response) {
-      alert('Successful login');
+      // alert('Successful login');
       router.push('/dashboard');
     } 
     else {
