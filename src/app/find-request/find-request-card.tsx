@@ -22,6 +22,7 @@ type Appointment = {
 };
 
 
+
 type Coordinate = {
     lat: number;
     lng: number;
@@ -82,6 +83,8 @@ export default function FindRequestCard() {
   }, []);
 
   const filteredAppointments = appointments.filter((appointment) => {
+
+    // const timeFilter =  new Date(appointment.appointmentDateTime) > new Date();
     const typeFilter = selectedType === 'all' || appointment.appointmentType === selectedType;
     const keywordFilter = (
         appointment.status?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
@@ -96,7 +99,9 @@ export default function FindRequestCard() {
         (selectedInterpreterLanguage === '' || appointment.interpreterSpokenLanguage === selectedInterpreterLanguage) &&
         (selectedClientLanguage === '' || appointment.clientSpokenLanguage === selectedClientLanguage)
     );
+
     return typeFilter && keywordFilter && languageFilter;
+
 });
 
 

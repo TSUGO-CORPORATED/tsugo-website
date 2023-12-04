@@ -350,6 +350,9 @@
 .profile-pic {
   order: 2;
   border-radius: 50%;
+  border: 2px solid darkgray;
+  width: 20%;
+  height: 20%;
 }
 
 .profile-p {
@@ -619,6 +622,9 @@
   order: 1;
   margin-top: 15px;
   height: 10%;
+}
+.edit-profile__input {
+  width: 80%;
 }
 
 .edit-profile-p {

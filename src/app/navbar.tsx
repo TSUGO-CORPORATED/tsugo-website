@@ -1,14 +1,29 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import SignOut from './auth/sign-out';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import profilePic from './../../public/Mark.jpg';
+import profilePic from './../../public/default.jpg';
+import { ContextVariables } from '@/context-variables';
+
+// import { useTranslation } from 'next-i18next'; 
+// import { IoMdGlobe } from 'react-icons/io';
+// import LanguageSwitcher from './languageswitcher';
 
 
 export default function Navbar() {
     const pathname = usePathname();
     // console.log(pathname)
+
+    const { userPhotoUrl } = useContext(ContextVariables);
+
+    // const { i18n } = useTranslation(); 
+
+    // const changeLanguage = (language: string) => { 
+    //     i18n.changeLanguage(language);
+    // };
+
+
     return (
             <>
                 {pathname === '/' || pathname === '/log-in' || pathname === '/sign-up' ? (
@@ -28,7 +43,6 @@ export default function Navbar() {
                                 <div>Tsugo/都合</div>
                             </Link>
                         </div> 
-
                         <div className='navbar__avatar-navbar'>
                             <div>
                             <Image 
@@ -47,6 +61,7 @@ export default function Navbar() {
                             </Link>
                         </div>
 
+
                         <div className='navbar__profile-navbar'>
                             <Link href="/profile">
                                 <div>Profile</div>
@@ -55,5 +70,6 @@ export default function Navbar() {
                     </div>
                 )}
             </>
+
     )
 }
