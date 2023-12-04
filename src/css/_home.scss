@@ -1,10 +1,7 @@
 .home {
     &__landing-page {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        // position: relative;
+        @include flexCenter(column);
         background-color: white;
         height: 100%;
         width: 100%;
