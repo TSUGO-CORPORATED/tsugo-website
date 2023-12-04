@@ -4,6 +4,7 @@ import { ContextVariables } from '../../context-variables';
 import axios from "axios"
 import Link from 'next/link';
 import Image from 'next/image';
+import { TextField, Button, Avatar } from '@mui/material';
 
 import profilePic from '../../../public/default.jpg';
 
@@ -160,36 +161,45 @@ export default function Profile() {
                 <p className='profile-p'>Language: {userProfile?.userLanguage[userProfile?.userLanguage.length-1].language}</p>
             ))} */}
 
-            <p className='profile-container__profile-p'>Language: {userProfile?.userLanguage[userProfile?.userLanguage.length-1].language}</p>
-            <p className='profile-container__profile-p'>Proficiency: {userProfile?.userLanguage[userProfile?.userLanguage.length-1].proficiency}</p>
-            {/* <p className='profile-container__profile-p'>Certifications: {userProfile?.userLanguage[userProfile?.userLanguage.length-1].certifications}</p> */}
-            
-            <p className='profile-container__profile-p'>Bio: {userProfile?.about}</p>
+            <div className='profile-container__info-container'>
+                <label className='profile-container__label'>Language:</label>
+                <p className='profile-container__profile-p'>{userProfile?.userLanguage[userProfile?.userLanguage.length-1].language}</p>
+                <label className='profile-container__label'>Proficiency:</label>
+                <p className='profile-container__profile-p'>{userProfile?.userLanguage[userProfile?.userLanguage.length-1].proficiency}</p>
+                {/* <p className='profile-container__profile-p'>Certifications: {userProfile?.userLanguage[userProfile?.userLanguage.length-1].certifications}</p> */}
+                <label className='profile-container__label'>Bio:</label>
+                <p className='profile-container__profile-p'>{userProfile?.about}</p>
+            </div>
         
-            
-            <Link className='profile-container__edit-link' href="/profile/edit-profile">
-                <div className='profile-container__profile-button' id='profile-container__edit-button'>
-                edit
-                </div>
-            </Link>
-            
+            <div className='profile-container__button-container'>
+                <Link className='profile-container__edit-link' href="/profile/edit-profile">
+                    <Button variant='contained' className='profile-container__profile-button' id='profile-container__edit-button'>
+                    edit
+                    </Button>
+                </Link>
 
-            <button className='profile-container__profile-button'>help/support</button>
-            <button className='profile-container__profile-button'>Agreement</button>
 
-            
+                {/* <button className='profile-container__profile-button'>help/support</button>
+                <button className='profile-container__profile-button'>Agreement</button> */}
 
-            {provider === "password" && (
-                <Link className='profile-container__password-link' href="/profile/update-password">Update password</Link>
-            )}    
 
-            {/* <button onClick={checkProvider}>Check provider</button> */}
 
-            <Link className='profile-container__edit-link' href="/profile/delete-account">
-                <div className='profile-container__delete-button' id='profile-container__delete-button'>
-                    Delete Account
-                </div>
-            </Link>
+                {provider === "password" && (
+                    <Link className='profile-container__password-link' href="/profile/update-password">
+                        <Button variant='contained' className='profile-container__password-button' id='profile-container__password-button'>
+                        Update password
+                        </Button>
+                    </Link>
+                )}    
+
+                {/* <button onClick={checkProvider}>Check provider</button> */}
+
+                <Link className='profile-container__delete-link' href="/profile/delete-account">
+                    <Button variant='contained' className='profile-container__delete-button' id='profile-container__delete-button'>
+                        Delete Account
+                    </Button>
+                </Link>
+            </div>
         </div>
     );
 }
