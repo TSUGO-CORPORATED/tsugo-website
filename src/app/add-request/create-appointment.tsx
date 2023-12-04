@@ -8,6 +8,7 @@ import { ContextVariables } from "../../context-variables";
 import MapComponent from "../map-component/map"
 import Disclaimer from '../disclaimer';
 
+
 type Coordinates = { lat: number; lng: number; } | null;
 type StatusFilter = "Requesting" | "Accepted" | "Cancelled" | "Completed" | "";
 type MainCategoriesType = {
@@ -15,7 +16,9 @@ type MainCategoriesType = {
 };
 
 const CreateAppointment = () => {
+
   //Helper Function aquireing Now
+
   function getLocalDateTime() {
     const now = new Date();
     const year = now.getFullYear();
@@ -27,6 +30,9 @@ const CreateAppointment = () => {
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
   const now = getLocalDateTime();
+
+
+
 
 
   const router = useRouter();
@@ -47,6 +53,9 @@ const CreateAppointment = () => {
   const [error, setError] = useState("");
   const [address, setAddress] = useState("");
   const libraries = ["places"];
+
+
+
   const [locationError, setLocationError] = useState("");
   const [showModal, setShowModal] = useState(false);
 
@@ -83,13 +92,17 @@ const CreateAppointment = () => {
 
       const { lat, lng } = response.data.results[0].geometry.location;
       console.log({ lat, lng });
+
+
       setError("");
+
       setLocationCoordinates({ lat, lng });
     } catch (error) {
       console.error("Error fetching coordinates: ", error);
       setError("Error fetching coordinates.");
     }
   };
+
 
   //helper Function to get the Adress from lat,lng
   const fetchAddress = async () => {
@@ -116,11 +129,13 @@ const CreateAppointment = () => {
     }
   };
 
-  //helper Func combining 2 location search func
+
   const handleLocationSearch = async () => {
     await fetchCoordinates(location);
-    await fetchAddress();
+    fetchAddress();
   };
+
+
 
   //felper Func for recognizable Date
   const formattedDateTime = new Date(dateTime).toLocaleString('en-US', {
@@ -133,6 +148,7 @@ const CreateAppointment = () => {
   });
 
   //select box lists
+
   const languages = [
     "Japanese",
     "English",
@@ -152,7 +168,8 @@ const CreateAppointment = () => {
     "Turkish",
   ];
   const mainCategories: MainCategoriesType = {
-    "Business": [
+
+    Business: [
       "Company Visits",
       "Product Descriptions",
       "Market Research",
@@ -160,7 +177,8 @@ const CreateAppointment = () => {
       "Internal Presentations",
       "Others",
     ],
-    "Educational": [
+
+    Educational: [
       "School Education",
       "Universities and Colleges",
       "Academic Lectures",
@@ -170,7 +188,8 @@ const CreateAppointment = () => {
       "Parent-Teacher Meetings",
       "Others",
     ],
-    "Tourism": [
+
+    Tourism: [
       "Tourist Guidance",
       "Travel Assistance",
       "Guided Tours",
@@ -180,7 +199,8 @@ const CreateAppointment = () => {
       "Shopping and Ordering in Tourism",
       "Others",
     ],
-    "Communication": ["Phone", "Video", "Online Meetings", "Webinars", "Others"],
+
+    Communication: ["Phone", "Video", "Online Meetings", "Webinars", "Others"],
     "Culture and Arts": [
       "Art Exhibitions",
       "Museum Guiding",
@@ -189,7 +209,8 @@ const CreateAppointment = () => {
       "Literature and Books",
       "Others",
     ],
-    "Technical": [
+
+    Technical: [
       "Engineering",
       "IT and Software",
       "Scientific Research",
@@ -197,14 +218,17 @@ const CreateAppointment = () => {
       "Environmental Technology",
       "Others",
     ],
-    "Sports": [
+
+    Sports: [
+
       "Sports Events",
       "Athlete Support",
       "Interviews",
       "Sports Training",
       "Others",
     ],
-    "Entertainment": [
+
+    Entertainment: [
       "Movies and TV Shows",
       "Entertainment Events",
       "Live Shows",
@@ -235,7 +259,8 @@ const CreateAppointment = () => {
       "General Consultation and Information",
       "Others",
     ],
-    "Hospital": [
+
+    Hospital: [
       "General Medical Consultation",
       "Vaccination Procedures",
       "Health Consultation",
@@ -249,14 +274,17 @@ const CreateAppointment = () => {
       "Language Learning Workshops",
       "Others",
     ],
-    "Others": ["Others"],
+
+    Others: ["Others"],
   };
+
 
     //select box lists use State
   const [selectedMainCategory, setSelectedMainCategory] = useState("Business");
   const [selectedSubCategory, setSelectedSubCategory] = useState(
     mainCategories["Business"][0]
   );
+
 
   //handler Func for Category change
   const handleMainCategoryChange = (
@@ -290,7 +318,9 @@ const CreateAppointment = () => {
       const convertedDateTime: string = new Date(dateTime).toISOString();
       const requestData = {
         // appointmentTitle: appointmentTitle,
-        appointmentTitle: selectedMainCategory + "-" + selectedSubCategory,
+
+        appointmentTitle: mainCategories+"-"+selectedSubCategory,
+        
         appointmentType: appointmentType,
         appointmentCategory:selectedMainCategory+"-"+selectedSubCategory,
         clientUserId: userId,
@@ -430,6 +460,7 @@ const CreateAppointment = () => {
                     type="text"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
+
                     placeholder="Enter Adress or Location(e.g. TokyoStation)"
                     required
                     className="add_request_input"
@@ -550,7 +581,9 @@ const CreateAppointment = () => {
           </p>
           <p className="confirm_detail">
             Desired Language:{" "}
-            <span className="confirm_desire">{desireLanguage}</ span>{" "}
+
+            <span className="confirm_desire">{desireLanguage}</span>{" "}
+
           </p>
           <p className="confirm_detail">
             Communication Language:{" "}

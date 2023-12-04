@@ -22,11 +22,11 @@ type Appointment = {
 };
 
 
+
 type Coordinate = {
     lat: number;
     lng: number;
   };
-
 
 export default function FindRequestCard() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -43,25 +43,21 @@ export default function FindRequestCard() {
     "French", "Arabic", "Russian", "Portuguese", "Indonesian",
     "Korean", "Italian", "German", "Telugu", "Vietnamese", "Turkish"
 ];
-function getNow() {
-  return new Date();
-  }
-  const now = getNow();
 
+
+  const apiKey =
+    process.env.REACT_APP_GOOGLE_API_KEY ||
+    "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM";
   const { userId } = useContext(ContextVariables);
 
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const response = await axios.get<Appointment[]>(
+        const response = await axios.get(
           `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/find/${userId}`
         );
-        const futureAppointments = response.data.filter(appointment =>
-          new Date(appointment.appointmentDateTime) > now
-        );
-  
-        setAppointments(futureAppointments);
-       
+
+        setAppointments(response.data);
         console.log("lists", response.data);
       } catch (error) {
         console.error("Error fetching appointments:", error);
@@ -87,7 +83,8 @@ function getNow() {
   }, []);
 
   const filteredAppointments = appointments.filter((appointment) => {
-    const timeFilter =  new Date(appointment.appointmentDateTime) > new Date(now);
+
+    // const timeFilter =  new Date(appointment.appointmentDateTime) > new Date();
     const typeFilter = selectedType === 'all' || appointment.appointmentType === selectedType;
     const keywordFilter = (
         appointment.status?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
@@ -102,7 +99,9 @@ function getNow() {
         (selectedInterpreterLanguage === '' || appointment.interpreterSpokenLanguage === selectedInterpreterLanguage) &&
         (selectedClientLanguage === '' || appointment.clientSpokenLanguage === selectedClientLanguage)
     );
-    return typeFilter && keywordFilter && languageFilter 
+
+    return typeFilter && keywordFilter && languageFilter;
+
 });
 
 

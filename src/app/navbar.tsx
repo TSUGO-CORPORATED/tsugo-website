@@ -1,18 +1,21 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import SignOut from './auth/sign-out';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import profilePic from './../../public/Mark.jpg';
+import profilePic from './../../public/default.jpg';
+import { ContextVariables } from '@/context-variables';
+
 // import { useTranslation } from 'next-i18next'; 
 // import { IoMdGlobe } from 'react-icons/io';
 // import LanguageSwitcher from './languageswitcher';
 
 
-
 export default function Navbar() {
     const pathname = usePathname();
     // console.log(pathname)
+
+    const { userPhotoUrl } = useContext(ContextVariables);
 
     // const { i18n } = useTranslation(); 
 
