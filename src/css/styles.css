@@ -18,35 +18,21 @@
   background-position: 40%;
 }
 .log-in__card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   background-color: #ffffff;
   border-radius: 10px;
-  width: 600px;
-}
-.log-in__card__logo {
+  justify-content: flex-start;
+  width: 75%;
+  height: 75%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 2em;
-}
-.log-in__card__logo__picture {
-  width: 7em;
-  height: 7em;
-}
-.log-in__card__logo__text {
-  font-family: "Playpen Sans", cursive;
-  font-size: 32px;
 }
 .log-in__card__title {
   font-size: 28px;
   margin-top: 1em;
   margin-bottom: 0.3em;
   font-size: 32px;
-  order: 1;
 }
 .log-in__card__form {
   display: flex;
@@ -54,7 +40,6 @@
   align-items: center;
   flex-direction: column;
   width: 75%;
-  order: 2;
 }
 .log-in__card__form__box {
   justify-content: left;
@@ -102,7 +87,6 @@
   align-items: center;
   flex-direction: column;
   margin: 1em;
-  order: 3;
 }
 .log-in__card__sign-up__link {
   width: 100%;
@@ -129,20 +113,21 @@
   background-position: 40%;
 }
 .sign-up__card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  justify-content: flex-start;
+  width: 75%;
+  height: 75%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #ffffff;
-  border-radius: 10px;
-  width: 600px;
 }
 .sign-up__card__title {
   font-size: 28px;
   margin-top: 1em;
   margin-bottom: 0em;
   font-size: 32px;
-  order: 1;
 }
 .sign-up__card__form {
   display: flex;
@@ -150,7 +135,6 @@
   align-items: center;
   flex-direction: column;
   width: 75%;
-  order: 2;
 }
 .sign-up__card__form__box {
   justify-content: left;
@@ -190,7 +174,7 @@
 .sign-up__card__form__box__sign-up-button:hover {
   background-color: #1f1e1e;
 }
-.sign-up__card__log-in-link {
+.sign-up__card__log-in-linka {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -198,11 +182,8 @@
   width: 100%;
   color: blue;
   font-weight: bold;
-  margin-top: 0.7em;
-  margin-bottom: 0.8em;
-  order: 3;
 }
-.sign-up__card__log-in-link:hover {
+.sign-up__card__log-in-linka:hover {
   color: #7e9ae6;
 }
 
@@ -213,21 +194,22 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
+  background-color: #000000;
   background-image: url(../../public/tokyo.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 40%;
 }
 .dashboard__card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   background-color: #ffffff;
   border-radius: 10px;
   justify-content: flex-start;
   width: 75%;
   height: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 .dashboard__card__role-switch {
   display: flex;
@@ -368,6 +350,9 @@
 .profile-pic {
   order: 2;
   border-radius: 50%;
+  border: 2px solid darkgray;
+  width: 20%;
+  height: 20%;
 }
 
 .profile-p {
@@ -446,7 +431,6 @@
 .add_request_title {
   color: black;
   font-size: 24px;
-  text-overflow: ellipsis;
   white-space: nowrap;
   margin-top: 20vh;
   margin-bottom: 10px;
@@ -574,8 +558,6 @@
   background-color: #ffffff;
   border-radius: 10px;
   justify-content: flex-start;
-  margin-top: 2em;
-  margin-bottom: 2em;
   width: 75%;
   height: 75%;
   display: flex;
@@ -640,6 +622,9 @@
   order: 1;
   margin-top: 15px;
   height: 10%;
+}
+.edit-profile__input {
+  width: 80%;
 }
 
 .edit-profile-p {
@@ -783,8 +768,6 @@
   background-color: #ffffff;
   border-radius: 10px;
   justify-content: flex-start;
-  margin-top: 2em;
-  margin-bottom: 2em;
   width: 75%;
   height: 75%;
   display: flex;
@@ -909,23 +892,17 @@
   margin-bottom: 5px;
 }
 
-.landingpage {
-  position: relative;
+.home__landing-page {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
   background-color: white;
   height: 100%;
   width: 100%;
   overflow: hidden;
 }
-.landingpage__card {
-  display: flex;
-  width: 100%;
-  height: 100%;
-}
-.landingpage__video {
+.home__landing-page__video {
   width: auto;
   height: 100%;
   -o-object-fit: cover;
@@ -933,7 +910,7 @@
   -o-object-position: right bottom;
      object-position: right bottom;
 }
-.landingpage__header {
+.home__landing-page__header {
   color: white;
   justify-self: flex-start;
   width: 100%;
@@ -943,8 +920,7 @@
   margin-top: 24px;
   text-align: center;
 }
-
-.sign-up__card__log-in-link {
+.home__landing-page__log-in-link {
   color: black;
   z-index: 2;
   top: 15%;
@@ -953,70 +929,127 @@
   margin-top: 6em;
 }
 
-.home-page__login__div {
-  border: solid black 1px;
-  padding: 12px;
-  border-radius: 12px;
-  background-color: #000000;
-  font-weight: bold;
-  color: #ffffff;
-  cursor: pointer;
-}
-.home-page__login__div:hover {
-  background-color: #1f1e1e;
-}
-
-.navbar-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 12px;
-  overflow: hidden;
+.navbar {
+  border-style: solid;
+  border-bottom-color: #ffffff;
   background-color: black;
   position: fixed;
-  top: 0;
   width: 100%;
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 24px;
   height: 64px;
-  padding-bottom: 12px;
-  padding-top: 12px;
-  border-bottom-width: 0;
-  border-style: solid;
-  border-bottom-color: #e2e2e2;
-  z-index: 2002;
-  box-sizing: border-box;
-  padding-left: 0;
-  padding-right: 0;
+  z-index: 10;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
 }
-
-.navbar-li a, .logo-navbar a, .profile-navbar a {
-  display: block;
+.navbar__left__logo {
   padding: 8px 24px;
   text-align: center;
   text-decoration: none;
-  color: white;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 20px;
 }
-
-.navbar-li a:hover, .logo-navbar a:hover, .profile-navbar a:hover {
-  background-color: gray;
+.navbar__right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
 }
-
-.logo-navbar {
-  float: left;
+.navbar__right__sign-up {
+  padding: 8px 24px;
+  text-decoration: none;
+  color: #9c9b9b;
+  font-weight: bold;
+  border-radius: 20px;
 }
-
-.profile-navbar, .logout-navbar, .avatar-navbar {
-  float: right;
+.navbar__right__sign-up:hover {
+  background-color: rgb(56, 56, 56);
+  color: #ffffff;
 }
-
-.avatar-navbar {
-  height: 42px;
-  width: 42px;
+.navbar__right__log-in {
+  padding: 8px 24px;
+  text-decoration: none;
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: bold;
+  border-radius: 20px;
 }
-
-.navbar-avatar {
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
+.navbar__right__log-in:hover {
+  font-weight: bold;
+  transform: scale(1.1);
+}
+.navbar__right__avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+  width: auto;
+  height: 40px;
+  padding-left: 15px;
+  padding-right: 8px;
+  border-radius: 20px;
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: bold;
+}
+.navbar__right__avatar:hover {
+  background-color: #f3f3f3;
+}
+.navbar__right__avatar__first-name {
+  margin-right: 5px;
+}
+.navbar__right__avatar__profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  text-decoration: none;
+  color: #000000;
+  font-weight: 600;
+}
+.navbar__right__avatar__dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  text-decoration: none;
+  color: #000000;
+  font-weight: 600;
+}
+.navbar__right__avatar__sign-out {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  text-decoration: none;
+  color: #000000;
+  font-weight: 600;
+}
+.navbar__right__sign-out-window {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+.navbar__right__sign-out-window__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  font-weight: bold;
+  font-size: 20px;
+}
+.navbar__right__sign-out-window__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
 }/*# sourceMappingURL=styles.css.map */

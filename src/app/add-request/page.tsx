@@ -1,9 +1,7 @@
 // MODULES IMPORT
 import { Metadata } from 'next';
-import SignOut from '../auth/sign-out';
 import UserClientAppointment from './create-appointment'
-import Link from 'next/link';
-
+import CheckAuth from '../auth/check-auth';
 
 // PAGE NAME
 export const metadata: Metadata = {
@@ -14,15 +12,8 @@ export const metadata: Metadata = {
 export default async function requestAppointment() {
     return (
         <div className='requestHeader'>
-            {/* <Link href="/dashboard">
-                <button>Home</button>
-            </Link> 
-            <Link href="/profile">
-                <button>Profile</button>
-            </Link>
-            <SignOut />  */}
+            <CheckAuth />
             <UserClientAppointment />
-
         </div>
     )
 }
