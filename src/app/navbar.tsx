@@ -1,14 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import SignOut from './auth/sign-out';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import profilePic from './../../public/default.jpg';
-
+import { ContextVariables } from '@/context-variables';
 
 export default function Navbar() {
     const pathname = usePathname();
     // console.log(pathname)
+    const { userPhotoUrl } = useContext(ContextVariables);
+
     return (
         <>
             {pathname === '/' || pathname === '/log-in' || pathname === '/sign-up' ? (

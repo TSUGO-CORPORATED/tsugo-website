@@ -173,9 +173,9 @@ export default function Profile() {
             <button className='profile-button'>Agreement</button>
 
             
-            {provider === "password" && (
+            {/* {provider === "password" && (
                 <Link href="/profile/update-password">Update password</Link>
-            )}    
+            )}     */}
             {/* <button onClick={checkProvider}>Check provider</button> */}
         </div>
     );

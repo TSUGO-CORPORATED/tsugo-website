@@ -113,7 +113,8 @@ export default function EditProfile() {
                 {/* <p className='edit-profile-p'>First Name: {userProfile?.firstName}</p> */}
                 <input 
                     type='text'
-                    id='editprofile__input__firstName'
+                    className="edit-profile__input"
+                    id='edit-profile__input__firstName'
                     onChange={(e) => setFirstNameUpdate(e.target.value)}
                     value={firstNameUpdate}
                     defaultValue={userProfile?.firstName}
@@ -124,7 +125,8 @@ export default function EditProfile() {
                 {/* <p className='edit-profile-p'>Last Name: {userProfile?.lastName}</p> */}
                 <input 
                     type='text'
-                    id='editprofile__input__lasttName'
+                    className="edit-profile__input"
+                    id='edit-profile__input__lasttName'
                     onChange={(e) => setLastNameUpdate(e.target.value)}
                     value={lastNameUpdate}
                     defaultValue={userProfile?.lastName}
@@ -132,7 +134,8 @@ export default function EditProfile() {
 
                 <label>Update Language:</label>
                 <select 
-                    id='editprofile__input__language'
+                    id='edit-profile__input__language'
+                    className="edit-profile__input"
                     onChange={(e) => setLanguageUpdate(e.target.value)}
                     value={languageUpdate}
                     defaultValue={userProfile?.userLanguage[userProfile?.userLanguage.length-1].language}
@@ -144,7 +147,8 @@ export default function EditProfile() {
 
                 <label>Update Proficiency:</label>
                 <select
-                    id='editprofile__input__proficiency'
+                    id='edit-profile__input__proficiency'
+                    className="edit-profile__input"
                     onChange={(e) => setProficiencyUpdate(e.target.value)}
                     value={proficiencyUpdate}
                     defaultValue={userProfile?.userLanguage[userProfile?.userLanguage.length-1].proficiency}
@@ -159,7 +163,8 @@ export default function EditProfile() {
                 <label>Update Certification:</label>
                 <input 
                     type='text'
-                    id='editprofile__input__certification'
+                    className="edit-profile__input"
+                    id='edit-profile__input__certification'
                     onChange={(e) => setCertificationUpdate(e.target.value)}
                     value={certificationUpdate}
                     defaultValue={userProfile?.userLanguage[userProfile?.userLanguage.length-1].certifications}
@@ -169,7 +174,8 @@ export default function EditProfile() {
                 {/* <p className='edit-profile-p'>Language: {userProfile?.language}</p> */}
                 <input 
                     type='text'
-                    id='editprofile__input__about'
+                    className="edit-profile__input"
+                    id='edit-profile__input__about'
                     onChange={(e) => setAboutUpdate(e.target.value)}
                     value={aboutUpdate}
                     defaultValue={userProfile?.about}
