@@ -36,13 +36,13 @@ const Disclaimer: React.FC<DisclaimerProps> = ({ handleCloseModal }) => {
 
       <h3>4. Prohibited Conduct</h3>
       <p>Our site strictly prohibits the following behaviors:</p>
-      <ul>
-        <li>Harassment: Any form of harassment or threats against other users or third parties.</li>
-        <li>Fraud: Providing false information or deceiving others.</li>
-        <li>Threats: Threatening other users or third parties.</li>
-        <li>Copyright Infringement: Unauthorized use of someone else's copyrighted work.</li>
-        <li>Other Illegal or Inappropriate Activities: Any actions that violate the law or hinder the operation of our site.</li>
-      </ul>
+      
+      <p>・Harassment: Any form of harassment or threats against other users or third parties.</p>
+      <p>・Fraud: Providing false information or deceiving others.</p>
+      <p>・Threats: Threatening other users or third parties.</p>
+      <p>・Copyright Infringement: Unauthorized use of someone else's copyrighted work.</p>
+      <p>・Other Illegal or Inappropriate Activities: Any actions that violate the law or hinder the operation of our site.</p>
+      
       <p>These prohibitions apply to both online behavior and actual conduct through interpretation services. Violations may result in temporary suspension or permanent expulsion from the site.</p>
 
       <h3>5. Accuracy of Information</h3>
