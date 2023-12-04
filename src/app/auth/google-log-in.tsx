@@ -2,7 +2,7 @@
 
 import { auth } from '../../firebase';
 import { signInWithPopup, GoogleAuthProvider, User } from 'firebase/auth';
-import axios from 'axios';
+import axios from "axios"
 import { useRouter } from 'next/navigation';
 import GoogleIcon from '@mui/icons-material/Google';
 import Button from '@mui/material/Button';
@@ -83,6 +83,7 @@ export default function GoogleLogIn(): JSX.Element {
       }
       onClick={googleSignUp}
       sx={{
+        borderRadius: '4px',
           backgroundColor: 'white', 
           color: 'black', 
           '&:hover': {

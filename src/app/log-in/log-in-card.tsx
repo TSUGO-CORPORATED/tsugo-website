@@ -144,7 +144,7 @@ export default function LogInCard(): JSX.Element {
           <Button
             type="submit"
             variant="contained"
-            sx={{
+            sx={{borderRadius: '4px',
               backgroundColor: "black",
               color: "white",
               "&:hover": {
