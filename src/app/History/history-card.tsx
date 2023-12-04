@@ -18,6 +18,8 @@ type Appointment = {
   locationLatitude: number;
   locationLongitude: number;
   appointmentDateTime: Date;
+  locationAdress : string;
+  appointmentCategory: string;
 };
 
 type StatusFilter = "Requested" | "Accepted" | "Cancelled" | "Completed" | "";
@@ -41,7 +43,7 @@ export default function HistoryCard() {
       // console.log(userId)
       // console.log(role)
       // console.log(url);
-      // console.log(response.data);
+      console.log("history",response.data);
       setHistory(response.data);
     } catch (error) {
       console.error("Error fetching History:", error);
@@ -60,11 +62,11 @@ export default function HistoryCard() {
       const locationNameString = eachHistory.locationName?.toLowerCase();
 
       const searchMatch =
-        searchTerm === "" ||
-        titleLower.includes(searchTerm.toLowerCase()) ||
-        desireLanguageLower.includes(searchTerm.toLowerCase()) ||
-        communicateLanguageLower.includes(searchTerm.toLowerCase()) ||
-        locationNameString.includes(searchTerm.toLowerCase());
+      searchTerm === "" ||
+      titleLower?.includes(searchTerm.toLowerCase()) ||
+      desireLanguageLower?.includes(searchTerm.toLowerCase()) ||
+      communicateLanguageLower?.includes(searchTerm.toLowerCase()) ||
+      locationNameString?.includes(searchTerm.toLowerCase());      
 
       const statusMatch = selectedStatus === "" || eachHistory.status === selectedStatus;
 
