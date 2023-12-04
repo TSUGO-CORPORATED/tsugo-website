@@ -4,7 +4,8 @@ import { auth } from '../../firebase';
 import { signInWithPopup, GoogleAuthProvider, User } from 'firebase/auth';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-
+import GoogleIcon from '@mui/icons-material/Google';
+import Button from '@mui/material/Button';
 
 export default function GoogleLogIn(): JSX.Element {
     const router = useRouter();
@@ -71,8 +72,28 @@ export default function GoogleLogIn(): JSX.Element {
     }
 
     return (
-        <div>
-            <div onClick={googleSignUp}>Sign up with Google</div>
-        </div>
+      <Button
+      variant="contained"
+      startIcon={
+          <img 
+              src="/google-icon-2048x2048-czn3g8x8.png" 
+              alt="Google sign-in" 
+              style={{ width: 24, height: 24 }} 
+          />
+      }
+      onClick={googleSignUp}
+      sx={{
+          backgroundColor: 'white', 
+          color: 'black', 
+          '&:hover': {
+              backgroundColor: '#eeeeee', 
+          },
+          textTransform: 'none', 
+          width: '100%',
+          justifyContent: 'flex-start', 
+      }}
+  >
+      Sign up with Google
+  </Button>
     )
 }
