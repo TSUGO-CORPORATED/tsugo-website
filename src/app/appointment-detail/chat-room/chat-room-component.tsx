@@ -38,31 +38,6 @@ export default function ChatRoomSub(): React.JSX.Element{
  
     
 
-  function startCamera() {
-    navigator.mediaDevices.getUserMedia(constraints)
-    .then((stream) => {
-    const videoTracks = stream.getVideoTracks();
-    console.log("Got stream with constraints:", constraints);
-    console.log(`Using video device: ${videoTracks[0].label}`);
-    stream.onremovetrack = () => {
-      console.log("Stream ended");
-    };
-    videoRef.current!.srcObject = stream;
-  })
-  .catch((error) => {
-    if (error.name === "OverconstrainedError") {
-      console.error(
-        "resolution not supported"//`The resolution ${constraints.video.width.exact}x${constraints.video.height.exact} px is not supported by your device.`,
-      );
-    } else if (error.name === "NotAllowedError") {
-      console.error(
-        "You need to grant this page permission to access your camera and microphone.",
-      );
-    } else {
-      console.error(`getUserMedia error: ${error.name}`, error);
-    }
-  });
-  }
 
     // SEARCH PARAMS
     const searchParams = useSearchParams();
@@ -86,7 +61,31 @@ export default function ChatRoomSub(): React.JSX.Element{
 
 
         useEffect(() => {
-            startCamera();
+            
+            navigator.mediaDevices.getUserMedia(constraints)
+    .then((stream) => {
+    const videoTracks = stream.getVideoTracks();
+    console.log("Got stream with constraints:", constraints);
+    console.log(`Using video device: ${videoTracks[0].label}`);
+    stream.onremovetrack = () => {
+      console.log("Stream ended");
+    };
+    videoRef.current!.srcObject = stream;
+  })
+  .catch((error) => {
+    if (error.name === "OverconstrainedError") {
+      console.error(
+        "resolution not supported"//`The resolution ${constraints.video.width.exact}x${constraints.video.height.exact} px is not supported by your device.`,
+      );
+    } else if (error.name === "NotAllowedError") {
+      console.error(
+        "You need to grant this page permission to access your camera and microphone.",
+      );
+    } else {
+      console.error(`getUserMedia error: ${error.name}`, error);
+    }
+  });
+
             socket.current = socketIO("https://senior-project-server-8090ce16e15d.herokuapp.com/"); //TODO: Set env variable  http://localhost:8080
             socket.current.emit("CONNECT_ROOM", `{"room": ${appointmentId}}`); //TOD: Need buttons for selecting which room you want, default to 1 for now
 
