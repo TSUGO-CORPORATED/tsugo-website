@@ -3,7 +3,7 @@
 // IMPORT MODULES
 import { ContextVariables } from '../context-variables';
 import { useState } from 'react';
-import { inter } from '@/fonts';
+import { lusitana } from '@/fonts';
 //import ResponsiveAppBar from './responsive-app-bar';
 import Navbar from './navbar';
 
@@ -23,7 +23,7 @@ export default function LayoutSub(props: Props): JSX.Element {
 
     return (
         <ContextVariables.Provider value={{userId, userUid, userFirstName, userLastName, userEmail, userPhotoUrl, setUserId, setUserUid, setUserFirstName, setUserLastName, setUserEmail, setUserPhotoUrl}}>
-            <body className={`${inter.className}`}>
+            <body className={`${lusitana.className}`}>
                 <div className='navbar-layout'><Navbar /></div>
                 <div className='childrenprops-layout'>{props.childrenProp}</div>
             </body>

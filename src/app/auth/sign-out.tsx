@@ -5,12 +5,15 @@ import { signOut } from 'firebase/auth';
 import { auth } from "../../firebase";
 import { ContextVariables } from '../../context-variables';
 import { useContext } from 'react';
-
-
+import { useRouter } from 'next/navigation';
 
 // PAGE COMPONENT
 export default function SignOut() {
+  // CONTEXT VARIABLE
   const { setUserId, setUserUid, setUserFirstName, setUserLastName } = useContext(ContextVariables);
+  const router = useRouter();
+
+  // HELPER FUNCITON
   function userSignOut(): void {
     signOut(auth)
       .then(() => {
@@ -21,6 +24,9 @@ export default function SignOut() {
         setUserLastName('noLastName');
 
         alert('sign out successful');
+
+        // push to homepage
+        router.push('/');
       })
       .catch((err) => {
         console.log(err);

@@ -20,7 +20,7 @@
         cursor: pointer;
 
         &:hover {
-          background-color: $color-background-light-grey;
+          background-color: $color-light-grey;
         }
 
         &__selected {
@@ -32,7 +32,7 @@
     &__separator {
       width: 100%;
       height: 1px;
-      background-color: $color-background-medium-grey;
+      background-color: $color-medium-grey;
       margin-bottom: 3%;
     }
 
