@@ -31,10 +31,10 @@ export default function EditProfile() {
     const [updated, setUpdated] = useState<Boolean>(false);
     const [firstNameUpdate, setFirstNameUpdate] = useState<string | number | readonly string[] | undefined>("");
     const [lastNameUpdate, setLastNameUpdate] = useState<string | number | readonly string[] | undefined>(userProfile?.lastName);
-    const [aboutUpdate, setAboutUpdate] = useState<string | number | readonly string[] | undefined | null>(userProfile?.about);
-    const [languageUpdate, setLanguageUpdate] = useState<string | number | readonly string[] | undefined | null | UserGetDetailLanguage[]>(userProfile?.userLanguage);
-    const [proficiencyUpdate, setProficiencyUpdate] = useState<string | number | readonly string[] | undefined | null | UserGetDetailLanguage[]>(userProfile?.userLanguage);
-    const [certificationUpdate, setCertificationUpdate] = useState<string | number | readonly string[] | undefined | null | UserGetDetailLanguage[]>(userProfile?.userLanguage);
+    const [aboutUpdate, setAboutUpdate] = useState<string | number | readonly string[] | undefined>("");
+    // const [languageUpdate, setLanguageUpdate] = useState<string | number | readonly string[] | undefined | null | UserGetDetailLanguage[]>();
+    // const [proficiencyUpdate, setProficiencyUpdate] = useState<string | number | readonly string[] | undefined | null | UserGetDetailLanguage[]>(userProfile?.userLanguage);
+    // const [certificationUpdate, setCertificationUpdate] = useState<string | number | readonly string[] | undefined | null | UserGetDetailLanguage[]>(userProfile?.userLanguage);
 
     const dummy = [{id: 69, language: "English", proficiency: "Native"}];
 
@@ -46,9 +46,9 @@ export default function EditProfile() {
             setFirstNameUpdate(fetchUserProfile.data.firstName);
             setLastNameUpdate(fetchUserProfile.data.lastName);
             setAboutUpdate(fetchUserProfile.data.about);
-            setLanguageUpdate(fetchUserProfile.data.userLanguage[0].language);
-            setProficiencyUpdate(fetchUserProfile.data.userLanguage[0].proficiency);
-            setCertificationUpdate(fetchUserProfile.data.userLanguage[0].certifications);
+            // setLanguageUpdate(fetchUserProfile.data.userLanguage[0].language);
+            // setProficiencyUpdate(fetchUserProfile.data.userLanguage[0].proficiency);
+            // setCertificationUpdate(fetchUserProfile.data.userLanguage[0].certifications);
             
             console.log("lu",fetchUserProfile.data.userLanguage[0])
             console.log("user profile: ", fetchUserProfile.data)
@@ -80,12 +80,12 @@ export default function EditProfile() {
             firstName: firstNameUpdate, 
             lastName: lastNameUpdate,
             about: aboutUpdate,
-            languages: [{
-                id: 3,
-                language: languageUpdate,
-                proficiency: proficiencyUpdate,
-                certifications: certificationUpdate,
-            }]
+            // languages: [{
+            //     id: 3,
+            //     language: languageUpdate,
+            //     proficiency: proficiencyUpdate,
+            //     certifications: certificationUpdate,
+            // }]
         };
         console.log(updateProfileData)
         const returnedData = await axios.put(url, updateProfileData).catch(error => {
@@ -132,7 +132,7 @@ export default function EditProfile() {
                     defaultValue={userProfile?.lastName}
                 />
 
-                <label>Update Language:</label>
+                {/* <label>Update Language:</label>
                 <select 
                     id='edit-profile__input__language'
                     className="edit-profile__input"
@@ -168,7 +168,7 @@ export default function EditProfile() {
                     onChange={(e) => setCertificationUpdate(e.target.value)}
                     value={certificationUpdate}
                     defaultValue={userProfile?.userLanguage[userProfile?.userLanguage.length-1].certifications}
-                />
+                /> */}
 
                 <label>Update Bio:</label>
                 {/* <p className='edit-profile-p'>Language: {userProfile?.language}</p> */}
@@ -178,7 +178,6 @@ export default function EditProfile() {
                     id='edit-profile__input__about'
                     onChange={(e) => setAboutUpdate(e.target.value)}
                     value={aboutUpdate}
-                    defaultValue={userProfile?.about}
                 />
                 </div>   
                 
