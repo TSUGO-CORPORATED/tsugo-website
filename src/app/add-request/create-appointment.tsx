@@ -381,8 +381,8 @@ const CreateAppointment = () => {
         elevation={3}
         sx={{
           padding: 5,
-          maxWidth: '80%',
-          margin: "20px auto",
+          maxWidth: '100%',
+          margin: "0px,auto",
           borderRadius: "16px",
         }}
       >

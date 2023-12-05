@@ -24,7 +24,7 @@ export default function AppointmentBlock({appointment}: {appointment: Appointmen
             {appointment?.map((appointment, index) => {
                 // Process date
                 const tempDateTime = appointment.appointmentDateTime;
-                console.log(tempDateTime)
+                // console.log(tempDateTime)
                 const dateObject = new Date(tempDateTime)
                 const convertedDateTime = tempDateTime ?format(dateObject, "EEE, dd MMM yy HH:mm") : null;
 
