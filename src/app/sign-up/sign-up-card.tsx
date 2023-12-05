@@ -99,7 +99,7 @@ export default function SignUpCard(): JSX.Element {
           backgroundPosition: "center",
           borderRadius: "16px 0 0 16px", 
         }}
-        src="/sun.jpg"
+        src="/rice.jpg"
       />
     <Paper
         elevation={3}
