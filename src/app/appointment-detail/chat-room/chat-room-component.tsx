@@ -55,12 +55,14 @@ export default function ChatRoomSub(): React.JSX.Element{
 
         useEffect(() => {
             let navigator:Navigator | null = null;
+            if (typeof window != "undefined") {
+                navigator = window.navigator;
 
-try {
-  navigator = window.navigator;
-} catch (e) {
-  navigator = null;
-}
+            }
+            else {
+                navigator = null;
+
+            }
             const peer = new Peer();
             navigator!.mediaDevices.getUserMedia(constraints)
             .then((stream) => {
