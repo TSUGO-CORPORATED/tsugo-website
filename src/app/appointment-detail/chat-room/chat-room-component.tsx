@@ -6,7 +6,6 @@ import { ContextVariables } from '../../../context-variables';
 import { useSearchParams } from 'next/navigation';
 import { Interface } from "readline";
 
-
 //import cv from 'opencv4nodejs';
 
 interface chatMessage {
@@ -21,8 +20,6 @@ const constraints = {
     video: true,
   };
 
-
-
 export default function ChatRoomSub(): React.JSX.Element{
     const { userId } = useContext(ContextVariables);
     
@@ -35,10 +32,6 @@ export default function ChatRoomSub(): React.JSX.Element{
     const textRef = useRef<HTMLTextAreaElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const video2Ref = useRef<HTMLVideoElement>(null);
-    //const navigator = new Navigator();
- 
-    
-
 
     // SEARCH PARAMS
     const searchParams = useSearchParams();
@@ -60,10 +53,16 @@ export default function ChatRoomSub(): React.JSX.Element{
         }
     };
 
-
         useEffect(() => {
+            let navigator:Navigator | null = null;
+
+try {
+  navigator = window.navigator;
+} catch (e) {
+  navigator = null;
+}
             const peer = new Peer();
-            navigator.mediaDevices.getUserMedia(constraints)
+            navigator!.mediaDevices.getUserMedia(constraints)
             .then((stream) => {
                 const videoTracks = stream.getVideoTracks();
                 console.log("Got stream with constraints:", constraints);
@@ -123,7 +122,7 @@ export default function ChatRoomSub(): React.JSX.Element{
             socket.current.on('connect-user', (userId) => {
                 if (peerId === userId) return;
                 peer.connect(userId);
-                navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+                navigator!.mediaDevices.getUserMedia({ video: true, audio: true })
                 .then((stream) => {
                     var call = peer.call(userId, stream);
                     call.on('stream', function (remoteStream) {
@@ -136,7 +135,7 @@ export default function ChatRoomSub(): React.JSX.Element{
 
               peer.on('connection', function (con) {
                 peer.on('call', function (call) {
-                  navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+                  navigator!.mediaDevices.getUserMedia({ video: true, audio: true })
                   .then((stream) => {
                     call.answer(stream);
                     call.on('stream', function (remoteStream) {
@@ -147,12 +146,9 @@ export default function ChatRoomSub(): React.JSX.Element{
                   });
                 });
               });
-              
               peer.on('open', (id) => {
                 setPeerId(id);
               });
-
-           
 
             return () => {
                 socket.current?.disconnect();
