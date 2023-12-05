@@ -25,7 +25,16 @@ type Appointments = {
 type Props = {
   coordinates?: Coordinate | Coordinate[];
   appointments?: Appointments[]; 
+  style?: React.CSSProperties;
 };
+
+interface MapComponentProps {
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+  style?: React.CSSProperties; 
+}
 
 function haversine(lat1: number, lon1: number, lat2: number, lon2: number): number  {
   const R = 6371; 
@@ -43,7 +52,7 @@ function deg2rad(deg: number): number{
   return deg * (Math.PI / 180);
 }
  
-const MapComponent: React.FC<Props> = ({ coordinates, appointments }) => {
+const MapComponent: React.FC<Props> = ({ coordinates, appointments , style}) => {
     
     const isCoordinatesArray = Array.isArray(coordinates);
     const apiKey = "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM"
@@ -157,11 +166,11 @@ const MapComponent: React.FC<Props> = ({ coordinates, appointments }) => {
       }, [appointments]);
   
     return (
-      <div>
+      <div style={style}>
       <LoadScriptNext googleMapsApiKey={apiKey}>
       
         <GoogleMap
-          mapContainerStyle={{ width: "300px", height: "300px" }}
+          mapContainerStyle={style || { width: '300px', height: '300px' }}
           center={mapCenter}
           zoom={zoomLevel}
          > 
