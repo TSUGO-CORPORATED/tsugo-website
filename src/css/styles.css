@@ -17,7 +17,7 @@
   background-repeat: no-repeat;
   background-position: 40%;
 }
-.log-in__card {
+/* .log-in__card {
   background-color: #ffffff;
   border-radius: 10px;
   justify-content: flex-start;
@@ -97,7 +97,7 @@
 }
 .log-in__card__sign-up__link:hover {
   color: #7e9ae6;
-}
+} */
 
 .sign-up {
   display: flex;

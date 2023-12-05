@@ -38,15 +38,29 @@ export default function FindRequestCard() {
   const [selectedType, setSelectedType] = useState("all");
   const [searchKeyword, setSearchKeyword] = useState("");
   const [currentPosition, setCurrentPosition] = useState({});
-  const [selectedInterpreterLanguage, setSelectedInterpreterLanguage] = useState('');
-  const [selectedClientLanguage, setSelectedClientLanguage] = useState('');
+  const [selectedInterpreterLanguage, setSelectedInterpreterLanguage] =
+    useState("");
+  const [selectedClientLanguage, setSelectedClientLanguage] = useState("");
   const languages = [
-    "Japanese", "English", "Mandarin Chinese", "Hindi", "Spanish",
-    "French", "Arabic", "Russian", "Portuguese", "Indonesian",
-    "Korean", "Italian", "German", "Telugu", "Vietnamese", "Turkish"
+    "Japanese",
+    "English",
+    "Mandarin Chinese",
+    "Hindi",
+    "Spanish",
+    "French",
+    "Arabic",
+    "Russian",
+    "Portuguese",
+    "Indonesian",
+    "Korean",
+    "Italian",
+    "German",
+    "Telugu",
+    "Vietnamese",
+    "Turkish",
   ];
 
-  const isMobile = useMediaQuery('(max-width:600px)')
+  const isMobile = useMediaQuery("(max-width:600px)");
   const { userId } = useContext(ContextVariables);
 
   useEffect(() => {
@@ -90,25 +104,37 @@ export default function FindRequestCard() {
     const timeFilter = appointmentTime > now;
 
     // const timeFilter =  new Date(appointment.appointmentDateTime) > new Date();
-    const typeFilter = selectedType === 'all' || appointment.appointmentType === selectedType;
-    const keywordFilter = (
+    const typeFilter =
+      selectedType === "all" || appointment.appointmentType === selectedType;
+    const keywordFilter =
       appointment.status?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-      appointment.appointmentTitle?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-      appointment.clientSpokenLanguage?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-      appointment.interpreterSpokenLanguage?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-      appointment.locationName?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-      appointment.locationAdress?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-      appointment.appointmentCategory?.toLowerCase().includes(searchKeyword.toLowerCase())
-    );
-    const languageFilter = (
-      (selectedInterpreterLanguage === '' || appointment.interpreterSpokenLanguage === selectedInterpreterLanguage) &&
-      (selectedClientLanguage === '' || appointment.clientSpokenLanguage === selectedClientLanguage)
-    );
+      appointment.appointmentTitle
+        ?.toLowerCase()
+        .includes(searchKeyword.toLowerCase()) ||
+      appointment.clientSpokenLanguage
+        ?.toLowerCase()
+        .includes(searchKeyword.toLowerCase()) ||
+      appointment.interpreterSpokenLanguage
+        ?.toLowerCase()
+        .includes(searchKeyword.toLowerCase()) ||
+      appointment.locationName
+        ?.toLowerCase()
+        .includes(searchKeyword.toLowerCase()) ||
+      appointment.locationAdress
+        ?.toLowerCase()
+        .includes(searchKeyword.toLowerCase()) ||
+      appointment.appointmentCategory
+        ?.toLowerCase()
+        .includes(searchKeyword.toLowerCase());
+    const languageFilter =
+      (selectedInterpreterLanguage === "" ||
+        appointment.interpreterSpokenLanguage ===
+          selectedInterpreterLanguage) &&
+      (selectedClientLanguage === "" ||
+        appointment.clientSpokenLanguage === selectedClientLanguage);
 
     return typeFilter && keywordFilter && languageFilter;
-
   });
-
 
   const mapSize = {
     width: "100%",
@@ -131,35 +157,51 @@ export default function FindRequestCard() {
     .filter((coord) => coord !== null) as Coordinate[];
   console.log("findTSX", mapCoordinates);
 
-  const popUpAppointments = appointments.filter(
-    (appointment) => {
-      const appointmentTime = new Date(appointment.appointmentDateTime);
-      const now = new Date();
-      const timeFilter = appointmentTime > now;
-      const typeFilter = appointment.appointmentType === "inPerson";
+  const popUpAppointments = appointments.filter((appointment) => {
+    const appointmentTime = new Date(appointment.appointmentDateTime);
+    const now = new Date();
+    const timeFilter = appointmentTime > now;
+    const typeFilter = appointment.appointmentType === "inPerson";
 
-      return typeFilter;
-      // return timeFilter && typeFilter;
-    }
-  );
+    return typeFilter;
+    // return timeFilter && typeFilter;
+  });
   console.log("popupAppo", popUpAppointments);
 
   return (
-    
     <Paper
       sx={{
-        marginTop: '10%',
-        maxWidth: '100%',
-        borderRadius: '10px',
-        overflow: 'auto'
-      }}>
-      <Paper elevation={3} sx={{ padding: 5, borderRadius: '16px',overflow: 'auto'  }}>
-        <Box component="h2" sx={{ textAlign: "center", mb: 2 }}>Check Appointments</Box>
-        <Box sx={{ width: '100%', height: '400px' }}>
-          <MapComponent appointments={popUpAppointments}
-            style={{ width: "100%", height: "400px" }} />
+        marginTop: "10%",
+        maxWidth: "100%",
+        borderRadius: "10px",
+        overflow: "auto",
+        '&::-webkit-scrollbar': {
+          width: "15px"
+        },
+        '&::-webkit-scrollbar-track': {
+          boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+          webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: 'rgba(0,0,0,.1)',
+          outline: '1px solid slategrey'
+        }
+      }}
+    >
+      <Paper
+        elevation={3}
+        sx={{ padding: 5, borderRadius: "16px", overflow: "auto" }}
+      >
+        <Box component="h2" sx={{ textAlign: "center", mb: 2 }}>
+          Check Appointments
         </Box>
-        <Box sx={{ mt: 2, width: '100%',marginTop:"40px" }}>
+        <Box sx={{ width: "100%", height: "400px" }}>
+          <MapComponent
+            appointments={popUpAppointments}
+            style={{ width: "100%", height: "400px" }}
+          />
+        </Box>
+        <Box sx={{ mt: 2, width: "100%", marginTop: "40px" }}>
           <TextField
             fullWidth
             placeholder="Search appointments..."
@@ -171,34 +213,57 @@ export default function FindRequestCard() {
           row={!isMobile}
           value={selectedType}
           onChange={(e) => setSelectedType(e.target.value)}
-          sx={{ display: 'flex', justifyContent: 'space-around', mt: 2 }}
+          sx={{ display: "flex", justifyContent: "space-around", mt: 2 }}
         >
           <FormControlLabel value="all" control={<Radio />} label="All" />
-          <FormControlLabel value="videoChat" control={<Radio />} label="Video Chat" />
-          <FormControlLabel value="inPerson" control={<Radio />} label="In-person" />
+          <FormControlLabel
+            value="videoChat"
+            control={<Radio />}
+            label="Video Chat"
+          />
+          <FormControlLabel
+            value="inPerson"
+            control={<Radio />}
+            label="In-person"
+          />
         </RadioGroup>
-        <Box sx={{ mt: 2, width: '100%', marginBottom: "20px" }}>
+        <Box sx={{ mt: 2, width: "100%", marginBottom: "20px" }}>
           <Select
             fullWidth
             displayEmpty
             value={selectedInterpreterLanguage}
             onChange={(e) => setSelectedInterpreterLanguage(e.target.value)}
           >
-            <MenuItem value="" disabled>Select Interpreter Language</MenuItem>
-            {languages.map(language => (
-              <MenuItem key={language} value={language}>{language}</MenuItem>
+            <MenuItem value="" disabled>
+              Select Interpreter Language
+            </MenuItem>
+            {languages.map((language) => (
+              <MenuItem key={language} value={language}>
+                {language}
+              </MenuItem>
             ))}
           </Select>
         </Box>
-        <Box sx={{
-          minWidth: '600px',
-          width: '100%',
-          maxWidth: '800px',
-          overflow: 'hidden',
-        }}>
+        <Box
+          sx={{
+            minWidth: "600px",
+            width: "100%",
+            maxWidth: "800px",
+            overflow: "hidden",
+          }}
+        >
           <AppointmentBlock appointment={filteredAppointments} />
         </Box>
       </Paper>
     </Paper>
   );
 }
+
+// '&::-webkit-scrollbar-track': {
+//   boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+//   webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+// },
+// '&::-webkit-scrollbar-thumb': {
+//   backgroundColor: 'rgba(0,0,0,.1)',
+//   outline: '1px solid slategrey'
+// }
