@@ -915,18 +915,22 @@
   margin-bottom: 5px;
 }
 
+.home {
+  width: 100vw;
+  height: 100vh;
+}
 .home__landing-page {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: white;
+  background-color: black;
   height: 100%;
   width: 100%;
   overflow: hidden;
 }
 .home__landing-page__video {
-  width: auto;
+  width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
@@ -935,8 +939,10 @@
 }
 .home__landing-page__header {
   color: white;
-  justify-self: flex-start;
+  justify-self: center;
   width: 100%;
+  height: 30%;
+  font-size: 80pt;
   z-index: 2;
   top: 10%;
   position: absolute;
@@ -946,12 +952,16 @@
 .home__landing-page__log-in-link {
   color: black;
   z-index: 2;
-  top: 15%;
   position: absolute;
-  left: 0%;
-  margin-top: 6em;
+  justify-self: center;
+  margin-top: 100px;
 }
 
+@media (min-width: 700px) {
+  .home__landing-page__header {
+    width: 700px;
+  }
+}
 .navbar {
   border-style: solid;
   border-bottom-color: #ffffff;
