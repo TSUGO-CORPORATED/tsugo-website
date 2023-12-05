@@ -16,17 +16,7 @@ interface AppointmentOverview {
 }
 
 export default function AppointmentBlock({appointment}: {appointment: AppointmentOverview[]}) {
-    function FormattedDateTime(input:any) {
-        const dateTime = new Date(input);
-        return dateTime.toLocaleString('en-US', {
-          month: '2-digit',
-          day: '2-digit',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: true
-        });
-      }
+
 
       
     return (
@@ -34,7 +24,9 @@ export default function AppointmentBlock({appointment}: {appointment: Appointmen
             {appointment?.map((appointment, index) => {
                 // Process date
                 const tempDateTime = appointment.appointmentDateTime;
-                const convertedDateTime = tempDateTime ? format(new Date(tempDateTime), "EEE',' dd MMM yy") : null;
+                console.log(tempDateTime)
+                const dateObject = new Date(tempDateTime)
+                const convertedDateTime = tempDateTime ?format(dateObject, "EEE, dd MMM yy HH:mm") : null;
 
                 return (
                     <div key={index} className='appointment-block'>
@@ -56,7 +48,7 @@ export default function AppointmentBlock({appointment}: {appointment: Appointmen
                             <div className='appointment-block__info__row'>
                                 <div className='appointment-block__info__row__piece'>
                                     <label className='appointment-block__info__row__piece__label'>Time:</label>
-                                    <p className='appointment-block__info__row__piece__data'>{FormattedDateTime(convertedDateTime)}</p>
+                                    <p className='appointment-block__info__row__piece__data'>{convertedDateTime}</p>
                                 </div>
                                 <div className='appointment-block__info__row__piece'>
                                     <label className='appointment-block__info__row__piece__label'>Type:</label>
