@@ -139,8 +139,12 @@ export default function Profile() {
             {/* </div> */}
 
             {/* <p className='profile-p'>ID: {userProfile?.id}</p> */}
+
+            
+
             {/* <p className='profile-p'>First Name: {userProfile?.firstName}</p>
             <p className='profile-p'>Last Name: {userProfile?.lastName}</p> */}
+
             {/* {userProfile?.userLanguage.map((language, index)=> {
                 return (
                     <div className='profile-container__language'>
@@ -162,11 +166,16 @@ export default function Profile() {
             ))} */}
 
             <div className='profile-container__info-container'>
-                <label className='profile-container__label'>Language:</label>
+                <label className='profile-container__label'>First Name:</label>
+                <p className='profile-container__profile-p'>{userProfile?.firstName}</p>
+                <label className='profile-container__label'>Last Name:</label>
+                <p className='profile-container__profile-p'>{userProfile?.lastName}</p>
+                {/* <label className='profile-container__label'>Language:</label>
                 <p className='profile-container__profile-p'>{userProfile?.userLanguage[userProfile?.userLanguage.length-1].language}</p>
                 <label className='profile-container__label'>Proficiency:</label>
                 <p className='profile-container__profile-p'>{userProfile?.userLanguage[userProfile?.userLanguage.length-1].proficiency}</p>
-                {/* <p className='profile-container__profile-p'>Certifications: {userProfile?.userLanguage[userProfile?.userLanguage.length-1].certifications}</p> */}
+                <p className='profile-container__profile-p'>Certifications: {userProfile?.userLanguage[userProfile?.userLanguage.length-1].certifications}</p> */}
+
                 <label className='profile-container__label'>Bio:</label>
                 <p className='profile-container__profile-p'>{userProfile?.about}</p>
             </div>
