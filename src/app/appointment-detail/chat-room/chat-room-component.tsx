@@ -145,7 +145,7 @@ export default function ChatRoomSub(): React.JSX.Element{
             socket.current.on('connect-user', (userId) => {
                 console.log("try connect")
                 console.log(userId + " " + peerId);
-                if (peerId === userId) return;
+                if (peerId == userId) return;
                 console.log("connecting")
 
                 peer.connect(userId);
