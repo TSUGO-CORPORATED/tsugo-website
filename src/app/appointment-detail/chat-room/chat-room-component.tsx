@@ -172,7 +172,6 @@ export default function ChatRoomSub(): React.JSX.Element{
 
     return (
         <>  
-         <script src="https://unpkg.com/peerjs@1.4.5/dist/peerjs.min.js"></script>
             <div >
                 <ul className="chatContainer">
                     {messages.map((message, index) => {
