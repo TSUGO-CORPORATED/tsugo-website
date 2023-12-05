@@ -7,6 +7,7 @@ import { deleteUser, reauthenticateWithCredential, EmailAuthProvider } from 'fir
 import { auth } from "../../../firebase";
 import { useRouter } from 'next/navigation';
 import axios from "axios";
+import { TextField, Button } from '@mui/material';
 
 export default function DeleteAccountCard(): JSX.Element {
     // STATE VARIABLES
@@ -56,33 +57,30 @@ export default function DeleteAccountCard(): JSX.Element {
     }
 
     return (
-        <div>
-            <p>Test</p>
-            <p>Test</p>
-            <p>Test</p>
-            <p>Test</p>
-            <p>Test</p>
-            <p>Test</p>
-            <p>Test</p>
-            <Link href='/profile'>
-                <button className='aadsf'>Go back to profile</button>
-            </Link>
+        <div className="delete-account__container">
+            <h1 className="delete-account__header">Delete Account</h1>
+           
             <form onSubmit={deleteAccountFunction}>
-                <div className='add_request_box'>
-                    <label className='add_request_label'>Confirm password:</label>
-                    <input 
+                <div className='delete-account__form'>
+                    <label className='delete-account__label'>Confirm password:</label>
+                    <TextField
+                        variant="outlined" 
                         type="text" 
                         value={confirmPassword} 
                         onChange={(e) => setConfirmPassword(e.target.value)} 
                         required 
-                        className='add_request_input' 
+                        className='delete-account__input' 
                     />
                 </div>
-                <p>Warning blah... blah... blah...</p>
-                <div className="button_box">
-                    <button type="submit" className='add_request_submit_button'>Confirm delete account</button>
+                <p className="delete-account__message">Confirm your password to delete your account.</p>
+                <div className="delete-account__button_box">
+                    <Button variant="contained" type="submit" className='delete-account__submit_button'>Confirm delete account</Button>
                 </div>
             </form>
+
+            <Link href='/profile'>
+                <Button variant="contained" className='delete-account__profile-button'>Cancel</Button>
+            </Link>
         </div>
     )
 }
