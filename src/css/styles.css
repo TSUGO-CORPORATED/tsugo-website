@@ -417,7 +417,6 @@
   background-color: white;
   width: 75%;
   max-height: 75%;
-  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   display: flex;
@@ -431,7 +430,6 @@
 .confirm_section_container {
   background-color: white;
   width: 75%;
-  padding: 40px;
   word-wrap: break-word;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -439,11 +437,10 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 10vh;
   overflow: auto;
 }
 
-.add_request_title {
+/* .add_request_title {
   color: black;
   font-size: 24px;
   white-space: nowrap;
@@ -555,7 +552,7 @@
   background-color: white;
   color: black;
   border: 1px solid #ccc;
-}
+} */
 
 .find-request {
   display: flex;

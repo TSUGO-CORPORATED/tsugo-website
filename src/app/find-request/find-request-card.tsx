@@ -1,53 +1,52 @@
 "use client";
-import React, { useEffect, useState, useContext  } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import { ContextVariables } from "../../context-variables";
 import AppointmentBlock from '../global/appointment-block';
 import MapComponent from "../map-component/map"
+import {
+  useMediaQuery, Box, Paper, Typography, FormControl, InputLabel, Select, MenuItem,
+  TextField, RadioGroup, FormControlLabel,
+  Radio, Checkbox, Button, Modal
+} from '@mui/material';
 
 type Appointment = {
-    id: number;
-    status: string;
-    appointmentTitle: string,
-    appointmentType: string,
-    clientSpokenLanguage: string;
-    interpreterSpokenLanguage: string;
-    locationName: string;
-    locationLatitude: number;
-    locationLongitude: number;
-    appointmentDateTime: Date;
-    locationAdress : string;
-    appointmentCategory: string;
+  id: number;
+  status: string;
+  appointmentTitle: string,
+  appointmentType: string,
+  clientSpokenLanguage: string;
+  interpreterSpokenLanguage: string;
+  locationName: string;
+  locationLatitude: number;
+  locationLongitude: number;
+  appointmentDateTime: Date;
+  locationAdress: string;
+  appointmentCategory: string;
 };
 
 
 
 type Coordinate = {
-    lat: number;
-    lng: number;
-  };
+  lat: number;
+  lng: number;
+};
 
 export default function FindRequestCard() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [selectedType, setSelectedType] = useState("all");
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [currentPosition, setCurrentPosition] = useState({
-    lat: 35.6895,
-    lng: 139.6917,
-  });
+  const [currentPosition, setCurrentPosition] = useState({});
   const [selectedInterpreterLanguage, setSelectedInterpreterLanguage] = useState('');
   const [selectedClientLanguage, setSelectedClientLanguage] = useState('');
   const languages = [
     "Japanese", "English", "Mandarin Chinese", "Hindi", "Spanish",
     "French", "Arabic", "Russian", "Portuguese", "Indonesian",
     "Korean", "Italian", "German", "Telugu", "Vietnamese", "Turkish"
-];
+  ];
 
-
-  const apiKey =
-    process.env.REACT_APP_GOOGLE_API_KEY ||
-    "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM";
+  const isMobile = useMediaQuery('(max-width:600px)')
   const { userId } = useContext(ContextVariables);
 
   useEffect(() => {
@@ -81,28 +80,34 @@ export default function FindRequestCard() {
       );
     }
   }, []);
+  const now = new Date();
 
+  // console.log("NOW", now)
   const filteredAppointments = appointments.filter((appointment) => {
+    const appointmentTime = new Date(appointment.appointmentDateTime);
+    // console.log("appointmentTime",appointmentTime)
+    const now = new Date();
+    const timeFilter = appointmentTime > now;
 
     // const timeFilter =  new Date(appointment.appointmentDateTime) > new Date();
     const typeFilter = selectedType === 'all' || appointment.appointmentType === selectedType;
     const keywordFilter = (
-        appointment.status?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-        appointment.appointmentTitle?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-        appointment.clientSpokenLanguage?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-        appointment.interpreterSpokenLanguage?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-        appointment.locationName?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-        appointment.locationAdress?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-        appointment.appointmentCategory?.toLowerCase().includes(searchKeyword.toLowerCase())
+      appointment.status?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+      appointment.appointmentTitle?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+      appointment.clientSpokenLanguage?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+      appointment.interpreterSpokenLanguage?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+      appointment.locationName?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+      appointment.locationAdress?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
+      appointment.appointmentCategory?.toLowerCase().includes(searchKeyword.toLowerCase())
     );
     const languageFilter = (
-        (selectedInterpreterLanguage === '' || appointment.interpreterSpokenLanguage === selectedInterpreterLanguage) &&
-        (selectedClientLanguage === '' || appointment.clientSpokenLanguage === selectedClientLanguage)
+      (selectedInterpreterLanguage === '' || appointment.interpreterSpokenLanguage === selectedInterpreterLanguage) &&
+      (selectedClientLanguage === '' || appointment.clientSpokenLanguage === selectedClientLanguage)
     );
 
     return typeFilter && keywordFilter && languageFilter;
 
-});
+  });
 
 
   const mapSize = {
@@ -127,91 +132,73 @@ export default function FindRequestCard() {
   console.log("findTSX", mapCoordinates);
 
   const popUpAppointments = appointments.filter(
-    (appointment) => appointment.appointmentType === "inPerson"
+    (appointment) => {
+      const appointmentTime = new Date(appointment.appointmentDateTime);
+      const now = new Date();
+      const timeFilter = appointmentTime > now;
+      const typeFilter = appointment.appointmentType === "inPerson";
+
+      return typeFilter;
+      // return timeFilter && typeFilter;
+    }
   );
   console.log("popupAppo", popUpAppointments);
 
-    return (
-        <div className="find-request__card">
-            <div className="find-request__card__header">Check Appointments</div>
-            <div className="find-request__card__map-container">
-                {/* <LoadScript googleMapsApiKey={apiKey}>
-                    <GoogleMap
-                        mapContainerStyle={mapSize}
-                        center={currentPosition}
-                        zoom={14} 
-                    >
-                        {appointments.map((appointment) => (
-                            appointment.locationLatitude && appointment.locationLongitude && (
-                            <Marker
-                            // need to put detail on popup
-                            key={appointment.id}
-                            position={{ lat: Number(appointment.locationLatitude), lng: Number(appointment.locationLongitude) }}
-                            /> )
-                        ))}
-                    </GoogleMap>
-                </LoadScript> */}
-                <MapComponent appointments={popUpAppointments} />
-            </div>
-            <div className="find-request__card__search">
-                <input
-                    type="text"
-                    placeholder="Search appointments..."
-                    value={searchKeyword}
-                    onChange={(e) => setSearchKeyword(e.target.value)}
-                />
-            </div>
-            <div className="find-request__card__filter">
-                <label>
-                    <input
-                        type="radio"
-                        name="interpretationType"
-                        value="all"
-                        checked={selectedType === "all"}
-                        onChange={() => setSelectedType("all")}
-                    />
-                    All
-                </label>
-                <label>
-                    <input
-                        type="radio"
-                        name="interpretationType"
-                        value="videoChat"
-                        checked={selectedType === "videoChat"}
-                        onChange={() => setSelectedType("videoChat")}
-                    />
-                    Video Chat
-                </label>
-                <label>
-                    <input
-                        type="radio"
-                        name="interpretationType"
-                        value="inPerson"
-                        checked={selectedType === "inPerson"}
-                        onChange={() => setSelectedType("inPerson")}
-                    />
-                    In-person
-                </label>
-            </div>
-            <div className='find-request__card__language-filter'>
-                <select
-                    value={selectedInterpreterLanguage}
-                    onChange={(e) => setSelectedInterpreterLanguage(e.target.value)}
-                >
-                    <option value="">Select Interpreter Language</option>
-                    {languages.map(language => <option key={language} value={language}>{language}</option>)}
-                </select>
-                <select
-                    value={selectedClientLanguage}
-                    onChange={(e) => setSelectedClientLanguage(e.target.value)}
-                >
-                    <option value="">Select Your Language</option>
-                    {languages.map(language => <option key={language} value={language}>{language}</option>)}
-                </select>
-            </div>
-            <div className="find-request__card__appointment-container">
-                <AppointmentBlock appointment={filteredAppointments} />
-            </div>
-        </div>
-    );
+  return (
+    
+    <Paper
+      sx={{
+        marginTop: '10%',
+        maxWidth: '100%',
+        borderRadius: '10px',
+        overflow: 'auto'
+      }}>
+      <Paper elevation={3} sx={{ padding: 5, borderRadius: '16px',overflow: 'auto'  }}>
+        <Box component="h2" sx={{ textAlign: "center", mb: 2 }}>Check Appointments</Box>
+        <Box sx={{ width: '100%', height: '400px' }}>
+          <MapComponent appointments={popUpAppointments}
+            style={{ width: "100%", height: "400px" }} />
+        </Box>
+        <Box sx={{ mt: 2, width: '100%',marginTop:"40px" }}>
+          <TextField
+            fullWidth
+            placeholder="Search appointments..."
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
+          />
+        </Box>
+        <RadioGroup
+          row={!isMobile}
+          value={selectedType}
+          onChange={(e) => setSelectedType(e.target.value)}
+          sx={{ display: 'flex', justifyContent: 'space-around', mt: 2 }}
+        >
+          <FormControlLabel value="all" control={<Radio />} label="All" />
+          <FormControlLabel value="videoChat" control={<Radio />} label="Video Chat" />
+          <FormControlLabel value="inPerson" control={<Radio />} label="In-person" />
+        </RadioGroup>
+        <Box sx={{ mt: 2, width: '100%', marginBottom: "20px" }}>
+          <Select
+            fullWidth
+            displayEmpty
+            value={selectedInterpreterLanguage}
+            onChange={(e) => setSelectedInterpreterLanguage(e.target.value)}
+          >
+            <MenuItem value="" disabled>Select Interpreter Language</MenuItem>
+            {languages.map(language => (
+              <MenuItem key={language} value={language}>{language}</MenuItem>
+            ))}
+          </Select>
+        </Box>
+        <Box sx={{
+          minWidth: '600px',
+          width: '100%',
+          maxWidth: '800px',
+          overflow: 'hidden',
+        }}>
+          <AppointmentBlock appointment={filteredAppointments} />
+        </Box>
+      </Paper>
+    </Paper>
+  );
 }
