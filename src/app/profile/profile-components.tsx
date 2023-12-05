@@ -4,6 +4,7 @@ import { ContextVariables } from '../../context-variables';
 import axios from "axios"
 import Link from 'next/link';
 import Image from 'next/image';
+import { TextField, Button, Avatar } from '@mui/material';
 
 import profilePic from '../../../public/default.jpg';
 
@@ -126,17 +127,20 @@ export default function Profile() {
     return (
         
         <div className='profile-container'>
-            <h1 className='profile-header'>User Profile</h1>
-            <Image 
-                src={profilePic}
-                alt='Avatar'
-                className='profile-pic'
-                width={200}
-                height={200}
-            />
+            <h1 className='profile-container__header'>{userProfile?.firstName} {userProfile?.lastName}</h1>
+            {/* <div className='profile-container__pic-container'> */}
+                <Image 
+                    src={profilePic}
+                    alt='Avatar'
+                    className='profile-container__profile-pic'
+                    width={200}
+                    height={200}
+                />
+            {/* </div> */}
+
             {/* <p className='profile-p'>ID: {userProfile?.id}</p> */}
-            <p className='profile-p'>First Name: {userProfile?.firstName}</p>
-            <p className='profile-p'>Last Name: {userProfile?.lastName}</p>
+            {/* <p className='profile-p'>First Name: {userProfile?.firstName}</p>
+            <p className='profile-p'>Last Name: {userProfile?.lastName}</p> */}
             {/* {userProfile?.userLanguage.map((language, index)=> {
                 return (
                     <div className='profile-container__language'>
@@ -156,35 +160,46 @@ export default function Profile() {
             {/* {userProfile?.userLanguage.map((val, i) => (
                 <p className='profile-p'>Language: {userProfile?.userLanguage[userProfile?.userLanguage.length-1].language}</p>
             ))} */}
-            <p className='profile-p'>Language: {userProfile?.userLanguage[userProfile?.userLanguage.length-1].language}</p>
-            <p className='profile-p'>Proficiency: {userProfile?.userLanguage[userProfile?.userLanguage.length-1].proficiency}</p>
-            <p className='profile-p'>Certifications: {userProfile?.userLanguage[userProfile?.userLanguage.length-1].certifications}</p>
-            
-            <p className='profile-p'>Bio: {userProfile?.about}</p>
+
+            <div className='profile-container__info-container'>
+                <label className='profile-container__label'>Language:</label>
+                <p className='profile-container__profile-p'>{userProfile?.userLanguage[userProfile?.userLanguage.length-1].language}</p>
+                <label className='profile-container__label'>Proficiency:</label>
+                <p className='profile-container__profile-p'>{userProfile?.userLanguage[userProfile?.userLanguage.length-1].proficiency}</p>
+                {/* <p className='profile-container__profile-p'>Certifications: {userProfile?.userLanguage[userProfile?.userLanguage.length-1].certifications}</p> */}
+                <label className='profile-container__label'>Bio:</label>
+                <p className='profile-container__profile-p'>{userProfile?.about}</p>
+            </div>
         
-            
-            <Link className='edit-link' href="/profile/edit-profile">
-                <div className='profile-button' id='edit-button'>
-                edit
-                </div>
-            </Link>
-            <Link className='edit-link' href="/profile/delete-account">
-                <div className='profile-button' id='edit-button'>
-                    Delete Account
-                </div>
-            </Link>
+            <div className='profile-container__button-container'>
+                <Link className='profile-container__edit-link' href="/profile/edit-profile">
+                    <Button variant='contained' className='profile-container__profile-button' id='profile-container__edit-button'>
+                    Edit Profile
+                    </Button>
+                </Link>
 
-            <button className='profile-button'>delete</button>
-            <button className='profile-button'>help/support</button>
-            <button className='profile-button'>Agreement</button>
 
-            
+                {/* <button className='profile-container__profile-button'>help/support</button>
+                <button className='profile-container__profile-button'>Agreement</button> */}
 
-            {provider === "password" && (
-                <Link href="/profile/update-password">Update password</Link>
-            )}    
 
-            {/* <button onClick={checkProvider}>Check provider</button> */}
+
+                {provider === "password" && (
+                    <Link className='profile-container__password-link' href="/profile/update-password">
+                        <Button variant='contained' className='profile-container__password-button' id='profile-container__password-button'>
+                        Update password
+                        </Button>
+                    </Link>
+                )}    
+
+                {/* <button onClick={checkProvider}>Check provider</button> */}
+
+                <Link className='profile-container__delete-link' href="/profile/delete-account">
+                    <Button variant='contained' className='profile-container__delete-button' id='profile-container__delete-button'>
+                        Delete Account
+                    </Button>
+                </Link>
+            </div>
         </div>
     );
 }
