@@ -187,6 +187,11 @@ export default function EditProfile() {
                 
                              
                 <Button variant="contained" className='edit-profile-container__button' id='edit-button' onClick={handleUpdate}>Save Changes</Button>
+                <Link className='edit-profile-container__profile-link' href="/profile">
+                    <Button variant='contained' className='edit-profile-container__profile-button' id='edit-profile-container__profile-button'>
+                    Profile
+                    </Button>
+                </Link>
         </div>
     );
 }

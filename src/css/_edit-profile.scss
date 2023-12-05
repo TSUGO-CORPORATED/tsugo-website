@@ -45,7 +45,7 @@
         height: 80%;
         width: 100%;
         align-items: center;
-        margin: 12px;
+        margin-top: 6px;
     }
 
     &__label {
@@ -56,18 +56,21 @@
         margin-right: 30px;
         color: gray;
         font-size: 12px;
-        margin-top: 6px;
+
     }
     
     &__input {
         width: 80%;
-        margin: 16px;
+        margin: 12px;
     }
     
     &__button {
-        margin: 12px;
+        margin: 6px;
     }
 
+    &__profile-link {
+        margin: 6px;
+    }
     // &__edit-profile-p {
     //     height: 10%;
     //     margin-left: 12px;

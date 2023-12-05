@@ -649,7 +649,7 @@
   height: 80%;
   width: 100%;
   align-items: center;
-  margin: 12px;
+  margin-top: 6px;
 }
 .edit-profile-container__label {
   height: 20%;
@@ -659,14 +659,16 @@
   margin-right: 30px;
   color: gray;
   font-size: 12px;
-  margin-top: 6px;
 }
 .edit-profile-container__input {
   width: 80%;
-  margin: 16px;
+  margin: 12px;
 }
 .edit-profile-container__button {
-  margin: 12px;
+  margin: 6px;
+}
+.edit-profile-container__profile-link {
+  margin: 6px;
 }
 
 @media (min-width: 700px) {

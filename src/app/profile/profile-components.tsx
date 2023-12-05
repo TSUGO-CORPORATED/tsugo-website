@@ -174,7 +174,7 @@ export default function Profile() {
             <div className='profile-container__button-container'>
                 <Link className='profile-container__edit-link' href="/profile/edit-profile">
                     <Button variant='contained' className='profile-container__profile-button' id='profile-container__edit-button'>
-                    edit
+                    Edit Profile
                     </Button>
                 </Link>
 
