@@ -2,14 +2,15 @@
   @include background();
 
   &__card {
-    @include pageCard();
+    padding: 20px;
+    width: 100%;
+
 
     &__role-switch {
       @include flexCenter(row);
       justify-content: space-around;
       height: 15%;
       width: 100%;
-      // order: 1;
 
       &__button {
         @include flexCenter(column);
@@ -37,30 +38,36 @@
     }
 
     &__role-content {
-      height: 75%;
-      width: 90%;
+      // height: 75%;
+      width: 100%;
       // order: 3;
 
-      &__button-row {
-        @include flexCenter(row);
-        justify-content: space-around;
-        height: 8%;
+      &__button-column {
+        @include flexCenter(column);
+        align-items: flex-start;
+
+        // height: 8%;
         width: 100%;
-        margin-bottom: 5%;
+        gap: 10px;
+        // margin-bottom: 5%;
         
         &__button-request {
           @include flexCenter(row);
+          gap: 10px;
+          font-weight: bold;
+          border-radius: 20px;
           text-decoration: none;
-          @include button($color-button-black);
-          width: 30%;
+          width: 150px;
           height: 100%;
         }
 
         &__button-history {
           @include flexCenter(row);
+          gap: 10px;
+          font-weight: bold;
+          border-radius: 20px;
           text-decoration: none;
-          @include button($color-button-white);
-          width: 30%;
+          width: 150px;
           height: 100%;
         }
       }

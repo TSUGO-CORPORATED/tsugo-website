@@ -9,16 +9,14 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  justify-content: flex-start;
   height: 100vh;
-  width: 100vw;
-  background-color: #000000;
-  background-image: url(../../public/tokyo.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 40%;
+  width: 100%;
+  background-color: #f3f3f3;
+  padding-top: 64px;
 }
 .log-in__card {
-  background-color: #ffffff;
+  background-color: #fffffa;
   border-radius: 10px;
   justify-content: flex-start;
   width: 75%;
@@ -104,16 +102,14 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  justify-content: flex-start;
   height: 100vh;
-  width: 100vw;
-  background-color: #000000;
-  background-image: url(../../public/tokyo.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 40%;
+  width: 100%;
+  background-color: #f3f3f3;
+  padding-top: 64px;
 }
 .sign-up__card {
-  background-color: #ffffff;
+  background-color: #fffffa;
   border-radius: 10px;
   justify-content: flex-start;
   width: 75%;
@@ -192,24 +188,15 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  justify-content: flex-start;
   height: 100vh;
-  width: 100vw;
-  background-color: #000000;
-  background-image: url(../../public/tokyo.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 40%;
+  width: 100%;
+  background-color: #f3f3f3;
+  padding-top: 64px;
 }
 .dashboard__card {
-  background-color: #ffffff;
-  border-radius: 10px;
-  justify-content: flex-start;
-  width: 75%;
-  height: 75%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  padding: 20px;
+  width: 100%;
 }
 .dashboard__card__role-switch {
   display: flex;
@@ -244,56 +231,40 @@
   margin-bottom: 3%;
 }
 .dashboard__card__role-content {
-  height: 75%;
-  width: 90%;
-}
-.dashboard__card__role-content__button-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-around;
-  height: 8%;
   width: 100%;
-  margin-bottom: 5%;
 }
-.dashboard__card__role-content__button-row__button-request {
+.dashboard__card__role-content__button-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 10px;
+}
+.dashboard__card__role-content__button-column__button-request {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  text-decoration: none;
-  border: solid black 1px;
-  padding: 12px;
-  border-radius: 12px;
-  background-color: #000000;
+  gap: 10px;
   font-weight: bold;
-  color: #ffffff;
-  cursor: pointer;
-  width: 30%;
+  border-radius: 20px;
+  text-decoration: none;
+  width: 150px;
   height: 100%;
 }
-.dashboard__card__role-content__button-row__button-request:hover {
-  background-color: #1f1e1e;
-}
-.dashboard__card__role-content__button-row__button-history {
+.dashboard__card__role-content__button-column__button-history {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  text-decoration: none;
-  border: solid black 1px;
-  padding: 12px;
-  border-radius: 12px;
-  background-color: #ffffff;
+  gap: 10px;
   font-weight: bold;
-  color: #000000;
-  cursor: pointer;
-  width: 30%;
+  border-radius: 20px;
+  text-decoration: none;
+  width: 150px;
   height: 100%;
-}
-.dashboard__card__role-content__button-row__button-history:hover {
-  background-color: #cccccc;
 }
 .dashboard__card__role-content__list-title {
   display: flex;
@@ -334,7 +305,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: #fffffa;
   border-radius: 10px;
   width: 600px;
   height: 600px;
@@ -555,7 +526,7 @@
   background-position: 40%;
 }
 .find-request__card {
-  background-color: #ffffff;
+  background-color: #fffffa;
   border-radius: 10px;
   justify-content: flex-start;
   width: 75%;
@@ -613,7 +584,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: #fffffa;
   border-radius: 10px;
   width: 600px;
   height: 600px;
@@ -700,7 +671,7 @@
 }
 
 .appointment-block {
-  background-color: #ffffff;
+  background-color: #fffffa;
   border-radius: 10px;
   border: solid #cfcfcf 2px;
   width: 100%;
@@ -710,7 +681,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  background-color: #ffffff;
+  background-color: #fffffa;
   border-radius: 10px;
 }
 .appointment-block__info {
@@ -765,7 +736,7 @@
   background-position: 40%;
 }
 .history__card {
-  background-color: #ffffff;
+  background-color: #fffffa;
   border-radius: 10px;
   justify-content: flex-start;
   width: 75%;
@@ -931,7 +902,7 @@
 
 .navbar {
   border-style: solid;
-  border-bottom-color: #ffffff;
+  border-bottom-color: #483c33;
   background-color: black;
   position: fixed;
   width: 100%;
@@ -949,7 +920,7 @@
   padding: 8px 24px;
   text-align: center;
   text-decoration: none;
-  color: #ffffff;
+  color: #fffffa;
   font-weight: bold;
   border-radius: 20px;
 }
@@ -969,12 +940,12 @@
 }
 .navbar__right__sign-up:hover {
   background-color: rgb(56, 56, 56);
-  color: #ffffff;
+  color: #fffffa;
 }
 .navbar__right__log-in {
   padding: 8px 24px;
   text-decoration: none;
-  background-color: #ffffff;
+  background-color: #fffffa;
   color: #000000;
   font-weight: bold;
   border-radius: 20px;
@@ -994,7 +965,7 @@
   padding-left: 15px;
   padding-right: 8px;
   border-radius: 20px;
-  background-color: #ffffff;
+  background-color: #fffffa;
   color: #000000;
   font-weight: bold;
 }
@@ -1011,7 +982,7 @@
   flex-direction: row;
   text-decoration: none;
   color: #000000;
-  font-weight: 600;
+  font-weight: 550;
 }
 .navbar__right__avatar__dashboard {
   display: flex;
@@ -1020,7 +991,7 @@
   flex-direction: row;
   text-decoration: none;
   color: #000000;
-  font-weight: 600;
+  font-weight: 550;
 }
 .navbar__right__avatar__sign-out {
   display: flex;
@@ -1029,7 +1000,7 @@
   flex-direction: row;
   text-decoration: none;
   color: #000000;
-  font-weight: 600;
+  font-weight: 550;
 }
 .navbar__right__sign-out-window {
   display: flex;

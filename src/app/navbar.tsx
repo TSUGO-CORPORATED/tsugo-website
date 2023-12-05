@@ -7,7 +7,7 @@ import { ContextVariables } from '@/context-variables';
 import { signOut } from 'firebase/auth';
 import { auth } from "../firebase";
 import { useRouter } from 'next/navigation';
-import { buttonBlack, buttonRed } from '@/muistyle';
+import { buttonWhite, buttonRed } from '@/muistyle';
 // import { useTranslation } from 'next-i18next'; 
 // import { IoMdGlobe } from 'react-icons/io';
 // import LanguageSwitcher from './languageswitcher';
@@ -104,11 +104,11 @@ export default function Navbar() {
 
     return (
             <div className='navbar'>
-                <div className='navbar__left'>
-                    <Link href="/" className='navbar__left__logo'>Tsugo/都合</Link>
-                </div>
                 {userUid == 'noUid' ? (
                     <>
+                        <div className='navbar__left'>
+                            <Link href="/" className='navbar__left__logo'>Tsugo/都合</Link>
+                        </div>
                         <div className='navbar__right'>
                             <Link href="/sign-up" className='navbar__right__sign-up'>Sign up</Link>
                             <Link href="/log-in" className='navbar__right__log-in'>Log in</Link>
@@ -116,6 +116,9 @@ export default function Navbar() {
                     </>
                 ) : (
                     <>
+                        <div className='navbar__left'>
+                            <Link href="/dashboard" className='navbar__left__logo'>Tsugo/都合</Link>
+                        </div>
                         <div className='navbar__right'>
                             <Button onClick={avatarHandleClick}>
                                 <div className='navbar__right__avatar'>
@@ -198,7 +201,7 @@ export default function Navbar() {
                                     <div className='navbar__right__sign-out-window__title'>Confirm Log-out</div>
                                     <div className='navbar__right__sign-out-window__description'>Are you sure you want to log-out?</div>
                                     <div className='navbar__right__sign-out-window__button'>
-                                        <Button variant='outlined' onClick={signOutWindowHandleClose} sx={buttonBlack}>Cancel</Button>
+                                        <Button variant='outlined' onClick={signOutWindowHandleClose} sx={buttonWhite}>Cancel</Button>
                                         <Button variant='contained' onClick={userSignOut} sx={buttonRed}>Confirm log-out</Button>
                                     </div>
                                 </Box>

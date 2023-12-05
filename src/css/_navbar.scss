@@ -11,7 +11,7 @@
     // padding-top: 12px;
     // border-bottom-width: 0;
     border-style: solid;
-    border-bottom-color: #ffffff;
+    border-bottom-color: $color-off-dark;
     // box-sizing: border-box;
     
     background-color: black;
@@ -34,7 +34,6 @@
             border-radius: 20px;
         }
     }
-
 
     &__right {
         @include flexCenter(row);
@@ -95,21 +94,21 @@
                 @include flexCenter(row);
                 text-decoration: none;
                 color: $color-black;
-                font-weight: 600;
+                font-weight: 550;
             }
 
             &__dashboard {
                 @include flexCenter(row);
                 text-decoration: none;
                 color: $color-black;
-                font-weight: 600;
+                font-weight: 550;
             }
 
             &__sign-out {
                 @include flexCenter(row);
                 text-decoration: none;
                 color: $color-black;
-                font-weight: 600;
+                font-weight: 550;
             }
         }
 

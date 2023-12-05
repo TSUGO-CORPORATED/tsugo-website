@@ -5,6 +5,14 @@
   flex-direction: $direction;
 }
 
+@mixin background() {
+  @include flexCenter(column);
+  justify-content: flex-start;
+  height: 100vh;
+  width: 100%;
+  background-color: $color-light-grey;
+  padding-top: 64px;
+}
 
 
 
@@ -16,16 +24,7 @@
   // box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
 }
 
-@mixin background() {
-  @include flexCenter(column);
-  height: 100vh;
-  width: 100vw;
-  background-color: $color-black;
-  background-image: url(../../public/tokyo.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 40%;
-}
+
 
 @mixin pageCard() {
   background-color: $color-white;
