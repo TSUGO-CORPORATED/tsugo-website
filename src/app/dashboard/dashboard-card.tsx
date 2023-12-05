@@ -18,6 +18,7 @@ import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 import Button from '@mui/material/Button';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import SearchIcon from '@mui/icons-material/Search';
 
 // INTERFACE 
 interface AppointmentOverview {
@@ -33,44 +34,9 @@ interface AppointmentOverview {
     appointmentDateTime: Date;
 }
 
-interface TabPanelProps {
-    children?: React.ReactNode;
-    index: number;
-    value: number;
-}
-
-// FOR TABS
-function CustomTabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
-  
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box sx={{ p: 2 }}>
-            <Typography>{children}</Typography>
-          </Box>
-        )}
-      </div>
-    );
-}
-
-function a11yProps(index: number) {
-    return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
-    };
-}
-
 // PAGE COMPONENT
 export default function DashboardCard(): JSX.Element {
     // STATE VARIABLES
-    const [currentTab, setCurrentTab] = useState<string>('Client');
     const [clientCurrentAppointment, setClientCurrentAppointment] = useState<AppointmentOverview[]>([]);
     const [interpreterCurrentAppointment, setInterpreterCurrentAppointment] = useState<AppointmentOverview[]>([]);
 
@@ -81,6 +47,14 @@ export default function DashboardCard(): JSX.Element {
     console.log(userId, userFirstName, userLastName);
 
     // HELPER FUNCTION
+    // For tab
+    function a11yProps(index: number) {
+        return {
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
+        };
+    }
+
     function handleTabChange(event: React.SyntheticEvent, newValue: number) {
         setTabValue(newValue);
     };
@@ -109,118 +83,96 @@ export default function DashboardCard(): JSX.Element {
     }, [userId]);
 
     // CONDITIONAL TAB
-    const shownAppointmentBlock = currentTab === 'Client' ? clientCurrentAppointment : interpreterCurrentAppointment;
+    const shownAppointmentBlock = tabValue === 0 ? clientCurrentAppointment : interpreterCurrentAppointment;
     
     // JSX ELEMENTS
     return (
         <div className='dashboard__card'>
-            <Box sx={{ width: '100%' }}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs 
-                        value={tabValue} 
-                        onChange={handleTabChange} 
-                        aria-label="basic tabs example"
-                        centered
-                        variant='fullWidth'
-                        TabIndicatorProps={{style: {background:'#483c33'}}}
-                        sx={{
-                            //   backgroundColor: 'black',
-                            '.MuiTab-textColorPrimary': {
-                                fontSize: 20,
-                            },
-                            ".Mui-selected": {
-                                color: '#483c33',
-                                // backgroundColor: 'white',
-                                fontWeight: 'bold',
-                                fontSize: 20,
-                            }
-                        }}
-                    >
-                        <Tab label="Client" {...a11yProps(0)} icon={<EmojiPeopleIcon />} />
-                        <Tab label="Translator" {...a11yProps(1)} icon={<RecordVoiceOverIcon />} />
-                    </Tabs>
-                </Box>
-                <CustomTabPanel value={tabValue} index={0}>
-                    <div className='dashboard__card__role-content'>
-                        {/* <div className='dashboard__card__role-content__button-column'>
-                            {currentTab === 'Client' ? (
-                                <>
-                                    <Link href="/add-request">
-                                        <Button variant='contained' sx={buttonBlack} size='medium'>
-                                            <div className="dashboard__card__role-content__button-column__button-request">
-                                                <AddCircleOutlineIcon />
-                                                <p>Add Request</p>
-                                            </div>
-                                        </Button>
-                                    </Link>
-                                    <Link href={{
-                                        pathname: "/history",
-                                        query: {slug: "client"},
-                                    }}>
-                                        <Button variant='outlined' sx={buttonWhite} size='medium'>
-                                            <div className="dashboard__card__role-content__button-column__button-history">
-                                                <LibraryBooksIcon />
-                                                <p>History</p>
-                                            </div>
-                                        </Button>
-                                    </Link>
-                                </>
-                            ) : 
-                            <>
-                                <Link href="/find-request" className="dashboard__card__role-content__button-row__button-request">
-                                    <div>Find Request</div>
-                                </Link>
-                                <Link href={{
-                                    pathname: "/history",
-                                    query: {slug: "interpreter"}
-                                }} className="dashboard__card__role-content__button-row__button-history">
-                                    <div>History</div>
-                                </Link>
-                            </>}
-                        </div> */}
-                    </div>
-                </CustomTabPanel>
-                <CustomTabPanel value={tabValue} index={1}>
-                    Translator
-                </CustomTabPanel>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Tabs 
+                    value={tabValue} 
+                    onChange={handleTabChange} 
+                    aria-label="basic tabs example"
+                    centered
+                    variant='fullWidth'
+                    TabIndicatorProps={{
+                        sx: {
+                            bgcolor: '#483c33',
+                            // height: "10px",
+                        }
+                    }}
+                    sx={{
+                        '.MuiTab-textColorPrimary': {
+                            // fontSize: 20,
+                        },
+                        ".MuiTab-root.Mui-selected": {
+                            color: '#483c33',
+                            // backgroundColor: '#f3f3f3',
+                            fontWeight: 'bold',
+                            fontSize: 20,
+                        }
+                    }}
+                >
+                    <Tab label="Client" {...a11yProps(0)} icon={<EmojiPeopleIcon />} />
+                    <Tab label="Translator" {...a11yProps(1)} icon={<RecordVoiceOverIcon />} />
+                </Tabs>
             </Box>
-            <div className='dashboard__card'>
-                <div className='dashboard__card__role-switch'>
-                    <div onClick={() => setCurrentTab('Client')} className={currentTab === 'Client' ? 'dashboard__card__role-switch__button dashboard__card__role-switch__button__selected' : 'dashboard__card__role-switch__button'}>Client</div>
-                    <div onClick={() => setCurrentTab('Interpreter')} className={currentTab === 'Interpreter' ? 'dashboard__card__role-switch__button dashboard__card__role-switch__button__selected' : 'dashboard__card__role-switch__button'}>Interpreter</div>
-                </div>
-                <div className='dashboard__card__separator'></div>
-                <div className='dashboard__card__role-content'>
-                    <div className='dashboard__card__role-content__button-row'>
-                        {currentTab === 'Client' ? (
-                            <>
-                                <Link href="/add-request" className="dashboard__card__role-content__button-row__button-request">
-                                    <div>Add Request</div>
-                                </Link>
-                                <Link href={{
-                                    pathname: "/history",
-                                    query: {slug: "client"},
-                                }} className="dashboard__card__role-content__button-row__button-history">
-                                    <div>History</div>
-                                </Link>
-                            </>
-                        ) : 
+            <div className='dashboard__card__role-content'> 
+                <div className='dashboard__card__role-content__button-column'>
+                    {tabValue === 0 && (
                         <>
-                            <Link href="/find-request" className="dashboard__card__role-content__button-row__button-request">
-                                <div>Find Request</div>
+                            <Link href="/add-request" className='dashboard__card__role-content__button-column__link'>
+                                <Button variant='contained' sx={buttonBlack} size='medium' className='dashboard__card__role-content__button-column__link__button'>
+                                    <div className="dashboard__card__role-content__button-column__link__button__title">
+                                        <AddCircleOutlineIcon />
+                                        <p>Create Appointment</p>
+                                    </div>
+                                    <p className="dashboard__card__role-content__button-column__link__button__desc">Get help from interpreter</p>
+                                </Button>
                             </Link>
                             <Link href={{
                                 pathname: "/history",
-                                query: {slug: "interpreter"}
-                            }} className="dashboard__card__role-content__button-row__button-history">
-                                <div>History</div>
+                                query: {slug: "client"},
+                            }} className='dashboard__card__role-content__button-column__link'>
+                                <Button variant='outlined' sx={buttonWhite} size='medium' className='dashboard__card__role-content__button-column__link__button'>
+                                    <div className="dashboard__card__role-content__button-column__link__button__title">
+                                        <LibraryBooksIcon />
+                                        <p>Open History</p>
+                                    </div>
+                                    <p className="dashboard__card__role-content__button-column__link__button__desc">See your request history</p>
+                                </Button>
                             </Link>
-                        </>}
-                    </div>
-                    <div className='dashboard__card__role-content__list-title'>Current Appointment</div>
-                    <div className='dashboard__card__role-content__appointment-list'>
-                        <AppointmentBlock appointment={shownAppointmentBlock}/>
-                    </div>
+                        </>
+                    )}
+                    {tabValue === 1 && (
+                        <>
+                            <Link href="/find-request" className='dashboard__card__role-content__button-column__link'>
+                                <Button variant='contained' sx={buttonBlack} size='medium' className='dashboard__card__role-content__button-column__link__button'>
+                                    <div className="dashboard__card__role-content__button-column__link__button__title">
+                                        <SearchIcon />
+                                        <p>Find Request</p>
+                                    </div>
+                                    <p className="dashboard__card__role-content__button-column__link__button__desc">See your appointment history</p>
+                                </Button>
+                            </Link>
+                            <Link href={{
+                                pathname: "/history",
+                                query: {slug: "interpreter"},
+                            }} className='dashboard__card__role-content__button-column__link'>
+                                <Button variant='outlined' sx={buttonWhite} size='medium' className='dashboard__card__role-content__button-column__link__button'>
+                                    <div className="dashboard__card__role-content__button-column__link__button__title">
+                                        <LibraryBooksIcon />
+                                        <p>Open History</p>
+                                    </div>
+                                    <p className="dashboard__card__role-content__button-column__link__button__desc">See your help history</p>
+                                </Button>
+                            </Link>
+                        </>
+                    )}
+                </div>
+                <div className='dashboard__card__role-content__list-title'>Ongoing Appointment</div>
+                <div className='dashboard__card__role-content__appointment-list'>
+                    <AppointmentBlock appointment={shownAppointmentBlock}/>
                 </div>
             </div>
         </div>

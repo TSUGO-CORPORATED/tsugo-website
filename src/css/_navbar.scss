@@ -17,119 +17,134 @@
     background-color: black;
     position: fixed;
     width: 100%;
-    height: 64px;
+    height: 8vh;
     z-index: 10; 
     padding-left: 10px;
     padding-right: 10px;
-    @include flexCenter(row);
-    justify-content: space-between;
-    
-    &__left {
-        &__logo {
-            padding: 8px 24px;
-            text-align: center;
-            text-decoration: none;
-            color: $color-white;
-            font-weight: bold;
-            border-radius: 20px;
-        }
-    }
 
-    &__right {
+    @media screen and (min-width: 1200px) {
         @include flexCenter(row);
-        gap: 10px;
-        // height: auto;
-        // width: auto;
+    }
 
-        &__sign-up {
-            padding: 8px 24px;
-            text-decoration: none;
-            color: $color-dark-grey;
-            font-weight: bold;
-            border-radius: 20px;
-    
-            &:hover {
-                background-color: rgb(56, 56, 56);
+    &__cont {
+        @include flexCenter(row);
+        justify-content: space-between;
+        height: 100%;
+        width: 100%;
+
+        @media screen and (min-width: 1200px) {
+            width: 1200px;
+        }
+        
+        &__left {
+            &__logo {
+                padding: 8px 24px;
+                text-align: center;
+                text-decoration: none;
                 color: $color-white;
-            } 
+                font-weight: bold;
+                border-radius: 20px;
+            }
         }
     
-        &__log-in {
-            padding: 8px 24px;
-            text-decoration: none;
-            background-color: $color-white;
-            color: $color-black;
-            font-weight: bold;
-            border-radius: 20px;
-            &:hover {
-                font-weight: bold;
-                transform: scale(1.1);
-            }
-        }
-
-        &__avatar {
+        &__right {
             @include flexCenter(row);
-            justify-content: space-around;
-            width: auto;
-            height: 40px;
-            padding-left: 15px;
-            padding-right: 8px;
-            border-radius: 20px;
-
-            // text-decoration: none;
-            background-color: $color-white;
-            color: $color-black;
-            font-weight: bold;
-            // box-sizing: border-box;
-
-            &:hover {
-                background-color: $color-light-grey;
-            }
-
-            &__first-name {
-                margin-right: 5px;
-            }
-
-            &__profile {
-                @include flexCenter(row);
+            gap: 10px;
+            // height: auto;
+            // width: auto;
+    
+            &__sign-up {
+                padding: 8px 24px;
                 text-decoration: none;
-                color: $color-black;
-                font-weight: 550;
-            }
-
-            &__dashboard {
-                @include flexCenter(row);
-                text-decoration: none;
-                color: $color-black;
-                font-weight: 550;
-            }
-
-            &__sign-out {
-                @include flexCenter(row);
-                text-decoration: none;
-                color: $color-black;
-                font-weight: 550;
-            }
-        }
-
-        &__sign-out-window {
-            @include flexCenter(column);
-            gap: 15px;
-
-            &__title {
-                @include flexCenter(row); 
+                color: $color-dark-grey;
                 font-weight: bold;
-                font-size: 20px;
+                border-radius: 20px;
+        
+                &:hover {
+                    background-color: rgb(56, 56, 56);
+                    color: $color-white;
+                } 
             }
-
-            &__description {
-
+        
+            &__log-in {
+                padding: 8px 24px;
+                text-decoration: none;
+                background-color: $color-white;
+                color: $color-black;
+                font-weight: bold;
+                border-radius: 20px;
+                &:hover {
+                    font-weight: bold;
+                    transform: scale(1.1);
+                    background-color: $color-white;
+                    color: $color-black;
+                }
             }
-
-            &__button {
+    
+            &__avatar {
                 @include flexCenter(row);
-                gap: 10px;
+                justify-content: space-around;
+                width: auto;
+                height: 40px;
+                padding-left: 15px;
+                padding-right: 8px;
+                border-radius: 20px;
+    
+                // text-decoration: none;
+                background-color: $color-white;
+                color: $color-black;
+                font-weight: bold;
+                // box-sizing: border-box;
+    
+                &:hover {
+                    background-color: $color-light-grey;
+                }
+    
+                &__first-name {
+                    margin-right: 5px;
+                }
+    
+                &__profile {
+                    @include flexCenter(row);
+                    text-decoration: none;
+                    color: $color-black;
+                    font-weight: 550;
+                }
+    
+                &__dashboard {
+                    @include flexCenter(row);
+                    text-decoration: none;
+                    color: $color-black;
+                    font-weight: 550;
+                }
+    
+                &__sign-out {
+                    @include flexCenter(row);
+                    text-decoration: none;
+                    color: $color-black;
+                    font-weight: 550;
+                }
+            }
+    
+            &__sign-out-window {
+                @include flexCenter(column);
+                gap: 15px;
+    
+                &__title {
+                    @include flexCenter(row); 
+                    font-weight: bold;
+                    font-size: 20px;
+                }
+    
+                &__description {
+                }
+    
+                &__button {
+                    @include flexCenter(row);
+                    gap: 10px;
+                }
             }
         }
     }
+    
 }
