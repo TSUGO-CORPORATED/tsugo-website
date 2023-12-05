@@ -86,3 +86,9 @@
 #profile-container__delete-button {
     align-self: center;
 }
+
+@media (min-width: 700px) {
+    .profile-container {
+        width: 700px;
+    }
+}

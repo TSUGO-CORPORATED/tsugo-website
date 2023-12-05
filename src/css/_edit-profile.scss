@@ -1,11 +1,15 @@
+.edit-profile {
+    @include flexCenter(column);
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 64px;
+}
 .edit-profile-container {
     @include flexCenter(column);
-
     align-items: center;
     width: 100%;
     height: 100%;
-    margin-top: 64px;
-    border: 1px solid blue;
     
 
     // background-color: $color-background-black;
@@ -52,14 +56,17 @@
         margin-right: 30px;
         color: gray;
         font-size: 12px;
-        margin-bottom: 6px;
+        margin-top: 6px;
     }
     
     &__input {
         width: 80%;
-        margin: 6px;
+        margin: 16px;
     }
     
+    &__button {
+        margin: 12px;
+    }
 
     // &__edit-profile-p {
     //     height: 10%;
@@ -75,4 +82,10 @@
     //     width: 20%;
     //     height: 10%;
     // }
+}
+
+@media (min-width: 700px) {
+    .edit-profile-container {
+        width: 700px;
+    }
 }
