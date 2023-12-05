@@ -13,12 +13,29 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { SnackbarCloseReason } from "@mui/material/Snackbar";
 import GoogleIcon from "@mui/icons-material/Google";
+import { useTranslation } from 'next-i18next'
+
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import fs from 'fs'
+
+// export async function getStaticProps({ locale }) {
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale, [
+//         'common',
+//       ])),
+//       // Will be passed to the page component as props
+//     },
+//   }
+// }
+
+
 
 
 // PAGE COMPONENT
 export default function LogInCard(): JSX.Element {
   // const { t } = useTranslation(); 
-
+  // const { t } = useTranslation('common')
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [open, setOpen] = useState(false);
@@ -104,7 +121,8 @@ export default function LogInCard(): JSX.Element {
     }}
   >
         <Typography variant="h4" sx={{ textAlign: "center", mb: 2, fontSize: {xs: "20px", md: "34px"}  }}>
-          Log In to Your Account
+        {/* {t('authenticationlogIn')} */}
+        Log in to Your Account
         </Typography>
         <GoogleLogIn />
         <Divider sx={{ my: 2 }} />

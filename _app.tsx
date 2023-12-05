@@ -1,7 +1,7 @@
-// import { appWithTranslation } from 'next-i18next'
+import { appWithTranslation } from 'next-i18next'
 
-// const MyApp = ({ Component, pageProps }:any) => (
-//   <Component {...pageProps} />
-// )
+const MyApp = ({ Component, pageProps }:any) => (
+  <Component {...pageProps} />
+)
 
-// export default appWithTranslation(MyApp)
+export default appWithTranslation(MyApp)

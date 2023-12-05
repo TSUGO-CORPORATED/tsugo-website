@@ -8,6 +8,8 @@ export const metadata = {
   title: 'Tsugo',
 }
 
+
+
 // ROOT LAYOUT
 export default function RootLayout({ children }: { children: React.ReactNode}) {
   return (

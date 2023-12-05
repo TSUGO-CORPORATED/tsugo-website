@@ -1,4 +1,6 @@
-{
+{   "navTitle":"Tsugo/都合",
+"landignTitle":"Welcome to Tsugo/都合",
+"authenticationlogIn":"Log In to Your Account",
     "languageEN":"EN",
     "languageJP":"JP",
     "authentication": {
