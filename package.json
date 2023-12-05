@@ -24,6 +24,8 @@
     "i18next": "^23.7.7",
     "i18next-browser-languagedetector": "^7.2.0",
     "next": "14.0.3",
+    "peer": "^1.0.1",
+    "peerjs": "^1.5.1",
     "next-i18next": "^15.0.0",
     "react": "^18",
     "react-dom": "^18",
