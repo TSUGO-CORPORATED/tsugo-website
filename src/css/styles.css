@@ -17,7 +17,7 @@
   background-repeat: no-repeat;
   background-position: 40%;
 }
-.log-in__card {
+/* .log-in__card {
   background-color: #ffffff;
   border-radius: 10px;
   justify-content: flex-start;
@@ -97,7 +97,7 @@
 }
 .log-in__card__sign-up__link:hover {
   color: #7e9ae6;
-}
+} */
 
 .sign-up {
   display: flex;
@@ -351,12 +351,16 @@
   display: flex;
   flex-direction: column;
   height: 80%;
+
   width: 80%;
+
   align-items: center;
   margin: 12px;
 }
 .profile-container__label {
+
   height: 16px;
+
   width: 90%;
   align-self: center;
   margin-left: 30px;
@@ -365,7 +369,9 @@
   font-size: 12px;
 }
 .profile-container__profile-p {
+
   height: 15%;
+
   width: 90%;
   align-self: center;
   margin-left: 30px;
@@ -417,7 +423,6 @@
   background-color: white;
   width: 75%;
   max-height: 75%;
-  padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   display: flex;
@@ -431,7 +436,6 @@
 .confirm_section_container {
   background-color: white;
   width: 75%;
-  padding: 40px;
   word-wrap: break-word;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -439,11 +443,10 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 10vh;
   overflow: auto;
 }
 
-.add_request_title {
+/* .add_request_title {
   color: black;
   font-size: 24px;
   white-space: nowrap;
@@ -555,7 +558,7 @@
   background-color: white;
   color: black;
   border: 1px solid #ccc;
-}
+} */
 
 .find-request {
   display: flex;
@@ -964,6 +967,7 @@
     width: 700px;
   }
 }
+
 .update-password {
   display: flex;
   justify-content: center;
@@ -1065,6 +1069,7 @@
     width: 600px;
   }
 }
+
 .navbar {
   border-style: solid;
   border-bottom-color: #ffffff;

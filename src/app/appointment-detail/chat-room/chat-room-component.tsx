@@ -27,7 +27,8 @@ export default function ChatRoomSub(): React.JSX.Element{
 
     const [messages, setMessages] = useState<chatMessage[]>([]);
     const [error, setError] = useState<any>(null); //TODO: Determine type properly
-    const [peerId, setPeerId] = useState<string>();
+    //const [peerId, setPeerId] = useState<string>();
+    let peerId = "";
     const socket = useRef<Socket>();
     const textRef = useRef<HTMLTextAreaElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -54,6 +55,7 @@ export default function ChatRoomSub(): React.JSX.Element{
     };
 
         useEffect(() => {
+            console.log("use effect");
             let navigator:Navigator | null = null;
             if (typeof window != "undefined") {
                 navigator = window.navigator;
@@ -64,6 +66,27 @@ export default function ChatRoomSub(): React.JSX.Element{
 
             }
             const peer = new Peer();
+            peer.on('connection', function (con) {
+                peer.on('call', function (call) {
+                    console.log("someone is calling")
+                  navigator!.mediaDevices.getUserMedia({ video: true, audio: true })
+                  .then((stream) => {
+                    call.answer(stream);
+                    call.on('stream', function (remoteStream) {
+                      newVideo(remoteStream);
+                    });
+                  }).catch( (err) => {
+                    console.log('Failed to get local stream', err);
+                  });
+                });
+              });
+              peer.on('open', (id) => {
+                console.log("open peer")
+                peerId = id //setPeerId(id);
+                socket.current!.emit('video-join', id);
+              });
+
+
             navigator!.mediaDevices.getUserMedia(constraints)
             .then((stream) => {
                 const videoTracks = stream.getVideoTracks();
@@ -107,8 +130,6 @@ export default function ChatRoomSub(): React.JSX.Element{
                 setMessages((prevMessages) => [...prevMessages, parsedMessage]);
             });
             socket.current.on("history", async (message) => {
-                socket.current!.emit('video-join', peerId);
-
                 console.log("received message history");
                 let parsedHistory = await JSON.parse(message);
                 let standardizedHistory: any = [];
@@ -122,7 +143,11 @@ export default function ChatRoomSub(): React.JSX.Element{
                 setMessages((prevMessages) => [...prevMessages, ...standardizedHistory]);
             });
             socket.current.on('connect-user', (userId) => {
-                if (peerId === userId) return;
+                console.log("try connect")
+                console.log(userId + " " + peerId);
+                if (peerId == userId) return;
+                console.log("connecting")
+
                 peer.connect(userId);
                 navigator!.mediaDevices.getUserMedia({ video: true, audio: true })
                 .then((stream) => {
@@ -135,22 +160,7 @@ export default function ChatRoomSub(): React.JSX.Element{
                   });
               });
 
-              peer.on('connection', function (con) {
-                peer.on('call', function (call) {
-                  navigator!.mediaDevices.getUserMedia({ video: true, audio: true })
-                  .then((stream) => {
-                    call.answer(stream);
-                    call.on('stream', function (remoteStream) {
-                      newVideo(remoteStream);
-                    });
-                  }).catch( (err) => {
-                    console.log('Failed to get local stream', err);
-                  });
-                });
-              });
-              peer.on('open', (id) => {
-                setPeerId(id);
-              });
+             
 
             return () => {
                 socket.current?.disconnect();
