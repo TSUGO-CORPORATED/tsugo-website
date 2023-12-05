@@ -7,6 +7,19 @@ import { useRouter } from 'next/navigation';
 import { ContextVariables } from "../../context-variables";
 import MapComponent from "../map-component/map"
 import Disclaimer from '../disclaimer';
+import {Paper,TextFieldProps , Modal ,Snackbar,  Alert, TextField,SelectChangeEvent, Button,Radio, Select, MenuItem, FormControl, InputLabel, Checkbox, FormControlLabel,Typography,Box, RadioGroup, Link as MuiLink } from '@mui/material';
+import dayjs, { Dayjs } from 'dayjs';
+import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { useMediaQuery } from '@mui/material';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
+import { DesktopDateTimePicker } from '@mui/x-date-pickers/DesktopDateTimePicker';
+// import { DesktopDateTimePicker, MobileDateTimePicker } from '@mui/x-date-pickers';
+import { SnackbarCloseReason } from "@mui/material/Snackbar";
+import { AlertColor } from '@mui/material';
+
 
 
 type Coordinates = { lat: number; lng: number; } | null;
@@ -16,31 +29,25 @@ type MainCategoriesType = {
 };
 
 const CreateAppointment = () => {
-
   //Helper Function aquireing Now
+  // function getLocalDateTime() {
+  //   const now = new Date();
+  //   const year = now.getFullYear();
+  //   const month = (now.getMonth() + 1).toString().padStart(2, "0");
+  //   const day = now.getDate().toString().padStart(2, "0");
+  //   const hours = now.getHours().toString().padStart(2, "0");
+  //   const minutes = now.getMinutes().toString().padStart(2, "0");
 
-  function getLocalDateTime() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = (now.getMonth() + 1).toString().padStart(2, "0");
-    const day = now.getDate().toString().padStart(2, "0");
-    const hours = now.getHours().toString().padStart(2, "0");
-    const minutes = now.getMinutes().toString().padStart(2, "0");
-
-    return `${year}-${month}-${day}T${hours}:${minutes}`;
-  }
-  const now = getLocalDateTime();
-
-
-
-
+  //   return `${year}-${month}-${day}T${hours}:${minutes}`;
+  // }
+  // const now = getLocalDateTime();
 
   const router = useRouter();
   const { userId } = useContext(ContextVariables);
-
+  const isMobile = useMediaQuery("(max-width:600px)");
   //State settings
   const [appointmentTitle, setAppointmentTitle] = useState("");
-  const [dateTime, setDateTime] = useState(now);
+  const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs());
   const [location, setLocation] = useState("");
   const [desireLanguage, setDesireLanguage] = useState("Japanese");
   const [communicateLanguage, setCommunicateLanguage] = useState("English");
@@ -53,11 +60,11 @@ const CreateAppointment = () => {
   const [error, setError] = useState("");
   const [address, setAddress] = useState("");
   const libraries = ["places"];
-
-
-
   const [locationError, setLocationError] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState<AlertColor>("success");
 
   //use Effect on appointment change => clears the location input
   useEffect(() => {
@@ -66,89 +73,113 @@ const CreateAppointment = () => {
 
   //   //this is my apikey for temporary but its not working !!
   const apiKey = "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM";
-  //   const BapiKey = "AiNzDpY3NAhheYg6ki_c1XODOJIpHW654zRFilGaUxmxn5z32VZICRAonbXUupsL"
-  //   const { isLoaded, loadError } = useLoadScript({
-  //     googleMapsApiKey: apiKey,
-  //     // libraries,
+
+  // const fetchCoordinates = async (location: string) => {
+  //   return new Promise<void>(async (resolve, reject) => {
+  //     try {
+  //       const response = await axios.get(
+  //         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+  //           location
+  //         )}&key=${apiKey}`
+  //       );
+  //       if (response.data.results.length === 0) {
+  //         setError("No results found for the given location.");
+  //         console.error("No results found:", response.data);
+  //         return;
+  //       }
+
+  //       const { lat, lng } = response.data.results[0].geometry.location;
+  //       console.log({ lat, lng });
+  //       setError("");
+  //       setLocationCoordinates({ lat, lng });
+  //       resolve();
+  //     } catch (error) {
+  //       console.error("Error fetching coordinates: ", error);
+  //       setError("Error fetching coordinates.");
+  //       reject(error);
+  //     }
   //   });
-  //   if (loadError) return <div>Error loading maps</div>;
-  //  if (!isLoaded) return <div>Loading Maps...</div>;
+  // };
 
-  // const apiKey = process.env.REACT_APP_GOOGLE_API_KEY as string;
+  //helper Function to get the Adress from lat,lng
+  // const fetchAddress = async () => {
+  //   if (!locationCoordinates) return;
 
-  //helper func to get lat,lng
-  const fetchCoordinates = async (location: string) => {
+  //   const { lat, lng } = locationCoordinates;
+  //   try {
+  //     const response = await axios.get(
+  //       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`
+  //     );
+
+  //     if (response.data.results.length === 0) {
+  //       setError("No address found for the given coordinates.");
+  //       console.error("No address found:", response.data);
+  //       return;
+  //     }
+
+  //     const fetchedAddress = response.data.results[0].formatted_address;
+  //     console.log(fetchedAddress);
+  //     setAddress(fetchedAddress);
+  //   } catch (error) {
+  //     console.error("Error fetching address: ", error);
+  //     setError("Error fetching address.");
+  //   }
+  // };
+
+  //helper Func combining 2 location search func
+  const handleError = (errorMessage: string) => {
+    setAlertMessage(errorMessage);
+    setAlertSeverity("error");
+    setOpenSnackbar(true);
+  };
+
+  const handleLocationSearch = async () => {
     try {
       const response = await axios.get(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
           location
         )}&key=${apiKey}`
       );
+
       if (response.data.results.length === 0) {
-        setError("No results found for the given location.");
-        console.error("No results found:", response.data);
-        return;
+        let errorMessage = "No results found for the given location.";
+        handleError(errorMessage);
+        throw new Error("No results found for the given location.");
       }
 
       const { lat, lng } = response.data.results[0].geometry.location;
-      console.log({ lat, lng });
-
-
-      setError("");
-
       setLocationCoordinates({ lat, lng });
-    } catch (error) {
-      console.error("Error fetching coordinates: ", error);
-      setError("Error fetching coordinates.");
-    }
-  };
 
-
-  //helper Function to get the Adress from lat,lng
-  const fetchAddress = async () => {
-    if (!locationCoordinates) return;
-
-    const { lat, lng } = locationCoordinates;
-    try {
-      const response = await axios.get(
+      const addressResponse = await axios.get(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`
       );
 
-      if (response.data.results.length === 0) {
-        setError("No address found for the given coordinates.");
-        console.error("No address found:", response.data);
-        return;
+      if (addressResponse.data.results.length === 0) {
+        let errorMessage = "No address found for the given coordinates.";
+        handleError(errorMessage);
+        throw new Error("No address found for the given coordinates.");
       }
 
-      const fetchedAddress = response.data.results[0].formatted_address;
-      console.log(fetchedAddress);
+      const fetchedAddress = addressResponse.data.results[0].formatted_address;
       setAddress(fetchedAddress);
+      setError("");
     } catch (error) {
-      console.error("Error fetching address: ", error);
-      setError("Error fetching address.");
+      console.error("Error in location search: ", error);
+      setError("An unknown error occurred.");
     }
   };
 
-
-  const handleLocationSearch = async () => {
-    await fetchCoordinates(location);
-    fetchAddress();
-  };
-
-
-
   //felper Func for recognizable Date
-  const formattedDateTime = new Date(dateTime).toLocaleString('en-US', {
-    month: '2-digit',
-    day: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true 
-  });
+  // const formattedDateTime = new Date(dateTime).toLocaleString('en-US', {
+  //   month: '2-digit',
+  //   day: '2-digit',
+  //   year: 'numeric',
+  //   hour: '2-digit',
+  //   minute: '2-digit',
+  //   hour12: true
+  // });
 
   //select box lists
-
   const languages = [
     "Japanese",
     "English",
@@ -168,7 +199,6 @@ const CreateAppointment = () => {
     "Turkish",
   ];
   const mainCategories: MainCategoriesType = {
-
     Business: [
       "Company Visits",
       "Product Descriptions",
@@ -177,7 +207,6 @@ const CreateAppointment = () => {
       "Internal Presentations",
       "Others",
     ],
-
     Educational: [
       "School Education",
       "Universities and Colleges",
@@ -188,7 +217,6 @@ const CreateAppointment = () => {
       "Parent-Teacher Meetings",
       "Others",
     ],
-
     Tourism: [
       "Tourist Guidance",
       "Travel Assistance",
@@ -199,7 +227,6 @@ const CreateAppointment = () => {
       "Shopping and Ordering in Tourism",
       "Others",
     ],
-
     Communication: ["Phone", "Video", "Online Meetings", "Webinars", "Others"],
     "Culture and Arts": [
       "Art Exhibitions",
@@ -209,7 +236,6 @@ const CreateAppointment = () => {
       "Literature and Books",
       "Others",
     ],
-
     Technical: [
       "Engineering",
       "IT and Software",
@@ -218,16 +244,13 @@ const CreateAppointment = () => {
       "Environmental Technology",
       "Others",
     ],
-
     Sports: [
-
       "Sports Events",
       "Athlete Support",
       "Interviews",
       "Sports Training",
       "Others",
     ],
-
     Entertainment: [
       "Movies and TV Shows",
       "Entertainment Events",
@@ -259,7 +282,6 @@ const CreateAppointment = () => {
       "General Consultation and Information",
       "Others",
     ],
-
     Hospital: [
       "General Medical Consultation",
       "Vaccination Procedures",
@@ -274,29 +296,23 @@ const CreateAppointment = () => {
       "Language Learning Workshops",
       "Others",
     ],
-
     Others: ["Others"],
   };
 
-
-    //select box lists use State
+  //select box lists use State
   const [selectedMainCategory, setSelectedMainCategory] = useState("Business");
   const [selectedSubCategory, setSelectedSubCategory] = useState(
     mainCategories["Business"][0]
   );
 
-
   //handler Func for Category change
-  const handleMainCategoryChange = (
-    select: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const category = select.target.value;
+  const handleMainCategoryChange = (event: SelectChangeEvent) => {
+    const category = event.target.value as string;
     setSelectedMainCategory(category);
     setSelectedSubCategory(mainCategories[category][0]);
   };
 
-
-  //Submit Func =>swithcing to Confirm 
+  //Submit Func =>swithcing to Confirm
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setError("");
@@ -304,25 +320,22 @@ const CreateAppointment = () => {
       alert("Please agree to the disclaimer before requesting.");
       return;
     }
-    if (appointmentType === "inPerson" && location) {
-      // await fetchCoordinates(location);
-      // await handleLocationSearch()
-      await fetchAddress();
-    }
     setIsConfirmed(true);
   };
 
   //handler Func to send to Server
   const handleSendRequest = async () => {
     try {
-      const convertedDateTime: string = new Date(dateTime).toISOString();
+      let convertedDateTime = "";
+      if (dateTime) {
+        convertedDateTime = dateTime.toISOString();
+      }
+
       const requestData = {
         // appointmentTitle: appointmentTitle,
-
-        appointmentTitle: mainCategories+"-"+selectedSubCategory,
-        
+        appointmentTitle: selectedMainCategory + "-" + selectedSubCategory,
         appointmentType: appointmentType,
-        appointmentCategory:selectedMainCategory+"-"+selectedSubCategory,
+        // appointmentCategory: selectedMainCategory + "-" + selectedSubCategory,
         clientUserId: userId,
         clientSpokenLanguage: communicateLanguage,
         interpreterSpokenLanguage: desireLanguage,
@@ -346,7 +359,7 @@ const CreateAppointment = () => {
     }
   };
 
- //handler for Disclaimer box
+  //handler for Disclaimer box
   const handleOpenModal = () => {
     setShowModal(true);
   };
@@ -354,266 +367,404 @@ const CreateAppointment = () => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
+  const handleChange = (newDateTime: Dayjs | null) => {
+    if (newDateTime) {
+      setDateTime(newDateTime);
+    }
+  };
+  const CustomTextField = (props: any) => <TextField {...props} fullWidth />;
 
-  //HTML 
-  if (!isConfirmed) {
-    return (
-      <div className="add_request">
-        <div className="add_request_container">
-          <h1 className="add_request_title">Make an Appointment</h1>
-          <form onSubmit={handleSubmit} className="add_request_form">
-            {/* Form fields */}
+  //HTML
+  return (
+    <div className="add_request_container">
+      <Paper
+        elevation={3}
+        sx={{
+          padding: 5,
+          maxWidth: '80%',
+          margin: "20px auto",
+          borderRadius: "16px",
+        }}
+      >
+        <Typography variant="h4" sx={{ textAlign: "center", mb: 2 }}>
+          Make an Appointment
+        </Typography>
+        <Box
+          onSubmit={handleSubmit}
+          sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+        >
+          <FormControl fullWidth variant="outlined">
+            <InputLabel shrink>Main Category</InputLabel>
+            <Select
+              value={selectedMainCategory}
+              onChange={handleMainCategoryChange}
+              required
+              label="Main Category"
+            >
+              {Object.keys(mainCategories).map((category) => (
+                <MenuItem key={category} value={category}>
+                  {category}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth>
+            <InputLabel>Sub Category</InputLabel>
+            <Select
+              value={selectedSubCategory}
+              onChange={(e) => setSelectedSubCategory(e.target.value)}
+              required
+              label="Sub Category"
+            >
+              {mainCategories[selectedMainCategory].map((subCategory) => (
+                <MenuItem key={subCategory} value={subCategory}>
+                  {subCategory}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
-            {/* <div className="add_request_box">
-              <label className="add_request_label">Title:</label>
-              <input
-                type="text"
-                value={appointmentTitle}
-                onChange={(e) => setAppointmentTitle(e.target.value)}
-                required
-                className="add_request_input"
-              />
-            </div> */}
-            <div className="add_request_box">
-              <label className="add_request_label">Main Category:</label>
-              <select
-                value={selectedMainCategory}
-                onChange={handleMainCategoryChange}
-                required
-                className="add_request_input"
-              >
-                {Object.keys(mainCategories).map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="add_request_box">
-              <label className="add_request_label">Sub Category:</label>
-              <select
-                value={selectedSubCategory}
-                onChange={(e) => setSelectedSubCategory(e.target.value)}
-                required
-                className="add_request_input"
-              >
-                {mainCategories[selectedMainCategory].map((subCategory) => (
-                  <option key={subCategory} value={subCategory}>
-                    {subCategory}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="add_request_box">
-              <label className="add_request_label">Memo:</label>
-              <textarea
-                value={note}
-                onChange={(e) => setNote(e.target.value)}
-                placeholder="Please enter any additional information here..."
-                className="add_request_textarea"
-              ></textarea>
-            </div>
-            <div className="add_request_box">
-              <label className="add_request_label">Date and Time:</label>
-              <input
-                type="datetime-local"
+          <TextField
+            label="Memo"
+            multiline
+            rows={4}
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            placeholder="Please enter any additional information here..."
+            fullWidth
+          />
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {isMobile ? (
+              <MobileDateTimePicker
                 value={dateTime}
-                onChange={(e) => setDateTime(e.target.value)}
-                min={dateTime}
-                required
-                className="add_request_input"
+                onChange={(newDateTime) => setDateTime(newDateTime)}
+                components={{
+                  TextField: CustomTextField,
+                }}
+                label="Date and Time"
               />
-            </div>
-            <div className="add_request_box">
-              <label className="add_request_label">
-                <input
-                  type="radio"
-                  name="interpretationType"
-                  value="videoChat"
-                  checked={appointmentType === "videoChat"}
-                  onChange={() => setAppointmentType("videoChat")}
-                  required
-                  className="add_request_radio"
-                />
-                Video Chat Interpretation
-              </label>
-            </div>
-            <div className="add_request_box">
-              <label className="add_request_label">
-                <input
-                  type="radio"
-                  name="interpretationType"
-                  value="inPerson"
-                  checked={appointmentType === "inPerson"}
-                  onChange={() => setAppointmentType("inPerson")}
-                  required
-                  className="add_request_radio"
-                />
-                In-person Interpretation
-              </label>
-            </div>
-            {appointmentType !== "videoChat" && (
-              <>
-                <div className="add_request_box">
-                  <label className="add_request_label">Location:</label>
-                  <input
-                    type="text"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-
-                    placeholder="Enter Adress or Location(e.g. TokyoStation)"
-                    required
-                    className="add_request_input"
-                  />
-                   {error && <div className="add_request_error_message">{error}</div>}
-                </div>
-                <button
-                  className="add_request_search_location_button"
-                  onClick={handleLocationSearch}
-                >
-                  Search Location
-                </button>
-                {locationCoordinates && (
-                  <div className="add_request_map_container">
-                    {/* <LoadScript googleMapsApiKey={apiKey}>
-              <GoogleMap
-                mapContainerStyle={{ width: '300px', height: '300px' }}
-                center={{ lat: locationCoordinates.lat, lng: locationCoordinates.lng }}
-                zoom={17}
-              >
-                <Marker position={{ lat: locationCoordinates.lat, lng: locationCoordinates.lng }} />
-              </GoogleMap>
-            </LoadScript> */}
-                    <MapComponent coordinates={locationCoordinates} />
-                    <div className="add_request_address_display">{address}</div>
-                  </div>
-                )}
-              </>
+            ) : (
+              <DesktopDateTimePicker
+                value={dateTime}
+                onChange={(newDateTime) => setDateTime(newDateTime)}
+                components={{
+                  TextField: CustomTextField,
+                }}
+                label="Date and Time"
+              />
             )}
-            <div className="add_request_box">
-              <label className="add_request_label">Desired Language:</label>
-              <select
-                value={desireLanguage}
-                onChange={(e) => setDesireLanguage(e.target.value)}
-                required
-                className="add_request_input"
-              >
-                {languages.map((language) => (
-                  <option key={language} value={language}>
-                    {language}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="add_request_box">
-              <label className="add_request_label">
-                Communication Language:
-              </label>
-              <select
-                value={communicateLanguage}
-                onChange={(e) => setCommunicateLanguage(e.target.value)}
-                required
-                className="add_request_input"
-              >
-                {languages.map((language) => (
-                  <option key={language} value={language}>
-                    {language}
-                  </option>
-                ))}
-              </select>
-            </div>
+          </LocalizationProvider>
 
-            <div className="add_request_box">
-              <label className="add_request_label">
-                <input
-                  type="checkbox"
+          <FormControl component="fieldset">
+            <RadioGroup row={!isMobile}>
+              <FormControlLabel
+                value="videoChat"
+                control={<Radio />}
+                label="Video Chat Interpretation"
+                checked={appointmentType === "videoChat"}
+                onChange={() => setAppointmentType("videoChat")}
+                required
+                className="add_request_radio"
+              />
+              <FormControlLabel
+                value="inPerson"
+                control={<Radio />}
+                label="In-person Interpretation"
+                checked={appointmentType === "inPerson"}
+                onChange={() => setAppointmentType("inPerson")}
+                required
+              />
+            </RadioGroup>
+          </FormControl>
+
+          {appointmentType !== "videoChat" && (
+            <>
+              <TextField
+                label="Adress/Location"
+                type="text"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                placeholder="Enter Address or Location (e.g. Tokyo Station)"
+                fullWidth
+                required
+              />
+              <Button
+                variant="outlined"
+                onClick={handleLocationSearch}
+                sx={{
+                  marginTop: 2,
+                  color: "white",
+                  height: "40px",
+                  backgroundColor: "black",
+                  "&:hover": {
+                    backgroundColor: "grey",
+                  },
+                }}
+              >
+                Search Location
+              </Button>
+              <Snackbar
+                open={openSnackbar}
+                autoHideDuration={6000}
+                onClose={() => setOpenSnackbar(false)}
+              >
+                <Alert
+                  onClose={() => setOpenSnackbar(false)}
+                  severity={alertSeverity}
+                  sx={{ width: "100%" }}
+                >
+                  {alertMessage}
+                </Alert>
+              </Snackbar>
+              {locationCoordinates && (
+                <Box sx={{ marginTop: 2, position: "relative" }}>
+                  <Box sx={{ width: "100%", margin: "auto" }}>
+                    <MapComponent
+                      coordinates={locationCoordinates}
+                      style={{ width: "100%", height: "400px" }}
+                    />
+                  </Box>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      fontWeight: "bold",
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      backgroundColor: "white",
+                    }}
+                  >
+                    {address}
+                  </Typography>
+                </Box>
+              )}
+            </>
+          )}
+
+          <FormControl fullWidth>
+            <InputLabel>Desired Language</InputLabel>
+            <Select
+              value={desireLanguage}
+              onChange={(e) => setDesireLanguage(e.target.value)}
+              required
+              label="Desired Language"
+            >
+              {languages.map((language) => (
+                <MenuItem key={language} value={language}>
+                  {language}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <FormControl fullWidth>
+            <InputLabel>Communication Language</InputLabel>
+            <Select
+              value={communicateLanguage}
+              onChange={(e) => setCommunicateLanguage(e.target.value)}
+              required
+              label="Communication Language"
+            >
+              {languages.map((language) => (
+                <MenuItem key={language} value={language}>
+                  {language}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Box sx={{ marginBottom: 2 }}>
+            <FormControlLabel
+              control={
+                <Checkbox
                   checked={isAgreed}
                   onChange={(e) => setIsAgreed(e.target.checked)}
                   required
-                  className="add_request_checkbox"
                 />
-                  <span className="add_request_agree">
-                     I agree to the <span onClick={handleOpenModal} className="add_request_disclaimer-link">Disclaimer</span><br></br>
-                     Our site prohibits any financial transactions through its platform and<br></br>
-                    accepts no liability for any issues arising from interpretation services.
-                  </span>
-              </label>
-            </div>
-            {showModal && (
-               <Disclaimer handleCloseModal={handleCloseModal} />
-             )}
-            <div className="add_request_button_box">
-              <button type="submit" className="add_request_submit_button">
-                Confirm
-              </button>
-              <button
-                type="button"
-                className="add_request_cancel_button"
-                onClick={() => router.push("/dashboard")}
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div className="confirm_section">
-        <div className="confirm_section_container">
-          <h2 className="confirm_title">Appointment Confirmation</h2>
-          {/* <p className="confirm_detail">
-            Title:{" "}
-            <span className="confirm_appointmentTitle">{appointmentTitle}</span>{" "}
-          </p> */}
-          <p className="confirm_detail">
-            Category: <span className="confirm_dateTime">{selectedMainCategory}-{selectedSubCategory}</span>{" "}
-          </p>
-          <p className="confirm_detail">
-            Date and Time: <span className="confirm_dateTime"> {formattedDateTime}</span>{" "}
-          </p>
-          <p className="confirm_detail">
-            Location: <span className="confirm_location"> {location}</span>
-          </p>
-          <p className="confirm_detail">
-            Adress: <span className="confirm_adress"> {address}</span>
-          </p>
-          <p className="confirm_detail">
-            Desired Language:{" "}
-
-            <span className="confirm_desire">{desireLanguage}</span>{" "}
-
-          </p>
-          <p className="confirm_detail">
-            Communication Language:{" "}
-            <span className="confirm_communication">
-              {" "}
-              {communicateLanguage}
-            </span>
-          </p>
-          <p className="confirm_detail">
-            Interpretation Type:{" "}
-            <span className="confirm_type">{appointmentType}</span>{" "}
-          </p>
-          <p className="confirm_detail">
-            Memo: <span className="confirm_note">{note}</span>{" "}
-          </p>
-          <div className="confirm_button_box">
-            <button onClick={handleSendRequest} className="confirm_send_btn">
-              Send Request
-            </button>
-            <button
-              onClick={() => setIsConfirmed(false)}
-              className="confirm_back_button"
+              }
+              label={
+                <Typography sx={{ color: "red", fontWeight: "bold" }}>
+                  I agree to the{" "}
+                  <MuiLink
+                    onClick={handleOpenModal}
+                    style={{ cursor: "pointer", textDecoration: "underline" }}
+                  >
+                    Disclaimer
+                  </MuiLink>
+                  <br />
+                  Our site prohibits any financial transactions through its
+                  platform and accepts no liability for any issues arising from
+                  interpretation services.
+                </Typography>
+              }
+            />
+            <Modal
+              open={showModal}
+              onClose={handleCloseModal}
+              aria-labelledby="disclaimer-modal-title"
+              aria-describedby="disclaimer-modal-description"
             >
-              Back to Form
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-};
-export default CreateAppointment;
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  maxHeight: "80vh",
+                  transform: "translate(-50%, -50%)",
+                  width: "50%",
+                  bgcolor: "background.paper",
+                  boxShadow: 24,
+                  p: 4,
+                  overflow: "auto",
+                }}
+              >
+                <Disclaimer handleCloseModal={handleCloseModal} />
+              </Box>
+            </Modal>
+          </Box>
 
+          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
+            <Button
+              type="submit"
+              variant="contained"
+              onClick={handleSubmit}
+              sx={{
+                backgroundColor: "black",
+                color: "white",
+                "&:hover": {
+                  backgroundColor: "grey",
+                },
+                width: "48%",
+              }}
+            >
+              Confirm
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={() => router.push("/dashboard")}
+              sx={{
+                color: "black",
+                backgroundColor: "white",
+                "&:hover": {
+                  backgroundColor: "lightgrey",
+                },
+                width: "48%",
+              }}
+            >
+              Cancel
+            </Button>
+          </Box>
+        </Box>
+      </Paper>
+      <Modal
+      className="confirm_section_container"
+        open={isConfirmed}
+        onClose={() => setIsConfirmed(false)}
+        aria-labelledby="appointment-confirmation-modal"
+        aria-describedby="appointment-confirmation-description"
+      >
+        <Box
+          sx={{
+            bgcolor: "transparent",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "80%",
+            boxShadow: 24,
+            overflowY: "auto",
+          }}
+        >
+          <Paper
+            elevation={3}
+            sx={{
+              bgcolor: "background.paper",
+              padding: 3,
+              Maxwidth:'100%',
+            }}
+          >
+            <Typography variant="h5" sx={{ textAlign: "center", mb: 2 }}>
+              Appointment Confirmation
+            </Typography>
+
+            <Box sx={{ marginBottom: 2 }}>
+              <Typography variant="body1">
+                Category:{" "}
+                <strong>
+                  {selectedMainCategory}-{selectedSubCategory}
+                </strong>
+              </Typography>
+              <Typography variant="body1">
+                Memo: <strong>{note}</strong>
+              </Typography>
+              <Typography variant="body1">
+                Date and Time:{" "}
+                <strong>
+                  {dateTime
+                    ? dayjs(dateTime).format("YYYY-MM-DD HH:mm")
+                    : "Not set"}
+                </strong>
+              </Typography>
+
+              {appointmentType === "inPerson" && (
+                <>
+                  <Typography variant="body1">
+                    Location: <strong>{location}</strong>
+                  </Typography>
+                  <Typography variant="body1">
+                    Address: <strong>{address}</strong>
+                  </Typography>
+                </>
+              )}
+
+              <Typography variant="body1">
+                Desired Language: <strong>{desireLanguage}</strong>
+              </Typography>
+              <Typography variant="body1">
+                Communication Language: <strong>{communicateLanguage}</strong>
+              </Typography>
+              <Typography variant="body1">
+                Interpretation Type: <strong>{appointmentType}</strong>
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}
+            >
+              <Button
+                onClick={handleSendRequest}
+                variant="contained"
+                sx={{
+                  backgroundColor: "black",
+                  color: "white",
+                  "&:hover": {
+                    backgroundColor: "grey",
+                  },
+                  width: "48%",
+                }}
+              >
+                Send Request
+              </Button>
+              <Button
+                onClick={() => setIsConfirmed(false)}
+                variant="outlined"
+                sx={{
+                  color: "black",
+                  borderColor: "black",
+                  "&:hover": {
+                    backgroundColor: "lightgrey",
+                  },
+                  width: "48%",
+                }}
+              >
+                Back to Form
+              </Button>
+            </Box>
+          </Paper>
+        </Box>
+      </Modal>
+    </div>
+  );
+};
+
+export default CreateAppointment;

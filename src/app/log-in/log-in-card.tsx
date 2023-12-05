@@ -92,7 +92,7 @@ export default function LogInCard(): JSX.Element {
       <Paper
         elevation={3}
         sx={{
-          padding: 10,
+          padding: 5,
           height: "70vh",
           width: "45%",
           maxWidth: "500px",
