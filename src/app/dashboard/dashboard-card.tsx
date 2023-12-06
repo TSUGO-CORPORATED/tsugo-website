@@ -145,7 +145,7 @@ export default function DashboardCard(): JSX.Element {
                         {tabValue === 1 && (
                             <>
                                 <Link href="/find-request" className='dashboard__card__role-content__button-column__link'>
-                                    <Button variant='contained' sx={buttonBlack} size='medium' className='dashboard__card__role-content__button-column__link__button'>
+                                    <Button variant='contained' sx={buttonOffMid} size='medium' className='dashboard__card__role-content__button-column__link__button'>
                                         <div className="dashboard__card__role-content__button-column__link__button__title">
                                             <SearchIcon />
                                             <p>Find Request</p>

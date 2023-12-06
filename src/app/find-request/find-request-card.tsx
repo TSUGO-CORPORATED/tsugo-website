@@ -252,9 +252,9 @@ export default function FindRequestCard() {
         <Box
           sx={{
             width: { md: "50%" },
-            height: "800px",
+            // height: "800px",
             minWidth: "300px",
-            overflowY: "auto", 
+            // overflowY: "auto", 
             marginTop:"30px",
             padding: 1
           }}

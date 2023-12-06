@@ -19,7 +19,8 @@ import { DesktopDateTimePicker } from '@mui/x-date-pickers/DesktopDateTimePicker
 // import { DesktopDateTimePicker, MobileDateTimePicker } from '@mui/x-date-pickers';
 import { SnackbarCloseReason } from "@mui/material/Snackbar";
 import { AlertColor } from '@mui/material';
-import { buttonBlack, buttonWhite } from '@/muistyle';
+import { colorOffDark, colorOffLight, colorOffMid, buttonOffDark, buttonOffLight, buttonOffMid, buttonBlack, buttonWhite } from '@/muistyle';
+
 
 
 type Coordinates = { lat: number; lng: number; } | null;
@@ -28,7 +29,7 @@ type MainCategoriesType = {
   [key: string]: string[];
 };
 
-const CreateAppointment = () => {
+export default function CreateAppointment () {
   //Helper Function aquireing Now
   // function getLocalDateTime() {
   //   const now = new Date();
@@ -449,18 +450,18 @@ const CreateAppointment = () => {
               <MobileDateTimePicker
                 value={dateTime}
                 onChange={(newDateTime) => setDateTime(newDateTime)}
-                components={{
-                  TextField: CustomTextField,
-                }}
+                // components={{
+                //   TextField: CustomTextField,
+                // }}
                 label="Date and Time"
               />
             ) : (
               <DesktopDateTimePicker
                 value={dateTime}
                 onChange={(newDateTime) => setDateTime(newDateTime)}
-                components={{
-                  TextField: CustomTextField,
-                }}
+                // components={{
+                //   TextField: CustomTextField,
+                // }}
                 label="Date and Time"
               />
             )}
@@ -502,7 +503,7 @@ const CreateAppointment = () => {
               <Button
                 variant="outlined"
                 onClick={handleLocationSearch}
-                sx={ {buttonBlack} }>
+                sx={ buttonBlack }>
                 Confirm Location
               </Button>
               <Snackbar
@@ -629,17 +630,14 @@ const CreateAppointment = () => {
               type="submit"
               variant="contained"
               onClick={handleSubmit}
-              sx={{buttonBlack
-                
-              }}
+              sx={buttonBlack}
             >
-              Confirm
+              <div>Confirm</div>
             </Button>
             <Button
               variant="outlined"
               onClick={() => router.push("/dashboard")}
-              sx={{buttonWhite
-              }}
+              sx={buttonWhite}
             >
               Cancel
             </Button>
@@ -729,18 +727,14 @@ const CreateAppointment = () => {
               <Button
                 onClick={handleSendRequest}
                 variant="contained"
-                sx={{
-                  buttonBlack
-                }}
+                sx={buttonBlack}
               >
                 Send Request
               </Button>
               <Button
                 onClick={() => setIsConfirmed(false)}
                 variant="outlined"
-                sx={{buttonWhite}
-                  
-                }
+                sx={buttonWhite}
               >
                 Back to Form
               </Button>
@@ -752,4 +746,3 @@ const CreateAppointment = () => {
   );
 };
 
-export default CreateAppointment;

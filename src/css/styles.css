@@ -410,6 +410,161 @@
     width: 700px;
   }
 }
+.add_request, .confirm_section {
+  background-image: url("../../public/tokyo.jpg");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: auto;
+}
+
+.add_request_container {
+  background-color: white;
+  width: 75%;
+  max-height: 75%;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10vh;
+  margin: auto;
+  overflow: auto;
+}
+
+.confirm_section_container {
+  background-color: white;
+  width: 75%;
+  padding: 40px;
+  word-wrap: break-word;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 10vh;
+  overflow: auto;
+}
+
+.add_request_title {
+  color: black;
+  font-size: 24px;
+  white-space: nowrap;
+  margin-top: 20vh;
+  margin-bottom: 10px;
+  order: -1;
+}
+
+.confirm_title {
+  color: black;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.add_request_form, .confirm_section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add_request_box, .confirm_detail {
+  margin: 10px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.add_request_label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.add_request_input, .add_request_textarea, select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.add_request_agree {
+  color: red;
+}
+
+.add_request_submit_button, .add_request_cancel_button, .confirm_send_btn, .confirm_back_btn {
+  padding: 10px 20px;
+  font-weight: bold;
+  width: 45%;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+}
+.add_request_submit_button:hover, .add_request_cancel_button:hover, .confirm_send_btn:hover, .confirm_back_btn:hover {
+  background-color: #8f8f8f;
+}
+
+.add_request_cancel_button, .confirm_back_btn {
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+}
+
+.button_group {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.confirm_detail {
+  font-size: 16px;
+  color: black;
+  margin-bottom: 5px;
+}
+.confirm_detail .confirm_appointmentTitle,
+.confirm_detail .confirm_dateTime,
+.confirm_detail .confirm_location,
+.confirm_detail .confirm_desire,
+.confirm_detail .confirm_communication,
+.confirm_detail .confirm_type,
+.confirm_detail .confirm_note {
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.button_box {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+.button_box .confirm_send_btn, .button_box .confirm_back_btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  margin: 0 10px;
+}
+.button_box .confirm_send_btn:hover, .button_box .confirm_back_btn:hover {
+  background-color: #333;
+}
+.button_box .confirm_send_btn:last-child, .button_box .confirm_back_btn:last-child {
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+}
+
 .find-request {
   display: flex;
   justify-content: center;
@@ -417,7 +572,6 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  /* background-image: url(../../public/tokyo.jpg); */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 40%;
@@ -457,7 +611,6 @@
   justify-content: flex-start;
   width: 100%;
   height: 30%;
-  overflow-y: auto;
 }
 .find-request__card__appointment-container__appointment {
   border: 1px solid black;
@@ -1088,27 +1241,6 @@
   flex-direction: row;
   gap: 10px;
 }
-
-.add_request_container  {
-  background-color: white;
-  width: 80%;
-  max-width: 1200px;
-  max-height: 75%;
-  
-  /* padding: 20px; */
-  border-radius: 10px;
-  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin:auto;
-  overflow: auto; 
-}
-
-
-
-
 
 ::-webkit-scrollbar {
   width: 10px;
