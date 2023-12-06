@@ -215,12 +215,11 @@ export default function Navbar() {
                                         <div className='navbar__cont__right__sign-out-window__description'>Are you sure you want to log-out?</div>
                                         <div className='navbar__cont__right__sign-out-window__button'>
                                             <Button variant='outlined' onClick={signOutWindowHandleClose} sx={buttonWhite}>Cancel</Button>
-                                            <Button variant='contained' onClick={userSignOut} sx={buttonRed}>Confirm log-out</Button>
+                                            <Button variant='contained' onClick={userSignOut} sx={buttonRed}>Confirm</Button>
                                         </div>
                                     </Box>
                                 </Modal>
                             </div>
-                            {/* <Button variant='contained' onClick={userSignOut} sx={buttonRed}>Confirm log-out</Button> */}
                         </>
                     )}
                 </div>

@@ -175,7 +175,7 @@
   flex-direction: row;
   gap: 10px;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
 }
 .dashboard__card__role-content__button-column__link__button__desc {
   font-size: 10px;
@@ -508,8 +508,12 @@
 .appointment-block__info__row__piece__label {
   font-weight: bold;
   margin-right: 5px;
+  font-size: 16px;
 }
-.appointment-block__detail-link {
+.appointment-block__info__row__piece__data {
+  font-size: 14px;
+}
+.appointment-block__detail {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -517,7 +521,10 @@
   justify-content: flex-end;
   padding-bottom: 5px;
   padding-right: 5px;
-  text-decoration: none;
+}
+.appointment-block__detail__window {
+  height: 90%;
+  width: 90%;
 }
 
 .history {
@@ -810,7 +817,7 @@
 }
 .navbar {
   border-style: solid;
-  border-bottom-color: #483c33;
+  border-bottom-color: #D8BCAB;
   background-color: black;
   position: fixed;
   width: 100%;
@@ -935,6 +942,8 @@
   align-items: center;
   flex-direction: column;
   gap: 15px;
+  width: 300px;
+  height: 150px;
 }
 .navbar__cont__right__sign-out-window__title {
   display: flex;

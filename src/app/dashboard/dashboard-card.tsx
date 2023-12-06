@@ -6,13 +6,12 @@ import { ContextVariables } from '../../context-variables';
 import Link from 'next/link';
 import axios from 'axios';
 import AppointmentBlock from '../global/appointment-block';
-import { buttonBlack, buttonWhite } from '@/muistyle';
+import { colorOffDark, colorOffLight, colorOffMid, buttonOffDark, buttonOffLight, buttonOffMid, buttonBlack, buttonWhite } from '@/muistyle';
 
 // IMPORT FROM MUI
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 import Button from '@mui/material/Button';
@@ -45,7 +44,7 @@ export default function DashboardCard(): JSX.Element {
     
     // CONTEXT VARIABLES
     const { userId, userFirstName, userLastName } = useContext(ContextVariables);
-    console.log(userId, userFirstName, userLastName);
+    // console.log(userId, userFirstName, userLastName);
 
     // HELPER FUNCTION
     // For tab
@@ -64,14 +63,14 @@ export default function DashboardCard(): JSX.Element {
     async function getClientCurrentAppointment(): Promise<void> {
         const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/client/current/${userId}`;
         const retrievedData = await axios.get(url);
-        console.log(retrievedData);
+        // console.log(retrievedData);
         setClientCurrentAppointment(retrievedData.data);
     }
     // Get interpreter current appointment
     async function getInterpreterCurrentAppointment(): Promise<void> {
         const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/interpreter/current/${userId}`;
         const retrievedData = await axios.get(url);
-        console.log(retrievedData);
+        // console.log(retrievedData);
         setInterpreterCurrentAppointment(retrievedData.data);
     }
 
@@ -98,16 +97,13 @@ export default function DashboardCard(): JSX.Element {
                     variant='fullWidth'
                     TabIndicatorProps={{
                         sx: {
-                            bgcolor: '#483c33',
+                            bgcolor: colorOffDark,
                             // height: "10px",
                         }
                     }}
                     sx={{
-                        '.MuiTab-textColorPrimary': {
-                            // fontSize: 20,
-                        },
                         ".MuiTab-root.Mui-selected": {
-                            color: '#483c33',
+                            color: colorOffDark,
                             // backgroundColor: '#f3f3f3',
                             fontWeight: 'bold',
                             fontSize: 20,
@@ -124,10 +120,10 @@ export default function DashboardCard(): JSX.Element {
                         {tabValue === 0 && (
                             <>
                                 <Link href="/add-request" className='dashboard__card__role-content__button-column__link'>
-                                    <Button variant='contained' sx={buttonBlack} size='medium' className='dashboard__card__role-content__button-column__link__button'>
+                                    <Button variant='contained' sx={buttonOffMid} size='medium' className='dashboard__card__role-content__button-column__link__button'>
                                         <div className="dashboard__card__role-content__button-column__link__button__title">
                                             <AddCircleOutlineIcon />
-                                            <p>Create Appointment</p>
+                                            <p>New Request</p>
                                         </div>
                                         <p className="dashboard__card__role-content__button-column__link__button__desc">Get help from interpreter</p>
                                     </Button>
