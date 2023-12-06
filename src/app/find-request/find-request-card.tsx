@@ -7,7 +7,7 @@ import AppointmentBlock from '../global/appointment-block';
 import MapComponent from "../map-component/map"
 import {
   useMediaQuery, Box, Paper, Typography, FormControl, InputLabel, Select, MenuItem,
-  TextField, RadioGroup, FormControlLabel,
+  TextField, RadioGroup, FormControlLabel,useTheme,
   Radio, Checkbox, Button, Modal
 } from '@mui/material';
 
@@ -170,47 +170,38 @@ export default function FindRequestCard() {
 
   return (
     <Paper
+    sx={{
+      marginTop: { xs: "100px", md: "10%" },
+      width: "80%",
+      maxWidth: "1200px",
+      minWidth: { xs: "350px", md: "800px" },
+      borderRadius: "10px",
+      marginBottom:"10px",
+      overflow: "auto",
+      padding: { xs: 0, md: 0 },
+      boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.2)", 
+    }}
+  >
+    <Box
       sx={{
-        marginTop: "10%",
-        maxWidth: "100%",
-        minWidth: { xs: "300px", md: "800px" },
-        borderRadius: "10px",
-        overflow: "auto",
-        '&::-webkit-scrollbar': {
-          width: "15px"
-        },
-        '&::-webkit-scrollbar-track': {
-          boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
-          webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
-        },
-        '&::-webkit-scrollbar-thumb': {
-          backgroundColor: 'rgba(0,0,0,.1)',
-          outline: '1px solid slategrey'
-        }
+        display: "flex",
+        flexDirection: { xs: "column", md: "row" },
+        overflow: "hidden"
       }}
     >
       <Box
         sx={{
+          width: { md: "50%" },
+          padding: 4,
           display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          overflow: "hidden"
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center"
         }}
       >
-       
-        <Box
-          sx={{
-            width: { md: "50%" },
-            padding: 5,
-            display: "flex",
-            minWidth:"500px",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center"
-          }}
-        >
-          <Box component="h2" sx={{ textAlign: "center", mb: 2 }}>
-            Check Appointments
-          </Box>
+        <Box component="h1" sx={{ textAlign: "center", mb: 2, fontSize: { xs: '1rem', md: '1.5rem' } }}>
+          Check Appointments
+        </Box>
           <Box sx={{ width: "100%", height: "400px" }}>
             <MapComponent
               appointments={popUpAppointments}
@@ -226,23 +217,18 @@ export default function FindRequestCard() {
             />
           </Box>
           <RadioGroup
-            row={!isMobile}
-            value={selectedType}
-            onChange={(e) => setSelectedType(e.target.value)}
-            sx={{ display: "flex", justifyContent: "space-around", mt: 2 }}
-          >
-            <FormControlLabel value="all" control={<Radio />} label="All" />
-            <FormControlLabel
-              value="videoChat"
-              control={<Radio />}
-              label="Video Chat"
-            />
-            <FormControlLabel
-              value="inPerson"
-              control={<Radio />}
-              label="In-person"
-            />
-          </RadioGroup>
+  row={!isMobile}
+  value={selectedType}
+  onChange={(e) => setSelectedType(e.target.value)}
+  sx={{ 
+    display: 'flex', 
+    justifyContent: { xs: 'flex-start', md: 'space-around' }, 
+  }}
+>
+  <FormControlLabel value="all" control={<Radio />} label="All" />
+  <FormControlLabel value="videoChat" control={<Radio />} label="Video Chat" />
+  <FormControlLabel value="inPerson" control={<Radio />} label="In-person" />
+</RadioGroup>
           <Box sx={{ mt: 2, width: "100%", marginBottom: "20px" }}>
             <Select
               fullWidth
@@ -267,12 +253,19 @@ export default function FindRequestCard() {
           sx={{
             width: { md: "50%" },
             height: "800px",
-            minWidth: "600px",
+            minWidth: "300px",
             overflowY: "auto", 
+            marginTop:"30px",
             padding: 1
           }}
         >
-          <AppointmentBlock appointment={filteredAppointments} />
+          <Box sx={{ 
+            marginTop:"30px",
+            padding: 1
+          }}>
+          <AppointmentBlock 
+          appointment={filteredAppointments} />
+          </Box>
         </Box>
       </Box>
     </Paper>
