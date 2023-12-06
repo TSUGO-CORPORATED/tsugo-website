@@ -1,2 +1,11 @@
 .appointment-detail {
+    &__header {
+        @include flexCenter(row);
+        justify-content: space-between;
+
+        &__title {
+            font-weight: bold;
+            font-size: 20px;
+        }
+    }
 }
