@@ -19,7 +19,7 @@ import { DesktopDateTimePicker } from '@mui/x-date-pickers/DesktopDateTimePicker
 // import { DesktopDateTimePicker, MobileDateTimePicker } from '@mui/x-date-pickers';
 import { SnackbarCloseReason } from "@mui/material/Snackbar";
 import { AlertColor } from '@mui/material';
-
+import { buttonBlack, buttonWhite } from '@/muistyle';
 
 
 type Coordinates = { lat: number; lng: number; } | null;
@@ -332,8 +332,8 @@ const CreateAppointment = () => {
       }
 
       const requestData = {
-        // appointmentTitle: appointmentTitle,
-        appointmentTitle: selectedMainCategory + "-" + selectedSubCategory,
+        appointmentTitle: appointmentTitle,
+        // appointmentTitle: selectedMainCategory + "-" + selectedSubCategory,
         appointmentType: appointmentType,
         // appointmentCategory: selectedMainCategory + "-" + selectedSubCategory,
         clientUserId: userId,
@@ -351,7 +351,7 @@ const CreateAppointment = () => {
         "https://senior-project-server-8090ce16e15d.herokuapp.com/appointment",
         requestData
       );
-      alert("Request sent successfully!");
+      // alert("Request sent successfully!");
       router.push("/dashboard");
     } catch (error) {
       console.error("Error sending request: ", error);
@@ -381,18 +381,28 @@ const CreateAppointment = () => {
         elevation={3}
         sx={{
           padding: 5,
-          maxWidth: '100%',
-          margin: "0px,auto",
+          maxWidth: "99%",
+          margin: "5px,auto",
+          marginBottom:"10px",
           borderRadius: "16px",
+          justifyContent: "center",
+          marginTop:  { xs:'100px', md: "15%" },
+          boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.2)",
         }}
       >
-        <Typography variant="h4" sx={{ textAlign: "center", mb: 2 }}>
+        <Typography variant="h3" sx={{ textAlign: "center", mb: 2 ,fontWeight: "bold",fontSize: { xs: '1rem', md: '1.5rem' }}}>
           Make an Appointment
         </Typography>
         <Box
           onSubmit={handleSubmit}
           sx={{ display: "flex", flexDirection: "column", gap: 2 }}
         >
+          <TextField
+            label="Title"
+            required
+            fullWidth
+            onChange={(e) => setAppointmentTitle(e.target.value)}
+          />
           <FormControl fullWidth variant="outlined">
             <InputLabel shrink>Main Category</InputLabel>
             <Select
@@ -492,17 +502,8 @@ const CreateAppointment = () => {
               <Button
                 variant="outlined"
                 onClick={handleLocationSearch}
-                sx={{
-                  marginTop: 2,
-                  color: "white",
-                  height: "40px",
-                  backgroundColor: "black",
-                  "&:hover": {
-                    backgroundColor: "grey",
-                  },
-                }}
-              >
-                Search Location
+                sx={ {buttonBlack} }>
+                Confirm Location
               </Button>
               <Snackbar
                 open={openSnackbar}
@@ -628,13 +629,8 @@ const CreateAppointment = () => {
               type="submit"
               variant="contained"
               onClick={handleSubmit}
-              sx={{
-                backgroundColor: "black",
-                color: "white",
-                "&:hover": {
-                  backgroundColor: "grey",
-                },
-                width: "48%",
+              sx={{buttonBlack
+                
               }}
             >
               Confirm
@@ -642,13 +638,7 @@ const CreateAppointment = () => {
             <Button
               variant="outlined"
               onClick={() => router.push("/dashboard")}
-              sx={{
-                color: "black",
-                backgroundColor: "white",
-                "&:hover": {
-                  backgroundColor: "lightgrey",
-                },
-                width: "48%",
+              sx={{buttonWhite
               }}
             >
               Cancel
@@ -657,7 +647,7 @@ const CreateAppointment = () => {
         </Box>
       </Paper>
       <Modal
-      className="confirm_section_container"
+        className="confirm_section_container"
         open={isConfirmed}
         onClose={() => setIsConfirmed(false)}
         aria-labelledby="appointment-confirmation-modal"
@@ -680,13 +670,18 @@ const CreateAppointment = () => {
             sx={{
               bgcolor: "background.paper",
               padding: 3,
-              Maxwidth:'100%',
+              Maxwidth: "100%",
             }}
           >
             <Typography variant="h5" sx={{ textAlign: "center", mb: 2 }}>
               Appointment Confirmation
             </Typography>
-
+            <Typography variant="body1">
+                Titile:{" "}
+                <strong>
+                  {appointmentTitle}
+                </strong>
+              </Typography>
             <Box sx={{ marginBottom: 2 }}>
               <Typography variant="body1">
                 Category:{" "}
@@ -735,12 +730,7 @@ const CreateAppointment = () => {
                 onClick={handleSendRequest}
                 variant="contained"
                 sx={{
-                  backgroundColor: "black",
-                  color: "white",
-                  "&:hover": {
-                    backgroundColor: "grey",
-                  },
-                  width: "48%",
+                  buttonBlack
                 }}
               >
                 Send Request
@@ -748,14 +738,9 @@ const CreateAppointment = () => {
               <Button
                 onClick={() => setIsConfirmed(false)}
                 variant="outlined"
-                sx={{
-                  color: "black",
-                  borderColor: "black",
-                  "&:hover": {
-                    backgroundColor: "lightgrey",
-                  },
-                  width: "48%",
-                }}
+                sx={{buttonWhite}
+                  
+                }
               >
                 Back to Form
               </Button>
