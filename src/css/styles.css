@@ -4,116 +4,17 @@
   padding: 0;
 }
 
-.log-in {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  background-color: #000000;
-  background-image: url(../../public/tokyo.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 40%;
-}
-/* .log-in__card {
-  background-color: #ffffff;
-  border-radius: 10px;
-  justify-content: flex-start;
-  width: 75%;
-  height: 75%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.log-in__card__title {
-  font-size: 28px;
-  margin-top: 1em;
-  margin-bottom: 0.3em;
-  font-size: 32px;
-}
-.log-in__card__form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 75%;
-}
-.log-in__card__form__box {
-  justify-content: left;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: left;
-  width: 100%;
-  text-align: left;
-}
-.log-in__card__form__box__label {
-  width: 100%;
-  margin-top: 1em;
-  margin-bottom: 0.5em;
-  font-size: 14px;
-  font-weight: 400;
-}
-.log-in__card__form__box__input {
-  padding: 1em;
-  font-size: 18px;
-  font-weight: 400;
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-}
-.log-in__card__form__box__log-in-button {
-  border: solid black 1px;
-  padding: 12px;
-  border-radius: 12px;
-  background-color: #000000;
-  font-weight: bold;
-  color: #ffffff;
-  cursor: pointer;
-  font-size: 20px;
-  margin-top: 2em;
-  width: 100%;
-}
-.log-in__card__form__box__log-in-button:hover {
-  background-color: #1f1e1e;
-}
-.log-in__card__sign-up {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin: 1em;
-}
-.log-in__card__sign-up__link {
-  width: 100%;
-  color: blue;
-  font-weight: bold;
-  margin-top: 0.3em;
-  margin-bottom: 0.8em;
-}
-.log-in__card__sign-up__link:hover {
-  color: #7e9ae6;
-} */
-
 .sign-up {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  background-color: #000000;
-  background-image: url(../../public/tokyo.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 40%;
+  height: 92vh;
+  padding-top: 8vh;
+  width: 100%;
 }
 .sign-up__card {
-  background-color: #ffffff;
+  background-color: #fffffa;
   border-radius: 10px;
   justify-content: flex-start;
   width: 75%;
@@ -192,127 +93,142 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  background-color: #000000;
-  background-image: url(../../public/tokyo.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 40%;
+  height: 92vh;
+  padding-top: 8vh;
+  width: 100%;
 }
 .dashboard__card {
-  background-color: #ffffff;
-  border-radius: 10px;
-  justify-content: flex-start;
-  width: 75%;
-  height: 75%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.dashboard__card__role-switch {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-around;
-  height: 15%;
+  padding: 20px;
   width: 100%;
-}
-.dashboard__card__role-switch__button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  font-weight: bold;
-  font-size: 24px;
-  width: 40%;
   height: 100%;
-  cursor: pointer;
 }
-.dashboard__card__role-switch__button:hover {
-  background-color: #f3f3f3;
-}
-.dashboard__card__role-switch__button__selected {
-  border-bottom: solid black 5px;
-}
-.dashboard__card__separator {
-  width: 100%;
-  height: 1px;
-  background-color: #cfcfcf;
-  margin-bottom: 3%;
+@media screen and (min-width: 1200px) {
+  .dashboard__card {
+    width: 1200px;
+    align-items: center;
+  }
 }
 .dashboard__card__role-content {
-  height: 75%;
-  width: 90%;
-}
-.dashboard__card__role-content__button-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-around;
-  height: 8%;
   width: 100%;
-  margin-bottom: 5%;
-}
-.dashboard__card__role-content__button-row__button-request {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  text-decoration: none;
-  border: solid black 1px;
-  padding: 12px;
-  border-radius: 12px;
-  background-color: #000000;
-  font-weight: bold;
-  color: #ffffff;
-  cursor: pointer;
-  width: 30%;
   height: 100%;
-}
-.dashboard__card__role-content__button-row__button-request:hover {
-  background-color: #1f1e1e;
-}
-.dashboard__card__role-content__button-row__button-history {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  text-decoration: none;
-  border: solid black 1px;
-  padding: 12px;
-  border-radius: 12px;
-  background-color: #ffffff;
-  font-weight: bold;
-  color: #000000;
-  cursor: pointer;
-  width: 30%;
-  height: 100%;
+  justify-content: flex-start;
+  padding-top: 10px;
+  gap: 20px;
 }
-.dashboard__card__role-content__button-row__button-history:hover {
-  background-color: #cccccc;
+@media screen and (max-width: 700px) {
+  .dashboard__card__role-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 }
-.dashboard__card__role-content__list-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  font-weight: bold;
-  font-size: 18px;
-  margin-bottom: 2%;
-}
-.dashboard__card__role-content__appointment-list {
+.dashboard__card__role-content__button-column {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
+  height: 100%;
+  text-decoration: none;
+}
+@media screen and (max-width: 700px) {
+  .dashboard__card__role-content__button-column {
+    height: auto;
+  }
+}
+.dashboard__card__role-content__button-column__paper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+@media screen and (max-width: 700px) {
+  .dashboard__card__role-content__button-column__paper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+}
+.dashboard__card__role-content__button-column__link {
+  text-decoration: none;
+}
+.dashboard__card__role-content__button-column__link__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 250px;
+}
+.dashboard__card__role-content__button-column__link__button__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 16px;
+}
+.dashboard__card__role-content__button-column__link__button__desc {
+  font-size: 10px;
+}
+@media screen and (max-width: 700px) {
+  .dashboard__card__role-content__button-column {
+    gap: 10px;
+  }
+  .dashboard__card__role-content__button-column__link__button {
+    width: 150px;
+  }
+  .dashboard__card__role-content__button-column__link__button__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .dashboard__card__role-content__button-column__link__button__desc {
+    display: none;
+  }
+}
+.dashboard__card__role-content__appointment-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-start;
   width: 100%;
-  height: 75%;
-  overflow-y: auto;
+}
+.dashboard__card__role-content__appointment-column__paper {
+  width: 100%;
+  padding: 10px;
+}
+.dashboard__card__role-content__appointment-column__paper__list-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-start;
+  font-weight: bold;
+  font-size: 28px;
+  padding: 10px;
+}
+.dashboard__card__role-content__appointment-column__paper__appointment-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 10px;
+  height: 100%;
 }
 
 .profile {
@@ -351,16 +267,12 @@
   display: flex;
   flex-direction: column;
   height: 80%;
-
   width: 80%;
-
   align-items: center;
   margin: 12px;
 }
 .profile-container__label {
-
   height: 16px;
-
   width: 90%;
   align-self: center;
   margin-left: 30px;
@@ -369,9 +281,7 @@
   font-size: 12px;
 }
 .profile-container__profile-p {
-
   height: 15%;
-
   width: 90%;
   align-self: center;
   margin-left: 30px;
@@ -409,157 +319,6 @@
     width: 700px;
   }
 }
-.add_request, .confirm_section {
-  background-image: url("../../public/tokyo.jpg");
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: auto;
-}
-
-.add_request_container {
-  background-color: white;
-  width: 75%;
-  max-height: 75%;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10vh;
-  overflow: auto;
-}
-
-.confirm_section_container {
-  background-color: white;
-  width: 75%;
-  word-wrap: break-word;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  overflow: auto;
-}
-
-/* .add_request_title {
-  color: black;
-  font-size: 24px;
-  white-space: nowrap;
-  margin-top: 20vh;
-  margin-bottom: 10px;
-  order: -1;
-}
-
-.confirm_title {
-  color: black;
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.add_request_form, .confirm_section {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.add_request_box, .confirm_detail {
-  margin: 10px 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.add_request_label {
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.add_request_input, .add_request_textarea, select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-
-.add_request_agree {
-  color: red;
-}
-
-.add_request_submit_button, .add_request_cancel_button, .confirm_send_btn, .confirm_back_btn {
-  padding: 10px 20px;
-  font-weight: bold;
-  width: 45%;
-  border: none;
-  border-radius: 5px;
-  margin-top: 10px;
-  cursor: pointer;
-  background-color: black;
-  color: white;
-}
-.add_request_submit_button:hover, .add_request_cancel_button:hover, .confirm_send_btn:hover, .confirm_back_btn:hover {
-  background-color: #8f8f8f;
-}
-
-.add_request_cancel_button, .confirm_back_btn {
-  background-color: white;
-  color: black;
-  border: 1px solid #ccc;
-}
-
-.button_group {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.confirm_detail {
-  font-size: 16px;
-  color: black;
-  margin-bottom: 5px;
-}
-.confirm_detail .confirm_appointmentTitle,
-.confirm_detail .confirm_dateTime,
-.confirm_detail .confirm_location,
-.confirm_detail .confirm_desire,
-.confirm_detail .confirm_communication,
-.confirm_detail .confirm_type,
-.confirm_detail .confirm_note {
-  margin-left: 10px;
-  font-weight: bold;
-}
-
-.button_box {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 20px;
-}
-.button_box .confirm_send_btn, .button_box .confirm_back_btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: black;
-  color: white;
-  margin: 0 10px;
-}
-.button_box .confirm_send_btn:hover, .button_box .confirm_back_btn:hover {
-  background-color: #333;
-}
-.button_box .confirm_send_btn:last-child, .button_box .confirm_back_btn:last-child {
-  background-color: white;
-  color: black;
-  border: 1px solid #ccc;
-} */
-
 .find-request {
   display: flex;
   justify-content: center;
@@ -573,7 +332,7 @@
   background-position: 40%;
 }
 .find-request__card {
-  background-color: #ffffff;
+  background-color: #fffffa;
   border-radius: 10px;
   justify-content: flex-start;
   width: 75%;
@@ -728,28 +487,14 @@
 }
 
 .appointment-block {
-  background-color: #ffffff;
-  border-radius: 10px;
-  border: solid #cfcfcf 2px;
   width: 100%;
-  height: 100px;
-  margin-bottom: 1em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  background-color: #ffffff;
-  border-radius: 10px;
-}
-.appointment-block__info {
-  width: 90%;
+  margin-bottom: 2em;
 }
 .appointment-block__info__row {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  width: 100%;
   justify-content: space-around;
 }
 .appointment-block__info__row__piece {
@@ -757,27 +502,22 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
+  justify-content: flex-start;
+  padding-left: 5px;
 }
 .appointment-block__info__row__piece__label {
   font-weight: bold;
   margin-right: 5px;
 }
-.appointment-block__detail {
-  width: 10%;
+.appointment-block__detail-link {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  background-color: #000000;
-  height: 100%;
-  padding: auto;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  color: white;
+  justify-content: flex-end;
+  padding-bottom: 5px;
+  padding-right: 5px;
   text-decoration: none;
-}
-.appointment-block__detail:hover {
-  background-color: #1f1e1e;
 }
 
 .history {
@@ -793,7 +533,7 @@
   background-position: 40%;
 }
 .history__card {
-  background-color: #ffffff;
+  background-color: #fffffa;
   border-radius: 10px;
   justify-content: flex-start;
   width: 75%;
@@ -967,7 +707,6 @@
     width: 700px;
   }
 }
-
 .update-password {
   display: flex;
   justify-content: center;
@@ -1069,62 +808,80 @@
     width: 600px;
   }
 }
-
 .navbar {
   border-style: solid;
-  border-bottom-color: #ffffff;
+  border-bottom-color: #483c33;
   background-color: black;
   position: fixed;
   width: 100%;
-  height: 64px;
+  height: 8vh;
   z-index: 10;
   padding-left: 10px;
   padding-right: 10px;
+}
+@media screen and (min-width: 1200px) {
+  .navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+}
+.navbar__cont {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
+  height: 100%;
+  width: 100%;
 }
-.navbar__left__logo {
+@media screen and (min-width: 1200px) {
+  .navbar__cont {
+    width: 1200px;
+  }
+}
+.navbar__cont__left__logo {
   padding: 8px 24px;
   text-align: center;
   text-decoration: none;
-  color: #ffffff;
+  color: #fffffa;
   font-weight: bold;
   border-radius: 20px;
 }
-.navbar__right {
+.navbar__cont__right {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   gap: 10px;
 }
-.navbar__right__sign-up {
+.navbar__cont__right__sign-up {
   padding: 8px 24px;
   text-decoration: none;
   color: #9c9b9b;
   font-weight: bold;
   border-radius: 20px;
 }
-.navbar__right__sign-up:hover {
+.navbar__cont__right__sign-up:hover {
   background-color: rgb(56, 56, 56);
-  color: #ffffff;
+  color: #fffffa;
 }
-.navbar__right__log-in {
+.navbar__cont__right__log-in {
   padding: 8px 24px;
   text-decoration: none;
-  background-color: #ffffff;
+  background-color: #fffffa;
   color: #000000;
   font-weight: bold;
   border-radius: 20px;
 }
-.navbar__right__log-in:hover {
+.navbar__cont__right__log-in:hover {
   font-weight: bold;
   transform: scale(1.1);
+  background-color: #fffffa;
+  color: #000000;
 }
-.navbar__right__avatar {
+.navbar__cont__right__avatar {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1135,51 +892,51 @@
   padding-left: 15px;
   padding-right: 8px;
   border-radius: 20px;
-  background-color: #ffffff;
+  background-color: #fffffa;
   color: #000000;
   font-weight: bold;
 }
-.navbar__right__avatar:hover {
+.navbar__cont__right__avatar:hover {
   background-color: #f3f3f3;
 }
-.navbar__right__avatar__first-name {
+.navbar__cont__right__avatar__first-name {
   margin-right: 5px;
 }
-.navbar__right__avatar__profile {
+.navbar__cont__right__avatar__profile {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   text-decoration: none;
   color: #000000;
-  font-weight: 600;
+  font-weight: 550;
 }
-.navbar__right__avatar__dashboard {
+.navbar__cont__right__avatar__dashboard {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   text-decoration: none;
   color: #000000;
-  font-weight: 600;
+  font-weight: 550;
 }
-.navbar__right__avatar__sign-out {
+.navbar__cont__right__avatar__sign-out {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   text-decoration: none;
   color: #000000;
-  font-weight: 600;
+  font-weight: 550;
 }
-.navbar__right__sign-out-window {
+.navbar__cont__right__sign-out-window {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 15px;
 }
-.navbar__right__sign-out-window__title {
+.navbar__cont__right__sign-out-window__title {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1187,10 +944,26 @@
   font-weight: bold;
   font-size: 20px;
 }
-.navbar__right__sign-out-window__button {
+.navbar__cont__right__sign-out-window__button {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   gap: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 10px;
 }/*# sourceMappingURL=styles.css.map */

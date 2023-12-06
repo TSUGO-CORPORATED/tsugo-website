@@ -2,84 +2,132 @@
   @include background();
 
   &__card {
-    @include pageCard();
+    // @include flexCenter(column);
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    
 
-    &__role-switch {
-      @include flexCenter(row);
-      justify-content: space-around;
-      height: 15%;
-      width: 100%;
-      // order: 1;
-
-      &__button {
-        @include flexCenter(column);
-        font-weight: bold;
-        font-size: 24px;
-        width: 40%;
-        height: 100%;
-        cursor: pointer;
-
-        &:hover {
-          background-color: $color-light-grey;
-        }
-
-        &__selected {
-          border-bottom: solid black 5px;
-        }
-      }
-    }
-
-    &__separator {
-      width: 100%;
-      height: 1px;
-      background-color: $color-medium-grey;
-      margin-bottom: 3%;
+    @media screen and (min-width: 1200px) {
+      width: 1200px;
+      align-items: center;
     }
 
     &__role-content {
-      height: 75%;
-      width: 90%;
+      // height: 75%;
+      width: 100%;
       // order: 3;
+      height: 100%;
+      @include flexCenter(row);
+      justify-content: flex-start;
+      padding-top: 10px;
+      // padding-bottom: 10px;
+      gap: 20px;
 
-      &__button-row {
-        @include flexCenter(row);
-        justify-content: space-around;
-        height: 8%;
-        width: 100%;
-        margin-bottom: 5%;
-        
-        &__button-request {
-          @include flexCenter(row);
-          text-decoration: none;
-          @include button($color-button-black);
-          width: 30%;
-          height: 100%;
-        }
-
-        &__button-history {
-          @include flexCenter(row);
-          text-decoration: none;
-          @include button($color-button-white);
-          width: 30%;
-          height: 100%;
-        }
-      }
-
-      &__list-title {
-        @include flexCenter(row);
-        // justify-content: flex-start;
-        font-weight: bold;
-        font-size: 18px;
-        margin-bottom: 2%;
-      }
-
-      &__appointment-list {
-        // border: 1px solid black;
+      @media screen and (max-width: 700px) {
         @include flexCenter(column);
         justify-content: flex-start;
+      }
+
+      &__button-column {
+        @include flexCenter(column);
+        justify-content: flex-start;
+        height: 100%;
+        text-decoration: none;
+
+        // width: 100%;
+        // padding-top: 30px;
+
+        @media screen and (max-width: 700px) {
+          height: auto;
+        }
+
+        &__paper {
+          @include flexCenter(column);
+          gap: 10px;
+          padding: 10px;
+
+          @media screen and (max-width: 700px) {
+            @include flexCenter(row);
+          }
+        }
+
+        &__link {
+          text-decoration: none;
+
+          &__button {
+            @include flexCenter(column);
+            width: 250px;
+            // border-radius: 20px;
+            
+            &__title {
+              @include flexCenter(row);
+              gap: 10px;
+              font-weight: bold;
+              // height: 100%;
+              font-size: 16px;
+            }
+            
+            &__desc {
+              font-size: 10px;
+              // color: black;
+            }
+          }
+        }
+
+        @media screen and (max-width: 700px) {
+          gap: 10px;
+          &__link {
+            &__button {
+              width: 150px;
+              // background-color: red;
+              
+              &__title {
+                @include flexCenter(column);
+              }
+              
+              &__desc {
+                display: none;
+              }
+            }
+          }
+        }
+
+
+      }
+
+      &__appointment-column {
+        @include flexCenter(column);
+        height: 100%;
+        justify-content: flex-start;
         width: 100%;
-        height: 75%;
-        overflow-y: auto;
+
+        &__paper {
+          // height: 100%;
+          width: 100%;
+          padding: 10px;
+          // margin-bottom: 10px;
+
+          &__list-title {
+            @include flexCenter(row);
+            width: 100%;
+            justify-content: flex-start;
+            font-weight: bold;
+            font-size: 28px;
+            padding: 10px;
+            // margin-bottom: 10px;
+            // margin-top: 20px;
+          }
+    
+          &__appointment-list {
+            // border: 1px solid black;
+            @include flexCenter(column);
+            justify-content: flex-start;
+            padding: 10px;
+            height: 100%;
+            // overflow-y: auto;
+          }
+        }
       }
     }
   }
