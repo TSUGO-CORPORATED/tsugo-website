@@ -48,15 +48,15 @@ export default function AppointmentBlock({appointment}: {appointment: Appointmen
             {appointment.length === 0 ? <div>No Ongoing Appointment</div> : null}
             {appointment?.map((appointment, index) => {
                 // STATE VARIABLES 
-                // const [openDetail, setOpenDetail] = useState(false);
+                const [openDetail, setOpenDetail] = useState(false);
 
-                // // HELPER FUNCTION
-                // function handleOpenDetail() {
-                //     setOpenDetail(true);
-                // }
-                // function handleCloseDetail() {
-                //     setOpenDetail(false);
-                // }
+                // HELPER FUNCTION
+                function handleOpenDetail() {
+                    setOpenDetail(true);
+                }
+                function handleCloseDetail() {
+                    setOpenDetail(false);
+                }
 
                 // Process date
                 const tempDateTime = appointment.appointmentDateTime;
@@ -120,7 +120,7 @@ export default function AppointmentBlock({appointment}: {appointment: Appointmen
                                         </Link> 
 
 
-                                        {/* <Button onClick={handleOpenDetail} variant='contained' sx={buttonBlack} size='small' className="appointment-block__detail__link__button">
+                                        <Button onClick={handleOpenDetail} variant='contained' sx={buttonBlack} size='small' className="appointment-block__detail__link__button">
                                             <div className="appointment-block__detail__link__button__text">
                                                 <p>See details</p>
                                             </div>
@@ -136,7 +136,7 @@ export default function AppointmentBlock({appointment}: {appointment: Appointmen
                                             <Box sx={detailWindowStyle} className='appointment-block__detail__window'>
                                                 <AppointmentDetail appointmentId={appointment.id}/>
                                             </Box>
-                                        </Modal> */}
+                                        </Modal>
                                     </div>
                                 </Grid>
                             </Grid>
