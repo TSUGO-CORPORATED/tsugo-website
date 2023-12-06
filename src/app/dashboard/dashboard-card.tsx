@@ -76,10 +76,10 @@ export default function DashboardCard(): JSX.Element {
 
     // INITIAL USE EFFECT
     useEffect(() => {
-        if (userId !== 0) {
+        // if (userId !== 0) {
             getClientCurrentAppointment();
             getInterpreterCurrentAppointment();
-        }
+        // }
     }, [userId]);
 
     // CONDITIONAL TAB
