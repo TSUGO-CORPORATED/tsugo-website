@@ -1,76 +1,76 @@
-.log-in {
-  @include background();
+// .log-in {
+//   @include background();
 
-  &__card {
-    @include pageCard();
+//   &__card {
+//     @include pageCard();
   
-    &__title {
-      @include text(large, large);
-      margin-top: 1em;
-      margin-bottom: 0.3em;
-      font-size: 32px;
-      // order: 1;
-    }
+//     &__title {
+//       @include text(large, large);
+//       margin-top: 1em;
+//       margin-bottom: 0.3em;
+//       font-size: 32px;
+//       // order: 1;
+//     }
 
-    &__form {
-      @include flexCenter(column);
-      width: 75%;
-      // order: 2;
+//     &__form {
+//       @include flexCenter(column);
+//       width: 75%;
+//       // order: 2;
       
-      &__box {
-        justify-content: left;
-        @include flexCenter(column);
-        text-align: left; 
-        // align-items: ;
-        width: 100%;
-        text-align: left;
+//       &__box {
+//         justify-content: left;
+//         @include flexCenter(column);
+//         text-align: left; 
+//         // align-items: ;
+//         width: 100%;
+//         text-align: left;
   
-        &__label {
-          width: 100%;
-          margin-top: 1em;
-          margin-bottom: 0.5em;
+//         &__label {
+//           width: 100%;
+//           margin-top: 1em;
+//           margin-bottom: 0.5em;
           
-          @include text(regular, regular);
-          // font-size: 30px;
-          // color:red;
-        }
+//           @include text(regular, regular);
+//           // font-size: 30px;
+//           // color:red;
+//         }
   
-        &__input {
-          padding: 1em;
-          // margin-top: 0.5em;
-          // margin-bottom: 0.5em;
-          @include text(medium, regular );
-          height: 100%;
-          width: 100%;
-          box-sizing: border-box;
-          // text-align: left;
-        }
+//         &__input {
+//           padding: 1em;
+//           // margin-top: 0.5em;
+//           // margin-bottom: 0.5em;
+//           @include text(medium, regular );
+//           height: 100%;
+//           width: 100%;
+//           box-sizing: border-box;
+//           // text-align: left;
+//         }
 
-        &__log-in-button {
-          @include button($color-button-black);
-          font-size: 20px;
-          margin-top: 2em;
-          width: 100%;
-        }
-      }
-    }
+//         &__log-in-button {
+//           @include button($color-button-black);
+//           font-size: 20px;
+//           margin-top: 2em;
+//           width: 100%;
+//         }
+//       }
+//     }
   
-    &__sign-up {
-      @include flexCenter(column);
-      margin: 1em;
-      // order: 3;
+//     &__sign-up {
+//       @include flexCenter(column);
+//       margin: 1em;
+//       // order: 3;
   
-      &__link {
-        width: 100%;
-        color: $color-link-initial;
-        font-weight: bold;
-        margin-top: 0.3em;
-        margin-bottom: 0.8em;
+//       &__link {
+//         width: 100%;
+//         color: $color-link-initial;
+//         font-weight: bold;
+//         margin-top: 0.3em;
+//         margin-bottom: 0.8em;
   
-        &:hover {
-          color: $color-link-hover;
-        }
-      }
-    }
-  }
-}
+//         &:hover {
+//           color: $color-link-hover;
+//         }
+//       }
+//     }
+//   }
+// }

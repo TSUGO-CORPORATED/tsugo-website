@@ -8,7 +8,7 @@ import { auth } from '../../firebase';
 import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import axios from 'axios';
 import GoogleLogIn from '../auth/google-log-in';
-import { TextField, Button, Typography, Paper, Box, InputAdornment} from '@mui/material';
+import { TextField,Divider, Button, Typography, Paper, Box, InputAdornment} from '@mui/material';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
@@ -82,7 +82,8 @@ export default function SignUpCard(): JSX.Element {
         justifyContent: "center",
         borderRadius: "16px",
         alignItems: "center",
-        height: "70vh",
+        width: { xs: "90%", md: "90%" },
+        height: { xs: "auto", md: "70vh" },
         margin: "0 auto",
         flexDirection: { xs: "column", md: "row" }, 
       }}
@@ -90,25 +91,26 @@ export default function SignUpCard(): JSX.Element {
       <Box
         component="img"
         sx={{
-          height: "100%",
-          width: { md: "55%" },
-          display: { xs: "none", md: "block" }, 
+          display: { xs: "none", md: "block" },
+          width: { md: "50%" },
+          height: { md: "100%" },
           backgroundImage: 'url("/tokyo.jpg")',
           backgroundSize: "cover",
           backgroundPosition: "center",
           borderRadius: "16px 0 0 16px", 
         }}
-        src="/tokyo.jpg"
+        src="/rice.jpg"
       />
     <Paper
         elevation={3}
         sx={{
-          padding: 5,
+          padding: 4,
+          paddingTop: { xs: 3, md: 5 }, 
           height: "70vh",
           overflow: 'auto', 
           width: { xs: "100%", md: "45%" },
-          maxWidth: "500px",
-          borderRadius: "16px",
+
+          borderRadius: { xs: "16px", md: "0 16px 16px 0" },
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -125,13 +127,11 @@ export default function SignUpCard(): JSX.Element {
           }
         }}
       >
-        <Typography variant="h4" sx={{ textAlign: "center", mb: 2 }}>
+        <Typography variant="h4" sx={{ textAlign: "center", mb: 2, mt: { xs: 2, md: 4 }, fontSize: {xs: "20px", md: "34px"} }}>
           Create Account
         </Typography>
         <GoogleLogIn />
-        <Typography sx={{ textAlign: "center", my: 2 }}>
-          ----------------------------or---------------------------------
-        </Typography>
+        <Divider sx={{ my: 2 }} />
     <Box component="form" onSubmit={passwordSignUp} sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
       <TextField
         label="Email"
@@ -227,6 +227,7 @@ export default function SignUpCard(): JSX.Element {
               Log in here
             </Typography></Link>
     </Box>
-  </Paper> </Box>
+  </Paper> 
+  </Box>
 );
 }

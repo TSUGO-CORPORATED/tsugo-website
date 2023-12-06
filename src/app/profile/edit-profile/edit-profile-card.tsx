@@ -5,6 +5,8 @@ import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
 import profilePic from '../../../../public/default.jpg'
+import { TextField, Button, Avatar } from '@mui/material';
+
 
 export default function EditProfile() {
 
@@ -99,34 +101,35 @@ export default function EditProfile() {
     }
 
     return (
-        <div className='edit-profile__card'>
-            <h1 className="edit-profile__header">Edit Profile</h1>
+        <div className='edit-profile-container'>
+            <h1 className="edit-profile-container__header">Edit Profile</h1>
             <Image 
                 src={profilePic}
                 alt='Avatar'
-                className='profile-pic'
+                className='edit-profile-container__profile-pic'
                 width={200}
                 height={200}
             />
-                <div className="updateform">
-                <label>Update First Name:</label>
+                <div className="edit-profile-container__info-update">
+                <label className="edit-profile-container__label">Update First Name:</label>
                 {/* <p className='edit-profile-p'>First Name: {userProfile?.firstName}</p> */}
-                <input 
+                <TextField 
                     type='text'
-                    className="edit-profile__input"
-                    id='edit-profile__input__firstName'
+                    className="edit-profile-container__input"
+                    id='outlined-basic'
+                    variant="outlined"
                     onChange={(e) => setFirstNameUpdate(e.target.value)}
                     value={firstNameUpdate}
                     defaultValue={userProfile?.firstName}
                 />
-                <br></br>
 
-                <label>Update Last Name:</label>
+                <label className="edit-profile-container__label">Update Last Name:</label>
                 {/* <p className='edit-profile-p'>Last Name: {userProfile?.lastName}</p> */}
-                <input 
+                <TextField
+                    id='outlined-basic'
+                    variant="outlined"
                     type='text'
-                    className="edit-profile__input"
-                    id='edit-profile__input__lasttName'
+                    className="edit-profile-container__input"
                     onChange={(e) => setLastNameUpdate(e.target.value)}
                     value={lastNameUpdate}
                     defaultValue={userProfile?.lastName}
@@ -169,20 +172,26 @@ export default function EditProfile() {
                     value={certificationUpdate}
                     defaultValue={userProfile?.userLanguage[userProfile?.userLanguage.length-1].certifications}
                 /> */}
-
-                <label>Update Bio:</label>
+                
+                <label className="edit-profile-container__label">Update Bio:</label>
                 {/* <p className='edit-profile-p'>Language: {userProfile?.language}</p> */}
-                <input 
+                <TextField
+                    id='outlined-basic'
+                    variant="outlined"
                     type='text'
-                    className="edit-profile__input"
-                    id='edit-profile__input__about'
+                    className="edit-profile-container__input"
                     onChange={(e) => setAboutUpdate(e.target.value)}
                     value={aboutUpdate}
                 />
                 </div>   
                 
                              
-                <button className='edit-profile-button' id='edit-button' onClick={handleUpdate}>Save Changes</button>
+                <Button variant="contained" className='edit-profile-container__button' id='edit-button' onClick={handleUpdate}>Save Changes</Button>
+                <Link className='edit-profile-container__profile-link' href="/profile">
+                    <Button variant='contained' className='edit-profile-container__profile-button' id='edit-profile-container__profile-button'>
+                    Cancel
+                    </Button>
+                </Link>
         </div>
     );
 }

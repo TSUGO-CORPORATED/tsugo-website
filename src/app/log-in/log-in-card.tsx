@@ -8,7 +8,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import GoogleLogIn from '../auth/google-log-in';
-import { TextField,  Button,  Typography,  Paper,  Box,  InputAdornment,  Snackbar,  Alert,} from "@mui/material";
+import { TextField,Divider,  Button,  Typography,  Paper,  Box,  InputAdornment,  Snackbar,  Alert,} from "@mui/material";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { SnackbarCloseReason } from "@mui/material/Snackbar";
@@ -67,45 +67,47 @@ export default function LogInCard(): JSX.Element {
 
   return (
     <Box
-      sx={{
-        display: "flex",
-        overflow: "hidden",
-        justifyContent: "center",
-        borderRadius: "16px",
-        alignItems: "center",
-        height: "70vh",
-        margin: "0 auto",
-        flexDirection: { xs: "column", md: "row" },
-      }}
+    sx={{
+      display: "flex",
+      overflow: "hidden",
+      justifyContent: "center",
+      alignItems: "center",
+      margin: "0 auto",
+      borderRadius: "16px",
+      flexDirection: { xs: "column", md: "row" },
+      width: { xs: "90%", md: "90%" },
+      height: { xs: "auto", md: "70vh" }
+    }}
     >
       <Box
-        component="img"
-        sx={{
-          height: "100%",
-          width: "55%",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          display: { xs: "none", md: "block" },
-        }}
-        src="/tokyo.jpg"
-      />
-      <Paper
-        elevation={3}
-        sx={{
-          padding: 5,
-          height: "70vh",
-          width: "45%",
-          maxWidth: "500px",
-          borderRadius: "16px",
-        }}
-      >
-        <Typography variant="h4" sx={{ textAlign: "center", mb: 2 }}>
+    component="img"
+    sx={{
+      display: { xs: "none", md: "block" },
+      width: { md: "50%" },
+      height: { md: "100%" },
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+    }}
+    src="/sun.jpg"
+  />
+   <Paper
+    elevation={3}
+    sx={{
+    
+      padding: { xs: 2, md: 5 },
+      width: { xs: "100%", md: "50%" },
+      height: { xs: "auto", md: "100%" },
+      borderRadius: { xs: "16px", md: "0 16px 16px 0" },
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+    }}
+  >
+        <Typography variant="h4" sx={{ textAlign: "center", mb: 2, fontSize: {xs: "20px", md: "34px"}  }}>
           Log In to Your Account
         </Typography>
         <GoogleLogIn />
-        <Typography sx={{ textAlign: "center", my: 2 }}>
-          ----------------------------or---------------------------------
-        </Typography>
+        <Divider sx={{ my: 2 }} />
         <Box
           component="form"
           onSubmit={logIn}
