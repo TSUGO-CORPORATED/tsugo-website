@@ -6,7 +6,7 @@ import Link from "next/link";
 import { updatePassword, reauthenticateWithCredential, EmailAuthProvider, signOut } from 'firebase/auth';
 import { auth } from "../../../firebase";
 import { useRouter } from 'next/navigation';
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, Paper } from '@mui/material';
 
 
 export default function UpdatePasswordCard(): JSX.Element {
@@ -59,7 +59,7 @@ export default function UpdatePasswordCard(): JSX.Element {
     }
 
     return (
-        <div className="update-password__container">
+        <Paper elevation={3} className="update-password__container">
             <h1 className="update-password__header">Change Password</h1>
             
             <form onSubmit={updatePasswordFunction}>
@@ -93,6 +93,6 @@ export default function UpdatePasswordCard(): JSX.Element {
             <Link href='/profile'>
                 <Button variant="contained" className='update-password__profile-button'>Cancel</Button>
             </Link>
-        </div>
+        </Paper>
     );
 }
