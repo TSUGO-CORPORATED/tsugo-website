@@ -91,7 +91,7 @@ export default function GoogleLogIn(): JSX.Element {
           },
           textTransform: 'none', 
           width: '100%',
-          justifyContent: 'flex-start', 
+          justifyContent: 'center', 
       }}
   >
       Sign up with Google

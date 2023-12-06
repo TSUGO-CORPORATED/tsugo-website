@@ -5,6 +5,8 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { ContextVariables } from '../../../context-variables';
 import { useSearchParams } from 'next/navigation';
 import { Interface } from "readline";
+import { Button } from "@mui/material";
+import moment from 'moment';
 
 //import cv from 'opencv4nodejs';
 
@@ -179,25 +181,43 @@ export default function ChatRoomSub(): React.JSX.Element{
               video2Ref.current!.play();
             });
           };
+          
 
     return (
-        <>  
-            <div >
+        <div className="chat-room__container">  
+            <div className="chat-room__card" >
                 <ul className="chatContainer">
                     {messages.map((message, index) => {
-                        if(message.user == userId) return <li key={index} className="chat-room-message" style={{left: "300px"}}> <div className="messageContainer"><p>User:{message.user} </p> <p>{message.content} </p> <p>{message.timestamp} </p></div> </li>
-                        return <li key={index} className="chat-room-message"> <div className="messageContainer"><p>User:{message.user} </p> <p> {message.content} </p> <p> {message.timestamp} </p></div> </li>
+                        console.log("mu:",message.user)
+                        console.log("id:",userId)
+                        if(message.user == userId) {
+                        return <li key={index} className="chat-room-message" > 
+                            <div className="messageContainer-sent">
+                                <p className="chat-room__message__username">User:{message.user} </p> 
+                                <p className="chat-room__message__content">{message.content} </p> 
+                                <p className="chat-room__message__timestamp">{moment(message.timestamp).fromNow()} </p>
+                            </div> 
+                        </li>} else {
+                        return <li key={index} className="chat-room-message" > 
+                            <div className="messageContainer-rec">
+                                <p className="chat-room__message__username">User:{message.user} </p> 
+                                <p className="chat-room__message__content"> {message.content} </p> 
+                                <p className="chat-room__message__timestamp"> {moment(message.timestamp).fromNow()} </p>
+                            </div> 
+                        </li>}
                     })}
                 </ul>
             </div>
             <textarea ref={textRef} className="chat-room-text-input" placeholder="..."></textarea>
-            <button className="chat-room-send-button" onClick={() => {if(textRef.current!.value != null) sendMessage(textRef.current!.value)}}>Send</button>
-            <video ref={videoRef} width="320" height="240" controls>
-                No Source!
-            </video>
-            <video ref={video2Ref} width="320" height="240" controls>
-                No Source!
-            </video>
-        </>
+            <Button variant="contained" className="chat-room-send-button" onClick={() => {if(textRef.current!.value != null) sendMessage(textRef.current!.value)}}>Send</Button>
+            <div className="chat-room__video-container">
+                <video className="chat-room__video" ref={videoRef} width="320" height="240" controls>
+                    No Source!
+                </video>
+                <video className="chat-room__video" ref={video2Ref} width="320" height="240" controls>
+                    No Source!
+                </video>
+            </div>
+        </div>
     )
 }

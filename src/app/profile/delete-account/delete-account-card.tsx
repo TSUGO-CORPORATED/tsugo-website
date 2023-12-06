@@ -7,7 +7,7 @@ import { deleteUser, reauthenticateWithCredential, EmailAuthProvider } from 'fir
 import { auth } from "../../../firebase";
 import { useRouter } from 'next/navigation';
 import axios from "axios";
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, Paper } from '@mui/material';
 
 export default function DeleteAccountCard(): JSX.Element {
     // STATE VARIABLES
@@ -57,7 +57,7 @@ export default function DeleteAccountCard(): JSX.Element {
     }
 
     return (
-        <div className="delete-account__container">
+        <Paper elevation={3} className="delete-account__container">
             <h1 className="delete-account__header">Delete Account</h1>
            
             <form onSubmit={deleteAccountFunction}>
@@ -81,6 +81,6 @@ export default function DeleteAccountCard(): JSX.Element {
             <Link href='/profile'>
                 <Button variant="contained" className='delete-account__profile-button'>Cancel</Button>
             </Link>
-        </div>
+        </Paper>
     )
 }

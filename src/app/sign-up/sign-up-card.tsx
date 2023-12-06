@@ -106,7 +106,7 @@ export default function SignUpCard(): JSX.Element {
         sx={{
           padding: 4,
           paddingTop: { xs: 3, md: 5 }, 
-          height: "70vh",
+          height: "80vh",
           overflow: 'auto', 
           width: { xs: "100%", md: "45%" },
 
@@ -114,17 +114,17 @@ export default function SignUpCard(): JSX.Element {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          '&::-webkit-scrollbar': {
-            width: "15px"
-          },
-          '&::-webkit-scrollbar-track': {
-            boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
-            webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
-          },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: 'rgba(0,0,0,.1)',
-            outline: '1px solid slategrey'
-          }
+          // '&::-webkit-scrollbar': {
+          //   width: "15px"
+          // },
+          // '&::-webkit-scrollbar-track': {
+          //   boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+          //   webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+          // },
+          // '&::-webkit-scrollbar-thumb': {
+          //   backgroundColor: 'rgba(0,0,0,.1)',
+          //   outline: '1px solid slategrey'
+          // }
         }}
       >
         <Typography variant="h4" sx={{ textAlign: "center", mb: 2, mt: { xs: 2, md: 4 }, fontSize: {xs: "20px", md: "34px"} }}>
@@ -224,7 +224,7 @@ export default function SignUpCard(): JSX.Element {
                 },
               }}
             >
-              Log in here
+              Log in
             </Typography></Link>
     </Box>
   </Paper> 
