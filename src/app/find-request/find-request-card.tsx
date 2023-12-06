@@ -173,6 +173,7 @@ export default function FindRequestCard() {
       sx={{
         marginTop: "10%",
         maxWidth: "100%",
+        minWidth: { xs: "300px", md: "800px" },
         borderRadius: "10px",
         overflow: "auto",
         '&::-webkit-scrollbar': {
@@ -188,75 +189,95 @@ export default function FindRequestCard() {
         }
       }}
     >
-      <Paper
-        elevation={3}
-        sx={{ padding: 5, borderRadius: "16px", overflow: "auto" }}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          overflow: "hidden"
+        }}
       >
-        <Box component="h2" sx={{ textAlign: "center", mb: 2 }}>
-          Check Appointments
-        </Box>
-        <Box sx={{ width: "100%", height: "400px" }}>
-          <MapComponent
-            appointments={popUpAppointments}
-            style={{ width: "100%", height: "400px" }}
-          />
-        </Box>
-        <Box sx={{ mt: 2, width: "100%", marginTop: "40px" }}>
-          <TextField
-            fullWidth
-            placeholder="Search appointments..."
-            value={searchKeyword}
-            onChange={(e) => setSearchKeyword(e.target.value)}
-          />
-        </Box>
-        <RadioGroup
-          row={!isMobile}
-          value={selectedType}
-          onChange={(e) => setSelectedType(e.target.value)}
-          sx={{ display: "flex", justifyContent: "space-around", mt: 2 }}
-        >
-          <FormControlLabel value="all" control={<Radio />} label="All" />
-          <FormControlLabel
-            value="videoChat"
-            control={<Radio />}
-            label="Video Chat"
-          />
-          <FormControlLabel
-            value="inPerson"
-            control={<Radio />}
-            label="In-person"
-          />
-        </RadioGroup>
-        <Box sx={{ mt: 2, width: "100%", marginBottom: "20px" }}>
-          <Select
-            fullWidth
-            displayEmpty
-            value={selectedInterpreterLanguage}
-            onChange={(e) => setSelectedInterpreterLanguage(e.target.value)}
-          >
-            <MenuItem value="" disabled>
-              Select Interpreter Language
-            </MenuItem>
-            {languages.map((language) => (
-              <MenuItem key={language} value={language}>
-                {language}
-              </MenuItem>
-            ))}
-          </Select>
-        </Box>
+       
         <Box
           sx={{
+            width: { md: "50%" },
+            padding: 5,
+            display: "flex",
+            minWidth:"500px",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
+          <Box component="h2" sx={{ textAlign: "center", mb: 2 }}>
+            Check Appointments
+          </Box>
+          <Box sx={{ width: "100%", height: "400px" }}>
+            <MapComponent
+              appointments={popUpAppointments}
+              style={{ width: "100%", height: "400px" }}
+            />
+          </Box>
+          <Box sx={{ mt: 2, width: "100%", marginTop: "40px" }}>
+            <TextField
+              fullWidth
+              placeholder="Search appointments..."
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
+            />
+          </Box>
+          <RadioGroup
+            row={!isMobile}
+            value={selectedType}
+            onChange={(e) => setSelectedType(e.target.value)}
+            sx={{ display: "flex", justifyContent: "space-around", mt: 2 }}
+          >
+            <FormControlLabel value="all" control={<Radio />} label="All" />
+            <FormControlLabel
+              value="videoChat"
+              control={<Radio />}
+              label="Video Chat"
+            />
+            <FormControlLabel
+              value="inPerson"
+              control={<Radio />}
+              label="In-person"
+            />
+          </RadioGroup>
+          <Box sx={{ mt: 2, width: "100%", marginBottom: "20px" }}>
+            <Select
+              fullWidth
+              displayEmpty
+              value={selectedInterpreterLanguage}
+              onChange={(e) => setSelectedInterpreterLanguage(e.target.value)}
+            >
+              <MenuItem value="" disabled>
+                Select Interpreter Language
+              </MenuItem>
+              {languages.map((language) => (
+                <MenuItem key={language} value={language}>
+                  {language}
+                </MenuItem>
+              ))}
+            </Select>
+          </Box>
+        </Box>
+  
+        
+        <Box
+          sx={{
+            width: { md: "50%" },
+            height: "800px",
             minWidth: "600px",
-            width: "100%",
-            maxWidth: "800px",
-            overflow: "hidden",
+            overflowY: "auto", 
+            padding: 1
           }}
         >
           <AppointmentBlock appointment={filteredAppointments} />
         </Box>
-      </Paper>
+      </Box>
     </Paper>
   );
+  
 }
 
 // '&::-webkit-scrollbar-track': {
