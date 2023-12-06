@@ -1,6 +1,7 @@
 // MODULES IMPORT
 import { Metadata } from 'next';
-import HomeRedirect from './home-redirect';
+import LandingPage from './landing-page';
+import CheckAuth from './auth/check-auth';
 //import ChatRoomSub from './chat-room/chat-room-component'; THIS IS HERE FOR IMPORTANT TESTING PURPOSES
 
 // PAGE NAME
@@ -12,6 +13,8 @@ export const metadata: Metadata = {
 export default function Home(): JSX.Element {
     return (
         <div className="home">
+            <CheckAuth />
+            <LandingPage />
         </div>
     )
 }

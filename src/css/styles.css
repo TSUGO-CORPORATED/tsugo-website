@@ -9,44 +9,26 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  background-color: #000000;
-  background-image: url(../../public/tokyo.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 40%;
+  height: 92vh;
+  padding-top: 8vh;
+  width: 100%;
 }
 .log-in__card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-color: #ffffff;
+  background-color: #fffffa;
   border-radius: 10px;
-  width: 600px;
-}
-.log-in__card__logo {
+  justify-content: flex-start;
+  width: 75%;
+  height: 75%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 2em;
-}
-.log-in__card__logo__picture {
-  width: 7em;
-  height: 7em;
-}
-.log-in__card__logo__text {
-  font-family: "Playpen Sans", cursive;
-  font-size: 32px;
 }
 .log-in__card__title {
   font-size: 28px;
   margin-top: 1em;
   margin-bottom: 0.3em;
   font-size: 32px;
-  order: 1;
 }
 .log-in__card__form {
   display: flex;
@@ -54,7 +36,6 @@
   align-items: center;
   flex-direction: column;
   width: 75%;
-  order: 2;
 }
 .log-in__card__form__box {
   justify-content: left;
@@ -102,7 +83,6 @@
   align-items: center;
   flex-direction: column;
   margin: 1em;
-  order: 3;
 }
 .log-in__card__sign-up__link {
   width: 100%;
@@ -120,29 +100,26 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  background-color: #000000;
-  background-image: url(../../public/tokyo.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 40%;
+  height: 92vh;
+  padding-top: 8vh;
+  width: 100%;
 }
 .sign-up__card {
+  background-color: #fffffa;
+  border-radius: 10px;
+  justify-content: flex-start;
+  width: 75%;
+  height: 75%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #ffffff;
-  border-radius: 10px;
-  width: 600px;
 }
 .sign-up__card__title {
   font-size: 28px;
   margin-top: 1em;
   margin-bottom: 0em;
   font-size: 32px;
-  order: 1;
 }
 .sign-up__card__form {
   display: flex;
@@ -150,7 +127,6 @@
   align-items: center;
   flex-direction: column;
   width: 75%;
-  order: 2;
 }
 .sign-up__card__form__box {
   justify-content: left;
@@ -190,7 +166,7 @@
 .sign-up__card__form__box__sign-up-button:hover {
   background-color: #1f1e1e;
 }
-.sign-up__card__log-in-link {
+.sign-up__card__log-in-linka {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -198,11 +174,8 @@
   width: 100%;
   color: blue;
   font-weight: bold;
-  margin-top: 0.7em;
-  margin-bottom: 0.8em;
-  order: 3;
 }
-.sign-up__card__log-in-link:hover {
+.sign-up__card__log-in-linka:hover {
   color: #7e9ae6;
 }
 
@@ -211,126 +184,142 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  background-image: url(../../public/tokyo.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 40%;
+  height: 92vh;
+  padding-top: 8vh;
+  width: 100%;
 }
 .dashboard__card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-color: #ffffff;
-  border-radius: 10px;
-  justify-content: flex-start;
-  width: 75%;
-  height: 75%;
-}
-.dashboard__card__role-switch {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-around;
-  height: 15%;
+  padding: 20px;
   width: 100%;
-}
-.dashboard__card__role-switch__button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  font-weight: bold;
-  font-size: 24px;
-  width: 40%;
   height: 100%;
-  cursor: pointer;
 }
-.dashboard__card__role-switch__button:hover {
-  background-color: #f3f3f3;
-}
-.dashboard__card__role-switch__button__selected {
-  border-bottom: solid black 5px;
-}
-.dashboard__card__separator {
-  width: 100%;
-  height: 1px;
-  background-color: #cfcfcf;
-  margin-bottom: 3%;
+@media screen and (min-width: 1200px) {
+  .dashboard__card {
+    width: 1200px;
+    align-items: center;
+  }
 }
 .dashboard__card__role-content {
-  height: 75%;
-  width: 90%;
-}
-.dashboard__card__role-content__button-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-around;
-  height: 8%;
   width: 100%;
-  margin-bottom: 5%;
-}
-.dashboard__card__role-content__button-row__button-request {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  text-decoration: none;
-  border: solid black 1px;
-  padding: 12px;
-  border-radius: 12px;
-  background-color: #000000;
-  font-weight: bold;
-  color: #ffffff;
-  cursor: pointer;
-  width: 30%;
   height: 100%;
-}
-.dashboard__card__role-content__button-row__button-request:hover {
-  background-color: #1f1e1e;
-}
-.dashboard__card__role-content__button-row__button-history {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  text-decoration: none;
-  border: solid black 1px;
-  padding: 12px;
-  border-radius: 12px;
-  background-color: #ffffff;
-  font-weight: bold;
-  color: #000000;
-  cursor: pointer;
-  width: 30%;
-  height: 100%;
+  justify-content: flex-start;
+  padding-top: 10px;
+  gap: 20px;
 }
-.dashboard__card__role-content__button-row__button-history:hover {
-  background-color: #cccccc;
+@media screen and (max-width: 700px) {
+  .dashboard__card__role-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 }
-.dashboard__card__role-content__list-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  font-weight: bold;
-  font-size: 18px;
-  margin-bottom: 2%;
-}
-.dashboard__card__role-content__appointment-list {
+.dashboard__card__role-content__button-column {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
+  height: 100%;
+  text-decoration: none;
+}
+@media screen and (max-width: 700px) {
+  .dashboard__card__role-content__button-column {
+    height: auto;
+  }
+}
+.dashboard__card__role-content__button-column__paper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+@media screen and (max-width: 700px) {
+  .dashboard__card__role-content__button-column__paper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+}
+.dashboard__card__role-content__button-column__link {
+  text-decoration: none;
+}
+.dashboard__card__role-content__button-column__link__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 250px;
+}
+.dashboard__card__role-content__button-column__link__button__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+.dashboard__card__role-content__button-column__link__button__desc {
+  font-size: 10px;
+}
+@media screen and (max-width: 700px) {
+  .dashboard__card__role-content__button-column {
+    gap: 10px;
+  }
+  .dashboard__card__role-content__button-column__link__button {
+    width: 150px;
+  }
+  .dashboard__card__role-content__button-column__link__button__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .dashboard__card__role-content__button-column__link__button__desc {
+    display: none;
+  }
+}
+.dashboard__card__role-content__appointment-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-start;
   width: 100%;
-  height: 75%;
-  overflow-y: auto;
+}
+.dashboard__card__role-content__appointment-column__paper {
+  width: 100%;
+  padding: 10px;
+}
+.dashboard__card__role-content__appointment-column__paper__list-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-start;
+  font-weight: bold;
+  font-size: 28px;
+  padding: 10px;
+}
+.dashboard__card__role-content__appointment-column__paper__appointment-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 10px;
+  height: 100%;
 }
 
 .profile {
@@ -340,11 +329,6 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  background-color: #000000;
-  background-image: url(../../public/tokyo.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 40%;
 }
 
 .profile-container {
@@ -352,57 +336,80 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #ffffff;
-  border-radius: 10px;
-  width: 600px;
-  height: 600px;
   align-items: center;
+  width: 100%;
+  height: 100%;
+  margin-top: 64px;
 }
-
-.profile-header {
-  order: 1;
+.profile-container__header {
   margin-top: 15px;
   height: 20%;
+  width: 100%;
+  text-align: center;
 }
-
-.profile-pic {
-  order: 2;
+.profile-container__profile-pic {
   border-radius: 50%;
+  border: 2px solid darkgray;
+  width: 200px;
+  height: 200px;
+  margin-top: 12px;
 }
-
-.profile-p {
-  order: 2;
-  height: 40%;
-  align-self: center;
-  margin-left: 12px;
-}
-
-.edit-link {
-  order: 3;
-  align-self: center;
-  border: 1px solid black;
-  margin: 12px;
-  font-size: 12px;
-  color: black;
-  width: 20%;
+.profile-container__info-container {
   display: flex;
   flex-direction: column;
-  background-color: lightgray;
-}
-
-#edit-button {
-  align-self: center;
-}
-
-.profile-button {
-  order: 3;
-  height: 20%;
-  align-self: center;
+  height: 80%;
+  width: 80%;
+  align-items: center;
   margin: 12px;
+}
+.profile-container__label {
+  height: 16px;
+  width: 90%;
+  align-self: center;
+  margin-left: 30px;
+  margin-right: 30px;
+  color: gray;
   font-size: 12px;
-  width: 20%;
+}
+.profile-container__profile-p {
+  height: 15%;
+  width: 90%;
+  align-self: center;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+.profile-container__button-container {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.profile-container__edit-link {
+  margin: 6px;
+}
+.profile-container__delete-link {
+  margin: 6px;
+}
+.profile-container__password-link {
+  margin: 6px;
 }
 
+#profile-container__edit-button {
+  align-self: center;
+}
+
+#profile-container__delete-button {
+  align-self: center;
+}
+
+@media (min-width: 700px) {
+  .profile-container {
+    width: 700px;
+  }
+}
 .add_request, .confirm_section {
   background-image: url("../../public/tokyo.jpg");
   background-size: cover;
@@ -425,6 +432,7 @@
   justify-content: center;
   align-items: center;
   margin-top: 10vh;
+  margin: auto;
   overflow: auto;
 }
 
@@ -446,7 +454,6 @@
 .add_request_title {
   color: black;
   font-size: 24px;
-  text-overflow: ellipsis;
   white-space: nowrap;
   margin-top: 20vh;
   margin-bottom: 10px;
@@ -565,17 +572,14 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  background-image: url(../../public/tokyo.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 40%;
 }
 .find-request__card {
-  background-color: #ffffff;
+  background-color: #fffffa;
   border-radius: 10px;
   justify-content: flex-start;
-  margin-top: 2em;
-  margin-bottom: 2em;
   width: 75%;
   height: 75%;
   display: flex;
@@ -607,7 +611,6 @@
   justify-content: flex-start;
   width: 100%;
   height: 30%;
-  overflow-y: auto;
 }
 .find-request__card__appointment-container__appointment {
   border: 1px solid black;
@@ -618,54 +621,67 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
+  align-items: center;
   width: 100vw;
-  background-color: #000000;
-  background-image: url(../../public/tokyo.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 40%;
+  height: 100vh;
+  padding-top: 64px;
 }
-.edit-profile__card {
+
+.edit-profile-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: #ffffff;
-  border-radius: 10px;
-  width: 600px;
-  height: 600px;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
-.edit-profile__header {
-  order: 1;
+.edit-profile-container__header {
   margin-top: 15px;
-  height: 10%;
+  height: 20%;
+  width: 100%;
+  text-align: center;
 }
-
-.edit-profile-p {
-  order: 2;
-  height: 10%;
-  margin-left: 12px;
+.edit-profile-container__profile-pic {
+  border-radius: 50%;
+  border: 2px solid darkgray;
+  width: 200px;
+  height: 200px;
+  margin-top: 12px;
 }
-
-.updateform {
-  order: 3;
+.edit-profile-container__info-update {
   display: flex;
   flex-direction: column;
   height: 80%;
   width: 100%;
   align-items: center;
+  margin-top: 6px;
 }
-
-.edit-profile-button {
-  order: 4;
+.edit-profile-container__label {
+  height: 20%;
+  width: 90%;
   align-self: center;
-  margin: 12px;
+  margin-left: 110px;
+  margin-right: 30px;
+  color: gray;
   font-size: 12px;
-  width: 20%;
-  height: 10%;
+}
+.edit-profile-container__input {
+  width: 80%;
+  margin: 12px;
+}
+.edit-profile-container__button {
+  margin: 6px;
+}
+.edit-profile-container__profile-link {
+  margin: 6px;
 }
 
+@media (min-width: 700px) {
+  .edit-profile-container {
+    width: 700px;
+  }
+}
 .chat-room {
   display: flex;
   justify-content: center;
@@ -673,27 +689,46 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  background-color: #000000;
-  background-image: url(../../public/tokyo.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 40%;
+  padding-top: 64px;
+}
+.chat-room__container {
+  width: 100%;
+  height: 100%;
+}
+.chat-room__video-container {
+  width: 100%;
+  background-color: black;
+}
+.chat-room__video {
+  width: 50%;
+}
+.chat-room__message__username {
+  font-weight: bold;
+}
+.chat-room__message__timestamp {
+  font-style: italic;
+  font-size: 10pt;
+}
+.chat-room__message__content {
+  font-size: 16pt;
 }
 
 .chatContainer {
   display: flex;
   flex-direction: column;
-  width: 600px;
+  width: 100%;
   height: 500px;
   margin: 0px;
   padding: 10px;
   background-color: white;
   gap: 10px;
+  list-style-type: none;
 }
 
 .messageContainer {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .chat-room-message {
@@ -701,7 +736,7 @@
 }
 
 .chat-room-text-input {
-  width: 600px;
+  width: 100%;
   height: 60px;
   margin: 0px;
   resize: none;
@@ -709,34 +744,35 @@
 
 .chat-room-send-button {
   height: 30px;
-  width: 600px;
+  width: 100%;
   justify-content: left;
   align-self: left;
+  text-align: center;
+}
+
+.messageContainer-rec {
+  background-color: #9F6BA0;
+  text-align: left;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.messageContainer-sent {
+  background-color: lightgray;
+  text-align: right;
+  border-radius: 10px;
+  padding: 12px;
 }
 
 .appointment-block {
-  background-color: #ffffff;
-  border-radius: 10px;
-  border: solid #cfcfcf 2px;
   width: 100%;
-  height: 100px;
-  margin-bottom: 1em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  background-color: #ffffff;
-  border-radius: 10px;
-}
-.appointment-block__info {
-  width: 90%;
+  margin-bottom: 2em;
 }
 .appointment-block__info__row {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  width: 100%;
   justify-content: space-around;
 }
 .appointment-block__info__row__piece {
@@ -744,27 +780,29 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
+  justify-content: flex-start;
+  padding-left: 5px;
 }
 .appointment-block__info__row__piece__label {
   font-weight: bold;
   margin-right: 5px;
+  font-size: 16px;
+}
+.appointment-block__info__row__piece__data {
+  font-size: 14px;
 }
 .appointment-block__detail {
-  width: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  background-color: #000000;
-  height: 100%;
-  padding: auto;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  color: white;
-  text-decoration: none;
+  justify-content: flex-end;
+  padding-bottom: 5px;
+  padding-right: 5px;
 }
-.appointment-block__detail:hover {
-  background-color: #1f1e1e;
+.appointment-block__detail__window {
+  height: 90%;
+  width: 90%;
 }
 
 .history {
@@ -780,11 +818,9 @@
   background-position: 40%;
 }
 .history__card {
-  background-color: #ffffff;
+  background-color: #fffffa;
   border-radius: 10px;
   justify-content: flex-start;
-  margin-top: 2em;
-  margin-bottom: 2em;
   width: 75%;
   height: 75%;
   display: flex;
@@ -909,57 +945,315 @@
   margin-bottom: 5px;
 }
 
-.navbar-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 12px;
-  overflow: hidden;
+.home {
+  width: 100vw;
+  height: 100vh;
+}
+.home__landing-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   background-color: black;
-  position: fixed;
-  top: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+.home__landing-page__video {
   width: 100%;
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 24px;
-  height: 64px;
-  padding-bottom: 12px;
-  padding-top: 12px;
-  border-bottom-width: 0;
-  border-style: solid;
-  border-bottom-color: #e2e2e2;
-  z-index: 2002;
-  box-sizing: border-box;
-  padding-left: 0;
-  padding-right: 0;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: right bottom;
+     object-position: right bottom;
+}
+.home__landing-page__header {
+  color: white;
+  justify-self: center;
+  width: 100%;
+  height: 30%;
+  font-size: 64pt;
+  z-index: 2;
+  top: 10%;
+  position: absolute;
+  margin-top: 24px;
+  text-align: center;
+}
+.home__landing-page__log-in-link {
+  color: black;
+  z-index: 2;
+  position: absolute;
+  justify-self: center;
+  margin-top: 200px;
 }
 
-.navbar-li a, .logo-navbar a, .profile-navbar a {
-  display: block;
+@media (min-width: 700px) {
+  .home__landing-page__header {
+    width: 700px;
+  }
+}
+.update-password {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  padding-top: 64px;
+}
+.update-password__container {
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+}
+.update-password__header {
+  margin-top: 22px;
+  margin-bottom: 130px;
+}
+.update-password__form {
+  margin: 10px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.update-password__label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.update-password__submit-button {
+  margin-bottom: 12px;
+}
+.update-password__profile-button {
+  margin-top: 12px;
+}
+.update-password__message {
+  margin-bottom: 12px;
+}
+.update-password__input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+@media (min-width: 600px) {
+  .update-password__container {
+    width: 600px;
+  }
+}
+.delete-account {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  padding-top: 64px;
+}
+.delete-account__container {
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+}
+.delete-account__header {
+  margin-top: 22px;
+  margin-bottom: 130px;
+}
+.delete-account__form {
+  margin: 10px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.delete-account__label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.delete-account__submit-button {
+  margin-bottom: 12px;
+}
+.delete-account__profile-button {
+  margin-top: 12px;
+}
+.delete-account__message {
+  margin-bottom: 12px;
+}
+.delete-account__input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+@media (min-width: 600px) {
+  .delete-account__container {
+    width: 600px;
+  }
+}
+.navbar {
+  border-style: solid;
+  border-bottom-color: #D8BCAB;
+  background-color: black;
+  position: fixed;
+  width: 100%;
+  height: 8vh;
+  z-index: 10;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+@media screen and (min-width: 1200px) {
+  .navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+}
+.navbar__cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+@media screen and (min-width: 1200px) {
+  .navbar__cont {
+    width: 1200px;
+  }
+}
+.navbar__cont__left__logo {
   padding: 8px 24px;
   text-align: center;
   text-decoration: none;
-  color: white;
+  color: #fffffa;
+  font-weight: bold;
+  border-radius: 20px;
+}
+.navbar__cont__right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+}
+.navbar__cont__right__sign-up {
+  padding: 8px 24px;
+  text-decoration: none;
+  color: #9c9b9b;
+  font-weight: bold;
+  border-radius: 20px;
+}
+.navbar__cont__right__sign-up:hover {
+  background-color: rgb(56, 56, 56);
+  color: #fffffa;
+}
+.navbar__cont__right__log-in {
+  padding: 8px 24px;
+  text-decoration: none;
+  background-color: #fffffa;
+  color: #000000;
+  font-weight: bold;
+  border-radius: 20px;
+}
+.navbar__cont__right__log-in:hover {
+  font-weight: bold;
+  transform: scale(1.1);
+  background-color: #fffffa;
+  color: #000000;
+}
+.navbar__cont__right__avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+  width: auto;
+  height: 40px;
+  padding-left: 15px;
+  padding-right: 8px;
+  border-radius: 20px;
+  background-color: #fffffa;
+  color: #000000;
+  font-weight: bold;
+}
+.navbar__cont__right__avatar:hover {
+  background-color: #f3f3f3;
+}
+.navbar__cont__right__avatar__first-name {
+  margin-right: 5px;
+}
+.navbar__cont__right__avatar__profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  text-decoration: none;
+  color: #000000;
+  font-weight: 550;
+}
+.navbar__cont__right__avatar__dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  text-decoration: none;
+  color: #000000;
+  font-weight: 550;
+}
+.navbar__cont__right__avatar__sign-out {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  text-decoration: none;
+  color: #000000;
+  font-weight: 550;
+}
+.navbar__cont__right__sign-out-window {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  width: 300px;
+  height: 150px;
+}
+.navbar__cont__right__sign-out-window__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  font-weight: bold;
+  font-size: 20px;
+}
+.navbar__cont__right__sign-out-window__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
 }
 
-.navbar-li a:hover, .logo-navbar a:hover, .profile-navbar a:hover {
-  background-color: gray;
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-.logo-navbar {
-  float: left;
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
 }
 
-.profile-navbar, .logout-navbar, .avatar-navbar {
-  float: right;
-}
-
-.avatar-navbar {
-  height: 42px;
-  width: 42px;
-}
-
-.navbar-avatar {
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 10px;
 }/*# sourceMappingURL=styles.css.map */

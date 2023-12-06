@@ -5,6 +5,38 @@
   flex-direction: $direction;
 }
 
+@mixin background() {
+  @include flexCenter(column);
+  // justify-content: flex-start;
+  height: 92vh;
+  // background-color: $color-light-grey;
+  padding-top: 8vh;
+  width: 100%;
+}
+
+
+
+
+///////////////////////////DEPRECEATED////////////////////////////////////////////////
+@mixin card() {
+  background-color: $color-white;
+  border-radius: 10px;
+  // box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
+}
+
+
+
+@mixin pageCard() {
+  background-color: $color-white;
+  border-radius: 10px;
+  justify-content: flex-start;
+  // margin-top: 2em;
+  // margin-bottom: 2em;
+  width: 75%;
+  height: 75%;
+  @include flexCenter(column);
+}
+
 @mixin button($button-color) {
   border: solid black 1px;
   padding: 12px;
@@ -22,7 +54,7 @@
 // @mixin nav-bar() {
 //   @include flexCenter(row);
 //   justify-content: space-between;
-//   background-color: $color-background-green;
+//   background-color: $color-green;
 //   width: 100%;
 //   height: 80px;
 
@@ -46,23 +78,6 @@
 //     gap: 20px;
 //   }
 // }
-
-@mixin card() {
-  background-color: $color-background-white;
-  border-radius: 10px;
-  // box-shadow: 1.5em 0.8rem 2rem rgba(0, 0, 0, 0.1);
-}
-
-@mixin pageCard() {
-  background-color: $color-background-white;
-  border-radius: 10px;
-  justify-content: flex-start;
-  margin-top: 2em;
-  margin-bottom: 2em;
-  width: 75%;
-  height: 75%;
-  @include flexCenter(column);
-}
 
 @mixin text($font-size, $font-weight) {
   font-size: map-get($map: $font-sizes, $key: $font-size);

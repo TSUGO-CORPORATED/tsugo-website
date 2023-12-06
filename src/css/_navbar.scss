@@ -1,54 +1,152 @@
-.navbar-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 12px;
-    overflow: hidden;
+.navbar {
+    // list-style-type: none;
+    // margin: 0;
+    // padding: 12px;
+    // overflow: hidden;
+    // top: 0;
+    // font-size: 16px;
+    // font-weight: normal;
+    // line-height: 24px;
+    // padding-bottom: 12px;
+    // padding-top: 12px;
+    // border-bottom-width: 0;
+    border-style: solid;
+    border-bottom-color: $color-off-light;
+    // box-sizing: border-box;
+    
     background-color: black;
     position: fixed;
-    top: 0;
     width: 100%;
-    font-size: 16px;
-    font-weight: normal;
-    line-height: 24px;
-    height: 64px;
-    padding-bottom: 12px;
-    padding-top: 12px;
-    border-bottom-width: 0;
-    border-style: solid;
-    border-bottom-color: #e2e2e2;
-    z-index: 2002;
-    box-sizing: border-box;
-    padding-left: 0;
-    padding-right: 0;
-}
+    height: 8vh;
+    z-index: 10; 
+    padding-left: 10px;
+    padding-right: 10px;
 
-.navbar-li a, .logo-navbar a, .profile-navbar a {
-    display: block;
-    padding: 8px 24px;
-    text-align: center;
-    text-decoration: none;
-    color: white;
-}
+    @media screen and (min-width: 1200px) {
+        @include flexCenter(row);
+    }
 
-.navbar-li a:hover, .logo-navbar a:hover, .profile-navbar a:hover {
-    background-color: gray;
-}
+    &__cont {
+        @include flexCenter(row);
+        justify-content: space-between;
+        height: 100%;
+        width: 100%;
 
-.logo-navbar {
-    float: left;
-}
-
-.profile-navbar, .logout-navbar, .avatar-navbar {
-    float: right;
-}
-
-.avatar-navbar {
-    height: 42px;
-    width: 42px;
-}
-
-.navbar-avatar {
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
+        @media screen and (min-width: 1200px) {
+            width: 1200px;
+        }
+        
+        &__left {
+            &__logo {
+                padding: 8px 24px;
+                text-align: center;
+                text-decoration: none;
+                color: $color-white;
+                font-weight: bold;
+                border-radius: 20px;
+            }
+        }
+    
+        &__right {
+            @include flexCenter(row);
+            gap: 10px;
+            // height: auto;
+            // width: auto;
+    
+            &__sign-up {
+                padding: 8px 24px;
+                text-decoration: none;
+                color: $color-dark-grey;
+                font-weight: bold;
+                border-radius: 20px;
+        
+                &:hover {
+                    background-color: rgb(56, 56, 56);
+                    color: $color-white;
+                } 
+            }
+        
+            &__log-in {
+                padding: 8px 24px;
+                text-decoration: none;
+                background-color: $color-white;
+                color: $color-black;
+                font-weight: bold;
+                border-radius: 20px;
+                &:hover {
+                    font-weight: bold;
+                    transform: scale(1.1);
+                    background-color: $color-white;
+                    color: $color-black;
+                }
+            }
+    
+            &__avatar {
+                @include flexCenter(row);
+                justify-content: space-around;
+                width: auto;
+                height: 40px;
+                padding-left: 15px;
+                padding-right: 8px;
+                border-radius: 20px;
+    
+                // text-decoration: none;
+                background-color: $color-white;
+                color: $color-black;
+                font-weight: bold;
+                // box-sizing: border-box;
+    
+                &:hover {
+                    background-color: $color-light-grey;
+                }
+    
+                &__first-name {
+                    margin-right: 5px;
+                }
+    
+                &__profile {
+                    @include flexCenter(row);
+                    text-decoration: none;
+                    color: $color-black;
+                    font-weight: 550;
+                }
+    
+                &__dashboard {
+                    @include flexCenter(row);
+                    text-decoration: none;
+                    color: $color-black;
+                    font-weight: 550;
+                }
+    
+                &__sign-out {
+                    @include flexCenter(row);
+                    text-decoration: none;
+                    color: $color-black;
+                    font-weight: 550;
+                }
+            }
+    
+            &__sign-out-window {
+                @include flexCenter(column);
+                gap: 15px;
+                width: 300px;
+                height: 150px;
+    
+                &__title {
+                    @include flexCenter(row); 
+                    font-weight: bold;
+                    font-size: 20px;
+                }
+    
+                &__description {
+                }
+    
+                &__button {
+                    @include flexCenter(row);
+                    gap: 10px;
+                }
+            }
+        }
+    }
+    
 }

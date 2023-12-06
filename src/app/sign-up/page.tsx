@@ -1,6 +1,7 @@
 // MODULES IMPORT
 import { Metadata } from 'next';
 import SignUpCard from './sign-up-card';
+import SkipLogIn from '../auth/skip-log-in';
 
 // PAGE NAME
 export const metadata: Metadata = {
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 export default async function SignUp() {
     return (
         <div className="sign-up">
+            <SkipLogIn />
             <SignUpCard />
         </div>
     )

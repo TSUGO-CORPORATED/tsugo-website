@@ -1,52 +1,65 @@
 'use client';
 
 // MODULES IMPORT
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function ReviewCard() {
     // STATE VARIABLES
-    const [reviewRating, setReviewRating] = useState<number | undefined>();
+    const [reviewThumb, setReviewThumb] = useState<boolean | undefined>();
     const [reviewNote, setReviewNote] = useState<string>("");
     
     const router = useRouter();
-    const ratingValue: number[] = [1, 2, 3, 4, 5];
 
     // SEARCH PARAMS
     const searchParams = useSearchParams();
     const appointmentId = searchParams.get('appointmentId');
     const role = searchParams.get('role');
-    console.log(appointmentId);
-    console.log(role);
+    console.log("ID",appointmentId);
+    console.log("role",role);
 
     // HELPER FUNCTION
-    async function submitReview() {
+    async function submitReview(event: React.FormEvent) {
+        event.preventDefault();
         const reviewData = {
-            appointmentId: appointmentId,
+            appointmentId: Number(appointmentId),
             role: role,
-            reviewRating: reviewRating,
+            reviewThumb: reviewThumb,
             reviewNote: reviewNote,
         }
-
+        console.log("reveiwdata", reviewData);
         const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/review`;
-        await axios.post(url, reviewData);
+        await axios.patch(url, reviewData);
         alert('Review submitted successfully!');
-        router.push('/dashboard');
+        router.push(`/appointment-detail?appointmentId=${appointmentId}`);
     };
 
- 
+    useEffect(() => {
+        console.log("thumb",reviewThumb);
+    }, [reviewThumb])
+
     return (
-        <form onSubmit={submitReview}>
+        <>
+            <h1>Test</h1>
+            <h1>Test</h1>
+            <h1>Test</h1>
+            <h1>Test</h1>
+            <h1>Test</h1>
             <h1>Review</h1>
-            <div>
-                <label>Rating</label>
+            <form onSubmit={submitReview}>
+                {/* <label>Rating</label>
                 <select value={reviewRating} onChange={(e) => setReviewRating(Number(e.target.value))} required>
                 <option disabled> -- Select Rating -- </option>
                     {ratingValue.map((value) => <option key={value} value={value}>{value}</option>)}
                 </select>
-                <p>The rating is: {reviewRating}</p>
+                <p>The rating is: {reviewRating}</p> */}
+                <div>
+                    <div onClick={() => setReviewThumb(true)}>Thumbs Up</div>
+                    <div onClick={() => setReviewThumb(false)}>Thumbs Down</div>
+                </div>
                 <label className='a'>Note:</label>
                 <input
                     type='text'
@@ -55,8 +68,16 @@ export default function ReviewCard() {
                     onChange={(e) => setReviewNote(e.target.value)}
                     className='a'
                 ></input>
-                <button type='submit'>Submit</button>
-            </div>
-        </form>
+                <button type='submit' onClick={submitReview}>Submit</button>
+            </form>
+            <Link href={{
+                pathname: '/appointment-detail',
+                query: {
+                    appointmentId: appointmentId,
+                }
+            }}>
+                <button className='add_review_button'>Cancel</button>
+            </Link>
+        </>
     );
 }

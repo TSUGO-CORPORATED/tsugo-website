@@ -1,23 +1,43 @@
 // Import general items
-@import './resets';
+@import './_resets';
 @import './_variables';
-@import './mixins';
+@import './_mixins';
 
 // CSS per page
-@import './log-in';
-@import './sign-up';
-@import './dashboard';
-@import './profile';
-@import './profile-components';
-@import './add-request';
-@import './find-request';
-@import './edit-profile';
-@import './chat-room';
-@import './appointment-block';
-@import './history';
-@import './appointment-detail-card';
-
-
+@import './_log-in';
+@import './_sign-up';
+@import './_dashboard';
+@import './_profile';
+@import './_profile-components';
+@import './_add-request';
+@import './_find-request';
+@import './_edit-profile';
+@import './_chat-room';
+@import './_appointment-block';
+@import './_history';
+@import './_appointment-detail-card';
+@import './_appointment-detail';
+@import './_home';
+@import './update-password';
+@import './delete-account';
 
 //CSS Global Component
-@import './navbar';
+@import './_navbar';
+
+
+// GLOBAL SCROLLING
+::-webkit-scrollbar {
+    width: 10px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+box-shadow: inset 0 0 5px grey;
+border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: black;
+border-radius: 10px;
+}
