@@ -5,7 +5,7 @@ import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
 import profilePic from '../../../../public/default.jpg'
-import { TextField, Button, Avatar } from '@mui/material';
+import { TextField, Button, Paper } from '@mui/material';
 
 
 export default function EditProfile() {
@@ -101,7 +101,7 @@ export default function EditProfile() {
     }
 
     return (
-        <div className='edit-profile-container'>
+        <Paper elevation={3} className='edit-profile-container'>
             <h1 className="edit-profile-container__header">Edit Profile</h1>
             <Image 
                 src={profilePic}
@@ -189,9 +189,9 @@ export default function EditProfile() {
                 <Button variant="contained" className='edit-profile-container__button' id='edit-button' onClick={handleUpdate}>Save Changes</Button>
                 <Link className='edit-profile-container__profile-link' href="/profile">
                     <Button variant='contained' className='edit-profile-container__profile-button' id='edit-profile-container__profile-button'>
-                    Cancel
+                    Profile
                     </Button>
                 </Link>
-        </div>
+        </Paper>
     );
 }

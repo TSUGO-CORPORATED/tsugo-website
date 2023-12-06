@@ -76,15 +76,12 @@ export default function DashboardCard(): JSX.Element {
 
     // INITIAL USE EFFECT
     useEffect(() => {
-        if (userId !== 0) {
+        // if (userId !== 0) {
             getClientCurrentAppointment();
             getInterpreterCurrentAppointment();
-        }
+        // }
     }, [userId]);
 
-    // CONDITIONAL TAB
-    const shownAppointmentBlock = tabValue === 0 ? clientCurrentAppointment : interpreterCurrentAppointment;
-    
     // JSX ELEMENTS
     return (
         <div className='dashboard__card'>
@@ -173,7 +170,12 @@ export default function DashboardCard(): JSX.Element {
                     <Paper elevation={4} className='dashboard__card__role-content__appointment-column__paper'>
                         <div className='dashboard__card__role-content__appointment-column__paper__list-title'>Ongoing Appointment</div>
                         <div className='dashboard__card__role-content__appointment-column__paper__appointment-list'>
-                            <AppointmentBlock appointment={shownAppointmentBlock}/>
+                            {tabValue === 0 ? (
+                                <AppointmentBlock appointment={clientCurrentAppointment}/>  
+                            ) : null }
+                            {tabValue === 1 ? (
+                                <AppointmentBlock appointment={interpreterCurrentAppointment}/>  
+                            ) : null}
                         </div>
                     </Paper>
                 </div>

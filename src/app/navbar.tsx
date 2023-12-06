@@ -35,7 +35,7 @@ export default function Navbar() {
 
 
     const { userUid, userPhotoUrl, userFirstName, setUserId, setUserUid, setUserFirstName, setUserLastName } = useContext(ContextVariables);
-
+    console.log(userPhotoUrl)
     const avatarOpen = Boolean(anchorEl);
     const router = useRouter();
 
@@ -136,10 +136,16 @@ export default function Navbar() {
                                 <Button onClick={avatarHandleClick}>
                                     <div className='navbar__cont__right__avatar'>
                                         <p className='navbar__cont__right__avatar__first-name'>{userFirstName}</p>
+                                        {userPhotoUrl !== 'noPhotoUrl' ? (
                                         <Avatar 
                                             src={userPhotoUrl} 
                                             sx={{ width: 25, height: 25 }}
                                         />  
+                                        ) : (
+                                            <Avatar 
+                                            sx={{ width: 25, height: 25 }}
+                                        />  
+                                        )}
                                         <MoreVertIcon 
                                             fontSize='medium'
                                         />

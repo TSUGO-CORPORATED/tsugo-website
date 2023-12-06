@@ -4,7 +4,7 @@ import { ContextVariables } from '../../context-variables';
 import axios from "axios"
 import Link from 'next/link';
 import Image from 'next/image';
-import { TextField, Button, Avatar } from '@mui/material';
+import { TextField, Button, Paper } from '@mui/material';
 
 import profilePic from '../../../public/default.jpg';
 
@@ -126,7 +126,7 @@ export default function Profile() {
 
     return (
         
-        <div className='profile-container'>
+        <Paper elevation={3} className='profile-container'>
             <h1 className='profile-container__header'>{userProfile?.firstName} {userProfile?.lastName}</h1>
             {/* <div className='profile-container__pic-container'> */}
                 <Image 
@@ -209,6 +209,6 @@ export default function Profile() {
                     </Button>
                 </Link>
             </div>
-        </div>
+        </Paper>
     );
 }

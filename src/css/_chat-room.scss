@@ -2,27 +2,57 @@
     @include flexCenter(column);
     height: 100vh;
     width: 100vw;
-    background-color: $color-black;
-    background-image: url(../../public/tokyo.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 40%;
+    // background-color: $color-black;
+    // background-image: url(../../public/tokyo.jpg);
+    // background-size: cover;
+    // background-repeat: no-repeat;
+    // background-position: 40%;
+    padding-top: 64px;
+
+    &__container {
+        width: 100%;
+        height: 100%;
+    }
+
+    &__video-container {
+        width: 100%;
+        background-color: black;
+    }
+
+    &__video {
+        width: 50%;
+    }
+
+    &__message__username {
+        font-weight: bold;
+    }
+
+    &__message__timestamp {
+        font-style: italic;
+        font-size: 10pt;
+    }
+
+    &__message__content {
+        font-size: 16pt;
+    }
 }
 
 .chatContainer {
     display: flex;
     flex-direction: column;
-    width: 600px;
+    width: 100%;
     height: 500px;
     margin: 0px;
     padding: 10px;
     background-color: white;
-    gap: 10px
+    gap: 10px;
+    list-style-type: none;
 }
 
 .messageContainer {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .chat-room-message {
@@ -30,7 +60,7 @@
 }
 
 .chat-room-text-input{
-    width: 600px;
+    width: 100%;
     height: 60px;
     margin: 0px;
     resize: none;
@@ -38,7 +68,22 @@
 
 .chat-room-send-button {
     height: 30px;
-    width: 600px;
+    width: 100%;
     justify-content: left;
     align-self: left;
+    text-align: center;
+}
+
+.messageContainer-rec {
+    background-color: #9F6BA0;
+    text-align: left;
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.messageContainer-sent {
+    background-color: lightgray;
+    text-align: right;
+    border-radius: 10px;
+    padding: 12px;
 }

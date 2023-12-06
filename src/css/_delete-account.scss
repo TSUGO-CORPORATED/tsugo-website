@@ -1,18 +1,18 @@
 .delete-account{
     @include flexCenter(column);
-    align-items: flex-start;
+    align-items: center;
     height: 100vh;
     width: 100vw;
+    padding-top: 64px;
 
     &__container {
-        padding-top: 64px;
         width: 100%;
         height: 100%;
-        margin-left: 20px;
+        padding: 12px;
     }
 
     &__header {
-        margin: 22px;
+        margin-top: 22px;
         margin-bottom: 130px;
     }
 
