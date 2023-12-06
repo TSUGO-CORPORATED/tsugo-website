@@ -19,6 +19,7 @@ import Button from '@mui/material/Button';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import SearchIcon from '@mui/icons-material/Search';
+import Paper from '@mui/material/Paper';
 
 // INTERFACE 
 interface AppointmentOverview {
@@ -88,7 +89,7 @@ export default function DashboardCard(): JSX.Element {
     // JSX ELEMENTS
     return (
         <div className='dashboard__card'>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Box sx={{ borderBottom: 2, borderColor: 'divider' }}>
                 <Tabs 
                     value={tabValue} 
                     onChange={handleTabChange} 
@@ -119,60 +120,66 @@ export default function DashboardCard(): JSX.Element {
             </Box>
             <div className='dashboard__card__role-content'> 
                 <div className='dashboard__card__role-content__button-column'>
-                    {tabValue === 0 && (
-                        <>
-                            <Link href="/add-request" className='dashboard__card__role-content__button-column__link'>
-                                <Button variant='contained' sx={buttonBlack} size='medium' className='dashboard__card__role-content__button-column__link__button'>
-                                    <div className="dashboard__card__role-content__button-column__link__button__title">
-                                        <AddCircleOutlineIcon />
-                                        <p>Create Appointment</p>
-                                    </div>
-                                    <p className="dashboard__card__role-content__button-column__link__button__desc">Get help from interpreter</p>
-                                </Button>
-                            </Link>
-                            <Link href={{
-                                pathname: "/history",
-                                query: {slug: "client"},
-                            }} className='dashboard__card__role-content__button-column__link'>
-                                <Button variant='outlined' sx={buttonWhite} size='medium' className='dashboard__card__role-content__button-column__link__button'>
-                                    <div className="dashboard__card__role-content__button-column__link__button__title">
-                                        <LibraryBooksIcon />
-                                        <p>Open History</p>
-                                    </div>
-                                    <p className="dashboard__card__role-content__button-column__link__button__desc">See your request history</p>
-                                </Button>
-                            </Link>
-                        </>
-                    )}
-                    {tabValue === 1 && (
-                        <>
-                            <Link href="/find-request" className='dashboard__card__role-content__button-column__link'>
-                                <Button variant='contained' sx={buttonBlack} size='medium' className='dashboard__card__role-content__button-column__link__button'>
-                                    <div className="dashboard__card__role-content__button-column__link__button__title">
-                                        <SearchIcon />
-                                        <p>Find Request</p>
-                                    </div>
-                                    <p className="dashboard__card__role-content__button-column__link__button__desc">See your appointment history</p>
-                                </Button>
-                            </Link>
-                            <Link href={{
-                                pathname: "/history",
-                                query: {slug: "interpreter"},
-                            }} className='dashboard__card__role-content__button-column__link'>
-                                <Button variant='outlined' sx={buttonWhite} size='medium' className='dashboard__card__role-content__button-column__link__button'>
-                                    <div className="dashboard__card__role-content__button-column__link__button__title">
-                                        <LibraryBooksIcon />
-                                        <p>Open History</p>
-                                    </div>
-                                    <p className="dashboard__card__role-content__button-column__link__button__desc">See your help history</p>
-                                </Button>
-                            </Link>
-                        </>
-                    )}
+                    <Paper elevation={3} className='dashboard__card__role-content__button-column__paper'>
+                        {tabValue === 0 && (
+                            <>
+                                <Link href="/add-request" className='dashboard__card__role-content__button-column__link'>
+                                    <Button variant='contained' sx={buttonBlack} size='medium' className='dashboard__card__role-content__button-column__link__button'>
+                                        <div className="dashboard__card__role-content__button-column__link__button__title">
+                                            <AddCircleOutlineIcon />
+                                            <p>Create Appointment</p>
+                                        </div>
+                                        <p className="dashboard__card__role-content__button-column__link__button__desc">Get help from interpreter</p>
+                                    </Button>
+                                </Link>
+                                <Link href={{
+                                    pathname: "/history",
+                                    query: {slug: "client"},
+                                }} className='dashboard__card__role-content__button-column__link'>
+                                    <Button variant='outlined' sx={buttonWhite} size='medium' className='dashboard__card__role-content__button-column__link__button'>
+                                        <div className="dashboard__card__role-content__button-column__link__button__title">
+                                            <LibraryBooksIcon />
+                                            <p>Open History</p>
+                                        </div>
+                                        <p className="dashboard__card__role-content__button-column__link__button__desc">See your request history</p>
+                                    </Button>
+                                </Link>
+                            </>
+                        )}
+                        {tabValue === 1 && (
+                            <>
+                                <Link href="/find-request" className='dashboard__card__role-content__button-column__link'>
+                                    <Button variant='contained' sx={buttonBlack} size='medium' className='dashboard__card__role-content__button-column__link__button'>
+                                        <div className="dashboard__card__role-content__button-column__link__button__title">
+                                            <SearchIcon />
+                                            <p>Find Request</p>
+                                        </div>
+                                        <p className="dashboard__card__role-content__button-column__link__button__desc">See your appointment history</p>
+                                    </Button>
+                                </Link>
+                                <Link href={{
+                                    pathname: "/history",
+                                    query: {slug: "interpreter"},
+                                }} className='dashboard__card__role-content__button-column__link'>
+                                    <Button variant='outlined' sx={buttonWhite} size='medium' className='dashboard__card__role-content__button-column__link__button'>
+                                        <div className="dashboard__card__role-content__button-column__link__button__title">
+                                            <LibraryBooksIcon />
+                                            <p>Open History</p>
+                                        </div>
+                                        <p className="dashboard__card__role-content__button-column__link__button__desc">See your help history</p>
+                                    </Button>
+                                </Link>
+                            </>
+                        )}
+                    </Paper>
                 </div>
-                <div className='dashboard__card__role-content__list-title'>Ongoing Appointment</div>
-                <div className='dashboard__card__role-content__appointment-list'>
-                    <AppointmentBlock appointment={shownAppointmentBlock}/>
+                <div className='dashboard__card__role-content__appointment-column'>
+                    <Paper elevation={4} className='dashboard__card__role-content__appointment-column__paper'>
+                        <div className='dashboard__card__role-content__appointment-column__paper__list-title'>Ongoing Appointment</div>
+                        <div className='dashboard__card__role-content__appointment-column__paper__appointment-list'>
+                            <AppointmentBlock appointment={shownAppointmentBlock}/>
+                        </div>
+                    </Paper>
                 </div>
             </div>
         </div>
