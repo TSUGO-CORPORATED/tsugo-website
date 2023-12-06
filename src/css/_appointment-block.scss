@@ -22,32 +22,37 @@
             padding-left: 5px;
 
             &__label {
-            font-weight: bold;
-            margin-right: 5px;
+                font-weight: bold;
+                margin-right: 5px;
+                font-size: 16px;
+            }
 
+            &__data {
+                font-size: 14px;
             }
         }
         }
     }
 
-    &__detail-link {
+    &__detail {
         @include flexCenter(row);
         justify-content: flex-end;
         padding-bottom: 5px;
         padding-right: 5px;
-        text-decoration: none;
+        
+        &__link {
+            &__link {
+                &__button {
+                    &__text {
+                        
+                    }
+                }
+            }
+        }
 
-        // width: 100%;
-        // @include flexCenter(row);
-        // background-color: $color-black;
-        // height: 100%;
-        // padding: auto;
-        // border-top-right-radius: 10px;
-        // border-bottom-right-radius: 10px;
-        // &:hover {
-        // background-color: #1f1e1e;
-        // }
-        // color: white;
-        // text-decoration: none; 
+        &__window {
+            height: 90%;
+            width: 90%;
+        }
     }
 }
