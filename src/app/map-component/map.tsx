@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { GoogleMap, useLoadScript,InfoWindow, Marker, LoadScriptNext} from "@react-google-maps/api";
 // import { computeDistanceBetween } from 'google.maps.geometry.spherical';
 import Link from 'next/link';
+import { Button } from '@mui/material';
 
 type Coordinate = {
   lat: number;
@@ -51,16 +52,21 @@ function haversine(lat1: number, lon1: number, lat2: number, lon2: number): numb
 function deg2rad(deg: number): number{
   return deg * (Math.PI / 180);
 }
+
+
+
  
 const MapComponent: React.FC<Props> = ({ coordinates, appointments , style}) => {
     
     const isCoordinatesArray = Array.isArray(coordinates);
+    const isAppointmentsArray= Array.isArray(appointments)
+  //replace this to .ENV
     const apiKey = "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM"
-    console.log("map coord",coordinates)
+
     console.log("map appointment",appointments)
    
-    const zoomLevel = isCoordinatesArray ? 13 : 15;
 
+    const zoomLevel = isAppointmentsArray ? 10 : 15;
     const [selectedAppointment, setSelectedAppointment] = useState<Appointments | null>(null);
     const [lastSelectedMarker, setLastSelectedMarker] = useState<Appointments  | null>(null);
     const handleMarkerClick = (appointment: Appointments) => {
@@ -76,7 +82,7 @@ const MapComponent: React.FC<Props> = ({ coordinates, appointments , style}) => 
 
     const initialCenter = { lat: 36.6895, lng: 139.6917 };
     const [mapCenter, setMapCenter] = useState<Coordinate>(initialCenter);
-
+    console.log("mapCenter",mapCenter)
 
     const moveToClosestMarker = () => {
       if (!appointments || appointments.length === 0) return;
@@ -85,7 +91,7 @@ const MapComponent: React.FC<Props> = ({ coordinates, appointments , style}) => 
       let minDistance = Infinity;
       let startLat = lastSelectedMarker ? lastSelectedMarker.locationLatitude : currentPosition.lat;
       let startLng = lastSelectedMarker ? lastSelectedMarker.locationLongitude : currentPosition.lng;
-    
+     
       appointments.forEach(appointment => {
         if (!lastSelectedMarker || lastSelectedMarker.id !== appointment.id) {
           const distance = haversine(
@@ -100,6 +106,7 @@ const MapComponent: React.FC<Props> = ({ coordinates, appointments , style}) => 
       });
     
       if (closestMarker && closestMarker.locationLatitude !== undefined && closestMarker.locationLongitude !== undefined) {
+        console.log("currentP", startLat,startLng)
         console.log("Closest Marker:", closestMarker.locationLatitude, closestMarker.locationLongitude);
         setLastSelectedMarker(closestMarker);
         setMapCenter({ lat: Number(closestMarker.locationLatitude), lng: Number(closestMarker.locationLongitude) });
@@ -110,34 +117,96 @@ const MapComponent: React.FC<Props> = ({ coordinates, appointments , style}) => 
 
 
     
-    const markers = appointments ? appointments.map(appointment => (
-        <Marker 
-          key={appointment.id}
-          position={{ lat: Number(appointment.locationLatitude), lng: Number(appointment.locationLongitude) }}
-          onClick={() => handleMarkerClick(appointment)}
-        >
-          {selectedAppointment && selectedAppointment.id === appointment.id && (
-            <InfoWindow onCloseClick={() => setSelectedAppointment(null)}>
-              <div>
-                <h3>{appointment.appointmentTitle}</h3>
-                <p>{appointment.locationName}</p>
-                <p>{appointment.locationAdress}</p>
-                <p>{appointment.clientSpokenLanguage}⇔{appointment.interpreterSpokenLanguage}</p>
+    // const markers = appointments ? appointments.map(appointment => (
+    //     <Marker 
+    //       key={appointment.id}
+    //       position={{ lat: Number(appointment.locationLatitude), lng: Number(appointment.locationLongitude) }}
+    //       onClick={() => handleMarkerClick(appointment)}
+    //     >
+    //       {selectedAppointment && selectedAppointment.id === appointment.id && (
+    //         <InfoWindow onCloseClick={() => setSelectedAppointment(null)}>
+    //           <div>
+    //             <h3>{appointment.appointmentTitle}</h3>
+    //             <p>{appointment.locationName}</p>
+    //             <p>{appointment.locationAdress}</p>
+    //             <p>{appointment.clientSpokenLanguage}⇔{appointment.interpreterSpokenLanguage}</p>
+    //             <Link href={{
+    //                         pathname: '/appointment-detail',
+    //                         query: {appointmentId: appointment.id}
+    //                     }} className="appointment-block__detail">
+    //                         &gt;
+    //                     </Link>
+    //           </div>
+    //         </InfoWindow>
+    //       )}
+      //   </Marker>
+      // )) : isCoordinatesArray ? coordinates.map((coord, index) => (
+      //   <Marker key={index} position={{ lat: coord.lat, lng: coord.lng }} />
+      // )) : <Marker position={mapCenter} />;
+      const infoWindowStyle = {
+        backgroundColor: 'white',
+        padding: '5px',
+        borderRadius: '4px',
+        color:"black",
+        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)'
+      };
+      
+      function formatDateTime(dateStr:any) {
+        const date = new Date(dateStr);
+        const year = date.getFullYear().toString().substr(-2);
+        const month = date.toLocaleString('en-US', { month: 'short' }); 
+        const day = date.getDate(); 
+        const hours = date.getHours().toString().padStart(2, '0'); 
+        const minutes = date.getMinutes().toString().padStart(2, '0'); 
+      
+        return `${month} ${day}, ${year} ${hours}:${minutes}`;
+      }
+
+
+  const markers = appointments ? appointments.map(appointment => (
+    <Marker
+      key={appointment.id}
+      position={{ lat: Number(appointment.locationLatitude), lng: Number(appointment.locationLongitude) }}
+      onClick={() => handleMarkerClick(appointment)}
+    >
+      {selectedAppointment && selectedAppointment.id === appointment.id && (
+        <InfoWindow onCloseClick={() => setSelectedAppointment(null)}>
+          <div style={infoWindowStyle}>
+            <h3 style={{ margin: 0 }}>{appointment.appointmentTitle}</h3>
+            <p>At:{appointment.locationName}</p>
+            <p>{appointment.locationAdress}</p>
+            <p>{formatDateTime(appointment.appointmentDateTime)}</p>
+            <p>{appointment.clientSpokenLanguage}⇔{appointment.interpreterSpokenLanguage}</p>
+            <div style={{ textAlign: 'center', width: "80%", }}>
+              <div style={{ textAlign: 'center', margin: 'auto', maxWidth: '100%' }}>
                 <Link href={{
-                            pathname: '/appointment-detail',
-                            query: {appointmentId: appointment.id}
-                        }} className="appointment-block__detail">
-                            &gt;
-                        </Link>
+                  pathname: '/appointment-detail',
+                  query: { appointmentId: appointment.id }
+                }}>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    sx={{
+                      backgroundColor: 'black',
+                      color: 'white',
+                      '&:hover': {
+                        backgroundColor: 'grey',
+                      },
+                    }}
+                  >
+                    To Detail
+                  </Button>
+                </Link>
               </div>
-            </InfoWindow>
-          )}
+            </div>
+          </div>
+        </InfoWindow>
+      )}
+    </Marker>
+  )) : isCoordinatesArray ? coordinates.map((coord, index) => (
+    <Marker key={index} position={{ lat: coord.lat, lng: coord.lng }} />
+  )) : <Marker position={mapCenter} />;
 
-
-        </Marker>
-      )) : isCoordinatesArray ? coordinates.map((coord, index) => (
-        <Marker key={index} position={{ lat: coord.lat, lng: coord.lng }} />
-      )) : <Marker position={mapCenter} />;
 
 
       useEffect(() => {
@@ -148,8 +217,26 @@ const MapComponent: React.FC<Props> = ({ coordinates, appointments , style}) => 
         }
       }, [coordinates, appointments, isCoordinatesArray]);
       
+      // useEffect(() => {
+      //   if (appointments && appointments.length > 0 && "geolocation" in navigator) {
+      //     navigator.geolocation.getCurrentPosition(
+      //       (position) => {
+      //         setMapCenter({
+      //           lat: position.coords.latitude,
+      //           lng: position.coords.longitude,
+      //         });
+      //       },
+      //       (err) => {
+      //         console.error(err);
+      //         setMapCenter(initialCenter);
+      //       }
+      //     );
+      //   }
+      // }, [appointments]);
+  
       useEffect(() => {
         if (appointments && appointments.length > 0 && "geolocation" in navigator) {
+     
           navigator.geolocation.getCurrentPosition(
             (position) => {
               setMapCenter({
@@ -159,12 +246,14 @@ const MapComponent: React.FC<Props> = ({ coordinates, appointments , style}) => 
             },
             (err) => {
               console.error(err);
+       
               setMapCenter(initialCenter);
             }
           );
         }
       }, [appointments]);
-  
+
+
     return (
       <div style={style}>
       <LoadScriptNext googleMapsApiKey={apiKey}>
@@ -183,9 +272,9 @@ const MapComponent: React.FC<Props> = ({ coordinates, appointments , style}) => 
           }  */}
         </GoogleMap>
       </LoadScriptNext>
-      {appointments && appointments.length > 0 && (
+      {/* {appointments && appointments.length > 0 && (
           <button onClick={moveToClosestMarker}>Move to the Nearest</button>
-        )}
+        )} */}
       </div>
     );
   };

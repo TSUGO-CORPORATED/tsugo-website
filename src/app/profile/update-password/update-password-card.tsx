@@ -6,6 +6,8 @@ import Link from "next/link";
 import { updatePassword, reauthenticateWithCredential, EmailAuthProvider, signOut } from 'firebase/auth';
 import { auth } from "../../../firebase";
 import { useRouter } from 'next/navigation';
+import { TextField, Button } from '@mui/material';
+
 
 export default function UpdatePasswordCard(): JSX.Element {
     // STATE VARIABLES
@@ -57,42 +59,40 @@ export default function UpdatePasswordCard(): JSX.Element {
     }
 
     return (
-        <div>
-            <p>Test</p>
-            <p>Test</p>
-            <p>Test</p>
-            <p>Test</p>
-            <p>Test</p>
-            <p>Test</p>
-            <p>Test</p>
-            <Link href='/profile'>
-                <button className='aadsf'>Go back to profile</button>
-            </Link>
+        <div className="update-password__container">
+            <h1 className="update-password__header">Change Password</h1>
+            
             <form onSubmit={updatePasswordFunction}>
-                <div className='add_request_box'>
-                    <label className='add_request_label'>Old password:</label>
-                    <input 
+                <div className='update-password__form'>
+                    <label className='update-password__label'>Old password:</label>
+                    <TextField 
+                        variant="outlined"
                         type="text" 
                         value={oldPassword} 
                         onChange={(e) => setOldPassword(e.target.value)} 
                         required 
-                        className='add_request_input' 
+                        className='update-password__input' 
                     />
                 </div>
-                <div className='add_request_box'>
-                    <label className='add_request_label'>New password:</label>
-                    <input 
+                <div className='update-password__form'>
+                    <label className='update-password__label'>New password:</label>
+                    <TextField 
+                        variant="outlined"
                         type="text" 
                         value={newPassword} 
                         onChange={(e) => setNewPassword(e.target.value)} 
                         required 
-                        className='add_request_input' 
+                        className='update-password__input' 
                     />
                 </div>
-                <div className="button_box">
-                    <button type="submit" className='add_request_submit_button'>Confirm</button>
+                <div className="update-password__button_box">
+                    <Button variant="contained" type="submit" className='update-password__submit_button'>Confirm</Button>
                 </div>
             </form>
+
+            <Link href='/profile'>
+                <Button variant="contained" className='update-password__profile-button'>Cancel</Button>
+            </Link>
         </div>
     );
 }

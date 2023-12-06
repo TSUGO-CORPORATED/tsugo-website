@@ -22,15 +22,16 @@ interface AppointmentOverview {
     appointmentDateTime: Date;
 }
 
-export default function AppointmentBlock({appointment}: {appointment: AppointmentOverview[]}) {
-      
+export default function AppointmentBlock({appointment}: {appointment: AppointmentOverview[]}) {     
     return (
         <>
             {appointment.length === 0 ? <div>No Ongoing Appointment</div> : null}
             {appointment?.map((appointment, index) => {
                 // Process date
                 const tempDateTime = appointment.appointmentDateTime;
-                const convertedDateTime = tempDateTime ? format(new Date(tempDateTime), "EEE',' dd MMM yy") : null;
+                // console.log(tempDateTime)
+                const dateObject = new Date(tempDateTime)
+                const convertedDateTime = tempDateTime ?format(dateObject, "EEE, dd MMM yy HH:mm") : null;
 
                 return (
                     <div key={index} className='appointment-block'>
