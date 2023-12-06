@@ -48,20 +48,11 @@
                     }
                 }
             }
-
         }
 
-        // width: 100%;
-        // @include flexCenter(row);
-        // background-color: $color-black;
-        // height: 100%;
-        // padding: auto;
-        // border-top-right-radius: 10px;
-        // border-bottom-right-radius: 10px;
-        // &:hover {
-        // background-color: #1f1e1e;
-        // }
-        // color: white;
-        // text-decoration: none; 
+        &__window {
+            height: 90%;
+            width: 90%;
+        }
     }
 }

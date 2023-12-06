@@ -44,7 +44,7 @@ export default function DashboardCard(): JSX.Element {
     
     // CONTEXT VARIABLES
     const { userId, userFirstName, userLastName } = useContext(ContextVariables);
-    console.log(userId, userFirstName, userLastName);
+    // console.log(userId, userFirstName, userLastName);
 
     // HELPER FUNCTION
     // For tab
@@ -63,14 +63,14 @@ export default function DashboardCard(): JSX.Element {
     async function getClientCurrentAppointment(): Promise<void> {
         const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/client/current/${userId}`;
         const retrievedData = await axios.get(url);
-        console.log(retrievedData);
+        // console.log(retrievedData);
         setClientCurrentAppointment(retrievedData.data);
     }
     // Get interpreter current appointment
     async function getInterpreterCurrentAppointment(): Promise<void> {
         const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/interpreter/current/${userId}`;
         const retrievedData = await axios.get(url);
-        console.log(retrievedData);
+        // console.log(retrievedData);
         setInterpreterCurrentAppointment(retrievedData.data);
     }
 

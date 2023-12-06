@@ -522,6 +522,11 @@
   padding-bottom: 5px;
   padding-right: 5px;
 }
+.appointment-block__detail__window {
+  height: 90%;
+  width: 90%;
+}
+
 .history {
   display: flex;
   justify-content: center;

@@ -1,12 +1,18 @@
+'use client'
+
 // MODULES IMPORT
 import Link from 'next/link';
 import format from 'date-fns/format';
 import { buttonBlack } from '@/muistyle';
+import React, {useContext, useState, useEffect} from 'react';
+import AppointmentDetail from './appointment-detail';
 
 // IMPORT FROM MUI
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
 
 // INTERFACE 
 interface AppointmentOverview {
@@ -22,7 +28,32 @@ interface AppointmentOverview {
     appointmentDateTime: Date;
 }
 
-export default function AppointmentBlock({appointment}: {appointment: AppointmentOverview[]}) {     
+// MODAL
+const detailWindowStyle = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    // border: '2px solid #000',
+    borderRadius: 2,
+    // boxShadow: 24,
+    p: 4,
+};
+
+export default function AppointmentBlock({appointment}: {appointment: AppointmentOverview[]}) {    
+    // STATE VARIABLES 
+    const [openDetail, setOpenDetail] = useState(false);
+
+    // HELPER FUNCTION
+    function handleOpenDetail() {
+        setOpenDetail(true);
+    }
+    function handleCloseDetail() {
+        setOpenDetail(false);
+    }
+
     return (
         <>
             {appointment.length === 0 ? <div>No Ongoing Appointment</div> : null}
@@ -75,6 +106,8 @@ export default function AppointmentBlock({appointment}: {appointment: Appointmen
                                 </Grid>
                                 <Grid xs={12}>
                                     <div className="appointment-block__detail">
+
+
                                         <Link href={{
                                             pathname: '/appointment-detail',
                                             query: {appointmentId: appointment.id}
@@ -85,6 +118,25 @@ export default function AppointmentBlock({appointment}: {appointment: Appointmen
                                                 </div>
                                             </Button>
                                         </Link> 
+
+
+                                        <Button onClick={handleOpenDetail} variant='contained' sx={buttonBlack} size='small' className="appointment-block__detail__link__button">
+                                            <div className="appointment-block__detail__link__button__text">
+                                                <p>See details</p>
+                                            </div>
+                                        </Button>
+                                        <Modal
+                                            open={openDetail}
+                                            onClose={handleCloseDetail}
+                                            aria-labelledby="modal-modal-title"
+                                            aria-describedby="modal-modal-description"
+                                            disableEnforceFocus
+                                            sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'} }}
+                                        >
+                                            <Box sx={detailWindowStyle} className='appointment-block__detail__window'>
+                                                {/* <AppointmentDetail appointmentId={appointment.id}/> */}
+                                            </Box>
+                                        </Modal>
                                     </div>
                                 </Grid>
                             </Grid>
