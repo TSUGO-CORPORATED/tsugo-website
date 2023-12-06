@@ -43,21 +43,21 @@ const detailWindowStyle = {
 };
 
 export default function AppointmentBlock({appointment}: {appointment: AppointmentOverview[]}) {    
-    // STATE VARIABLES 
-    const [openDetail, setOpenDetail] = useState(false);
-
-    // HELPER FUNCTION
-    function handleOpenDetail() {
-        setOpenDetail(true);
-    }
-    function handleCloseDetail() {
-        setOpenDetail(false);
-    }
-
     return (
         <>
             {appointment.length === 0 ? <div>No Ongoing Appointment</div> : null}
             {appointment?.map((appointment, index) => {
+                // STATE VARIABLES 
+                const [openDetail, setOpenDetail] = useState(false);
+
+                // HELPER FUNCTION
+                function handleOpenDetail() {
+                    setOpenDetail(true);
+                }
+                function handleCloseDetail() {
+                    setOpenDetail(false);
+                }
+
                 // Process date
                 const tempDateTime = appointment.appointmentDateTime;
                 // console.log(tempDateTime)
@@ -130,11 +130,11 @@ export default function AppointmentBlock({appointment}: {appointment: Appointmen
                                             onClose={handleCloseDetail}
                                             aria-labelledby="modal-modal-title"
                                             aria-describedby="modal-modal-description"
-                                            disableEnforceFocus
+                                            // disableEnforceFocus
                                             sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'} }}
                                         >
                                             <Box sx={detailWindowStyle} className='appointment-block__detail__window'>
-                                                {/* <AppointmentDetail appointmentId={appointment.id}/> */}
+                                                <AppointmentDetail appointmentId={appointment.id}/>
                                             </Box>
                                         </Modal>
                                     </div>
