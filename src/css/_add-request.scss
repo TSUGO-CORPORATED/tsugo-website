@@ -17,6 +17,7 @@
     margin:auto;
     overflow: auto; 
   }
+
   .confirm_section_container{
     border-radius: 16px;
     flex-direction: column;
@@ -27,15 +28,15 @@
     overflow: auto; 
   }
   
-  // .add_request_title {
-  //   color: black;
-  //   font-size: 24px; 
+  .add_request_title {
+    color: black;
+    font-size: 24px; 
   
-  //   white-space: nowrap; 
-  //   margin-top: 20vh; 
-  //   margin-bottom: 10px;
-  //   order: -1;
-  // }
+    white-space: nowrap; 
+    margin-top: 20vh; 
+    margin-bottom: 10px;
+    order: -1;
+  }
   // .confirm_title {
   //   color: black;
   //   font-size: 24px;

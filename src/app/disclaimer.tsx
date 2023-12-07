@@ -2,8 +2,6 @@ import React from 'react';
 import { useTheme, useMediaQuery, IconButton, Typography } from '@mui/material';
 
 
-
-
 const Disclaimer: React.FC= ({ }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));

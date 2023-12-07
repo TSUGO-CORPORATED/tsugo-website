@@ -228,6 +228,7 @@ export default function CreateAppointment () {
     Others: ["Others"],
   };
 
+  
   //select box lists use State
   const [selectedMainCategory, setSelectedMainCategory] = useState("Business");
   const [selectedSubCategory, setSelectedSubCategory] = useState(
