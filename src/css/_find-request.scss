@@ -9,20 +9,20 @@
     // background-position: 40%;
 
     &__card {
-        @include pageCard();
+        @include pageCard(); 
 
         &__header {
             @include flexCenter(column);
             font-weight: bold;
             font-size: 36px;
-            // padding: 1em;
+            padding: 0px;
             height: 10%;
         }
 
         &__filter {
             height: 10%;
         }
-
+ 
         &__map-container {
             width: 90%;
             height: 50%;

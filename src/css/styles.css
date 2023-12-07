@@ -456,15 +456,14 @@
   align-items: center;
   flex-direction: column;
   height: 100vh;
-  padding-top: 8vh;
   width: 100%;
 }
 .find-request__card {
   background-color: #fffffa;
   border-radius: 10px;
   justify-content: flex-start;
-  width: 75%;
-  height: 75%;
+  /* width: 75%; */
+  
   display: flex;
   justify-content: center;
   align-items: center;
