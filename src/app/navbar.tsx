@@ -35,7 +35,7 @@ export default function Navbar() {
 
 
     const { userUid, userPhotoUrl, userFirstName, setUserId, setUserUid, setUserFirstName, setUserLastName } = useContext(ContextVariables);
-    console.log(userPhotoUrl)
+    // console.log(userPhotoUrl)
     const avatarOpen = Boolean(anchorEl);
     const router = useRouter();
 

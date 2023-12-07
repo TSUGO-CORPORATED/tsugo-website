@@ -1,11 +1,12 @@
 .find-request {
-    @include flexCenter(column);
-    height: 100vh;
-    width: 100vw;
+    @include background();
+    // @include flexCenter(column);
+    // height: 100vh;
+    // width: 100vw;
     // background-image: url(../../public/tokyo.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 40%;
+    // background-size: cover;
+    // background-repeat: no-repeat;
+    // background-position: 40%;
 
     &__card {
         @include pageCard();

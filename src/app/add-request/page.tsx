@@ -5,7 +5,7 @@ import CheckAuth from '../auth/check-auth';
 
 // PAGE NAME
 export const metadata: Metadata = {
-    title: 'add-request',
+    title: 'Tsugo',
 }
 
 // PAGE COMPONENT

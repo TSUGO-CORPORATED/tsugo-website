@@ -1,9 +1,10 @@
 .delete-account{
-    @include flexCenter(column);
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
-    padding-top: 64px;
+    @include background();
+    // @include flexCenter(column);
+    // align-items: center;
+    // height: 100vh;
+    // width: 100vw;
+    // padding-top: 64px;
 
     &__container {
         width: 100%;
