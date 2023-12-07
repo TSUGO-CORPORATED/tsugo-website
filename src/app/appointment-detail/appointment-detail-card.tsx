@@ -219,25 +219,6 @@ export default function AppointmentDetailCard(): JSX.Element {
                             {/* change status button */}
                             {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId !== userId && (
                                 <>            
-                                <div className="appointment_detail_check_box">
-                                <label className="appointment_detail_check_label">
-                                  <input
-                                    type="checkbox"
-                                    checked={isAgreed}
-                                    onChange={(e) => setIsAgreed(e.target.checked)}
-                                    required
-                                    className="add_request_checkbox"
-                                  />
-                                    <span className="appointment_detail_agree">
-                                       I agree to the <span onClick={handleOpenModal} className="appointment_detail_disclaimer-link">Disclaimer</span><br></br>
-                                       Our site prohibits any financial transactions through its platform and<br></br>
-                                      accepts no liability for any issues arising from interpretation services.
-                                    </span>
-                                </ label>
-                              </div>
-                              {showModal && (
-                                <Disclaimer handleCloseModal={handleCloseModal} />
-                                    )}
                                     <button onClick={() => handleStatusChange("Accepted")} className='accept_button'>Accept</button>
                                 </>
                             )}
