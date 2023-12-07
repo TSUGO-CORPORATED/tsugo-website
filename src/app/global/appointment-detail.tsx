@@ -37,7 +37,7 @@ const detailModalStyle = {
 };
 
 // PAGE COMPONENT
-export default function AppointmentDetail({appointmentId, openDetailModal, closeDetailModal, refresh, load}: {appointmentId: number, openDetailModal: boolean, closeDetailModal: any, refresh: Function, load: boolean}): JSX.Element {
+export default function AppointmentDetail({appointmentId, openDetailModal, closeDetailModal, refresh, load}: {appointmentId: number, openDetailModal: boolean, closeDetailModal: any, refresh?: Function, load: boolean}): JSX.Element {
     // TYPESCRIPT DATA TYPES
     interface AppointmentDetail {
         id: number;
@@ -131,7 +131,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                 setShowAcceptModal(false);
                 setShowCancelModal(false);
                 closeDetailModal();
-                refresh();
+                if(refresh) refresh();
             } else {
                 router.push('/dashboard');
             }

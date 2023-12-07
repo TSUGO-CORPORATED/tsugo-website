@@ -25,7 +25,7 @@ interface AppointmentOverview {
     appointmentDateTime: Date;
 }
 
-export default function AppointmentBlock({appointment, refresh}: {appointment: AppointmentOverview[], refresh: Function}) {    
+export default function AppointmentBlock({appointment, refresh}: {appointment: AppointmentOverview[], refresh?: Function}) {    
     return (
         <>
             {appointment.length === 0 ? <div>No Ongoing Appointment</div> : null}
