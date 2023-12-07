@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import format from 'date-fns/format';
 import Disclaimer from '../disclaimer';
 import { colorOffDark, colorOffLight, colorOffMid, buttonOffDark, buttonOffLight, buttonOffMid, buttonBlack, buttonWhite, buttonRed } from '@/muistyle';
+import { usePathname } from 'next/navigation';
 
 // MUI IMPORT
 import CloseIcon from '@mui/icons-material/Close';
@@ -22,7 +23,7 @@ import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 
 // MODAL
-const detailWindowStyle = {
+const detailModalStyle = {
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
@@ -36,7 +37,7 @@ const detailWindowStyle = {
 };
 
 // PAGE COMPONENT
-export default function AppointmentDetail({appointmentId, openWindow, closeWindow}: {appointmentId: number, openWindow: boolean, closeWindow: any}): JSX.Element {
+export default function AppointmentDetail({appointmentId, openDetailModal, closeDetailModal, refresh, load}: {appointmentId: number, openDetailModal: boolean, closeDetailModal: any, refresh: Function, load: boolean}): JSX.Element {
     // TYPESCRIPT DATA TYPES
     interface AppointmentDetail {
         id: number;
@@ -73,11 +74,15 @@ export default function AppointmentDetail({appointmentId, openWindow, closeWindo
 
     // STATE VARIABLES
     const [appointmentDetail, setAppointmentDetail] = useState<AppointmentDetail>();
-    const [isAgreed, setIsAgreed] = useState(false);
-    const [showDisclaimerModal, setShowDisclaimerModal] = useState(false);
-    const [showAcceptModal, setShowAcceptModal] = useState(false);
-    const [showCancelModal, setShowCancelModal] = useState(false);
+    const [isAgreed, setIsAgreed] = useState<boolean>(false);
+    const [showDisclaimerModal, setShowDisclaimerModal] = useState<boolean>(false);
+    const [showAcceptModal, setShowAcceptModal] = useState<boolean>(false);
+    const [showCancelModal, setShowCancelModal] = useState<boolean>(false);
+    const [showCompleteModal, setShowCompleteModal] = useState<boolean>(false);
+    
     const router = useRouter();
+    const pathname = usePathname();
+    // console.log(pathname);
 
     // CONTEXT VARIABLES
     const { userId } = useContext(ContextVariables);
@@ -116,11 +121,20 @@ export default function AppointmentDetail({appointmentId, openWindow, closeWindo
                 return;
             } 
 
+            // Updating backend
             await axios.patch(url);
-            alert(`Appointment ${newStatus} successfully!`);
+            // alert(`Appointment ${newStatus} successfully!`);
 
-            // Redirect to homepage
-            router.push('/dashboard');
+            // Refresh or redirect to dashboard
+            if (pathname === '/dashboard') {
+                // router.replace('/dashboard');
+                setShowAcceptModal(false);
+                setShowCancelModal(false);
+                closeDetailModal();
+                refresh();
+            } else {
+                router.push('/dashboard');
+            }
             
         } catch (error) {
           console.error(`Error updating appointment status: `, error);
@@ -144,6 +158,14 @@ export default function AppointmentDetail({appointmentId, openWindow, closeWindo
         setShowCancelModal(false);
     }
 
+    // Handle complete modal
+    function handleOpenCompleteModal () {
+        setShowCompleteModal(true);
+    }
+    function handleCloseCompleteModal () {
+        setShowCompleteModal(false);
+    }
+
     // Handle agreement modal
     const handleOpenDisclaimerModal = () => {
         setShowDisclaimerModal(true);
@@ -154,9 +176,10 @@ export default function AppointmentDetail({appointmentId, openWindow, closeWindo
     };
     
     // Initial Use effect
+    // Only load modal only if the modal is clicked
     useEffect(() => {
-        getAppointmentDetail();
-    }, []);
+        if(load) getAppointmentDetail();
+    }, [load]);
 
     // Process date
     const tempDateTime = appointmentDetail?.appointmentDateTime;
@@ -164,16 +187,16 @@ export default function AppointmentDetail({appointmentId, openWindow, closeWindo
     
     return (
         <Modal
-            open={openWindow}
-            onClose={closeWindow}
+            open={openDetailModal}
+            onClose={closeDetailModal}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             // sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'} }}
         >
-            <Box sx={detailWindowStyle} className='appointment-detail'>
+            <Box sx={detailModalStyle} className='appointment-detail'>
                 <div className='appointment-detail__header'>
                     <p className='appointment-detail__header__title'>Appointment Detail</p>              
-                    <Button onClick={closeWindow} sx={{color: 'black', minWidth: '0'}} variant='text' className="appointment-detail__header__link-button">
+                    <Button onClick={closeDetailModal} sx={{color: 'black', minWidth: '0'}} variant='text' className="appointment-detail__header__link-button">
                         <CloseIcon />
                     </Button>
                 </div>
@@ -194,7 +217,77 @@ export default function AppointmentDetail({appointmentId, openWindow, closeWindo
                             </div>
                         </div>
                         <div className='appointment-detail__content__primary__buttons'>
-                            {/* change status button */}
+                            {/* Modal confirmation */}
+                            <Modal
+                                open={showAcceptModal}
+                                onClose={handleCloseAcceptModal}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                                // sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'} }}
+                            >
+                                {showDisclaimerModal ? (
+                                    <Box sx={detailModalStyle} className='appointment-detail__disclaimer-modal'>
+                                        <Disclaimer handleCloseModal={handleCloseDisclaimerModal}/>
+                                    </Box>
+                                ) : (
+                                    <Box sx={detailModalStyle} className='appointment-detail__accept-modal'>
+                                        <div className='appointment-detail__accept-modal__title'>Confirm Accept Appointment</div>
+                                        <div className='appointment-detail__accept-modal__agreement'>
+                                            <div className='appointment-detail__accept-modal__agreement__check'>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={isAgreed}
+                                                    onChange={(e) => setIsAgreed(e.target.checked)}
+                                                    required
+                                                    className="add_request_checkbox"
+                                                />
+                                                <p className='appointment-detail__accept-modal__agreement__check__text'>
+                                                    I agree to the <span onClick={handleOpenDisclaimerModal} className="appointment-detail__accept-modal__agreement__check__link">disclaimer</span>
+                                                </p>
+                                            </div>
+                                            <div className='appointment-detail__accept-modal__agreement__note'>
+                                                Note: our site prohibits any financial transactions through its platform and accepts no liability for any issues arising from interpretation services.
+                                            </div>
+                                        </div>
+                                        <div className='appointment-detail__accept-modal__button'>
+                                            <Button variant='outlined' onClick={handleCloseAcceptModal} sx={buttonWhite}>Cancel</Button>
+                                            <Button variant='contained' onClick={() => handleStatusChange("Accepted")} sx={buttonBlack}>Confirm</Button>
+                                        </div>
+                                    </Box>
+                                )}
+                            </Modal>
+                            <Modal
+                                open={showCancelModal}
+                                onClose={handleCloseCancelModal}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                                // sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'} }}
+                            >
+                                <Box sx={detailModalStyle} className='appointment-detail__cancel-modal'>
+                                    <div className='appointment-detail__cancel-modal__title'>Confirm Cancel Appointment</div>
+                                    <div className='appointment-detail__cancel-modal__button'>
+                                        <Button variant='outlined' onClick={handleCloseCancelModal} sx={buttonWhite}>Cancel</Button>
+                                        <Button variant='contained' onClick={() => handleStatusChange("Cancelled")} sx={buttonRed}>Confirm</Button>
+                                    </div>
+                                </Box>
+                            </Modal>
+                            <Modal
+                                open={showCompleteModal}
+                                onClose={handleCloseCompleteModal}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                                // sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'} }}
+                            >
+                                <Box sx={detailModalStyle} className='appointment-detail__complete-modal'>
+                                    <div className='appointment-detail__complete-modal__title'>Confirm Complete Appointment</div>
+                                    <div className='appointment-detail__complete-modal__button'>
+                                        <Button variant='outlined' onClick={handleCloseCompleteModal} sx={buttonWhite}>Cancel</Button>
+                                        <Button variant='contained' onClick={() => handleStatusChange("Completed")} sx={buttonOffMid}>Confirm</Button>
+                                    </div>
+                                </Box>
+                            </Modal>
+
+                            {/* Change status button */}
                             {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId !== userId && (
                                 <>            
                                     {/* <div className="appointment-detail__content_check_box">
@@ -219,44 +312,6 @@ export default function AppointmentDetail({appointmentId, openWindow, closeWindo
                                     <Button onClick={handleOpenAcceptModal} sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
                                         Accept appointment
                                     </Button>
-                                    <Modal
-                                        open={showAcceptModal}
-                                        onClose={handleCloseAcceptModal}
-                                        aria-labelledby="modal-modal-title"
-                                        aria-describedby="modal-modal-description"
-                                        // sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'} }}
-                                    >
-                                        {showDisclaimerModal ? (
-                                            <Box sx={detailWindowStyle} className='appointment-detail__disclaimer-modal'>
-                                                <Disclaimer handleCloseModal={handleCloseDisclaimerModal}/>
-                                            </Box>
-                                        ) : (
-                                            <Box sx={detailWindowStyle} className='appointment-detail__accept-modal'>
-                                                <div className='appointment-detail__accept-modal__title'>Confirm Accept Appointment</div>
-                                                <div className='appointment-detail__accept-modal__agreement'>
-                                                    <div className='appointment-detail__accept-modal__agreement__check'>
-                                                        <input
-                                                            type="checkbox"
-                                                            checked={isAgreed}
-                                                            onChange={(e) => setIsAgreed(e.target.checked)}
-                                                            required
-                                                            className="add_request_checkbox"
-                                                        />
-                                                        <p className='appointment-detail__accept-modal__agreement__check__text'>
-                                                            I agree to the <span onClick={handleOpenDisclaimerModal} className="appointment-detail__accept-modal__agreement__check__link">disclaimer</span>
-                                                        </p>
-                                                    </div>
-                                                    <div className='appointment-detail__accept-modal__agreement__note'>
-                                                        Note: our site prohibits any financial transactions through its platform and accepts no liability for any issues arising from interpretation services.
-                                                    </div>
-                                                </div>
-                                                <div className='appointment-detail__accept-modal__button'>
-                                                    <Button variant='outlined' onClick={handleCloseAcceptModal} sx={buttonWhite}>Cancel</Button>
-                                                    <Button variant='contained' onClick={() => handleStatusChange("Accepted")} sx={buttonBlack}>Confirm</Button>
-                                                </div>
-                                            </Box>
-                                        )}
-                                    </Modal>
                                 </>
                             )}
                             {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId === userId && (
@@ -273,28 +328,13 @@ export default function AppointmentDetail({appointmentId, openWindow, closeWindo
                                     <Button onClick={handleOpenCancelModal} sx={buttonRed} variant='contained' size='small' className='appointment-detail__content__button'>
                                         Cancel appointment
                                     </Button>
-                                    <Modal
-                                        open={showCancelModal}
-                                        onClose={handleCloseCancelModal}
-                                        aria-labelledby="modal-modal-title"
-                                        aria-describedby="modal-modal-description"
-                                        // sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'} }}
-                                    >
-                                        <Box sx={detailWindowStyle} className='appointment-detail__cancel-modal'>
-                                            <div className='appointment-detail__cancel-modal__title'>Confirm Cancel Appointment</div>
-                                            <div className='appointment-detail__cancel-modal__button'>
-                                                <Button variant='outlined' onClick={handleCloseCancelModal} sx={buttonWhite}>Cancel</Button>
-                                                <Button variant='contained' onClick={() => handleStatusChange("Cancelled")} sx={buttonRed}>Confirm</Button>
-                                            </div>
-                                        </Box>
-                                    </Modal>
                                 </>
                             )}
                             {appointmentDetail?.status === "Accepted" && (
                                 <>
                                     {appointmentDetail.clientUserId === userId && (
                                         <>
-                                            <Button onClick={() => handleStatusChange("Completed")} sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
+                                            <Button onClick={handleOpenCompleteModal} sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
                                                 Complete appointment
                                             </Button>
                                         </>
@@ -317,9 +357,9 @@ export default function AppointmentDetail({appointmentId, openWindow, closeWindo
                                     </Link>
                                     {appointmentDetail?.status === "Accepted" && appointmentDetail.clientUserId === userId && (
                                         <>
-                                            <Button onClick={() => handleStatusChange("Completed")} sx={buttonRed} variant='contained' size='small' className='appointment-detail__content__button'>
-                                                Cancel Apppointment
-                                            </Button>
+                                         <Button onClick={handleOpenCancelModal} sx={buttonRed} variant='contained' size='small' className='appointment-detail__content__button'>
+                                            Cancel appointment
+                                        </Button>
                                         </>
                                     )}
                                 </>

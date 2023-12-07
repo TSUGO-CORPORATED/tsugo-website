@@ -25,20 +25,22 @@ interface AppointmentOverview {
     appointmentDateTime: Date;
 }
 
-export default function AppointmentBlock({appointment}: {appointment: AppointmentOverview[]}) {    
+export default function AppointmentBlock({appointment, refresh}: {appointment: AppointmentOverview[], refresh: Function}) {    
     return (
         <>
             {appointment.length === 0 ? <div>No Ongoing Appointment</div> : null}
             {appointment?.map((appointment, index) => {
                 // STATE VARIABLES 
-                const [openDetail, setOpenDetail] = useState(false);
+                const [openDetailModal, setOpenDetailModal] = useState<boolean>(false);
+                const [loadModal, setLoadModal] = useState<boolean>(false);
 
                 // HELPER FUNCTION
-                function handleOpenDetail() {
-                    setOpenDetail(true);
+                function handleOpenDetailModal() {
+                    setOpenDetailModal(true);
+                    setLoadModal(true);
                 }
-                function handleCloseDetail() {
-                    setOpenDetail(false);
+                function handleCloseDetailModal() {
+                    setOpenDetailModal(false);
                 }
 
                 // Process date
@@ -88,10 +90,10 @@ export default function AppointmentBlock({appointment}: {appointment: Appointmen
                             </Grid>
                             <Grid xs={12}>
                                 <div className="appointment-block__detail">
-                                    <Button onClick={handleOpenDetail} variant='contained' sx={buttonBlack} size='small' className="appointment-block__detail__button">
+                                    <Button onClick={handleOpenDetailModal} variant='contained' sx={buttonBlack} size='small' className="appointment-block__detail__button">
                                         <div className="appointment-block__detail__button__text">See details</div>
                                     </Button>
-                                    <AppointmentDetail appointmentId={appointment.id} openWindow={openDetail} closeWindow={handleCloseDetail}/>
+                                    <AppointmentDetail appointmentId={appointment.id} openDetailModal={openDetailModal} closeDetailModal={handleCloseDetailModal} refresh={refresh} load={loadModal}/>
                                 </div>
                             </Grid>
                         </Grid>
