@@ -546,7 +546,7 @@ export default function CreateAppointment () {
             )}
             <Box
               sx={{
-                maxHeight: "200px",
+                maxHeight: "150px",
                 overflowY: "auto",
                 mt: 2,
                 p: 2,
