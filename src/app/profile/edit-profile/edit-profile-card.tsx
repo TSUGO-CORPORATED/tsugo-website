@@ -82,12 +82,12 @@ export default function EditProfile() {
             firstName: firstNameUpdate, 
             lastName: lastNameUpdate,
             about: aboutUpdate,
-            // languages: [{
-            //     id: 3,
-            //     language: languageUpdate,
-            //     proficiency: proficiencyUpdate,
-            //     certifications: certificationUpdate,
-            // }]
+            languages: [{
+                id: 3,
+                language: "",//languageUpdate,
+                proficiency: "",//proficiencyUpdate,
+                certifications: "",//certificationUpdate,
+            }]
         };
         console.log(updateProfileData)
         const returnedData = await axios.put(url, updateProfileData).catch(error => {

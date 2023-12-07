@@ -5,6 +5,7 @@ import axios from "axios";
 import { ContextVariables } from "../../context-variables";
 import { useSearchParams } from 'next/navigation';
 import AppointmentBlock from '../global/appointment-block';
+import { Button, TextField, Paper } from "@mui/material";
 
 //TYPESCRIPT THING
 type Appointment = {
@@ -84,42 +85,52 @@ export default function HistoryCard() {
   };
 
   return (
-    <div className='history__card'>
+    <Paper className='history__card'>
       <div className='history__card__header'>History</div>
-      <div className='history__card__filter'>
-        <input
-          type="text"
-          placeholder="Search..."
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button
-          className="history__ongoing__button"
-          onClick={() => handleStatusFilter("Accepted")}
-        >
-          Accepted
-        </button>
-        <button
-          className="history__cancelled__button"
-          onClick={() => handleStatusFilter("Cancelled")}
-        >
-          Cancelled
-        </button>
-        <button
-          className="history__completed__button"
-          onClick={() => handleStatusFilter("Completed")}
-        >
-          Completed
-        </button>
-        <button
-          className="history__reset__button"
-          onClick={() => handleStatusFilter("")}
-        >
-          Clear
-        </button>
-      </div>
+      <Paper className='history__card__filter'>
+        <div className="history__card__button-container">
+          <Button
+            variant="outlined"
+            className="history__ongoing__button"
+            onClick={() => handleStatusFilter("Accepted")}
+          >
+            Accepted
+          </Button>
+          <Button
+            variant="outlined"
+            className="history__cancelled__button"
+            onClick={() => handleStatusFilter("Cancelled")}
+          >
+            Cancelled
+          </Button>
+          <Button
+            variant="outlined"
+            className="history__completed__button"
+            onClick={() => handleStatusFilter("Completed")}
+          >
+            Completed
+          </Button>
+          <Button
+            variant="outlined"
+            className="history__reset__button"
+            onClick={() => handleStatusFilter("")}
+          >
+            Clear
+          </Button>
+        </div>
+        <div className="history__search-bar-container">
+          <TextField
+            variant="outlined"
+            className="history__search-bar"
+            type="text"
+            placeholder="Search..."
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+      </Paper>
       <div className='history__card__appointment-container'>
         <AppointmentBlock appointment={filteredHistory}/>
       </div>
-    </div>
+    </Paper>
   );
 }

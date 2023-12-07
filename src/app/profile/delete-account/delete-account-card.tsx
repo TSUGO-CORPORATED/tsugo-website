@@ -74,7 +74,7 @@ export default function DeleteAccountCard(): JSX.Element {
                 </div>
                 <p className="delete-account__message">Confirm your password to delete your account.</p>
                 <div className="delete-account__button_box">
-                    <Button variant="contained" type="submit" className='delete-account__submit_button'>Confirm delete account</Button>
+                    <Button variant="outlined" type="submit" className='delete-account__submit_button'>Confirm delete account</Button>
                 </div>
             </form>
 
