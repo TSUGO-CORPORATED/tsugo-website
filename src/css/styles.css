@@ -361,7 +361,7 @@
   height: 80%;
   width: 80%;
   align-items: center;
-  margin: 12px;
+  margin: 6px;
 }
 .profile-container__label {
   height: 16px;
@@ -384,7 +384,7 @@
   height: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
 }
@@ -656,23 +656,23 @@
   margin-top: 6px;
 }
 .edit-profile-container__label {
-  height: 20%;
+  height: 7%;
   width: 90%;
   align-self: center;
   margin-left: 110px;
-  margin-right: 30px;
+  margin-right: 70px;
   color: gray;
   font-size: 12px;
+  margin-top: 6px;
 }
 .edit-profile-container__input {
   width: 80%;
-  margin: 12px;
 }
 .edit-profile-container__button {
   margin: 6px;
 }
 .edit-profile-container__profile-link {
-  margin: 6px;
+  margin: 12px;
 }
 
 @media (min-width: 700px) {
@@ -835,6 +835,9 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background-color: white;
 }
 .history__card__header {
   display: flex;
@@ -844,9 +847,20 @@
   font-weight: bold;
   font-size: 36px;
   height: 10%;
+  width: 95%;
+}
+.history__card__button-container {
+  height: 50%;
+  width: 98%;
+  align-self: center;
 }
 .history__card__filter {
-  height: 10%;
+  height: 20%;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  margin: 1em;
 }
 .history__card__appointment-container {
   display: flex;
@@ -854,10 +868,40 @@
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
-  width: 100%;
-  height: 80%;
-  overflow-y: auto;
+  width: 95%;
+  height: 70%;
+  overflow-y: scroll;
+  margin: 6px;
 }
+.history__search-bar-container {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.history__search-bar {
+  width: 100%;
+  justify-content: center;
+  margin: 6px;
+}
+.history__ongoing__button {
+  width: 25%;
+  height: 100%;
+}
+.history__cancelled__button {
+  width: 25%;
+  height: 100%;
+}
+.history__completed__button {
+  width: 25%;
+  height: 100%;
+}
+.history__reset__button {
+  width: 25%;
+  height: 100%;
+}
+
 
 .appointment-detail {
   width: 350px;
