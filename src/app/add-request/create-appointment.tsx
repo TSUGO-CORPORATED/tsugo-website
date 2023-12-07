@@ -22,7 +22,6 @@ import { AlertColor } from '@mui/material';
 import { colorOffDark, colorOffLight, colorOffMid, buttonOffDark, buttonOffLight, buttonOffMid, buttonBlack, buttonWhite } from '@/muistyle';
 
 
-
 type Coordinates = { lat: number; lng: number; } | null;
 type StatusFilter = "Requesting" | "Accepted" | "Cancelled" | "Completed" | "";
 type MainCategoriesType = {
@@ -66,7 +65,7 @@ export default function CreateAppointment () {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState<AlertColor>("success");
-
+  const [formErrors, setFormErrors] = useState({appointmentTitle: "", location: "", isAgreed: "" });
   //use Effect on appointment change => clears the location input
   useEffect(() => {
     setLocation("");
@@ -75,57 +74,6 @@ export default function CreateAppointment () {
   //   //this is my apikey for temporary but its not working !!
   const apiKey = "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM";
 
-  // const fetchCoordinates = async (location: string) => {
-  //   return new Promise<void>(async (resolve, reject) => {
-  //     try {
-  //       const response = await axios.get(
-  //         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-  //           location
-  //         )}&key=${apiKey}`
-  //       );
-  //       if (response.data.results.length === 0) {
-  //         setError("No results found for the given location.");
-  //         console.error("No results found:", response.data);
-  //         return;
-  //       }
-
-  //       const { lat, lng } = response.data.results[0].geometry.location;
-  //       console.log({ lat, lng });
-  //       setError("");
-  //       setLocationCoordinates({ lat, lng });
-  //       resolve();
-  //     } catch (error) {
-  //       console.error("Error fetching coordinates: ", error);
-  //       setError("Error fetching coordinates.");
-  //       reject(error);
-  //     }
-  //   });
-  // };
-
-  //helper Function to get the Adress from lat,lng
-  // const fetchAddress = async () => {
-  //   if (!locationCoordinates) return;
-
-  //   const { lat, lng } = locationCoordinates;
-  //   try {
-  //     const response = await axios.get(
-  //       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`
-  //     );
-
-  //     if (response.data.results.length === 0) {
-  //       setError("No address found for the given coordinates.");
-  //       console.error("No address found:", response.data);
-  //       return;
-  //     }
-
-  //     const fetchedAddress = response.data.results[0].formatted_address;
-  //     console.log(fetchedAddress);
-  //     setAddress(fetchedAddress);
-  //   } catch (error) {
-  //     console.error("Error fetching address: ", error);
-  //     setError("Error fetching address.");
-  //   }
-  // };
 
   //helper Func combining 2 location search func
   const handleError = (errorMessage: string) => {
@@ -170,15 +118,7 @@ export default function CreateAppointment () {
     }
   };
 
-  //felper Func for recognizable Date
-  // const formattedDateTime = new Date(dateTime).toLocaleString('en-US', {
-  //   month: '2-digit',
-  //   day: '2-digit',
-  //   year: 'numeric',
-  //   hour: '2-digit',
-  //   minute: '2-digit',
-  //   hour12: true
-  // });
+
 
   //select box lists
   const languages = [
@@ -316,9 +256,27 @@ export default function CreateAppointment () {
   //Submit Func =>swithcing to Confirm
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    setFormErrors({ appointmentTitle: "", location: "", isAgreed: "" });
     setError("");
+    let hasErrors = false;
+
+    // 
+    if (!appointmentTitle) {
+      setFormErrors(prev => ({ ...prev, appointmentTitle: "Please enter Title" }));
+      hasErrors = true;
+    }
+
+    if (appointmentType === "inPerson" && !location) {
+      setFormErrors(prev => ({ ...prev, location: "Please set Location" }));
+      hasErrors = true;
+    }
+
     if (!isAgreed) {
-      alert("Please agree to the disclaimer before requesting.");
+      setFormErrors(prev => ({ ...prev, isAgreed: "Please agree to the Terms and Conditions" }));
+      hasErrors = true;
+    }
+
+    if (hasErrors) {
       return;
     }
     setIsConfirmed(true);
@@ -360,20 +318,6 @@ export default function CreateAppointment () {
     }
   };
 
-  //handler for Disclaimer box
-  const handleOpenModal = () => {
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-  const handleChange = (newDateTime: Dayjs | null) => {
-    if (newDateTime) {
-      setDateTime(newDateTime);
-    }
-  };
-  const CustomTextField = (props: any) => <TextField {...props} fullWidth />;
 
   //HTML
   return (
@@ -381,17 +325,17 @@ export default function CreateAppointment () {
       <Paper
         elevation={3}
         sx={{
-          padding: 5,
+          padding: { xs: 1, md: 5 },
           maxWidth: "99%",
-          margin: "5px,auto",
-          marginBottom:"10px",
+          margin: { xs: "5px", md: "20px" },
+          marginBottom: "15px",
           borderRadius: "16px",
           justifyContent: "center",
-          marginTop:  { xs:'100px', md: "15%" },
+          marginTop: { xs: '100px', md: "10%" },
           boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.2)",
         }}
       >
-        <Typography variant="h3" sx={{ textAlign: "center", mb: 2 ,fontWeight: "bold",fontSize: { xs: '1rem', md: '1.5rem' }}}>
+        <Typography variant="h3" sx={{ textAlign: "center", mb: 2, fontWeight: "bold", fontSize: { xs: '1rem', md: '1.5rem' } }}>
           Make an Appointment
         </Typography>
         <Box
@@ -403,6 +347,8 @@ export default function CreateAppointment () {
             required
             fullWidth
             onChange={(e) => setAppointmentTitle(e.target.value)}
+            error={!!formErrors.appointmentTitle}
+            helperText={formErrors.appointmentTitle}
           />
           <FormControl fullWidth variant="outlined">
             <InputLabel shrink>Main Category</InputLabel>
@@ -496,6 +442,8 @@ export default function CreateAppointment () {
                 type="text"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
+                error={!!formErrors.location}
+                helperText={formErrors.location}
                 placeholder="Enter Address or Location (e.g. Tokyo Station)"
                 fullWidth
                 required
@@ -503,7 +451,7 @@ export default function CreateAppointment () {
               <Button
                 variant="outlined"
                 onClick={handleLocationSearch}
-                sx={ buttonBlack }>
+                sx={buttonBlack}>
                 Confirm Location
               </Button>
               <Snackbar
@@ -585,14 +533,16 @@ export default function CreateAppointment () {
                 />
               }
               label={
-                <Typography sx={{ color: "red", fontWeight: "bold" }}>
-                  I agree to the{" "}
-                  <MuiLink
-                    onClick={handleOpenModal}
-                    style={{ cursor: "pointer", textDecoration: "underline" }}
-                  >
-                    Disclaimer
-                  </MuiLink>
+                <Typography sx={{
+                  color: "red",
+                  fontWeight: "bold",
+                  fontSize: {
+                    xs: '10px',
+                    md: '18px'
+                  }
+                }}>
+                  I agree to the Terms and Conditions
+
                   <br />
                   Our site prohibits any financial transactions through its
                   platform and accepts no liability for any issues arising from
@@ -600,29 +550,22 @@ export default function CreateAppointment () {
                 </Typography>
               }
             />
-            <Modal
-              open={showModal}
-              onClose={handleCloseModal}
-              aria-labelledby="disclaimer-modal-title"
-              aria-describedby="disclaimer-modal-description"
+            {formErrors.isAgreed && (
+              <Typography color="error" variant="caption" sx={{ display: 'block' }}>
+                {formErrors.isAgreed}
+              </Typography>
+            )}
+            <Box
+              sx={{
+                maxHeight: "200px",
+                overflowY: "auto",
+                mt: 2,
+                p: 2,
+                border: "1px solid #ccc",
+              }}
             >
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  maxHeight: "80vh",
-                  transform: "translate(-50%, -50%)",
-                  width: "50%",
-                  bgcolor: "background.paper",
-                  boxShadow: 24,
-                  p: 4,
-                  overflow: "auto",
-                }}
-              >
-                <Disclaimer handleCloseModal={handleCloseModal} />
-              </Box>
-            </Modal>
+              <Disclaimer />
+            </Box>
           </Box>
 
           <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
@@ -675,11 +618,11 @@ export default function CreateAppointment () {
               Appointment Confirmation
             </Typography>
             <Typography variant="body1">
-                Titile:{" "}
-                <strong>
-                  {appointmentTitle}
-                </strong>
-              </Typography>
+              Titile:{" "}
+              <strong>
+                {appointmentTitle}
+              </strong>
+            </Typography>
             <Box sx={{ marginBottom: 2 }}>
               <Typography variant="body1">
                 Category:{" "}

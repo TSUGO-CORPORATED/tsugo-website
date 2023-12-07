@@ -2,25 +2,21 @@ import React from 'react';
 import { useTheme, useMediaQuery, IconButton, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-interface DisclaimerProps {
-  handleCloseModal: () => void;
-}
 
-const Disclaimer: React.FC<DisclaimerProps> = ({ handleCloseModal }) => {
+
+const Disclaimer: React.FC= ({ }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   
   return (
     <div>
-      <div className="modal" style={{ width: isMobile ? '100%' : '80%', maxWidth: '1000px', margin: '0' }}>
+      <div className="modal" style={{ width:'100%',  margin: '0' }}>
         <div className="modal-content" style={{ padding: '1px' }}>
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <IconButton onClick={handleCloseModal} style={{ fontSize: '30px' }}>
-              <CloseIcon />
-            </IconButton>
+
           </div>
           <Typography sx = {{ fontSize: isMobile ? '0.5rem' : '1rem'}}>
-          <h2>Disclaimer</h2>
+          <h2>Terms and Conditions Agreements</h2>
 
           <h3>1. Scope of Service</h3>
           <p>
