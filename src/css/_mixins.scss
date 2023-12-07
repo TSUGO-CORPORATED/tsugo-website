@@ -8,7 +8,7 @@
 @mixin background() {
   @include flexCenter(column);
   // justify-content: flex-start;
-  height: 92vh;
+  height: 100vh;
   // background-color: $color-light-grey;
   padding-top: 8vh;
   width: 100%;

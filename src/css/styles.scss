@@ -7,7 +7,6 @@
 @import './_log-in';
 @import './_sign-up';
 @import './_dashboard';
-@import './_profile';
 @import './_profile-components';
 @import './_add-request';
 @import './_find-request';
@@ -15,11 +14,11 @@
 @import './_chat-room';
 @import './_appointment-block';
 @import './_history';
-@import './_appointment-detail-card';
 @import './_appointment-detail';
 @import './_home';
 @import './update-password';
 @import './delete-account';
+@import './update-appointment';
 
 //CSS Global Component
 @import './_navbar';

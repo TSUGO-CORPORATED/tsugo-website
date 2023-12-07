@@ -1,9 +1,10 @@
 .edit-profile {
-    @include flexCenter(column);
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-    padding-top: 64px;
+    @include background();
+    // @include flexCenter(column);
+    // align-items: center;
+    // width: 100vw;
+    // height: 100vh;
+    // padding-top: 64px;
 }
 .edit-profile-container {
     @include flexCenter(column);
