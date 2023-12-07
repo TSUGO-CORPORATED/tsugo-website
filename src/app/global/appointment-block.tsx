@@ -62,7 +62,7 @@ export default function AppointmentBlock({appointment}: {appointment: Appointmen
                 const tempDateTime = appointment.appointmentDateTime;
                 // console.log(tempDateTime)
                 const dateObject = new Date(tempDateTime)
-                const convertedDateTime = tempDateTime ?format(dateObject, "EEE, dd MMM yy") : null;
+                const convertedDateTime = tempDateTime ? format(dateObject, "EEE, dd MMM yy") : null;
 
                 return (
                     <div key={index} className='appointment-block'>
@@ -134,7 +134,7 @@ export default function AppointmentBlock({appointment}: {appointment: Appointmen
                                             sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'} }}
                                         >
                                             <Box sx={detailWindowStyle} className='appointment-block__detail__window'>
-                                                <AppointmentDetail appointmentId={appointment.id}/>
+                                                <AppointmentDetail appointmentId={appointment.id} closeWindow={handleCloseDetail}/>
                                             </Box>
                                         </Modal>
                                     </div>

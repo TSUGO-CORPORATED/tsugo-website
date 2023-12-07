@@ -8,12 +8,15 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import format from 'date-fns/format';
 import Disclaimer from '../disclaimer';
+import { colorOffDark, colorOffLight, colorOffMid, buttonOffDark, buttonOffLight, buttonOffMid, buttonBlack, buttonWhite, buttonRed } from '@/muistyle';
 
 // MUI IMPORT
 import CloseIcon from '@mui/icons-material/Close';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
 
 // PAGE COMPONENT
-export default function AppointmentDetail({appointmentId}: {appointmentId: number}): JSX.Element {
+export default function AppointmentDetail({appointmentId, closeWindow}: {appointmentId: number, closeWindow: any}): JSX.Element {
     // TYPESCRIPT DATA TYPES
     interface AppointmentDetail {
         id: number;
@@ -122,172 +125,220 @@ export default function AppointmentDetail({appointmentId}: {appointmentId: numbe
 
     // Process date
     const tempDateTime = appointmentDetail?.appointmentDateTime;
-    const convertedDateTime = tempDateTime ? format(new Date(tempDateTime), "EEE',' dd MMM yy, hh mm") : null;
+    const convertedDateTime = tempDateTime ? format(new Date(tempDateTime), "EEE',' dd MMM yy', 'hh':'mm") : null;
     
     return (
         <div className='appointment-detail'>
             <div className='appointment-detail__header'>
-                <p className='appointment-detail__header__title'>Appointment Detail</p>
-                <CloseIcon />
-                
-                {/* <Button onClick={handleOpenDetail} variant='contained' sx={buttonBlack} size='small' className="appointment-block__detail__link__button">
-                    <div className="appointment-block__detail__link__button__text">
-                        <p>See details</p>
-                    </div>
-                </Button> */}
+                <p className='appointment-detail__header__title'>Appointment Detail</p>              
+                <Button onClick={closeWindow} sx={{color: 'black'}} variant='text' size='small' className="appointment-detail__header__link-button">
+                    <CloseIcon />
+                </Button>
             </div>
-            <div className='appointment-detail__button-card'>
-                {/* change status button */}
-                {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId !== userId && (
-                    <>            
-                    <div className="appointment-detail_check_box">
-                    <label className="appointment-detail_check_label">
-                        <input
-                        type="checkbox"
-                        checked={isAgreed}
-                        onChange={(e) => setIsAgreed(e.target.checked)}
-                        required
-                        className="add_request_checkbox"
-                        />
-                        <span className="appointment-detail_agree">
-                            I agree to the <span onClick={handleOpenModal} className="appointment-detail_disclaimer-link">Disclaimer</span><br></br>
-                            Our site prohibits any financial transactions through its platform and<br></br>
-                            accepts no liability for any issues arising from interpretation services.
-                        </span>
-                    </ label>
+            <div className='appointment-detail__content'>
+                <div className='appointment-detail__content__primary'>
+                    <div className='appointment-detail__content__primary__info'>
+                        <div className='appointment-detail__content__data'>
+                            <label className='appointment-detail__content__data__label'>ID</label>
+                            <p className="appointment-detail__content__data__content">{appointmentDetail?.id}</p>
+                        </div>
+                        <div className='appointment-detail__content__data'>
+                            <label className='appointment-detail__content__data__label'>Status</label>
+                            <p className="appointment-detail__content__data__content">{appointmentDetail?.status}</p>
+                        </div>
+                        <div className='appointment-detail__content__data'>
+                            <label className='appointment-detail__content__data__label'>Type</label>
+                            <p className="appointment-detail__content__data__content">{appointmentDetail?.appointmentType}</p>
+                        </div>
                     </div>
-                    {showModal && (
-                    <Disclaimer handleCloseModal={handleCloseModal} />
+                    <div className='appointment-detail__content__primary__buttons'>
+                        {/* change status button */}
+                        {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId !== userId && (
+                            <>            
+                                <div className="appointment-detail__content_check_box">
+                                <label className="appointment-detail__content_check_label">
+                                    <input
+                                    type="checkbox"
+                                    checked={isAgreed}
+                                    onChange={(e) => setIsAgreed(e.target.checked)}
+                                    required
+                                    className="add_request_checkbox"
+                                    />
+                                    <span className="appointment-detail__content_agree">
+                                        I agree to the <span onClick={handleOpenModal} className="appointment-detail_disclaimer-link">Disclaimer</span><br></br>
+                                        Our site prohibits any financial transactions through its platform and<br></br>
+                                        accepts no liability for any issues arising from interpretation services.
+                                    </span>
+                                </ label>
+                                </div>
+                                {showModal && (
+                                    <Disclaimer handleCloseModal={handleCloseModal} />
+                                )}
+                                <Button onClick={() => handleStatusChange("Accepted")} sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
+                                    Accept appointment
+                                </Button>
+                            </>
                         )}
-                        <button onClick={() => handleStatusChange("Accepted")} className='accept_button'>Accept</button>
-                    </>
-                )}
-                {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId === userId && (
-                    <>
-                        <button onClick={() => handleStatusChange("Cancelled")} className='cancel_button'>Cancel</button>
-                        <Link href={{
-                            pathname: '/appointment-detail/update-appointment',  
-                            query: { appointmentId: appointmentDetail?.id }
-                        }}>
-                            <button className='chat_room_button'>Update appointment</button>
-                        </Link>
-                    </>
-                )}
-                {appointmentDetail?.status === "Accepted" && appointmentDetail.clientUserId === userId && (
-                    <>
-                        <button onClick={() => handleStatusChange("Cancelled")} className='cancel_button'>Cancel</button>
-                        <button onClick={() => handleStatusChange("Completed")} className='complete_button'>Complete</button>
-                    </>
-                )}
-                {appointmentDetail?.status === "Accepted" && (
-                    <>
-                        <Link href={{
-                            pathname: '/appointment-detail/chat-room',  
-                            query: { slug: appointmentDetail?.id }
-                        }}>
-                            <button className='chat_room_button'>Go to chat room</button>
-                        </Link>
-                        <Link href={{
-                            pathname: '/appointment-detail/update-appointment',  
-                            query: { appointmentId: appointmentDetail?.id }
-                        }}>
-                            <button className='chat_room_button'>Update appointment</button>
-                        </Link>
-                    </>
-                )}
-                {appointmentDetail?.status === "Completed"
-                    && ((userId === appointmentDetail.clientUserId && appointmentDetail.reviewClientThumb === null) || (userId === appointmentDetail.interpreterUserId && appointmentDetail.reviewInterpreterThumb === null))
-                    && (
-                        <>
-                            <Link href={{
-                                pathname: '/appointment-detail/review',
-                                query: {
-                                    appointmentId: appointmentDetail?.id,
-                                    role: userId === appointmentDetail.clientUserId ? 'client' : 'interpreter',
-                                }
-                            }}>
-                                <button className='appointment-detail_add_review_button'>Add review</button>
-                            </Link>
-                        </>
-                    
-                )} <button className='back_to_dashboard'  onClick={() => router.push("/dashboard")}>Go back to the list</button>
-            </div>
-            <div className='appointment-detail__content__element'>
-                <div className='appointment-detail__content__element_1'>
-                    <div className='appointment-detail__id'>
-                        <p className="appointment-detail__label">ID: </p>{appointmentDetail?.id}
-                    </div>
-                    <div className='appointment-detail__status'>
-                        <p className="appointment-detail__label">Status:</p>{appointmentDetail?.status}
-                    </div>
-                    <div className='appointment-detail__title'>
-                        <p className="appointment-detail__label">Title:</p>{appointmentDetail?.appointmentTitle}
-                    </div>
-                    <div className='appointment-detail__type'>
-                        <p className="appointment-detail__label">Type:</p>{appointmentDetail?.appointmentType}
-                    </div>
-                </div>
-                <div className='appointment-detail__content__element_2'>
-                    <div className='appointment-detail__client_firstname'>
-                        <p className="appointment-detail__label">Client Firstname:</p>{appointmentDetail?.clientUser.firstName}
-                    </div>
-                    <div className='appointment-detail__client_lastname'>
-                        <p className="appointment-detail__label">Client Lastname:</p>{appointmentDetail?.clientUser.lastName}
-                    </div>
-                    <div className='appointment-detail__client_profile_picture'>
-                        <p className="appointment-detail__label"></p>{appointmentDetail?.clientUser.profilePicture}
-                    </div>
-                    <div className='appointment-detail__client_spoken_language'>
-                        <p className="appointment-detail__label">Spoken language:</p>{appointmentDetail?.clientSpokenLanguage}
-                    </div>
-                    <div className='appointment-detail__interpreter_firstname'>
-                        <p className="appointment-detail__label">Interpreter Firstname:</p>{appointmentDetail?.interpreterUser?.firstName}
-                    </div>
-                    <div className='appointment-detail__interpreter_lastname'>
-                        <p className="appointment-detail__label">Interpreter Lastname:</p>{appointmentDetail?.interpreterUser?.lastName}
-                    </div>
-                    <div className='appointment-detail__interpreter_profile_picture'>
-                        {appointmentDetail?.interpreterUser?.profilePicture}
-                    </div>
-                    <div className='appointment-detail__interpreter_spoken_language'>
-                        <p className="appointment-detail__label">Interpreter Spoken language:</p>{appointmentDetail?.interpreterSpokenLanguage}
+                        {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId === userId && (
+                            <>
+                                <Link href={{
+                                    pathname: '/appointment-detail/update-appointment',  
+                                    query: { appointmentId: appointmentDetail?.id }
+                                }}>
+                                    {/* <button className='chat_room_button'>Update appointment</button> */}
+                                    <Button sx={buttonWhite} variant='contained' size='small' className='appointment-detail__content__button'>
+                                        Update Appointment
+                                    </Button>
+                                </Link>
+                                <Button onClick={() => handleStatusChange("Cancelled")} sx={buttonRed} variant='contained' size='small' className='appointment-detail__content__button'>
+                                    Cancel appointment
+                                </Button>
+                            </>
+                        )}
+                        {appointmentDetail?.status === "Accepted" && (
+                            <>
+                                {appointmentDetail.clientUserId === userId && (
+                                    <>
+                                        <Button onClick={() => handleStatusChange("Completed")} sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
+                                            Complete appointment
+                                        </Button>
+                                    </>
+                                )}
+                                <Link href={{
+                                    pathname: '/appointment-detail/chat-room',  
+                                    query: { slug: appointmentDetail?.id }
+                                }}>
+                                    <Button sx={buttonWhite} variant='contained' size='small' className='appointment-detail__content__button'>
+                                        Go to chat room
+                                    </Button>
+                                </Link>
+                                <Link href={{
+                                    pathname: '/appointment-detail/update-appointment',  
+                                    query: { appointmentId: appointmentDetail?.id }
+                                }}>
+                                    <Button sx={buttonWhite} variant='contained' size='small' className='appointment-detail__content__button'>
+                                        Update Details
+                                    </Button>
+                                </Link>
+                                {appointmentDetail?.status === "Accepted" && appointmentDetail.clientUserId === userId && (
+                                    <>
+                                        <Button onClick={() => handleStatusChange("Completed")} sx={buttonRed} variant='contained' size='small' className='appointment-detail__content__button'>
+                                            Cancel Apppointment
+                                        </Button>
+                                    </>
+                                )}
+                            </>
+                        )}
+                        {appointmentDetail?.status === "Completed"
+                            && ((userId === appointmentDetail.clientUserId && appointmentDetail.reviewClientThumb === null) || (userId === appointmentDetail.interpreterUserId && appointmentDetail.reviewInterpreterThumb === null))
+                            && (
+                                <>
+                                    <Link href={{
+                                        pathname: '/appointment-detail/review',
+                                        query: {
+                                            appointmentId: appointmentDetail?.id,
+                                            role: userId === appointmentDetail.clientUserId ? 'client' : 'interpreter',
+                                        }
+                                    }}>
+                                        <Button sx={buttonOffLight} variant='contained' size='small' className='appointment-detail__content__button'>
+                                            Add review
+                                        </Button>
+                                    </Link>
+                                </>
+                            
+                        )} 
                     </div>
                 </div>
-                <div className='appointment-detail__content__element_3'>
-                    <div className='appointment-detail__location_name'>
-                        <p className="appointment-detail__label">Location Name:</p>{appointmentDetail?.locationName}
-                    </div>
-                    <div className='appointment-detail__location_name'>
-                        <p className="appointment-detail__label">Location Address:</p>{appointmentDetail?.locationAddress}
-                    </div>
-                    <div className='appointment-detail__converted_date_time'>
-                        <p className="appointment-detail__label">Date Time:</p>{convertedDateTime}
-                    </div>
-                    <div className='appointment-detail__note'>
-                        <p className="appointment-detail__label">Note:</p>{appointmentDetail?.appointmentNote}
+                <Divider className='appointment-detail__content__divider'/>
+                <div className='appointment-detail__content__detail'>
+                    <div className='appointment-detail__content__detail__header'>
+                        <div className='appointment-detail__content__data'>
+                            <label className='appointment-detail__content__data__label'>Title</label>
+                            <p className="appointment-detail__content__data__content">{appointmentDetail?.appointmentTitle}</p>
+                        </div>
+                        <div className='appointment-detail__content__data'>
+                            <label className='appointment-detail__content__data__label'>Memo</label>
+                            <p className="appointment-detail__content__data__content">{appointmentDetail?.appointmentNote}</p>
+                        </div>
                     </div>
                 </div>
-                <div className='appointment-detail__content__element_4'>
-                    <div className='appointment-detail__review_client_rating'>
-                        <p>review client thumb</p>
-                        <p>
-                            {appointmentDetail?.reviewClientThumb === true ? 'Yes' : null}
-                            {appointmentDetail?.reviewClientThumb === false ? 'No' : null}
-                        </p>
+                <Divider className='appointment-detail__content__divider'/>
+                <div className='appointment-detail__content__user'>
+                    <div className='appointment-detail__content__user__block'>
+                        <p className='appointment-detail__content__user__block__title'>Client</p>
+                        <div className='appointment-detail__content__data'>
+                            <label className='appointment-detail__content__data__label'>Name</label>
+                            <p className="appointment-detail__content__data__content">{appointmentDetail?.clientUser.firstName} {appointmentDetail?.clientUser.lastName}</p>
+                        </div>
+                        <div className='appointment-detail__content__data'>
+                            <label className='appointment-detail__content__data__label'>Spoken language</label>
+                            <p className="appointment-detail__content__data__content">{appointmentDetail?.clientSpokenLanguage}</p>
+                        </div>
                     </div>
-                    <div className='appointment-detail__review_client_note'>
-                        <p>review client note</p><p>{appointmentDetail?.reviewClientNote}</p>
+                    <Divider orientation='vertical' variant="middle" flexItem className='appointment-detail__content__user__block__divider'/>
+                    <div className='appointment-detail__content__user__block'>
+                        <p className='appointment-detail__content__user__block__title'>Interpreter</p>
+                        <div className='appointment-detail__content__data appointment-detail__content__user__block__right'>
+                            <label className='appointment-detail__content__data__label'>Name</label>
+                            <p className="appointment-detail__content__data__content">
+                                {appointmentDetail?.interpreterUser?.firstName ? (<>{appointmentDetail?.interpreterUser?.firstName} {appointmentDetail?.interpreterUser?.lastName}</>) : ('-')}
+                            </p>
+                        </div>
+                        <div className='appointment-detail__content__data appointment-detail__content__user__block__right'>
+                            <label className='appointment-detail__content__data__label'>Spoken language</label>
+                            <p className="appointment-detail__content__data__content">{appointmentDetail?.interpreterSpokenLanguage}</p>
+                        </div>
+                    </div>
+                </div>
+                <Divider className='appointment-detail__content__divider'/>
+                <div className='appointment-detail__content__location-time'>
+                    <div className='appointment-detail__content__data'>
+                        <label className='appointment-detail__content__data__label'>Date and time</label>
+                        <p className="appointment-detail__content__data__content">{convertedDateTime}</p>
+                    </div>
+                    <div className='appointment-detail__content__data'>
+                        <label className='appointment-detail__content__data__label'>Location name</label>
+                        <p className="appointment-detail__content__data__content">{appointmentDetail?.locationName ? appointmentDetail?.locationName : '-'}</p>
+                    </div>
+                    <div className='appointment-detail__content__data'>
+                        <label className='appointment-detail__content__data__label'>Location address</label>
+                        <p className="appointment-detail__content__data__content">{appointmentDetail?.locationAddress ? appointmentDetail?.locationAddress : '-'}</p>
+                    </div>
+                </div>
+                <Divider className='appointment-detail__content__divider'/>
+                <div className='appointment-detail__content__review'>
+                    <p className='appointment-detail__content__review__header'>Review</p>
+                    <div className='appointment-detail__content__review__user'>
+                        <div className='appointment-detail__content__review__user__block'>
+                            <p className='appointment-detail__content__review__user__block__title'>Client</p>
+                        </div>
+                        <Divider orientation='vertical' variant="middle" flexItem className='appointment-detail__content__review__user__block__divider'/>
+                        <div className='appointment-detail__content__review__user__block'>
+                            <p className='appointment-detail__content__review__user__block__title'>Interpreter</p>
+                        </div>
+                    </div>
+                    <div className='appointment-detail__content__content__element_4'>
+                        <div className='appointment-detail__content__review_client_rating'>
+                            <p>review client thumb</p>
+                            <p>
+                                {appointmentDetail?.reviewClientThumb === true ? 'Yes' : null}
+                                {appointmentDetail?.reviewClientThumb === false ? 'No' : null}
+                            </p>
+                        </div>
+                        <div className='appointment-detail__content__review_client_note'>
+                            <p>review client note</p><p>{appointmentDetail?.reviewClientNote}</p>
 
-                    </div>
-                    <div className='appointment-detail__review_interpreter_rating'>
-                        <p>review interpreter thumb</p>
-                        <p>
-                            {appointmentDetail?.reviewInterpreterThumb === true ? 'Yes' : null}
-                            {appointmentDetail?.reviewInterpreterThumb === false ? 'No' : null}
-                        </p>
-                    </div>
-                    <div className='appointment-detail__review_interpreter_note'>
-                        <p>review interpreter note</p><p>{appointmentDetail?.reviewInterpreterNote}</p>
+                        </div>
+                        <div className='appointment-detail__content__review_interpreter_rating'>
+                            <p>review interpreter thumb</p>
+                            <p>
+                                {appointmentDetail?.reviewInterpreterThumb === true ? 'Yes' : null}
+                                {appointmentDetail?.reviewInterpreterThumb === false ? 'No' : null}
+                            </p>
+                        </div>
+                        <div className='appointment-detail__content__review_interpreter_note'>
+                            <p>review interpreter note</p><p>{appointmentDetail?.reviewInterpreterNote}</p>
+                        </div>
                     </div>
                 </div>
             </div>

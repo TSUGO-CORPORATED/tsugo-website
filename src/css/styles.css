@@ -801,8 +801,8 @@
   padding-right: 5px;
 }
 .appointment-block__detail__window {
-  height: 90%;
-  width: 90%;
+  width: 350px;
+  height: 750px;
   padding: 15px;
 }
 
@@ -952,10 +952,128 @@
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 10px;
+  height: 20px;
 }
 .appointment-detail__header__title {
   font-weight: bold;
   font-size: 20px;
+}
+.appointment-detail__header__link-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 0;
+}
+.appointment-detail__content {
+  overflow-y: auto;
+  height: 700px;
+  padding-right: 10px;
+}
+.appointment-detail__content__divider {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.appointment-detail__content__data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.appointment-detail__content__data__label {
+  font-size: 14px;
+  color: #9c9b9b;
+}
+.appointment-detail__content__data__content {
+  font-size: 18px;
+  font-weight: bold;
+}
+.appointment-detail__content__button {
+  width: 200px;
+  font-size: 12px;
+}
+.appointment-detail__content__primary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.appointment-detail__content__primary__info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.appointment-detail__content__primary__buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+}
+.appointment-detail__content__user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.appointment-detail__content__user__block {
+  width: 50%;
+}
+.appointment-detail__content__user__block__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  font-weight: bold;
+  color: #9c9b9b;
+  margin-bottom: 5px;
+}
+.appointment-detail__content__user__block__divider {
+  margin-right: 10px;
+}
+.appointment-detail__content__review {
+  width: 100%;
+}
+.appointment-detail__content__review__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  font-weight: bold;
+  color: #9c9b9b;
+}
+.appointment-detail__content__review__user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.appointment-detail__content__review__user__block {
+  width: 50%;
+}
+.appointment-detail__content__review__user__block__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  font-weight: bold;
+  color: #9c9b9b;
+  margin-bottom: 5px;
+}
+.appointment-detail__content__review__user__block__divider {
+  margin-right: 10px;
 }
 
 .home {
