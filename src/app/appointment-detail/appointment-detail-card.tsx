@@ -114,7 +114,7 @@ export default function AppointmentDetailCard(): JSX.Element {
         console.log(appointmentDetail);
     }
 
-    const handleOpenModal = () => {
+    const handleOpenModal = () => { 
         setShowModal(true);
       };
     

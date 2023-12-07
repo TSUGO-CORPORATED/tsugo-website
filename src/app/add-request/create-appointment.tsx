@@ -2,7 +2,6 @@
 import React, { useState, useContext,useEffect } from "react";
 import axios from "axios";
 import { GoogleMap, LoadScript, Marker,useLoadScript } from "@react-google-maps/api";
-import { Autocomplete } from '@react-google-maps/api';
 import { useRouter } from 'next/navigation';
 import { ContextVariables } from "../../context-variables";
 import MapComponent from "../map-component/map"

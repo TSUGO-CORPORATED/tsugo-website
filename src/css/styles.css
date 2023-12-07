@@ -411,7 +411,6 @@
   }
 }
 .add_request, .confirm_section {
-  background-image: url("../../public/tokyo.jpg");
   background-size: cover;
   display: flex;
   justify-content: center;
