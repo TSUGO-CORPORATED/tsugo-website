@@ -897,7 +897,7 @@
 }
 .appointment-detail__accept-modal__agreement__check__link {
   text-decoration: underline;
-  color: #D8BCAB;
+  color: #fef9e1;
 }
 .appointment-detail__accept-modal__agreement__note {
   font-size: 12px;
@@ -1235,7 +1235,7 @@
 
 .navbar {
   border-style: solid;
-  border-bottom-color: #D8BCAB;
+  border-bottom-color: #fef9e1;
   background-color: black;
   position: fixed;
   width: 100%;

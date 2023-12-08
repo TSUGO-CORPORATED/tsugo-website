@@ -1,6 +1,6 @@
-export const colorOffDark = '#251605';
-export const colorOffMid = '#9F6BA0';
-export const colorOffLight = '#D8BCAB';
+export const colorOffDark = '#061920'; // 6, 25,32
+export const colorOffMid = '#4b89a4'; // 75, 137, 164
+export const colorOffLight = '#fef9e1'; // 254, 249, 225
 
 export const buttonWhite =  { 
     color: 'black', 
