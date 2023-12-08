@@ -6,11 +6,19 @@ import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { Button, TextField, Paper } from '@mui/material';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+
 
 export default function ReviewCard() {
     // STATE VARIABLES
     const [reviewThumb, setReviewThumb] = useState<boolean | undefined>();
     const [reviewNote, setReviewNote] = useState<string>("");
+    const [reviewThumbUp, setReviewThumbUp] = useState<boolean>(false);
+    const [reviewThumbDown, setReviewThumbDown] = useState<boolean>(false);
     
     const router = useRouter();
 
@@ -39,45 +47,65 @@ export default function ReviewCard() {
 
     useEffect(() => {
         console.log("thumb",reviewThumb);
-    }, [reviewThumb])
+    }, [reviewThumb]);
+
+    const handleThumbClick = (isThumbUp: boolean) => {
+        setReviewThumb((prevReviewThumb: boolean | undefined) => {
+            if (prevReviewThumb !== isThumbUp) {
+                setReviewThumbUp(isThumbUp);
+                setReviewThumbDown(!isThumbUp);
+            }
+            return isThumbUp;
+        });
+       
+    };
 
     return (
-        <>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Test</h1>
-            <h1>Review</h1>
-            <form onSubmit={submitReview}>
+        <Paper className='review__container'>
+            <h1 className='review__header'>Review</h1>
+            <form className='review__form' onSubmit={submitReview}>
                 {/* <label>Rating</label>
                 <select value={reviewRating} onChange={(e) => setReviewRating(Number(e.target.value))} required>
                 <option disabled> -- Select Rating -- </option>
                     {ratingValue.map((value) => <option key={value} value={value}>{value}</option>)}
                 </select>
                 <p>The rating is: {reviewRating}</p> */}
-                <div>
-                    <div onClick={() => setReviewThumb(true)}>Thumbs Up</div>
-                    <div onClick={() => setReviewThumb(false)}>Thumbs Down</div>
+                <p className='review__question'>How would you rate your experience?</p>
+                <div className='review__thumb-container'>
+                    <div className='review__thumb-up' 
+                        onClick={() => handleThumbClick(true)}> 
+                        {reviewThumbUp === true ? <ThumbUpIcon sx={{fontSize:'100px'}}/> : <ThumbUpOffAltIcon sx={{fontSize:'100px'}}/>}
+                    </div>
+                    <div className='review__thumb-down' 
+                        onClick={() => handleThumbClick(false)}>
+                            {reviewThumbDown === true ? <ThumbDownIcon sx={{fontSize:'100px'}}/> : <ThumbDownOffAltIcon sx={{fontSize:'100px'}}/>}
+                    </div>
                 </div>
-                <label className='a'>Note:</label>
-                <input
+                <label className='review__label'>Note:</label>
+                <TextField
+                    variant='outlined'
                     type='text'
                     placeholder='Enter Note'
                     value={reviewNote}
                     onChange={(e) => setReviewNote(e.target.value)}
-                    className='a'
-                ></input>
-                <button type='submit' onClick={submitReview}>Submit</button>
-            </form>
-            <Link href={{
+                    className='review__input'
+                    multiline
+                    rows={12}
+                >
+                </TextField>
+                <br></br>
+                <Button variant='contained' className='review__submit-button' type='submit' onClick={submitReview}>Submit</Button>
+
+                <Link className='review__cancel-link' href={{
                 pathname: '/appointment-detail',
                 query: {
                     appointmentId: appointmentId,
                 }
-            }}>
-                <button className='add_review_button'>Cancel</button>
+                }}>
+                <Button variant='contained' className='review__cancel_button'>Cancel</Button>
             </Link>
-        </>
+            </form>
+            
+        </Paper>
     );
 }
