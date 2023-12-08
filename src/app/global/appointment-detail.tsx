@@ -228,6 +228,11 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                 {showDisclaimerModal ? (
                                     <Box sx={detailModalStyle} className='appointment-detail__disclaimer-modal'>
                                         {/* <Disclaimer handleCloseModal={handleCloseDisclaimerModal}/> */}
+                                        <div className="appointment-detail__disclaimer-modal__box">
+                                            <Button onClick={handleCloseDisclaimerModal} sx={{color: 'black', minWidth: '0', minHeight: '0'}} variant='text' className="appointment-detail__disclaimer-modal__box__button">
+                                                <CloseIcon />
+                                            </Button>
+                                        </div>
                                         <Disclaimer />
                                     </Box>
                                 ) : (
@@ -242,10 +247,10 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                                     required
                                                     className="add_request_checkbox"
                                                 />
-                                            </div>
                                                 <p className='appointment-detail__accept-modal__agreement__check__text'>
                                                     I agree to the <span onClick={handleOpenDisclaimerModal} className="appointment-detail__accept-modal__agreement__check__link">disclaimer</span>
                                                 </p>
+                                            </div>
                                             <div className='appointment-detail__accept-modal__agreement__note'>
                                                 Note: our site prohibits any financial transactions through its platform and accepts no liability for any issues arising from interpretation services.
                                             </div>
@@ -313,7 +318,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                     <Button onClick={handleOpenAcceptModal} sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
                                         Accept appointment
                                     </Button>
-                                    <Modal
+                                    {/* <Modal
                                         open={showAcceptModal}
                                         onClose={handleCloseAcceptModal}
                                         aria-labelledby="modal-modal-title"
@@ -331,7 +336,9 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                                             required
                                                             className="add_request_checkbox"
                                                         />
-
+                                                        <p className='appointment-detail__accept-modal__agreement__check__text'>
+                                                            I agree to the <span onClick={handleOpenDisclaimerModal} className="appointment-detail__accept-modal__agreement__check__link">disclaimer</span>
+                                                        </p>
                                                     </div>
                                                     <div className='appointment-detail__accept-modal__agreement__note'>
                                                         Note: our site prohibits any financial transactions through its platform and accepts no liability for any issues arising from interpretation services.
@@ -342,8 +349,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                                     <Button variant='contained' onClick={() => handleStatusChange("Accepted")} sx={buttonBlack}>Confirm</Button>
                                                 </div>
                                             </Box>
-                                        
-                                    </Modal>
+                                    </Modal> */}
                                 </>
                             )}
                             {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId === userId && (
