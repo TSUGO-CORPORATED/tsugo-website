@@ -43,6 +43,8 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
         id: number;
         appointmentTitle: string,
         appointmentType: string,
+        mainCategory: string | null,
+        subCategory: string | null,
         clientSpokenLanguage: string;
         interpreterSpokenLanguage: string;
         locationName: string | null;
@@ -428,6 +430,10 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                             <div className='appointment-detail__content__data'>
                                 <label className='appointment-detail__content__data__label'>Title</label>
                                 <p className="appointment-detail__content__data__content">{appointmentDetail?.appointmentTitle}</p>
+                            </div>
+                            <div className='appointment-detail__content__data'>
+                                <label className='appointment-detail__content__data__label'>Category</label>
+                                <p className="appointment-detail__content__data__content">{appointmentDetail?.mainCategory ? appointmentDetail?.mainCategory + "-" + appointmentDetail?.subCategory: '-'}</p>
                             </div>
                             <div className='appointment-detail__content__data'>
                                 <label className='appointment-detail__content__data__label'>Memo</label>

@@ -17,11 +17,13 @@ interface AppointmentOverview {
     status: string;
     appointmentTitle: string,
     appointmentType: string,
+    mainCategory: string | null,
+    subCategory: string | null,
     clientSpokenLanguage: string;
     interpreterSpokenLanguage: string;
-    locationName: string;
-    locationLatitude: number;
-    locationLongitude: number;
+    locationName: string | null;
+    locationLatitude: number | null;
+    locationLongitude: number | null;
     appointmentDateTime: Date;
 }
 
@@ -80,6 +82,12 @@ export default function AppointmentBlock({appointment, refresh}: {appointment: A
                                 <div className='appointment-block__grid__piece'>
                                     <label className='appointment-block__grid__piece__label'>Title:</label>
                                     <p className='appointment-block__grid__piece__data'>{appointment.appointmentTitle}</p>
+                                </div>
+                            </Grid>
+                            <Grid xs={12}>
+                                <div className='appointment-block__grid__piece'>
+                                    <label className='appointment-block__grid__piece__label'>Category:</label>
+                                    <p className='appointment-block__grid__piece__data'>{appointment.mainCategory ? appointment.mainCategory + "-" + appointment.subCategory : '-'}</p>
                                 </div>
                             </Grid>
                             <Grid xs={12}>

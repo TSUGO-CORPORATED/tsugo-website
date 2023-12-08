@@ -420,24 +420,53 @@
   width: 200px;
 }
 
-.add_request, .confirm_section {
-  background-size: cover;
+.add-request {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  overflow: auto;
-}
-
-.add_request_container {
-  background-color: white;
-  max-height: 75%;
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
-  overflow: auto;
+  height: 100vh;
+  padding-top: 8vh;
+  width: 100%;
+  height: auto;
+}
+.add-request__container {
+  padding: 5px;
+}
+@media screen and (min-width: 700px) {
+  .add-request__container {
+    width: 700px;
+  }
+}
+.add-request__agree {
+  color: red;
+  font-weight: bold;
+  font-size: 12px;
+  display: inline;
+}
+@media screen and (min-width: 700px) {
+  .add-request__agree {
+    font-size: 15px;
+  }
+}
+.add-request__disclaimer {
+  height: 150px;
+}
+@media screen and (min-width: 700px) {
+  .add-request__disclaimer {
+    height: 200px;
+  }
+}
+@media screen and (min-width: 500px) {
+  .add-request__confirmation {
+    width: 500px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .add-request__confirmation__button {
+    width: 125px;
+    font-size: 12px;
+  }
 }
 
 .confirm_section_container {
@@ -445,18 +474,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 10vh;
-  margin: auro;
-  overflow: auto;
-}
-
-.add_request_title {
-  color: black;
-  font-size: 24px;
-  white-space: nowrap;
-  margin-top: 20vh;
-  margin-bottom: 10px;
-  order: -1;
 }
 
 .find-request {
@@ -468,45 +485,44 @@
   padding-top: 8vh;
   width: 100%;
 }
-.find-request__card {
-  background-color: #fffffa;
-  border-radius: 10px;
+.find-request__block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
   justify-content: flex-start;
-  width: 75%;
-  height: 75%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  height: 95%;
+  width: 95%;
 }
-.find-request__card__header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  font-weight: bold;
-  font-size: 36px;
-  padding: 0px;
-  height: 10%;
+@media screen and (min-width: 1000px) {
+  .find-request__block {
+    width: 1000px;
+  }
 }
-.find-request__card__filter {
-  height: 10%;
+@media screen and (max-width: 500px) {
+  .find-request__block {
+    height: 100%;
+    width: 100%;
+  }
 }
-.find-request__card__map-container {
-  width: 90%;
-  height: 50%;
-}
-.find-request__card__appointment-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  justify-content: flex-start;
+.find-request__map {
   width: 100%;
-  height: 30%;
+  height: 400px;
 }
-.find-request__card__appointment-container__appointment {
-  border: 1px solid black;
+@media screen and (max-width: 500px) {
+  .find-request__map {
+    width: 100%;
+    height: 250px;
+  }
+}
+.find-request__select-language {
+  width: 100%;
+}
+@media screen and (max-width: 500px) {
+  .find-request__select-language {
+    width: 100%;
+    height: 30px;
+  }
 }
 
 .edit-profile {

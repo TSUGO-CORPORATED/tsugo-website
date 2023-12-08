@@ -12,18 +12,30 @@ import {
 } from '@mui/material';
 
 type Appointment = {
+  // id: number;
+  // status: string;
+  // appointmentTitle: string,
+  // appointmentType: string,
+  // clientSpokenLanguage: string;
+  // interpreterSpokenLanguage: string;
+  // locationName: string;
+  // locationLatitude: number;
+  // locationLongitude: number;
+  // appointmentDateTime: Date;
+  // locationAdress: string;
+  // appointmentCategory: string;
   id: number;
   status: string;
   appointmentTitle: string,
   appointmentType: string,
+  mainCategory: string | null,
+  subCategory: string | null,
   clientSpokenLanguage: string;
   interpreterSpokenLanguage: string;
-  locationName: string;
+  locationName: string | null;
   locationLatitude: number;
   locationLongitude: number;
   appointmentDateTime: Date;
-  locationAdress: string;
-  appointmentCategory: string;
 };
 
 
@@ -89,7 +101,7 @@ export default function FindRequestCard() {
           });
         },
         () => {
-          console.error("Faild to get your Geolocation .");
+          console.error("Failed to get your Geolocation .");
         }
       );
     }
@@ -118,11 +130,14 @@ export default function FindRequestCard() {
         .includes(searchKeyword.toLowerCase()) ||
       appointment.locationName
         ?.toLowerCase()
-        .includes(searchKeyword.toLowerCase()) ||
-      appointment.locationAdress
+      //   .includes(searchKeyword.toLowerCase()) ||
+      // appointment.locationAdress
         ?.toLowerCase()
         .includes(searchKeyword.toLowerCase()) ||
-      appointment.appointmentCategory
+      appointment.mainCategory
+        ?.toLowerCase()
+        .includes(searchKeyword.toLowerCase()) ||
+      appointment.subCategory
         ?.toLowerCase()
         .includes(searchKeyword.toLowerCase());
     const languageFilter =
@@ -170,23 +185,26 @@ export default function FindRequestCard() {
   return (
     <Paper
     sx={{
-      marginTop: { xs: "10%", md: "3%" },
-      width: { xs: "100%", md: "90%" },
-      maxWidth: "1200px",
-      minWidth: { xs: "350px", md: "800px" },
-      borderRadius: "10px",
-      marginBottom:"10px",
-      overflow: "auto",
-      padding: { xs: 0, md: 0 },
-      boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.2)", 
+      // marginTop: { xs: "10%", md: "3%" },
+      // width: { xs: "100%", md: "90%" },
+      // maxWidth: "1200px",
+      // minWidth: { xs: "350px", md: "800px" },
+      // borderRadius: "10px",
+      // marginBottom:"10px",
+      // overflow: "auto",
+      // padding: { xs: 0, md: 0 },
+      // boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.2)", 
     }}
+    elevation={5}
+    className='find-request__block'
   >
     <Box
       sx={{
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
         overflow: "hidden",
-        alignItems: "flex-start"
+        alignItems: "flex-start",
+        height: "100%"
       }}
     >
       <Box
@@ -199,13 +217,16 @@ export default function FindRequestCard() {
           justifyContent: "center"
         }}
       >
-        <Box component="h1" sx={{ textAlign: "center", mb: 2, fontSize: { xs: '1rem', md: '1.5rem' } }}>
+        <Box component="h1" sx={{ textAlign: "center", mb: 2, fontSize: { xs: '1.5rem', md: '1.5rem' } }}>
           Check Appointments
         </Box>
-          <Box sx={{ width: "100%", height: "400px" }}>
+          <Box 
+            // sx={{ width: "100%", height: "400px" }} 
+            className="find-request__map"
+          >
             <MapComponent
               appointments={popUpAppointments}
-              style={{ width: "100%", height: "400px" }}
+              style={{ width: "100%", height: "100%" }}    
             />
           </Box>
           {/* <Box sx={{ mt: 2, width: "100%", marginTop: "40px" }}>
@@ -217,26 +238,30 @@ export default function FindRequestCard() {
             />
           </Box> */}
           <RadioGroup
-  row={!isMobile}
-  value={selectedType}
-  onChange={(e) => setSelectedType(e.target.value)}
-  sx={{ 
-    display: 'flex', 
-    marginTop: { xs: "40px", md: "50px" },
-  
-    justifyContent: { xs: 'flex-start', md: 'space-around' }, 
-  }}
->
-  <FormControlLabel value="all" control={<Radio />} label="All" />
-  <FormControlLabel value="videoChat" control={<Radio />} label="Video Chat" />
-  <FormControlLabel value="inPerson" control={<Radio />} label="In-person" />
-</RadioGroup>
-          <Box sx={{ mt: 2, width: "100%", marginBottom: "20px" }}>
+            row={!isMobile}
+            value={selectedType}
+            onChange={(e) => setSelectedType(e.target.value)}
+            sx={{ 
+              display: 'flex', 
+              marginTop: { xs: "40px", md: "50px" },
+              flexDirection: 'row',
+              // justifyContent: { xs: 'flex-start', md: 'space-around' }, 
+            }}
+          >
+            <FormControlLabel value="all" control={<Radio />} label="All" />
+            <FormControlLabel value="videoChat" control={<Radio />} label="Video Chat" />
+            <FormControlLabel value="inPerson" control={<Radio />} label="In-person" />
+          </RadioGroup>
+          <Box 
+            // sx={{ mt: 2, width: "100%", marginBottom: "20px" }}
+            
+          >
             <Select
               fullWidth
               displayEmpty
               value={selectedInterpreterLanguage}
               onChange={(e) => setSelectedInterpreterLanguage(e.target.value)}
+              className='find-request__select-language'
             >
               <MenuItem value="" disabled>
                 Select Interpreter Language
@@ -254,20 +279,20 @@ export default function FindRequestCard() {
         <Box
           sx={{
             width: { md: "50%" },
-            // height: "800px",
+            height: "100%",
             minWidth: "300px",
-            // overflowY: "auto", 
-            marginTop:"30px",
+            overflowY: "auto", 
+            // marginTop:"30px",
             padding: 1
           }}
         >
-          <Box sx={{ 
+          {/* <Box sx={{ 
             marginTop:"30px",
             padding: 1
-          }}>
+          }}> */}
           <AppointmentBlock 
-          appointment={filteredAppointments} />
-          </Box>
+            appointment={filteredAppointments} />
+          {/* </Box> */}
         </Box>
       </Box>
     </Paper>

@@ -39,7 +39,7 @@ export default function CreateAppointment () {
   const [location, setLocation] = useState("");
   const [desireLanguage, setDesireLanguage] = useState("Japanese");
   const [communicateLanguage, setCommunicateLanguage] = useState("English");
-  const [appointmentType, setAppointmentType] = useState("videoChat");
+  const [appointmentType, setAppointmentType] = useState("Video Chat");
   const [note, setNote] = useState("");
   const [isAgreed, setIsAgreed] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
@@ -255,7 +255,7 @@ export default function CreateAppointment () {
       hasErrors = true;
     }
 
-    if (appointmentType === "inPerson" && !location) {
+    if (appointmentType === "In-Person" && !location) {
       setFormErrors(prev => ({ ...prev, location: "Please set Location" }));
       hasErrors = true;
     }
@@ -281,9 +281,9 @@ export default function CreateAppointment () {
 
       const requestData = {
         appointmentTitle: appointmentTitle,
-        // appointmentTitle: selectedMainCategory + "-" + selectedSubCategory,
         appointmentType: appointmentType,
-        // appointmentCategory: selectedMainCategory + "-" + selectedSubCategory,
+        mainCategory: selectedMainCategory,
+        subCategory: selectedSubCategory,
         clientUserId: userId,
         clientSpokenLanguage: communicateLanguage,
         interpreterSpokenLanguage: desireLanguage,
@@ -310,17 +310,17 @@ export default function CreateAppointment () {
 
   //HTML
   return (
-    <div className="add_request_container">
+    <div className="add-request__container">
       <Paper
         elevation={12}
         sx={{
           padding: { xs: 1, md: 5 },
-          maxWidth: "99%",
+          // maxWidth: "100%",
           margin: { xs: "5px", md: "20px" },
           marginBottom: "15px",
           borderRadius: { xs: "0px", md: "16px" },
           justifyContent: "center",
-          marginTop: { xs: '100px', md: "10%" },
+          // marginTop: { xs: '100px', md: "10%" },
           boxShadow: { xs:"0px 0px 0px 0px rgba(0, 0, 0, 0)" , md:"0px 4px 8px 0px rgba(0.5, 0.5, 0.5, 0.5)"  },
         }}
       >
@@ -440,29 +440,31 @@ export default function CreateAppointment () {
           <FormControl component="fieldset">
             <RadioGroup row={!isMobile}>
               <FormControlLabel
-                value="videoChat"
+                value="Video Chat"
                 control={<Radio />}
                 label="Video Chat Interpretation"
-                checked={appointmentType === "videoChat"}
-                onChange={() => setAppointmentType("videoChat")}
+                checked={appointmentType === "Video Chat"}
+                onChange={() => setAppointmentType("Video Chat")}
                 required
                 className="add_request_radio"
               />
               <FormControlLabel
-                value="inPerson"
+                value="In-Person"
                 control={<Radio />}
                 label="In-person Interpretation"
-                checked={appointmentType === "inPerson"}
-                onChange={() => setAppointmentType("inPerson")}
+                checked={appointmentType === "In-Person"}
+                onChange={() => setAppointmentType("In-Person")}
                 required
               />
             </RadioGroup>
           </FormControl>
 
-          {appointmentType !== "videoChat" && (
+          {appointmentType !== "Video Chat" && (
             <>
-            <Box sx={{ margin:"-10px",
-              boxShadow: { xs:"0px 0px 0px 0px rgba(0, 0, 0, 0)" , md:"0px 4px 8px 0px rgba(0.3, 0.3, 0.3, 0.5)"  },}}>
+            <Box sx={{ 
+              margin:"-10px",
+              // boxShadow: { xs:"0px 0px 0px 0px rgba(0, 0, 0, 0)" , md:"0px 4px 8px 0px rgba(0.3, 0.3, 0.3, 0.5)"  },
+            }}>
               <TextField sx={{marginTop:"20px",width:{xs:"96%",md: "98%"}, marginLeft:"10px",marginRight:"10px"}}
                 label="Adress/Location"
                 type="text"
@@ -473,7 +475,7 @@ export default function CreateAppointment () {
                 placeholder="Enter Address or Location (e.g. Tokyo Station)"
                 required
               />
-              <Button sx={{buttonBlack,marginTop: { xs: '15px', md: "20px" },marginLeft:"10px"}}
+              <Button sx={{...buttonBlack,marginTop: { xs: '15px', md: "20px" },marginLeft:"10px"}}
                 variant="outlined"
                 onClick={handleLocationSearch}
                 >
@@ -494,24 +496,24 @@ export default function CreateAppointment () {
               </Snackbar>
               {locationCoordinates && (
                 <Box sx={{ marginTop: 2, position: "relative" }}>
-                  <Box sx={{ width: "100%", margin: "auto" }}>
+                  <Box sx={{ width: "95%", margin: "auto", display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center', }}>
                     <MapComponent
                       coordinates={locationCoordinates}
-                      style={{ marginLeft:"10px",marginRight:"10px",width: "98%", height: "400px" }}
+                      style={{ width: "100%", height: "400px" }}
                     />
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        fontWeight: "bold",
+                        // position: "absolute",
+                        // bottom: 0,
+                        // left: 0,
+                        backgroundColor: "white",
+                      }}
+                    >
+                      {address}
+                    </Typography>
                   </Box>
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      fontWeight: "bold",
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      backgroundColor: "white",
-                    }}
-                  >
-                    {address}
-                  </Typography>
                 </Box>
               )}
               </Box>
@@ -530,18 +532,19 @@ export default function CreateAppointment () {
                 />
               }
               label={
-                <Typography sx={{
-                  color: "red",
-                  fontWeight: "bold",
-                  marginTop:"10pX",
-                  magrinLeft:"10px",
-                  fontSize: {
-                    xs: '10px',
-                    md: '15px'
-                  }
-                }}>
-                  I agree to the Terms and Conditions.
-                </Typography>
+                // <Typography sx={{
+                //   color: "red",
+                //   fontWeight: "bold",
+                //   marginTop:"10pX",
+                //   // marginLeft:"10px",
+                //   fontSize: {
+                //     xs: '10px',
+                //     md: '15px'
+                //   }
+                // }}>
+                //   I agree to the Terms and Conditions.
+                // </Typography>
+                <p className="add-request__agree">I agree to the Terms and Conditions.</p>
               }
             />
             {formErrors.isAgreed && (
@@ -551,18 +554,19 @@ export default function CreateAppointment () {
             )}
             <Box
               sx={{
-                maxHeight: "150px",
+                // maxHeight: "150px",
                 overflowY: "auto",
-                mt: 2,
+                // mt: 2,
                 p: 2,
                 border: "1px solid #ccc",
               }}
+              className='add-request__disclaimer'
             >
               <Disclaimer />
             </Box>
           </Box>
 
-          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
+          <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
             <Button
               type="submit"
               variant="contained"
@@ -599,6 +603,7 @@ export default function CreateAppointment () {
             boxShadow: 24,
             overflowY: "auto",
           }}
+          className='add-request__confirmation'
         >
           <Paper
             elevation={3}
@@ -617,7 +622,7 @@ export default function CreateAppointment () {
                 {appointmentTitle}
               </strong>
             </Typography>
-            <Box sx={{ marginBottom: 2 }}>
+            <Box sx={{ marginBottom: 2, display: "flex", flexDirection:'column', gap: 1 }}>
               <Typography variant="body1">
                 Category:{" "}
                 <strong>
@@ -645,7 +650,7 @@ export default function CreateAppointment () {
                 </strong>
               </Typography>
 
-              {appointmentType === "inPerson" && (
+              {appointmentType === "In-Person" && (
                 <>
                   <Typography variant="body1">
                     Location: <strong>{location}</strong>
@@ -660,12 +665,13 @@ export default function CreateAppointment () {
             </Box>
 
             <Box
-              sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}
+              sx={{ display: "flex", justifyContent: "space-around", mt: 2 }}
             >
               <Button
                 onClick={handleSendRequest}
                 variant="contained"
                 sx={buttonBlack}
+                className="add-request__confirmation__button"
               >
                 Send Request
               </Button>
@@ -673,6 +679,7 @@ export default function CreateAppointment () {
                 onClick={() => setIsConfirmed(false)}
                 variant="outlined"
                 sx={buttonWhite}
+                className="add-request__confirmation__button"
               >
                 Back to Form
               </Button>
