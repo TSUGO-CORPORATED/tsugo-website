@@ -86,6 +86,12 @@ export default function AppointmentBlock({appointment, refresh}: {appointment: A
                             </Grid>
                             <Grid xs={12}>
                                 <div className='appointment-block__grid__piece'>
+                                    <label className='appointment-block__grid__piece__label'>Category:</label>
+                                    <p className='appointment-block__grid__piece__data'>{appointment.mainCategory ? appointment.mainCategory + "-" + appointment.subCategory : '-'}</p>
+                                </div>
+                            </Grid>
+                            <Grid xs={12}>
+                                <div className='appointment-block__grid__piece'>
                                     <label className='appointment-block__grid__piece__label'>Location:</label>
                                     <p className='appointment-block__grid__piece__data'>{appointment.locationName ? appointment.locationName : '-' }</p>
                                 </div>
