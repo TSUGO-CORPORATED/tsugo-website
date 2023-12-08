@@ -17,11 +17,13 @@ interface AppointmentOverview {
     status: string;
     appointmentTitle: string,
     appointmentType: string,
+    mainCategory: string | null,
+    subCategory: string | null,
     clientSpokenLanguage: string;
     interpreterSpokenLanguage: string;
-    locationName: string;
-    locationLatitude: number;
-    locationLongitude: number;
+    locationName: string | null;
+    locationLatitude: number | null;
+    locationLongitude: number | null;
     appointmentDateTime: Date;
 }
 
