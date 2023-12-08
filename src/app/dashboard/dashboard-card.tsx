@@ -59,27 +59,23 @@ export default function DashboardCard(): JSX.Element {
         setTabValue(newValue);
     };
 
-    // Get client current appointment
-    async function getClientCurrentAppointment(): Promise<void> {
-        const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/client/current/${userId}`;
-        const retrievedData = await axios.get(url);
-        // console.log(retrievedData);
-        setClientCurrentAppointment(retrievedData.data);
-    }
-    // Get interpreter current appointment
-    async function getInterpreterCurrentAppointment(): Promise<void> {
-        const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/interpreter/current/${userId}`;
-        const retrievedData = await axios.get(url);
-        // console.log(retrievedData);
-        setInterpreterCurrentAppointment(retrievedData.data);
-    }
+    // Get client and interpreter current appointment
+    async function getClientInterpreterCurrentAppointment(): Promise<void> {
+        const urlClient: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/client/current/${userId}`;
+        const retrievedDataClient = await axios.get(urlClient);
+        console.log(retrievedDataClient);
+        setClientCurrentAppointment(retrievedDataClient.data);
 
+        const urlInterpreter: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/interpreter/current/${userId}`;
+        const retrievedDataInterpreter = await axios.get(urlInterpreter);
+        // console.log(retrievedDataInterpreter);
+        setInterpreterCurrentAppointment(retrievedDataInterpreter.data);
+    }
     // INITIAL USE EFFECT
     useEffect(() => {
-        // if (userId !== 0) {
-            getClientCurrentAppointment();
-            getInterpreterCurrentAppointment();
-        // }
+        if (userId !== 0) {
+            getClientInterpreterCurrentAppointment();
+        }
     }, [userId]);
 
     // JSX ELEMENTS
@@ -171,10 +167,10 @@ export default function DashboardCard(): JSX.Element {
                         <div className='dashboard__card__role-content__appointment-column__paper__list-title'>Ongoing Appointment</div>
                         <div className='dashboard__card__role-content__appointment-column__paper__appointment-list'>
                             {tabValue === 0 ? (
-                                <AppointmentBlock appointment={clientCurrentAppointment}/>  
+                                <AppointmentBlock appointment={clientCurrentAppointment} refresh={getClientInterpreterCurrentAppointment}/>  
                             ) : null }
                             {tabValue === 1 ? (
-                                <AppointmentBlock appointment={interpreterCurrentAppointment}/>  
+                                <AppointmentBlock appointment={interpreterCurrentAppointment} refresh={getClientInterpreterCurrentAppointment}/>  
                             ) : null}
                         </div>
                     </Paper>

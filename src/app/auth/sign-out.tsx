@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 // PAGE COMPONENT
 export default function SignOut() {
   // CONTEXT VARIABLE
-  const { setUserId, setUserUid, setUserFirstName, setUserLastName } = useContext(ContextVariables);
+  const { setUserId, setUserUid, setUserFirstName, setUserLastName, setUserEmail, setUserPhotoUrl } = useContext(ContextVariables);
   const router = useRouter();
 
   // HELPER FUNCITON
@@ -22,6 +22,8 @@ export default function SignOut() {
         setUserUid('noUid');
         setUserFirstName('noFirstName');
         setUserLastName('noLastName');
+        setUserEmail('noEmail');
+        setUserPhotoUrl('noPhotoUrl');
 
         alert('sign out successful');
 
