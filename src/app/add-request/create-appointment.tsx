@@ -312,16 +312,16 @@ export default function CreateAppointment () {
   return (
     <div className="add_request_container">
       <Paper
-        elevation={3}
+        elevation={12}
         sx={{
           padding: { xs: 1, md: 5 },
           maxWidth: "99%",
           margin: { xs: "5px", md: "20px" },
           marginBottom: "15px",
-          borderRadius: "16px",
+          borderRadius: { xs: "0px", md: "16px" },
           justifyContent: "center",
           marginTop: { xs: '100px', md: "10%" },
-          boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.2)",
+          boxShadow: { xs:"0px 0px 0px 0px rgba(0, 0, 0, 0)" , md:"0px 4px 8px 0px rgba(0.5, 0.5, 0.5, 0.5)"  },
         }}
       >
         <Typography variant="h3" sx={{ textAlign: "center", mb: 2, fontWeight: "bold", fontSize: { xs: '1rem', md: '1.5rem' } }}>
@@ -379,6 +379,39 @@ export default function CreateAppointment () {
             placeholder="Please enter any additional information here..."
             fullWidth
           />
+          <FormControl fullWidth>
+            <InputLabel>Desired Language</InputLabel>
+            <Select
+              value={desireLanguage}
+              onChange={(e) => setDesireLanguage(e.target.value)}
+              required
+              label="Desired Language"
+            >
+              {languages.map((language) => (
+                <MenuItem key={language} value={language}>
+                  {language}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <FormControl fullWidth>
+            <InputLabel>Communication Language</InputLabel>
+            <Select
+              value={communicateLanguage}
+              onChange={(e) => setCommunicateLanguage(e.target.value)}
+              required
+              label="Communication Language"
+            >
+              {languages.map((language) => (
+                <MenuItem key={language} value={language}>
+                  {language}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+
 
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             {isMobile ? (
@@ -428,7 +461,9 @@ export default function CreateAppointment () {
 
           {appointmentType !== "videoChat" && (
             <>
-              <TextField
+            <Box sx={{ margin:"-10px",
+              boxShadow: { xs:"0px 0px 0px 0px rgba(0, 0, 0, 0)" , md:"0px 4px 8px 0px rgba(0.3, 0.3, 0.3, 0.5)"  },}}>
+              <TextField sx={{marginTop:"20px",width:"98%", marginLeft:"10px",marginRight:"10px"}}
                 label="Adress/Location"
                 type="text"
                 value={location}
@@ -436,13 +471,13 @@ export default function CreateAppointment () {
                 error={!!formErrors.location}
                 helperText={formErrors.location}
                 placeholder="Enter Address or Location (e.g. Tokyo Station)"
-                fullWidth
+               
                 required
               />
-              <Button
+              <Button sx={{buttonBlack,marginTop: { xs: '15px', md: "20px" },marginLeft:"10px"}}
                 variant="outlined"
                 onClick={handleLocationSearch}
-                sx={buttonBlack}>
+                >
                 Confirm Location
               </Button>
               <Snackbar
@@ -463,7 +498,7 @@ export default function CreateAppointment () {
                   <Box sx={{ width: "100%", margin: "auto" }}>
                     <MapComponent
                       coordinates={locationCoordinates}
-                      style={{ width: "100%", height: "400px" }}
+                      style={{ marginLeft:"10px",marginRight:"10px",width: "98%", height: "400px" }}
                     />
                   </Box>
                   <Typography
@@ -480,44 +515,16 @@ export default function CreateAppointment () {
                   </Typography>
                 </Box>
               )}
+              </Box>
             </>
           )}
 
-          <FormControl fullWidth>
-            <InputLabel>Desired Language</InputLabel>
-            <Select
-              value={desireLanguage}
-              onChange={(e) => setDesireLanguage(e.target.value)}
-              required
-              label="Desired Language"
-            >
-              {languages.map((language) => (
-                <MenuItem key={language} value={language}>
-                  {language}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
 
-          <FormControl fullWidth>
-            <InputLabel>Communication Language</InputLabel>
-            <Select
-              value={communicateLanguage}
-              onChange={(e) => setCommunicateLanguage(e.target.value)}
-              required
-              label="Communication Language"
-            >
-              {languages.map((language) => (
-                <MenuItem key={language} value={language}>
-                  {language}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
           <Box sx={{ marginBottom: 2 }}>
             <FormControlLabel
               control={
-                <Checkbox
+                <Checkbox 
+                // sx={{width:"5px",magrinLeft:"10px"}}
                   checked={isAgreed}
                   onChange={(e) => setIsAgreed(e.target.checked)}
                   required
@@ -527,17 +534,14 @@ export default function CreateAppointment () {
                 <Typography sx={{
                   color: "red",
                   fontWeight: "bold",
+                  marginTop:"10pX",
+                  magrinLeft:"10px",
                   fontSize: {
                     xs: '10px',
-                    md: '18px'
+                    md: '15px'
                   }
                 }}>
-                  I agree to the Terms and Conditions
-
-                  <br />
-                  Our site prohibits any financial transactions through its
-                  platform and accepts no liability for any issues arising from
-                  interpretation services.
+                  I agree to the Terms and Conditions.
                 </Typography>
               }
             />
@@ -625,6 +629,15 @@ export default function CreateAppointment () {
                 Memo: <strong>{note}</strong>
               </Typography>
               <Typography variant="body1">
+                Desired Language: <strong>{desireLanguage}</strong>
+              </Typography>
+              <Typography variant="body1">
+                Communication Language: <strong>{communicateLanguage}</strong>
+              </Typography>
+              <Typography variant="body1">
+                Interpretation Type: <strong>{appointmentType}</strong>
+              </Typography>
+              <Typography variant="body1">
                 Date and Time:{" "}
                 <strong>
                   {dateTime
@@ -644,15 +657,7 @@ export default function CreateAppointment () {
                 </>
               )}
 
-              <Typography variant="body1">
-                Desired Language: <strong>{desireLanguage}</strong>
-              </Typography>
-              <Typography variant="body1">
-                Communication Language: <strong>{communicateLanguage}</strong>
-              </Typography>
-              <Typography variant="body1">
-                Interpretation Type: <strong>{appointmentType}</strong>
-              </Typography>
+
             </Box>
 
             <Box
