@@ -154,7 +154,7 @@ export default function FindRequestCard() {
       return null;
     })
     .filter((coord) => coord !== null) as Coordinate[];
-  console.log("findTSX", mapCoordinates);
+  // console.log("findTSX", mapCoordinates);
 
   const popUpAppointments = appointments.filter((appointment) => {
     const appointmentTime = new Date(appointment.appointmentDateTime);
@@ -165,13 +165,13 @@ export default function FindRequestCard() {
     return typeFilter;
     // return timeFilter && typeFilter;
   });
-  console.log("popupAppo", popUpAppointments);
+  // console.log("popupAppo", popUpAppointments);
 
   return (
     <Paper
     sx={{
-      marginTop: { xs: "100px", md: "10%" },
-      width: "90%",
+      marginTop: { xs: "10%", md: "3%" },
+      width: { xs: "100%", md: "90%" },
       maxWidth: "1200px",
       minWidth: { xs: "350px", md: "800px" },
       borderRadius: "10px",
@@ -191,8 +191,8 @@ export default function FindRequestCard() {
     >
       <Box
         sx={{
-          width: { md: "50%" },
-          padding: 4,
+          width: { xs:"100%", md: "50%" },
+          padding: { xs: 1, md:4 },
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -208,20 +208,22 @@ export default function FindRequestCard() {
               style={{ width: "100%", height: "400px" }}
             />
           </Box>
-          <Box sx={{ mt: 2, width: "100%", marginTop: "40px" }}>
+          {/* <Box sx={{ mt: 2, width: "100%", marginTop: "40px" }}>
             <TextField
               fullWidth
               placeholder="Search appointments..."
               value={searchKeyword}
               onChange={(e) => setSearchKeyword(e.target.value)}
             />
-          </Box>
+          </Box> */}
           <RadioGroup
   row={!isMobile}
   value={selectedType}
   onChange={(e) => setSelectedType(e.target.value)}
   sx={{ 
     display: 'flex', 
+    marginTop: { xs: "40px", md: "50px" },
+  
     justifyContent: { xs: 'flex-start', md: 'space-around' }, 
   }}
 >

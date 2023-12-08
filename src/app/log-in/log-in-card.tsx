@@ -13,6 +13,7 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { SnackbarCloseReason } from "@mui/material/Snackbar";
 import GoogleIcon from "@mui/icons-material/Google";
+import { buttonBlack } from "@/muistyle";
 
 
 // PAGE COMPONENT
@@ -67,42 +68,44 @@ export default function LogInCard(): JSX.Element {
 
   return (
     <Box
-    sx={{
-      display: "flex",
-      overflow: "hidden",
-      justifyContent: "center",
-      alignItems: "center",
-      margin: "0 auto",
-      borderRadius: "16px",
-      flexDirection: { xs: "column", md: "row" },
-      width: { xs: "90%", md: "90%" },
-      height: { xs: "auto", md: "70vh" }
-    }}
+      sx={{
+        display: "flex",
+        overflow: "hidden",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "0 auto",
+        borderRadius: "16px",
+        flexDirection: { xs: "column", md: "row" },
+        width: { xs: "90%", md: "90%" },
+        height: { xs: "auto", md: "70vh" }
+      }}
     >
       <Box
-    component="img"
-    sx={{
-      display: { xs: "none", md: "block" },
-      width: { md: "50%" },
-      height: { md: "100%" },
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-    }}
-    src="/sun.jpg"
-  />
-   <Paper
-    elevation={3}
-    sx={{
-    
-      padding: { xs: 2, md: 5 },
-      width: { xs: "100%", md: "50%" },
-      height: { xs: "auto", md: "100%" },
-      borderRadius: { xs: "16px", md: "0 16px 16px 0" },
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-    }}
-  >
+        component="img"
+        sx={{
+          display: { xs: "none", md: "block" },
+          width: { md: "50%" },
+          height: { md: "100%" },
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+        src="/sun.jpg"
+      />
+      <Box
+        // elevation={5}
+        sx={{
+          padding: { xs: 2, md: 5 },
+          width: { xs: "100%", md: "50%" },
+          height: { xs: "auto", md: "100%" },
+          borderRadius: { xs: "16px", md: "0 16px 16px 0" },
+          bgcolor: 'background.paper',
+          border: 1,
+          borderColor: '#e0e0e0',
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
         <Typography variant="h4" sx={{ textAlign: "center", mb: 2, fontSize: {xs: "20px", md: "34px"}  }}>
           Log In to Your Account
         </Typography>
@@ -146,7 +149,9 @@ export default function LogInCard(): JSX.Element {
           <Button
             type="submit"
             variant="contained"
-            sx={{borderRadius: '4px',
+            sx={{
+              ...buttonBlack,
+              borderRadius: '4px',
               backgroundColor: "black",
               color: "white",
               "&:hover": {
@@ -170,7 +175,7 @@ export default function LogInCard(): JSX.Element {
                 cursor: "pointer",
                 textDecoration: "none",
                 "&:hover": {
-                   
+                    
                   color: "secondary.main", 
                 },
               }}
@@ -184,7 +189,7 @@ export default function LogInCard(): JSX.Element {
             {alertMessage}
           </Alert>
         </Snackbar>
-      </Paper>
+      </Box>
     </Box>
   )
 };
