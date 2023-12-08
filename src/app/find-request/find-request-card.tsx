@@ -107,7 +107,6 @@ export default function FindRequestCard() {
     const typeFilter =
       selectedType === "all" || appointment.appointmentType === selectedType;
     const keywordFilter =
-      appointment.status?.toLowerCase().includes(searchKeyword.toLowerCase()) ||
       appointment.appointmentTitle
         ?.toLowerCase()
         .includes(searchKeyword.toLowerCase()) ||
@@ -172,7 +171,7 @@ export default function FindRequestCard() {
     <Paper
     sx={{
       marginTop: { xs: "100px", md: "10%" },
-      width: "80%",
+      width: "90%",
       maxWidth: "1200px",
       minWidth: { xs: "350px", md: "800px" },
       borderRadius: "10px",
@@ -186,7 +185,8 @@ export default function FindRequestCard() {
       sx={{
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
-        overflow: "hidden"
+        overflow: "hidden",
+        alignItems: "flex-start"
       }}
     >
       <Box
@@ -272,12 +272,3 @@ export default function FindRequestCard() {
   );
   
 }
-
-// '&::-webkit-scrollbar-track': {
-//   boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
-//   webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
-// },
-// '&::-webkit-scrollbar-thumb': {
-//   backgroundColor: 'rgba(0,0,0,.1)',
-//   outline: '1px solid slategrey'
-// }
