@@ -226,11 +226,6 @@ export default function AppointmentDetail({appointmentId, openWindow, closeWindo
                                         aria-describedby="modal-modal-description"
                                         // sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'} }}
                                     >
-                                        {showDisclaimerModal ? (
-                                            <Box sx={detailWindowStyle} className='appointment-detail__disclaimer-modal'>
-                                                <Disclaimer handleCloseModal={handleCloseDisclaimerModal}/>
-                                            </Box>
-                                        ) : (
                                             <Box sx={detailWindowStyle} className='appointment-detail__accept-modal'>
                                                 <div className='appointment-detail__accept-modal__title'>Confirm Accept Appointment</div>
                                                 <div className='appointment-detail__accept-modal__agreement'>
@@ -242,9 +237,7 @@ export default function AppointmentDetail({appointmentId, openWindow, closeWindo
                                                             required
                                                             className="add_request_checkbox"
                                                         />
-                                                        <p className='appointment-detail__accept-modal__agreement__check__text'>
-                                                            I agree to the <span onClick={handleOpenDisclaimerModal} className="appointment-detail__accept-modal__agreement__check__link">disclaimer</span>
-                                                        </p>
+
                                                     </div>
                                                     <div className='appointment-detail__accept-modal__agreement__note'>
                                                         Note: our site prohibits any financial transactions through its platform and accepts no liability for any issues arising from interpretation services.
@@ -255,7 +248,7 @@ export default function AppointmentDetail({appointmentId, openWindow, closeWindo
                                                     <Button variant='contained' onClick={() => handleStatusChange("Accepted")} sx={buttonBlack}>Confirm</Button>
                                                 </div>
                                             </Box>
-                                        )}
+                                        
                                     </Modal>
                                 </>
                             )}
