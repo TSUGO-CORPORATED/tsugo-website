@@ -12,18 +12,30 @@ import {
 } from '@mui/material';
 
 type Appointment = {
+  // id: number;
+  // status: string;
+  // appointmentTitle: string,
+  // appointmentType: string,
+  // clientSpokenLanguage: string;
+  // interpreterSpokenLanguage: string;
+  // locationName: string;
+  // locationLatitude: number;
+  // locationLongitude: number;
+  // appointmentDateTime: Date;
+  // locationAdress: string;
+  // appointmentCategory: string;
   id: number;
   status: string;
   appointmentTitle: string,
   appointmentType: string,
+  mainCategory: string | null,
+  subCategory: string | null,
   clientSpokenLanguage: string;
   interpreterSpokenLanguage: string;
-  locationName: string;
+  locationName: string | null;
   locationLatitude: number;
   locationLongitude: number;
   appointmentDateTime: Date;
-  locationAdress: string;
-  appointmentCategory: string;
 };
 
 
@@ -89,7 +101,7 @@ export default function FindRequestCard() {
           });
         },
         () => {
-          console.error("Faild to get your Geolocation .");
+          console.error("Failed to get your Geolocation .");
         }
       );
     }
@@ -118,11 +130,14 @@ export default function FindRequestCard() {
         .includes(searchKeyword.toLowerCase()) ||
       appointment.locationName
         ?.toLowerCase()
-        .includes(searchKeyword.toLowerCase()) ||
-      appointment.locationAdress
+      //   .includes(searchKeyword.toLowerCase()) ||
+      // appointment.locationAdress
         ?.toLowerCase()
         .includes(searchKeyword.toLowerCase()) ||
-      appointment.appointmentCategory
+      appointment.mainCategory
+        ?.toLowerCase()
+        .includes(searchKeyword.toLowerCase()) ||
+      appointment.subCategory
         ?.toLowerCase()
         .includes(searchKeyword.toLowerCase());
     const languageFilter =
@@ -254,9 +269,9 @@ export default function FindRequestCard() {
         <Box
           sx={{
             width: { md: "50%" },
-            // height: "800px",
+            height: "800px",
             minWidth: "300px",
-            // overflowY: "auto", 
+            overflowY: "auto", 
             marginTop:"30px",
             padding: 1
           }}
@@ -266,7 +281,7 @@ export default function FindRequestCard() {
             padding: 1
           }}>
           <AppointmentBlock 
-          appointment={filteredAppointments} />
+            appointment={filteredAppointments} />
           </Box>
         </Box>
       </Box>

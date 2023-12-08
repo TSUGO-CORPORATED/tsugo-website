@@ -15,17 +15,29 @@ type Coordinate = {
 };
 
 type Appointments = {
+  // id: number;
+  // status: string;
+  // appointmentTitle: string,
+  // appointmentType: string,
+  // clientSpokenLanguage: string;
+  // interpreterSpokenLanguage: string;
+  // locationName: string;
+  // locationLatitude: number;
+  // locationLongitude: number;
+  // appointmentDateTime: Date;
+  // locationAdress: string;
   id: number;
   status: string;
   appointmentTitle: string,
   appointmentType: string,
+  mainCategory: string | null,
+  subCategory: string | null,
   clientSpokenLanguage: string;
   interpreterSpokenLanguage: string;
-  locationName: string;
+  locationName: string | null;
   locationLatitude: number;
   locationLongitude: number;
   appointmentDateTime: Date;
-  locationAdress: string;
 };
 
 interface AppointmentDetail {

@@ -1,21 +1,71 @@
-.add_request, .confirm_section {
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: auto;
-}
+// .add_request {
+//   background-size: cover;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 100vh;
+//   overflow: auto;
+// }
 
-.add_request_container  {
-  background-color: white;
-  max-height: 75%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin:auto;
-  overflow: auto; 
+.add-request {
+  @include background();
+  height: auto;
+
+  &__container  {
+    // @include flexCenter(column);
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+    // margin: 20px;
+    // background-color: red;
+    // margin-top: 1000px;
+    // height: 100%;
+    // padding: 20px;
+    // height: 100%;
+    // max-height: 75%;
+    // margin:auto;
+    // height: auto;
+    
+    padding: 5px;
+
+    @media screen and (min-width: 700px) {
+      width: 700px;
+    }
+
+  }
+  &__agree {
+    color: red;
+    font-weight: bold;
+    font-size: 12px;
+    display: inline;
+  
+    @media screen and (min-width: 700px) {
+      font-size: 15px;
+    }
+  }
+
+  &__disclaimer {
+    height: 150px;
+
+    @media screen and (min-width: 700px) {
+      height: 200px;
+    }
+  }
+
+  &__confirmation {
+    @media screen and (min-width: 500px) {
+      width: 500px;
+    }
+
+    &__button {
+      // color: red;
+      @media screen and (max-width: 500px) {
+        width: 125px;
+        font-size: 12px;
+      }
+    }
+  }
 }
 
 .confirm_section_container{
@@ -23,17 +73,17 @@
   flex-direction: column;
   justify-content: center; 
   align-items: center;
-  margin-top: 10vh; 
-  margin:auro;
-  overflow: auto; 
+  // margin-top: 10vh; 
+  // margin:auto;
+  // overflow: auto; 
 }
 
-.add_request_title {
-  color: black;
-  font-size: 24px; 
+// .add_request_title {
+//   color: black;
+//   font-size: 24px; 
 
-  white-space: nowrap; 
-  margin-top: 20vh; 
-  margin-bottom: 10px;
-  order: -1;
-}
+//   white-space: nowrap; 
+//   margin-top: 20vh; 
+//   margin-bottom: 10px;
+//   order: -1;
+// }
