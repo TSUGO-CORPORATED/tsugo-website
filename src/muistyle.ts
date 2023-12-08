@@ -12,6 +12,7 @@ export const buttonWhite =  {
         color:'white',
     },
     fontWeight: 'bold',
+    fontFamily: 'Lusitana'
 };
 
 export const buttonBlack =  { 
@@ -24,6 +25,7 @@ export const buttonBlack =  {
         color:'white',
     },
     fontWeight: 'bold',
+    fontFamily: 'Lusitana'
 };
 
 export const buttonRed = { 
@@ -36,6 +38,7 @@ export const buttonRed = {
         color:'white',
     },
     fontWeight: 'bold',
+    fontFamily: 'Lusitana'
 };
 
 export const buttonOffDark = { 
@@ -48,6 +51,7 @@ export const buttonOffDark = {
         borderColor: 'black',
     },
     fontWeight: 'bold',
+    fontFamily: 'Lusitana'
 };
 
 export const buttonOffMid = { 
@@ -60,6 +64,7 @@ export const buttonOffMid = {
         color:'white',
     },
     fontWeight: 'bold',
+    fontFamily: 'Lusitana'
 };
 
 export const buttonOffLight = { 
@@ -72,4 +77,5 @@ export const buttonOffLight = {
         borderColor: 'black',
     },
     fontWeight: 'bold',
+    fontFamily: 'Lusitana'
 };

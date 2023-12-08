@@ -307,7 +307,7 @@ function handleCloseDetailModal() {
           <Button  variant="contained"
           color="primary"
           onClick={moveToClosestMarker}
-          sx={buttonBlack}   >Nearest Reqest</Button>
+          sx={buttonBlack}   >Nearest Request</Button>
         )}
     </div>
   );

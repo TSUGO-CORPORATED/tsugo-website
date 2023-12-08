@@ -485,45 +485,44 @@
   padding-top: 8vh;
   width: 100%;
 }
-.find-request__card {
-  background-color: #fffffa;
-  border-radius: 10px;
+.find-request__block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
   justify-content: flex-start;
-  width: 75%;
-  height: 75%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  height: 95%;
+  width: 95%;
 }
-.find-request__card__header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  font-weight: bold;
-  font-size: 36px;
-  padding: 0px;
-  height: 10%;
+@media screen and (min-width: 1000px) {
+  .find-request__block {
+    width: 1000px;
+  }
 }
-.find-request__card__filter {
-  height: 10%;
+@media screen and (max-width: 500px) {
+  .find-request__block {
+    height: 100%;
+    width: 100%;
+  }
 }
-.find-request__card__map-container {
-  width: 90%;
-  height: 50%;
-}
-.find-request__card__appointment-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  justify-content: flex-start;
+.find-request__map {
   width: 100%;
-  height: 30%;
+  height: 400px;
 }
-.find-request__card__appointment-container__appointment {
-  border: 1px solid black;
+@media screen and (max-width: 500px) {
+  .find-request__map {
+    width: 100%;
+    height: 250px;
+  }
+}
+.find-request__select-language {
+  width: 100%;
+}
+@media screen and (max-width: 500px) {
+  .find-request__select-language {
+    width: 100%;
+    height: 30px;
+  }
 }
 
 .edit-profile {
