@@ -312,6 +312,37 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                     <Button onClick={handleOpenAcceptModal} sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
                                         Accept appointment
                                     </Button>
+                                    <Modal
+                                        open={showAcceptModal}
+                                        onClose={handleCloseAcceptModal}
+                                        aria-labelledby="modal-modal-title"
+                                        aria-describedby="modal-modal-description"
+                                        // sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'} }}
+                                    >
+                                            <Box sx={detailWindowStyle} className='appointment-detail__accept-modal'>
+                                                <div className='appointment-detail__accept-modal__title'>Confirm Accept Appointment</div>
+                                                <div className='appointment-detail__accept-modal__agreement'>
+                                                    <div className='appointment-detail__accept-modal__agreement__check'>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isAgreed}
+                                                            onChange={(e) => setIsAgreed(e.target.checked)}
+                                                            required
+                                                            className="add_request_checkbox"
+                                                        />
+
+                                                    </div>
+                                                    <div className='appointment-detail__accept-modal__agreement__note'>
+                                                        Note: our site prohibits any financial transactions through its platform and accepts no liability for any issues arising from interpretation services.
+                                                    </div>
+                                                </div>
+                                                <div className='appointment-detail__accept-modal__button'>
+                                                    <Button variant='outlined' onClick={handleCloseAcceptModal} sx={buttonWhite}>Cancel</Button>
+                                                    <Button variant='contained' onClick={() => handleStatusChange("Accepted")} sx={buttonBlack}>Confirm</Button>
+                                                </div>
+                                            </Box>
+                                        
+                                    </Modal>
                                 </>
                             )}
                             {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId === userId && (
