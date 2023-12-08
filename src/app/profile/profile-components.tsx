@@ -1,14 +1,14 @@
 'use client';
+
+// IMPORT MODULES
 import React, { useContext, useEffect, useState } from 'react';
 import { ContextVariables } from '../../context-variables';
 import axios from "axios"
 import Link from 'next/link';
-import Image from 'next/image';
+import Avatar from '@mui/material/Avatar';
 import { TextField, Button, Paper } from '@mui/material';
-
-import profilePic from '../../../public/default.jpg';
-
 import { auth } from "../../firebase";
+import { buttonOffDark, buttonRed, buttonWhite } from '@/muistyle';
 
 
 export default function Profile() {
@@ -30,7 +30,7 @@ export default function Profile() {
       }
 
     const url: string = 'https://senior-project-server-8090ce16e15d.herokuapp.com/user/';
-    const { userId, userFirstName, userLastName, userUid } = useContext(ContextVariables);
+    const { userId, userFirstName, userLastName, userUid, userPhotoUrl } = useContext(ContextVariables);
     const [userProfile, setUserProfile] = useState<UserDetails | null>();
     const [updated, setUpdated] = useState<Boolean>(false);
     const [firstNameUpdate, setFirstNameUpdate] = useState<string | number | readonly string[] | undefined>("");
@@ -41,7 +41,8 @@ export default function Profile() {
     const [deleted, setDeleted] = useState<Boolean>(false);
     const [provider, setProvider] = useState<string>('');
 
-    const dummy = [{id: 69, language: "English", proficiency: "Native"}];
+    // const dummy = [{id: 69, language: "English", proficiency: "Native"}];
+    // console.log(userPhotoUrl)
 
     // Check provider
     async function checkProvider() {
@@ -61,9 +62,9 @@ export default function Profile() {
             setFirstNameUpdate(fetchUserProfile.data.firstName);
             setLastNameUpdate(fetchUserProfile.data.lastName);
             setAboutUpdate(fetchUserProfile.data.about);
-            setLanguageUpdate(fetchUserProfile.data.userLanguage[0].language);
+            // setLanguageUpdate(fetchUserProfile.data.userLanguage[0].language);
             
-            console.log("user profile: ", fetchUserProfile.data)
+            // console.log("user profile: ", fetchUserProfile.data)
         } catch(error) {
             console.log("error: ", error);
         }
@@ -125,17 +126,19 @@ export default function Profile() {
     // }
 
     return (
-        
         <Paper elevation={3} className='profile-container'>
             <h1 className='profile-container__header'>{userProfile?.firstName} {userProfile?.lastName}</h1>
             {/* <div className='profile-container__pic-container'> */}
-                <Image 
-                    src={profilePic}
-                    alt='Avatar'
-                    className='profile-container__profile-pic'
-                    width={200}
-                    height={200}
-                />
+                {userPhotoUrl !== 'noPhotoUrl' ? (
+                <Avatar 
+                    src={userPhotoUrl} 
+                    sx={{ width: 200, height: 200 }}
+                />  
+                ) : (
+                    <Avatar 
+                    sx={{ width: 200, height: 200 }}
+                />  
+                )}
             {/* </div> */}
 
             {/* <p className='profile-p'>ID: {userProfile?.id}</p> */}
@@ -182,8 +185,8 @@ export default function Profile() {
         
             <div className='profile-container__button-container'>
                 <Link className='profile-container__edit-link' href="/profile/edit-profile">
-                    <Button variant='contained' className='profile-container__profile-button' id='profile-container__edit-button'>
-                    Edit Profile
+                    <Button variant='contained' sx={buttonOffDark} className='profile-container__profile-button' id='profile-container__edit-button'>
+                        Edit Profile
                     </Button>
                 </Link>
 
@@ -195,8 +198,8 @@ export default function Profile() {
 
                 {provider === "password" && (
                     <Link className='profile-container__password-link' href="/profile/update-password">
-                        <Button variant='contained' className='profile-container__password-button' id='profile-container__password-button'>
-                        Update password
+                        <Button variant='contained' sx={buttonWhite} className='profile-container__password-button' id='profile-container__password-button'>
+                            Update password
                         </Button>
                     </Link>
                 )}    
@@ -204,7 +207,7 @@ export default function Profile() {
                 {/* <button onClick={checkProvider}>Check provider</button> */}
 
                 <Link className='profile-container__delete-link' href="/profile/delete-account">
-                    <Button variant='outlined' className='profile-container__delete-button' id='profile-container__delete-button'>
+                    <Button variant='outlined' sx={buttonRed} className='profile-container__delete-button' id='profile-container__delete-button'>
                         Delete Account
                     </Button>
                 </Link>

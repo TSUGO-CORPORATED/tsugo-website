@@ -12,6 +12,7 @@ import { TextField,Divider, Button, Typography, Paper, Box, InputAdornment} from
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import { buttonBlack } from '@/muistyle';
 
 // PAGE COMPONENT
 export default function SignUpCard(): JSX.Element {
@@ -78,7 +79,7 @@ export default function SignUpCard(): JSX.Element {
     <Box
       sx={{
         display: "flex",
-        overflow: "hidden",
+        // overflow: "hidden",
         justifyContent: "center",
         borderRadius: "16px",
         alignItems: "center",
@@ -93,24 +94,24 @@ export default function SignUpCard(): JSX.Element {
         sx={{
           display: { xs: "none", md: "block" },
           width: { md: "50%" },
-          height: { md: "100%" },
-          backgroundImage: 'url("/tokyo.jpg")',
+          height: { md: "115%" },
           backgroundSize: "cover",
           backgroundPosition: "center",
           borderRadius: "16px 0 0 16px", 
         }}
         src="/rice.jpg"
       />
-    <Paper
-        elevation={3}
+      <Box
+        // elevation={3}
         sx={{
           padding: 4,
           paddingTop: { xs: 3, md: 5 }, 
           height: "80vh",
           overflow: 'auto', 
           width: { xs: "100%", md: "45%" },
-
           borderRadius: { xs: "16px", md: "0 16px 16px 0" },
+          border: 1,
+          borderColor: '#e0e0e0',
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -132,102 +133,106 @@ export default function SignUpCard(): JSX.Element {
         </Typography>
         <GoogleLogIn />
         <Divider sx={{ my: 2 }} />
-    <Box component="form" onSubmit={passwordSignUp} sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-      <TextField
-        label="Email"
-        type="email"
-        placeholder="Enter your email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <MailOutlineIcon />
-            </InputAdornment>
-          ),
-        }}
-      />
-      <TextField
-        label="Password"
-        type="password"
-        placeholder="Enter your password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <LockOutlinedIcon />
-            </InputAdornment>
-          ),
-        }}
-      />
-      <TextField
-        label="First Name"
-        type="text"
-        placeholder="Enter your first name"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-        required
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <PersonOutlineIcon />
-            </InputAdornment>
-          ),
-        }}
-      />
-      <TextField
-        label="Last Name"
-        type="text"
-        placeholder="Enter your last name"
-        value={lastName}
-        onChange={(e) => setLastName(e.target.value)}
-        required
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <PersonOutlineIcon />
-            </InputAdornment>
-          ),
-        }}
-      />
-       <Button
-          type="submit"
-          variant="contained"
-          sx={{
-            backgroundColor: "black",
-            color: "white",
-            "&:hover": {
-              backgroundColor: "#333",
-            },
-            textTransform: "none",
-            width: "100%",
-            height: "56px",
-            borderRadius: "4px", 
-          }}
-        >Sign Up</Button>
+        <Box component="form" onSubmit={passwordSignUp} sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+          <TextField
+            label="Email"
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <MailOutlineIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            label="Password"
+            type="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LockOutlinedIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            label="First Name"
+            type="text"
+            placeholder="Enter your first name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <PersonOutlineIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            label="Last Name"
+            type="text"
+            placeholder="Enter your last name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <PersonOutlineIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              ...buttonBlack,
+              backgroundColor: "black",
+              color: "white",
+              "&:hover": {
+                backgroundColor: "#333",
+              },
+              textTransform: "none",
+              width: "100%",
+              height: "56px",
+              borderRadius: "4px", 
+            }}
+          >
+            Sign Up
+          </Button>
         </Box>
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-      <Typography>Already have an account?</Typography>
-      <Link href="/log-in">
-      <Typography
+          <Typography>Already have an account?</Typography>
+          <Link href="/log-in">
+            <Typography
               sx={{
                 ml: 1,
                 color: "primary.main",
                 cursor: "pointer",
                 textDecoration: "none",
                 "&:hover": {
-                   
+                  
                   color: "secondary.main", 
                 },
               }}
             >
               Log in
-            </Typography></Link>
+            </Typography>
+          </Link>
+        </Box>
+      </Box> 
     </Box>
-  </Paper> 
-  </Box>
-);
+  );
 }
