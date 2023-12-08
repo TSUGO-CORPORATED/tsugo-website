@@ -288,7 +288,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                     <div className='appointment-detail__complete-modal__title'>Confirm Complete Appointment</div>
                                     <div className='appointment-detail__complete-modal__button'>
                                         <Button variant='outlined' onClick={handleCloseCompleteModal} sx={buttonWhite}>Cancel</Button>
-                                        <Button variant='contained' onClick={() => handleStatusChange("Completed")} sx={buttonOffMid}>Confirm</Button>
+                                        <Button variant='contained' onClick={() => handleStatusChange("Completed")} sx={buttonBlack}>Confirm</Button>
                                     </div>
                                 </Box>
                             </Modal>
@@ -315,7 +315,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                     {showModal && (
                                         <Disclaimer handleCloseModal={handleCloseDisclaimerModal} />
                                     )} */}
-                                    <Button onClick={handleOpenAcceptModal} sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
+                                    <Button onClick={handleOpenAcceptModal} sx={buttonOffLight} variant='contained' size='small' className='appointment-detail__content__button'>
                                         Accept appointment
                                     </Button>
                                     {/* <Modal
@@ -413,7 +413,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                                 role: userId === appointmentDetail.clientUserId ? 'client' : 'interpreter',
                                             }
                                         }}>
-                                            <Button sx={buttonOffLight} variant='contained' size='small' className='appointment-detail__content__button'>
+                                            <Button sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
                                                 Add review
                                             </Button>
                                         </Link>
