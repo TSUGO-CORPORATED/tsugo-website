@@ -389,6 +389,7 @@ export default function CreateAppointment () {
                 //   TextField: CustomTextField,
                 // }}
                 label="Date and Time"
+                minDate = {dayjs()}
               />
             ) : (
               <DesktopDateTimePicker
@@ -398,6 +399,7 @@ export default function CreateAppointment () {
                 //   TextField: CustomTextField,
                 // }}
                 label="Date and Time"
+                minDate = {dayjs()}
               />
             )}
           </LocalizationProvider>
