@@ -154,7 +154,7 @@ export default function FindRequestCard() {
       return null;
     })
     .filter((coord) => coord !== null) as Coordinate[];
-  console.log("findTSX", mapCoordinates);
+  // console.log("findTSX", mapCoordinates);
 
   const popUpAppointments = appointments.filter((appointment) => {
     const appointmentTime = new Date(appointment.appointmentDateTime);
@@ -165,7 +165,7 @@ export default function FindRequestCard() {
     return typeFilter;
     // return timeFilter && typeFilter;
   });
-  console.log("popupAppo", popUpAppointments);
+  // console.log("popupAppo", popUpAppointments);
 
   return (
     <Paper

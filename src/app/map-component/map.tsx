@@ -162,32 +162,6 @@ function handleCloseDetailModal() {
     setOpenDetailModal(false);
 }
 
-  // const markers = appointments ? appointments.map(appointment => (
-  //     <Marker 
-  //       key={appointment.id}
-  //       position={{ lat: Number(appointment.locationLatitude), lng: Number(appointment.locationLongitude) }}
-  //       onClick={() => handleMarkerClick(appointment)}
-  //     >
-  //       {selectedAppointment && selectedAppointment.id === appointment.id && (
-  //         <InfoWindow onCloseClick={() => setSelectedAppointment(null)}>
-  //           <div>
-  //             <h3>{appointment.appointmentTitle}</h3>
-  //             <p>{appointment.locationName}</p>
-  //             <p>{appointment.locationAdress}</p>
-  //             <p>{appointment.clientSpokenLanguage}⇔{appointment.interpreterSpokenLanguage}</p>
-  //             <Link href={{
-  //                         pathname: '/appointment-detail',
-  //                         query: {appointmentId: appointment.id}
-  //                     }} className="appointment-block__detail">
-  //                         &gt;
-  //                     </Link>
-  //           </div>
-  //         </InfoWindow>
-  //       )}
-  //   </Marker>
-  // )) : isCoordinatesArray ? coordinates.map((coord, index) => (
-  //   <Marker key={index} position={{ lat: coord.lat, lng: coord.lng }} />
-  // )) : <Marker position={mapCenter} />;
   const infoWindowStyle = {
     backgroundColor: 'white',
     overflow:"hidden"

@@ -471,7 +471,6 @@ export default function CreateAppointment () {
                 error={!!formErrors.location}
                 helperText={formErrors.location}
                 placeholder="Enter Address or Location (e.g. Tokyo Station)"
-               
                 required
               />
               <Button sx={{buttonBlack,marginTop: { xs: '15px', md: "20px" },marginLeft:"10px"}}
