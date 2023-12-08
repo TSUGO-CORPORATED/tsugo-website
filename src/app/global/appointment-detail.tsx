@@ -227,7 +227,8 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                             >
                                 {showDisclaimerModal ? (
                                     <Box sx={detailModalStyle} className='appointment-detail__disclaimer-modal'>
-                                        <Disclaimer handleCloseModal={handleCloseDisclaimerModal}/>
+                                        {/* <Disclaimer handleCloseModal={handleCloseDisclaimerModal}/> */}
+                                        <Disclaimer />
                                     </Box>
                                 ) : (
                                     <Box sx={detailModalStyle} className='appointment-detail__accept-modal'>
@@ -241,10 +242,10 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                                     required
                                                     className="add_request_checkbox"
                                                 />
+                                            </div>
                                                 <p className='appointment-detail__accept-modal__agreement__check__text'>
                                                     I agree to the <span onClick={handleOpenDisclaimerModal} className="appointment-detail__accept-modal__agreement__check__link">disclaimer</span>
                                                 </p>
-                                            </div>
                                             <div className='appointment-detail__accept-modal__agreement__note'>
                                                 Note: our site prohibits any financial transactions through its platform and accepts no liability for any issues arising from interpretation services.
                                             </div>
@@ -319,7 +320,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                         aria-describedby="modal-modal-description"
                                         // sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'} }}
                                     >
-                                            <Box sx={detailWindowStyle} className='appointment-detail__accept-modal'>
+                                            <Box sx={detailModalStyle} className='appointment-detail__accept-modal'>
                                                 <div className='appointment-detail__accept-modal__title'>Confirm Accept Appointment</div>
                                                 <div className='appointment-detail__accept-modal__agreement'>
                                                     <div className='appointment-detail__accept-modal__agreement__check'>
