@@ -463,7 +463,7 @@ export default function CreateAppointment () {
             <>
             <Box sx={{ margin:"-10px",
               boxShadow: { xs:"0px 0px 0px 0px rgba(0, 0, 0, 0)" , md:"0px 4px 8px 0px rgba(0.3, 0.3, 0.3, 0.5)"  },}}>
-              <TextField sx={{marginTop:"20px",width:"98%", marginLeft:"10px",marginRight:"10px"}}
+              <TextField sx={{marginTop:"20px",width:{xs:"96%",md: "98%"}, marginLeft:"10px",marginRight:"10px"}}
                 label="Adress/Location"
                 type="text"
                 value={location}
