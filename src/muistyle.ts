@@ -11,6 +11,7 @@ export const buttonWhite =  {
         backgroundColor: '#cfcfcf',
         color:'white',
     },
+    fontWeight: 'bold',
 };
 
 export const buttonBlack =  { 
@@ -22,6 +23,7 @@ export const buttonBlack =  {
         backgroundColor: '#343434',
         color:'white',
     },
+    fontWeight: 'bold',
 };
 
 export const buttonRed = { 
@@ -33,6 +35,7 @@ export const buttonRed = {
         backgroundColor: '#ba000d',
         color:'white',
     },
+    fontWeight: 'bold',
 };
 
 export const buttonOffDark = { 
@@ -40,30 +43,33 @@ export const buttonOffDark = {
     backgroundColor: colorOffDark, 
     borderColor: 'black',
     '&:hover': {
-        borderColor: 'white',
-        backgroundColor: '#343434',
         color:'white',
+        backgroundColor: '#0d3646',
+        borderColor: 'black',
     },
+    fontWeight: 'bold',
 };
 
 export const buttonOffMid = { 
     color: 'white', 
     backgroundColor: colorOffMid, 
-    borderColor: 'red',
+    borderColor: 'black',
     '&:hover': {
-        borderColor: 'white',
-        backgroundColor: '#6a4b6c',
+        borderColor: 'black',
+        backgroundColor: '#6fc7ef',
         color:'white',
     },
+    fontWeight: 'bold',
 };
 
 export const buttonOffLight = { 
-    color: 'white', 
+    color: 'black', 
     backgroundColor: colorOffLight, 
     borderColor: 'red',
     '&:hover': {
-        borderColor: 'white',
-        backgroundColor: '#a49083',
         color:'white',
+        backgroundColor: '#f1ecd5',
+        borderColor: 'black',
     },
+    fontWeight: 'bold',
 };

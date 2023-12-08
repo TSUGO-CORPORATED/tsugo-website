@@ -28,10 +28,22 @@ padding: 15px;
 
     &__disclaimer-modal {
         height: 500px;
-        width: 300px;
+        width: 350px;
 
         overflow-y: auto;
-        padding: 15px;
+        padding: 10px;
+
+        &__box {
+            @include flexCenter(row);
+            width: 100%;
+            justify-content: flex-end;
+            align-items: flex-end;
+            padding: 0;
+
+            &__button {
+                padding: 0;
+            }
+        }
     }
 
     &__complete-modal {
@@ -69,12 +81,16 @@ padding: 15px;
         }
 
         &__agreement {
+        @include flexCenter(column);
+        gap: 5px;
+
             &__check {
                 @include flexCenter(row);
                 gap: 10px;
+
                 &__link {
                     text-decoration: underline;
-                    color: $color-off-light;
+                    color: $color-off-dark;
                 }
             }
     
