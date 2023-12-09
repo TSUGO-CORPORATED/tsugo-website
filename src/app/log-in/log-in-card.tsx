@@ -1,10 +1,10 @@
 'use client';
 
 // MODULES IMPORT
-import React, { SyntheticEvent } from "react";
+import React, { SyntheticEvent, } from "react";
 import { auth } from '../../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import GoogleLogIn from '../auth/google-log-in';
@@ -14,6 +14,16 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { SnackbarCloseReason } from "@mui/material/Snackbar";
 import GoogleIcon from "@mui/icons-material/Google";
 import { buttonBlack } from "@/muistyle";
+import CircularProgress from '@mui/material/CircularProgress';
+
+function preloadImage(src:any) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = src;
+    img.onload = resolve;
+    img.onerror = reject;
+  });
+}
 
 
 // PAGE COMPONENT
@@ -25,8 +35,53 @@ export default function LogInCard(): JSX.Element {
   const [open, setOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("success");
+  const [randomImage, setRandomImage] = useState('')
+  const [loading, setLoading] = useState(true);
 
   const router = useRouter();
+  const images = [
+    '/randompics/1.jpg',
+    '/randompics/2.jpg',
+    '/randompics/3.jpg',
+    '/randompics/4.jpg',
+ 
+    '/randompics/6.jpg',
+    '/randompics/7.jpg',
+    '/randompics/8.jpg',
+    '/randompics/9.jpg',
+    '/randompics/10.jpg',
+    '/randompics/11.jpg',
+    '/randompics/12.jpg',
+    '/randompics/13.jpg',
+    '/randompics/14.jpg',
+    '/randompics/15.jpg',
+    '/randompics/16.jpg',
+    '/randompics/17.jpg',
+    '/randompics/18.jpg',
+    '/randompics/19.jpg',
+    '/randompics/20.jpg',
+    '/randompics/21.jpg',
+    '/randompics/22.jpg',
+    '/randompics/23.jpg',
+    '/randompics/24.jpg',
+    '/randompics/25.jpg',
+   
+  ];
+  
+  useEffect(() => {
+    const loadingImages = async () => {
+      try {
+        await Promise.all(images.map(image => preloadImage(image)));
+        const randomIndex = Math.floor(Math.random() * images.length);
+        setRandomImage(images[randomIndex]);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error loading images:", error);
+      }
+    };
+
+    loadingImages();  }, []);
+
 
   async function logIn(e: any): Promise<void> {
     e.preventDefault();
@@ -65,7 +120,9 @@ export default function LogInCard(): JSX.Element {
     setOpen(false);
   };
 
-
+  if (loading) {
+    return <CircularProgress />; 
+  }
   return (
     <Box
       sx={{
@@ -89,7 +146,7 @@ export default function LogInCard(): JSX.Element {
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
-        src="/sun.jpg"
+        src={randomImage} 
       />
       <Box
         // elevation={5}
