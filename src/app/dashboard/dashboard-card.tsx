@@ -125,7 +125,7 @@ export default function DashboardCard(): JSX.Element {
                                 </Link>
                                 <Link href={{
                                     pathname: "/history",
-                                    query: {slug: "client"},
+                                    query: {role: "client"},
                                 }} className='dashboard__card__role-content__button-column__link'>
                                     <Button variant='outlined' sx={buttonWhite} size='medium' className='dashboard__card__role-content__button-column__link__button'>
                                         <div className="dashboard__card__role-content__button-column__link__button__title">
@@ -150,7 +150,7 @@ export default function DashboardCard(): JSX.Element {
                                 </Link>
                                 <Link href={{
                                     pathname: "/history",
-                                    query: {slug: "interpreter"},
+                                    query: {role: "interpreter"},
                                 }} className='dashboard__card__role-content__button-column__link'>
                                     <Button variant='outlined' sx={buttonWhite} size='medium' className='dashboard__card__role-content__button-column__link__button'>
                                         <div className="dashboard__card__role-content__button-column__link__button__title">
