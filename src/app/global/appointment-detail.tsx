@@ -270,7 +270,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                 onClose={handleCloseCancelModal}
                                 aria-labelledby="modal-modal-title"
                                 aria-describedby="modal-modal-description"
-                                // sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'} }}
+                                // sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'}  }}
                             >
                                 <Box sx={detailModalStyle} className='appointment-detail__cancel-modal'>
                                     <div className='appointment-detail__cancel-modal__title'>Confirm Cancel Appointment</div>
