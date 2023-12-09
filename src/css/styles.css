@@ -11,7 +11,7 @@
   flex-direction: column;
   height: 100vh;
   padding-top: 8vh;
-  width: 100%;
+  width: 100vw;
 }
 .log-in__card {
   background-color: #fffffa;
@@ -102,7 +102,7 @@
   flex-direction: column;
   height: 100vh;
   padding-top: 8vh;
-  width: 100%;
+  width: 100vw;
 }
 .sign-up__card {
   background-color: #fffffa;
@@ -186,7 +186,7 @@
   flex-direction: column;
   height: 100vh;
   padding-top: 8vh;
-  width: 100%;
+  width: 100vw;
 }
 .dashboard__card {
   padding: 20px;
@@ -330,7 +330,7 @@
   flex-direction: column;
   height: 100vh;
   padding-top: 8vh;
-  width: 100%;
+  width: 100vw;
 }
 
 .profile-container {
@@ -427,7 +427,7 @@
   flex-direction: column;
   height: 100vh;
   padding-top: 8vh;
-  width: 100%;
+  width: 100vw;
   height: auto;
 }
 .add-request__container {
@@ -483,7 +483,7 @@
   flex-direction: column;
   height: 100vh;
   padding-top: 8vh;
-  width: 100%;
+  width: 100vw;
 }
 .find-request__block {
   display: flex;
@@ -503,6 +503,11 @@
   .find-request__block {
     height: 100%;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 }
 .find-request__map {
@@ -516,13 +521,15 @@
   }
 }
 .find-request__select-language {
-  width: 100%;
+  height: 40px;
 }
-@media screen and (max-width: 500px) {
-  .find-request__select-language {
-    width: 100%;
-    height: 30px;
-  }
+.find-request__appointment {
+  font-size: 16px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
 }
 
 .edit-profile {
@@ -532,7 +539,7 @@
   flex-direction: column;
   height: 100vh;
   padding-top: 8vh;
-  width: 100%;
+  width: 100vw;
 }
 
 .edit-profile-container {
@@ -597,7 +604,7 @@
   flex-direction: column;
   height: 100vh;
   padding-top: 8vh;
-  width: 100%;
+  width: 100vw;
 }
 .chat-room__container {
   width: 100%;
@@ -733,7 +740,7 @@
   flex-direction: column;
   height: 100vh;
   padding-top: 8vh;
-  width: 100%;
+  width: 100vw;
 }
 .history__card {
   background-color: #fffffa;
@@ -1121,7 +1128,7 @@
   flex-direction: column;
   height: 100vh;
   padding-top: 8vh;
-  width: 100%;
+  width: 100vw;
 }
 .home__landing-page {
   display: flex;
@@ -1173,7 +1180,7 @@
   flex-direction: column;
   height: 100vh;
   padding-top: 8vh;
-  width: 100%;
+  width: 100vw;
 }
 .update-password__container {
   width: 100%;
@@ -1224,7 +1231,7 @@
   flex-direction: column;
   height: 100vh;
   padding-top: 8vh;
-  width: 100%;
+  width: 100vw;
 }
 .delete-account__container {
   width: 100%;
@@ -1275,7 +1282,7 @@
   flex-direction: column;
   height: 100vh;
   padding-top: 8vh;
-  width: 100%;
+  width: 100vw;
 }
 
 .review {

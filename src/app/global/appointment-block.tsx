@@ -28,23 +28,34 @@ interface AppointmentOverview {
 }
 
 export default function AppointmentBlock({appointment, refresh}: {appointment: AppointmentOverview[], refresh?: Function}) {    
+    // STATE VARIABLES 
+    const [openDetailModal, setOpenDetailModal] = useState<boolean>(false);
+    const [loadModal, setLoadModal] = useState<boolean>(false);
+    const [selectedAppointment, setSelectedAppointment] = useState<number>(0);
+
+    // HELPER FUNCTION
+    // Controlling detail modal
+    function handleOpenDetailModal() {
+        setOpenDetailModal(true);
+        setLoadModal(true);
+    }
+
+    function handleCloseDetailModal() {
+        setOpenDetailModal(false);
+        setLoadModal(false);
+    }
+
+    function assignSelectedAppointment (e: any): void {
+        const tempSelectedAppointment = Number(e.target.dataset.appointmentid);
+        console.log(tempSelectedAppointment);
+        setSelectedAppointment(tempSelectedAppointment);
+        handleOpenDetailModal()
+    }
+
     return (
         <>
-            {appointment.length === 0 ? <div>No Ongoing Appointment</div> : null}
+            <AppointmentDetail appointmentId={selectedAppointment} openDetailModal={openDetailModal} closeDetailModal={handleCloseDetailModal} refresh={refresh} load={loadModal}/>
             {appointment?.map((appointment, index) => {
-                // STATE VARIABLES 
-                const [openDetailModal, setOpenDetailModal] = useState<boolean>(false);
-                const [loadModal, setLoadModal] = useState<boolean>(false);
-
-                // HELPER FUNCTION
-                function handleOpenDetailModal() {
-                    setOpenDetailModal(true);
-                    setLoadModal(true);
-                }
-                function handleCloseDetailModal() {
-                    setOpenDetailModal(false);
-                }
-
                 // Process date
                 const tempDateTime = appointment.appointmentDateTime;
                 // console.log(tempDateTime)
@@ -98,10 +109,9 @@ export default function AppointmentBlock({appointment, refresh}: {appointment: A
                             </Grid>
                             <Grid xs={12}>
                                 <div className="appointment-block__detail">
-                                    <Button onClick={handleOpenDetailModal} variant='contained' sx={buttonBlack} size='small' className="appointment-block__detail__button">
-                                        <div className="appointment-block__detail__button__text">See details</div>
+                                    <Button onClick={assignSelectedAppointment} variant='contained' sx={buttonBlack} size='small' className="appointment-block__detail__button" data-appointmentid={appointment.id}>
+                                        <div className="appointment-block__detail__button__text" data-appointmentid={appointment.id}>See details</div>
                                     </Button>
-                                    <AppointmentDetail appointmentId={appointment.id} openDetailModal={openDetailModal} closeDetailModal={handleCloseDetailModal} refresh={refresh} load={loadModal}/>
                                 </div>
                             </Grid>
                         </Grid>
