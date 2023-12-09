@@ -44,6 +44,8 @@ interface AppointmentDetail {
   id: number;
   appointmentTitle: string,
   appointmentType: string,
+  mainCategory: string | null,
+  subCategory: string | null,
   clientSpokenLanguage: string;
   interpreterSpokenLanguage: string;
   locationName: string | null;
