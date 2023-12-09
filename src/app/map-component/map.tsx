@@ -1,14 +1,21 @@
+
+// MODULES IMPORT
 import React, { useEffect, useState } from "react";
 import { GoogleMap, useLoadScript, InfoWindow, Marker, LoadScriptNext } from "@react-google-maps/api";
-// import { computeDistanceBetween } from 'google.maps.geometry.spherical';
 import Link from 'next/link';
 import AppointmentDetail from '../global/appointment-detail';
 
+// IMPORT FROM MUI
 import { buttonBlack, buttonOffDark } from '@/muistyle';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import format from 'date-fns/format';
 import { Button } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+
+
+
+// INTERFACE 
 type Coordinate = {
   lat: number;
   lng: number;
@@ -88,6 +95,7 @@ interface MapComponentProps {
   style?: React.CSSProperties;
 }
 
+//Helper function for nearest location caculation
 function haversine(lat1: number, lon1: number, lat2: number, lon2: number): number {
   const R = 6371;
   const dLat = deg2rad(lat2 - lat1);
@@ -99,12 +107,9 @@ function haversine(lat1: number, lon1: number, lat2: number, lon2: number): numb
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
 }
-
 function deg2rad(deg: number): number {
   return deg * (Math.PI / 180);
 }
-
-
 
 
 const MapComponent: React.FC<Props> = ({ coordinates, appointments, style }) => {
@@ -113,28 +118,26 @@ const MapComponent: React.FC<Props> = ({ coordinates, appointments, style }) => 
   const isAppointmentsArray = Array.isArray(appointments)
   //replace this to .ENV
   const apiKey = "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM"
-
+  const zoomLevel = isAppointmentsArray ? 14 : 15;
   // console.log("map appointment", appointments)
 
 
-  const zoomLevel = isAppointmentsArray ? 14 : 15;
+ //useState Variables
   const [openDetailModal, setOpenDetailModal] = useState<boolean>(false);
   const [loadModal, setLoadModal] = useState<boolean>(false);
   const [selectedAppointment, setSelectedAppointment] = useState<Appointments | null>(null);
   const [lastSelectedMarker, setLastSelectedMarker] = useState<Appointments | null>(null);
-  const handleMarkerClick = (appointment: Appointments) => {
-    setSelectedAppointment(appointment);
-  };
-
+  const handleMarkerClick = (appointment: Appointments) => {setSelectedAppointment(appointment); };
   const [currentPosition, setCurrentPosition] = useState<Coordinate>(() => {
     if (coordinates) {
       return isCoordinatesArray ? coordinates[0] : coordinates;
     }
     return { lat: 36.895, lng: 139.6917 };
   });
-
   const initialCenter = { lat: 36.6895, lng: 139.6917 };
   const [mapCenter, setMapCenter] = useState<Coordinate>(initialCenter);
+  const [loading, setLoading] = useState(true);
+ 
   // console.log("mapCenter", mapCenter)
 
   const moveToClosestMarker = () => {
@@ -181,17 +184,7 @@ function handleCloseDetailModal() {
     overflow:"hidden"
      };
 
-  function formatDateTime(dateStr: any) {
-    const date = new Date(dateStr);
-    const year = date.getFullYear().toString().substr(-2);
-    const month = date.toLocaleString('en-US', { month: 'short' });
-    const day = date.getDate();
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-
-    return `${month} ${day}, ${year} ${hours}:${minutes}`;
-  }
-
+ 
 
   const markers = appointments ? appointments.map(appointment => (
     
@@ -258,18 +251,17 @@ function handleCloseDetailModal() {
   )) : <Marker position={mapCenter} />;
 
 
-
+//useEffect *from AddRequest / FindRequest
   useEffect(() => {
     if (coordinates) {
-
       setCurrentPosition(isCoordinatesArray ? coordinates[0] : coordinates);
       setMapCenter(isCoordinatesArray ? coordinates[0] : coordinates)
+      setLoading(false);
     }
   }, [coordinates, appointments, isCoordinatesArray]);
 
   useEffect(() => {
     if (appointments && appointments.length > 0 && "geolocation" in navigator) {
-
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setMapCenter({
@@ -284,9 +276,14 @@ function handleCloseDetailModal() {
         }
       );
     }
+    setLoading(false);
   }, [appointments]);
-
-
+ 
+ 
+  if (loading) {
+    return <CircularProgress />; 
+  }
+  //JSX Elements
   return (
     <div 
       style={style}

@@ -15,12 +15,13 @@ import Modal from '@mui/material/Modal';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { buttonOffDark, buttonRed, buttonWhite } from "@/muistyle";
 import { TextField, Button, Paper } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function DeleteAccountCard(): JSX.Element {
     // STATE VARIABLES
     const [confirmPassword, setConfirmPassword] = useState<string>("");
     const [confirmWindowOpen, setConfirmWindowOpen] = useState<boolean>(false);
-
+    const [loading, setLoading] = useState(true);
 
     const { userEmail, userUid } = useContext(ContextVariables);
 

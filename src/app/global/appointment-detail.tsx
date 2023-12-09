@@ -21,6 +21,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import CircularProgress from '@mui/material/CircularProgress';
 
 // MODAL
 const detailModalStyle = {
@@ -81,7 +82,8 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
     const [showAcceptModal, setShowAcceptModal] = useState<boolean>(false);
     const [showCancelModal, setShowCancelModal] = useState<boolean>(false);
     const [showCompleteModal, setShowCompleteModal] = useState<boolean>(false);
-    
+    const [loading, setLoading] = useState(true);
+
     const router = useRouter();
     const pathname = usePathname();
     // console.log(pathname);
@@ -180,14 +182,25 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
     // Initial Use effect
     // Only load modal only if the modal is clicked
     useEffect(() => {
-        if(load === true) getAppointmentDetail();
-        if(load === false) setAppointmentDetail(undefined);
+        if(load === true) {
+            getAppointmentDetail()
+            setLoading(false);
+        };
+        if(load === false) {
+            setAppointmentDetail(undefined);
+            setLoading(false);
+        };
     }, [load]);
 
     // Process date
     const tempDateTime = appointmentDetail?.appointmentDateTime;
     const convertedDateTime = tempDateTime ? format(new Date(tempDateTime), "EEE',' dd MMM yy', 'hh':'mm") : null;
     
+    
+    if (loading) {
+        return <CircularProgress />; 
+      }
+    // JSX ELEMENTS       
     return (
         <Modal
             open={openDetailModal}

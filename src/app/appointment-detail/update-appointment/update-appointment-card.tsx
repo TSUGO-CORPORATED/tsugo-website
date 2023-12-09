@@ -10,15 +10,17 @@ import MapComponent from "../../map-component/map"
 import { Paper, Typography, Box, TextField, FormControl,SelectChangeEvent, InputLabel, Select, MenuItem, FormControlLabel, RadioGroup, Radio, Checkbox, Button } from '@mui/material';
 import { colorOffDark, colorOffLight, colorOffMid, buttonOffDark, buttonOffLight, buttonOffMid, buttonBlack, buttonWhite } from '@/muistyle';
 import dayjs, { Dayjs } from "dayjs";
+// IMPORT FROM MUI
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
 import { DesktopDateTimePicker } from '@mui/x-date-pickers/DesktopDateTimePicker';
-// import { DesktopDateTimePicker, MobileDateTimePicker } from '@mui/x-date-pickers';
 import { SnackbarCloseReason } from "@mui/material/Snackbar";
 import { AlertColor } from '@mui/material';
 import { useMediaQuery } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 // TYPESCRIPT DATA TYPES
 interface AppointmentDetail {
@@ -201,24 +203,16 @@ export default function UpdateAppointmentCard() {
     useState<string>("");
   const [appointmentType, setAppointmentType] = useState<string>("");
   const [appointmentNote, setAppointmentNote] = useState<
-    string | number | readonly string[] | undefined
-  >("");
+    string | number | readonly string[] | undefined>("");
   const [locationName, setLocationName] = useState<string>("");
   const [locationAddress, setLocationAddress] = useState<string | null>("");
-  const [locationCoordinates, setLocationCoordinates] =
-    useState<Coordinates | null>();
-  const [locationLatitude, setLocationLatitude] = useState<
-    string | number | null
-  >();
-  const [locationLongitude, setLocationLongitude] = useState<
-    string | number | null
-  >();
+  const [locationCoordinates, setLocationCoordinates] = useState<Coordinates | null>();
+  const [locationLatitude, setLocationLatitude] = useState<string | number | null>();
+  const [locationLongitude, setLocationLongitude] = useState< string | number | null>();
   const [error, setError] = useState("");
   const [selectedMainCategory, setSelectedMainCategory] = useState("Business");
-
-const [selectedSubCategory, setSelectedSubCategory] = useState(
-  mainCategories["Business"][0]
-);
+  const [loading, setLoading] = useState(true);
+  const [selectedSubCategory, setSelectedSubCategory] = useState( mainCategories["Business"][0]);
 
  
 
@@ -260,6 +254,7 @@ const [selectedSubCategory, setSelectedSubCategory] = useState(
   }
   useEffect(() => {
     getAppointmentDetail();
+    setLoading(false);
   }, []);
 
   // Update appointment information
@@ -312,7 +307,6 @@ const [selectedSubCategory, setSelectedSubCategory] = useState(
     }
   };
 
-
   //handler Func for Category change
   const handleMainCategoryChange = (event: SelectChangeEvent) => {
     const category = event.target.value as string;
@@ -358,7 +352,6 @@ const [selectedSubCategory, setSelectedSubCategory] = useState(
   }, [locationCoordinates]);
 
   useEffect(() => {
-
     const appointmentDate = dayjs(appointmentDateTime);
     if (appointmentDate.isAfter(dayjs())) {
       setDateTime(appointmentDate);
@@ -367,11 +360,13 @@ const [selectedSubCategory, setSelectedSubCategory] = useState(
     }
   }, [appointmentDateTime]);
 
+
+if (loading) {
+  return <CircularProgress />; 
+}
+ // JSX ELEMENTS
   return (
-    <Box
-      
-     
-    >
+    <Box >
       <Paper className="update-appointment_container"
         elevation={12}
         sx={{

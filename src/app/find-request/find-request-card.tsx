@@ -10,12 +10,14 @@ import MapComponent from "../map-component/map";
 import Link from "next/link";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
+
 // IMPORT FROM MUI
 import {
   useMediaQuery, Box, Paper, Typography, FormControl, InputLabel, Select, MenuItem,
   TextField, RadioGroup, FormControlLabel,useTheme,
   Radio, Checkbox, Button, Modal
 } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 
 // TYPE INTERFACE
 type Appointment = {
@@ -59,6 +61,7 @@ export default function FindRequestCard() {
   const [currentPosition, setCurrentPosition] = useState({});
   const [popUpAppointments, setPopUpAppointments] = useState<Appointment[]>([]);
   const [selectedInterpreterLanguage, setSelectedInterpreterLanguage] = useState<string>("");
+  const [loading, setLoading] = useState(true);
   // const [selectedClientLanguage, setSelectedClientLanguage] = useState("");
 
   const languages = [
@@ -99,7 +102,10 @@ export default function FindRequestCard() {
     }
   };
   useEffect(() => {
-    if (userId !== 0) fetchAppointments();
+    if (userId !== 0) {
+      fetchAppointments();
+      setLoading(false);
+     }
   }, [userId]);
 
   // APPLY FILTER TO APPOINTMENT LIST 
@@ -234,7 +240,11 @@ export default function FindRequestCard() {
   //   .filter((coord) => coord !== null) as Coordinate[];
   // console.log("findTSX", mapCoordinates);
 
-  // JSX ELEMENTS
+
+  if (loading) {
+    return <CircularProgress />; 
+  }
+    // JSX ELEMENTS
   return (
     <Paper
       // sx={{
