@@ -19,6 +19,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
+import CircularProgress from '@mui/material/CircularProgress';
 
 // INTERFACE 
 interface AppointmentOverview {
@@ -41,9 +42,8 @@ export default function DashboardCard(): JSX.Element {
     // STATE VARIABLES
     const [clientCurrentAppointment, setClientCurrentAppointment] = useState<AppointmentOverview[]>([]);
     const [interpreterCurrentAppointment, setInterpreterCurrentAppointment] = useState<AppointmentOverview[]>([]);
-
     const [tabValue, setTabValue] = useState<number>(0);
-    
+    const [loading, setLoading] = useState(true);
     // CONTEXT VARIABLES
     const { userId, userFirstName, userLastName } = useContext(ContextVariables);
     // console.log(userId, userFirstName, userLastName);
@@ -77,10 +77,15 @@ export default function DashboardCard(): JSX.Element {
     useEffect(() => {
         if (userId !== 0) {
             getClientInterpreterCurrentAppointment();
+            setLoading(false);
         }
     }, [userId]);
 
-    // JSX ELEMENTS
+   
+    if (loading) {
+        return <CircularProgress />; 
+      }
+     // JSX ELEMENTS
     return (
         <div className='dashboard__card'>
             <Box sx={{ borderBottom: 2, borderColor: 'divider' }}>

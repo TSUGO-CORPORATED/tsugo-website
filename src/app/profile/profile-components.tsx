@@ -10,6 +10,7 @@ import { TextField, Button, Paper } from '@mui/material';
 import { auth } from "../../firebase";
 import { buttonOffDark, buttonRed, buttonWhite } from '@/muistyle';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Profile() {
     interface UserDetails{
@@ -36,7 +37,7 @@ export default function Profile() {
     const [firstNameUpdate, setFirstNameUpdate] = useState<string | number | readonly string[] | undefined>("");
     const [lastNameUpdate, setLastNameUpdate] = useState<String|undefined|null>(userProfile?.lastName);
     const [aboutUpdate, setAboutUpdate] = useState<String|undefined|null>(userProfile?.about);
-
+    const [loading, setLoading] = useState(true);
     const [languageUpdate, setLanguageUpdate] = useState<string | number | readonly string[] | undefined | null | UserGetDetailLanguage[]>(userProfile?.userLanguage);
     const [deleted, setDeleted] = useState<Boolean>(false);
     const [provider, setProvider] = useState<string>('');
@@ -74,7 +75,7 @@ export default function Profile() {
     useEffect(() => {
         if(userUid !== 'noUid') {
             serverProfile();
-        } 
+        } setLoading(false);
     }, [userUid]);
 
     //if profile is updated call for the profile from the backend
@@ -124,7 +125,10 @@ export default function Profile() {
     //         window.alert(returnedData.data);
     //     }
     // }
-
+    if (loading) {
+        return <CircularProgress />; 
+      }
+      
     return (
         <Paper elevation={3} className='profile-container'>
             <Link href="/dashboard" className='profile-container__back-button'>

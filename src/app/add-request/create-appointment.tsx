@@ -1,4 +1,5 @@
 'use client';
+//MODULE IMPORT
 import React, { useState, useContext,useEffect } from "react";
 import axios from "axios";
 import { GoogleMap, LoadScript, Marker,useLoadScript } from "@react-google-maps/api";
@@ -6,8 +7,10 @@ import { useRouter } from 'next/navigation';
 import { ContextVariables } from "../../context-variables";
 import MapComponent from "../map-component/map"
 import Disclaimer from '../disclaimer';
-import {Paper,TextFieldProps , Modal ,Snackbar,  Alert, TextField,SelectChangeEvent, Button,Radio, Select, MenuItem, FormControl, InputLabel, Checkbox, FormControlLabel,Typography,Box, RadioGroup, Link as MuiLink } from '@mui/material';
 import dayjs, { Dayjs } from "dayjs";
+import Link from "next/link";
+//IMPORT FROM MUI
+import {Paper,TextFieldProps , Modal ,Snackbar,  Alert, TextField,SelectChangeEvent, Button,Radio, Select, MenuItem, FormControl, InputLabel, Checkbox, FormControlLabel,Typography,Box, RadioGroup, Link as MuiLink } from '@mui/material';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { useMediaQuery } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -15,26 +18,27 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
 import { DesktopDateTimePicker } from '@mui/x-date-pickers/DesktopDateTimePicker';
-// import { DesktopDateTimePicker, MobileDateTimePicker } from '@mui/x-date-pickers';
 import { SnackbarCloseReason } from "@mui/material/Snackbar";
 import { AlertColor } from '@mui/material';
 import { colorOffDark, colorOffLight, colorOffMid, buttonOffDark, buttonOffLight, buttonOffMid, buttonBlack, buttonWhite } from '@/muistyle';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Link from "next/link";
+import CircularProgress from '@mui/material/CircularProgress';
 
+// INTERFACE 
 type Coordinates = { lat: number; lng: number; } | null;
 type StatusFilter = "Requesting" | "Accepted" | "Cancelled" | "Completed" | "";
 type MainCategoriesType = {
   [key: string]: string[];
 };
 
+// PAGE COMPONENT
 export default function CreateAppointment () {
-
-
+ 
   const router = useRouter();
   const { userId } = useContext(ContextVariables);
   const isMobile = useMediaQuery("(max-width:600px)");
-  //State settings
+
+ //USE STATE VARIABLES&settings
   const [appointmentTitle, setAppointmentTitle] = useState("");
   const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs());
   const [location, setLocation] = useState("");
@@ -55,17 +59,151 @@ export default function CreateAppointment () {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState<AlertColor>("success");
   const [formErrors, setFormErrors] = useState({appointmentTitle: "", location: "", isAgreed: "" });
-  //use Effect on appointment change => clears the location input
-  useEffect(() => {
-    setLocation("");
-  }, [appointmentType]);
+  const [loading, setLoading] = useState(true);
+  const [initialDateTime, setInitialDateTime] = useState(dayjs());
+  
+
 
   //   //this is my apikey for temporary but its not working !!
   const apiKey = "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM";
 
+  //select box lists
+  const languages = [
+    "Japanese",
+    "English",
+    "Mandarin Chinese",
+    "Hindi",
+    "Spanish",
+    "French",
+    "Arabic",
+    "Russian",
+    "Portuguese",
+    "Indonesian",
+    "Korean",
+    "Italian",
+    "German",
+    "Telugu",
+    "Vietnamese",
+    "Turkish",
+  ];
+  const mainCategories: MainCategoriesType = {
+    "Business": [
+      "Company Visits",
+      "Product Descriptions",
+      "Market Research",
+      "Training Sessions",
+      "Internal Presentations",
+      "Others",
+    ],
+    "Educational": [
+      "School Education",
+      "Universities and Colleges",
+      "Academic Lectures",
+      "Research Meetings",
+      "Educational Programs",
+      "Career Counseling",
+      "Parent-Teacher Meetings",
+      "Others",
+    ],
+    "Tourism": [
+      "Tourist Guidance",
+      "Travel Assistance",
+      "Guided Tours",
+      "Cultural Heritage",
+      "Eco-Tourism",
+      "Adventure Sports",
+      "Shopping and Ordering in Tourism",
+      "Others",
+    ],
+    "Communication": ["Phone", "Video", "Online Meetings", "Webinars", "Others"],
+    "Culture and Arts": [
+      "Art Exhibitions",
+      "Museum Guiding",
+      "Music Events",
+      "Performing Arts",
+      "Literature and Books",
+      "Others",
+    ],
+    "Technical": [
+      "Engineering",
+      "IT and Software",
+      "Scientific Research",
+      "Manufacturing",
+      "Environmental Technology",
+      "Others",
+    ],
+    "Sports": [
+      "Sports Events",
+      "Athlete Support",
+      "Interviews",
+      "Sports Training",
+      "Others",
+    ],
+    "Entertainment": [
+      "Movies and TV Shows",
+      "Entertainment Events",
+      "Live Shows",
+      "Games and Animation",
+      "Celebrity Events",
+      "Others",
+    ],
+    "Real Estate": [
+      "Property Viewing and Tours",
+      "Rental Agreements",
+      "Real Estate Purchasing",
+      "Mortgage Consulting",
+      "Real Estate Law",
+      "Others",
+    ],
+    "Municipal Services": [
+      "Resident Registration and Civil Status Procedures",
+      "Passport and ID Renewal",
+      "Taxes and Local Tax Consultation",
+      "Public Service Applications",
+      "General Inquiries",
+      "Others",
+    ],
+    "Police-Related": [
+      "Lost Property Reports",
+      "Traffic Accident Reports",
+      "Minor Crime Victim Reports",
+      "General Consultation and Information",
+      "Others",
+    ],
+    "Hospital": [
+      "General Medical Consultation",
+      "Vaccination Procedures",
+      "Health Consultation",
+      "Regular Check-up Appointments",
+      "Medication Explanation",
+      "Others",
+    ],
+    "Language Learning": [
+      "Language Classes",
+      "Language Skill Development",
+      "Language Learning Workshops",
+      "Others",
+    ],
+    "Others": ["Others"],
+  };
 
-  //helper Func combining 2 location search func
-  const handleError = (errorMessage: string) => {
+  
+  //select box lists use State
+  const [selectedMainCategory, setSelectedMainCategory] = useState("Business");
+  const [selectedSubCategory, setSelectedSubCategory] = useState(
+    mainCategories["Business"][0]
+  );
+
+  //handler Func for Category change
+  const handleMainCategoryChange = (event: SelectChangeEvent) => {
+    const category = event.target.value as string;
+    setSelectedMainCategory(category);
+    setSelectedSubCategory(mainCategories[category][0]);
+  };
+
+
+   //helper Func combining 2 location search func
+   const handleError = (errorMessage: string) => {
     setAlertMessage(errorMessage);
     setAlertSeverity("error");
     setOpenSnackbar(true);
@@ -108,147 +246,15 @@ export default function CreateAppointment () {
   };
 
 
-
-  //select box lists
-  const languages = [
-    "Japanese",
-    "English",
-    "Mandarin Chinese",
-    "Hindi",
-    "Spanish",
-    "French",
-    "Arabic",
-    "Russian",
-    "Portuguese",
-    "Indonesian",
-    "Korean",
-    "Italian",
-    "German",
-    "Telugu",
-    "Vietnamese",
-    "Turkish",
-  ];
-  const mainCategories: MainCategoriesType = {
-    Business: [
-      "Company Visits",
-      "Product Descriptions",
-      "Market Research",
-      "Training Sessions",
-      "Internal Presentations",
-      "Others",
-    ],
-    Educational: [
-      "School Education",
-      "Universities and Colleges",
-      "Academic Lectures",
-      "Research Meetings",
-      "Educational Programs",
-      "Career Counseling",
-      "Parent-Teacher Meetings",
-      "Others",
-    ],
-    Tourism: [
-      "Tourist Guidance",
-      "Travel Assistance",
-      "Guided Tours",
-      "Cultural Heritage",
-      "Eco-Tourism",
-      "Adventure Sports",
-      "Shopping and Ordering in Tourism",
-      "Others",
-    ],
-    Communication: ["Phone", "Video", "Online Meetings", "Webinars", "Others"],
-    "Culture and Arts": [
-      "Art Exhibitions",
-      "Museum Guiding",
-      "Music Events",
-      "Performing Arts",
-      "Literature and Books",
-      "Others",
-    ],
-    Technical: [
-      "Engineering",
-      "IT and Software",
-      "Scientific Research",
-      "Manufacturing",
-      "Environmental Technology",
-      "Others",
-    ],
-    Sports: [
-      "Sports Events",
-      "Athlete Support",
-      "Interviews",
-      "Sports Training",
-      "Others",
-    ],
-    Entertainment: [
-      "Movies and TV Shows",
-      "Entertainment Events",
-      "Live Shows",
-      "Games and Animation",
-      "Celebrity Events",
-      "Others",
-    ],
-    "Real Estate": [
-      "Property Viewing and Tours",
-      "Rental Agreements",
-      "Real Estate Purchasing",
-      "Mortgage Consulting",
-      "Real Estate Law",
-      "Others",
-    ],
-    "Municipal Services": [
-      "Resident Registration and Civil Status Procedures",
-      "Passport and ID Renewal",
-      "Taxes and Local Tax Consultation",
-      "Public Service Applications",
-      "General Inquiries",
-      "Others",
-    ],
-    "Police-Related": [
-      "Lost Property Reports",
-      "Traffic Accident Reports",
-      "Minor Crime Victim Reports",
-      "General Consultation and Information",
-      "Others",
-    ],
-    Hospital: [
-      "General Medical Consultation",
-      "Vaccination Procedures",
-      "Health Consultation",
-      "Regular Check-up Appointments",
-      "Medication Explanation",
-      "Others",
-    ],
-    "Language Learning": [
-      "Language Classes",
-      "Language Skill Development",
-      "Language Learning Workshops",
-      "Others",
-    ],
-    Others: ["Others"],
-  };
-
-  
-  //select box lists use State
-  const [selectedMainCategory, setSelectedMainCategory] = useState("Business");
-  const [selectedSubCategory, setSelectedSubCategory] = useState(
-    mainCategories["Business"][0]
-  );
-
-  //handler Func for Category change
-  const handleMainCategoryChange = (event: SelectChangeEvent) => {
-    const category = event.target.value as string;
-    setSelectedMainCategory(category);
-    setSelectedSubCategory(mainCategories[category][0]);
-  };
-
   //Submit Func =>swithcing to Confirm
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setFormErrors({ appointmentTitle: "", location: "", isAgreed: "" });
     setError("");
     let hasErrors = false;
+    if (dayjs(dateTime).isSame(initialDateTime, 'minute')) {
+      setDateTime(dayjs().add(1, 'day'));
+    }
 
     // 
     if (!appointmentTitle) {
@@ -270,6 +276,7 @@ export default function CreateAppointment () {
       return;
     }
     setIsConfirmed(true);
+    setLoading(false);
   };
 
   //handler Func to send to Server
@@ -308,8 +315,17 @@ export default function CreateAppointment () {
     }
   };
 
+    //use Effect on appointment type change => clears the location input
+    useEffect(() => {
+      setLocation("");
+    }, [appointmentType]);
 
-  //HTML
+
+  // if (loading) {
+  //   return <CircularProgress />; 
+  // }
+  
+  //JSX Elements
   return (
     <div className="add-request__container">
       <Paper
@@ -422,20 +438,27 @@ export default function CreateAppointment () {
             {isMobile ? (
               <MobileDateTimePicker
                 value={dateTime}
-                onChange={(newDateTime) => setDateTime(newDateTime)}
-                // components={{
-                //   TextField: CustomTextField,
-                // }}
+                onChange={(newDateTime) => {
+
+                  if (dayjs(newDateTime).isSame(initialDateTime, 'minute')) {
+                    setDateTime(dayjs().add(1, 'day'));
+                  } else {
+                    setDateTime(newDateTime);
+                  } 
+                }}
                 label="Date and Time"
                 minDate = {dayjs()}
               />
             ) : (
               <DesktopDateTimePicker
                 value={dateTime}
-                onChange={(newDateTime) => setDateTime(newDateTime)}
-                // components={{
-                //   TextField: CustomTextField,
-                // }}
+                onChange={(newDateTime) => {
+                  if (dayjs(newDateTime).isSame(initialDateTime ,'minute')) {
+                    setDateTime(dayjs().add(1, 'day'));
+                  } else {
+                    setDateTime(newDateTime);
+                  }
+                }}
                 label="Date and Time"
                 minDate = {dayjs()}
               />
@@ -650,7 +673,7 @@ export default function CreateAppointment () {
                 Date and Time:{" "}
                 <strong>
                   {dateTime
-                    ? dayjs(dateTime).format("YYYY-MM-DD HH:mm")
+                    ? dayjs(dateTime).format("MM/DD/YYYY hh:mm A")
                     : "Not set"}
                 </strong>
               </Typography>

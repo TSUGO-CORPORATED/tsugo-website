@@ -8,6 +8,7 @@ import AppointmentBlock from '../global/appointment-block';
 import { Button, TextField, Paper, Box } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { colorOffDark, colorOffLight, colorOffMid, buttonOffDark, buttonOffLight, buttonOffMid, buttonBlack, buttonWhite } from '@/muistyle';
+import CircularProgress from '@mui/material/CircularProgress';
 
 //TYPESCRIPT THING
 type Appointment = {
@@ -32,8 +33,9 @@ export default function HistoryCard() {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
   const [filteredHistory, setFilteredHistory] = useState<Appointment[]>([]);
-  const { userId } = useContext(ContextVariables);
+    const [loading, setLoading] = useState(true);
   
+  const { userId } = useContext(ContextVariables);
   const searchParams = useSearchParams();
   const role = searchParams.get('role');
 
@@ -55,6 +57,7 @@ export default function HistoryCard() {
 
   useEffect(() => {
     fetchHistory();
+    setLoading(false);
   }, []);
 
   function getFilteredHistory () {
@@ -107,6 +110,10 @@ export default function HistoryCard() {
     setSelectedStatus(status);
   };
 
+  if (loading) {
+    return <CircularProgress />; 
+  }
+  // JSX ELEMENTS   
   return (
     <Box className='history__card'>
       <Paper className='history__card__filter' elevation={2}>

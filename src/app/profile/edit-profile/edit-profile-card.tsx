@@ -15,6 +15,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { buttonOffDark, buttonWhite } from "@/muistyle";
 import Avatar from '@mui/material/Avatar';
 import { useRouter } from 'next/navigation';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function EditProfile() {
 
@@ -46,7 +47,7 @@ export default function EditProfile() {
     // const [proficiencyUpdate, setProficiencyUpdate] = useState<string | number | readonly string[] | undefined | null | UserGetDetailLanguage[]>(userProfile?.userLanguage);
     // const [certificationUpdate, setCertificationUpdate] = useState<string | number | readonly string[] | undefined | null | UserGetDetailLanguage[]>(userProfile?.userLanguage);
     const [confirmWindowOpen, setConfirmWindowOpen] = useState<boolean>(false);
-
+    const [loading, setLoading] = useState(true);
 
     const dummy = [{id: 69, language: "English", proficiency: "Native"}];
     const router = useRouter();
@@ -74,7 +75,7 @@ export default function EditProfile() {
     useEffect(() => {
         if(userUid !== 'noUid') {
             serverProfile();
-        } 
+        } setLoading(false);
     }, [userUid]);
 
     //if profile is updated call for the profile from the backend
@@ -134,8 +135,10 @@ export default function EditProfile() {
         }
     }
 
-
-
+    if (loading) {
+        return <CircularProgress />; 
+      }
+    //JSX ELEMENTS
     return (
         <Paper elevation={3} className='edit-profile-container'>
             <Link href="/profile" className='profile-container__back-button'>
