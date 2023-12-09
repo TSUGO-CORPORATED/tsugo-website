@@ -54,6 +54,9 @@ export default function CreateAppointment () {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState<AlertColor>("success");
   const [formErrors, setFormErrors] = useState({appointmentTitle: "", location: "", isAgreed: "" });
+  const [initialDateTime, setInitialDateTime] = useState(dayjs());
+
+
   //use Effect on appointment change => clears the location input
   useEffect(() => {
     setLocation("");
@@ -249,6 +252,10 @@ export default function CreateAppointment () {
     setError("");
     let hasErrors = false;
 
+    if (dayjs(dateTime).isSame(initialDateTime, 'minute')) {
+      setDateTime(dayjs().add(1, 'day'));
+    }
+
     // 
     if (!appointmentTitle) {
       setFormErrors(prev => ({ ...prev, appointmentTitle: "Please enter Title" }));
@@ -417,20 +424,30 @@ export default function CreateAppointment () {
             {isMobile ? (
               <MobileDateTimePicker
                 value={dateTime}
-                onChange={(newDateTime) => setDateTime(newDateTime)}
-                // components={{
-                //   TextField: CustomTextField,
-                // }}
+                onChange={(newDateTime) => {
+                  if (dayjs(newDateTime).isSame(initialDateTime ,'minute')) {
+                    setDateTime(dayjs().add(1, 'day'));
+                  } else {
+                    setDateTime(newDateTime);
+                  }
+                }}
+
                 label="Date and Time"
                 minDate = {dayjs()}
               />
             ) : (
               <DesktopDateTimePicker
                 value={dateTime}
-                onChange={(newDateTime) => setDateTime(newDateTime)}
-                // components={{
-                //   TextField: CustomTextField,
-                // }}
+                onChange={(newDateTime) => {
+                 
+                  if (dayjs(newDateTime).isSame(initialDateTime, 'minute')) {
+                    setDateTime(dayjs().add(1, 'day'));
+                  } else {
+                    setDateTime(newDateTime);
+                  } console.log("time",newDateTime)
+                  console.log("now",initialDateTime)
+                  console.log("shouldadded",dateTime)
+                }}
                 label="Date and Time"
                 minDate = {dayjs()}
               />
@@ -645,7 +662,7 @@ export default function CreateAppointment () {
                 Date and Time:{" "}
                 <strong>
                   {dateTime
-                    ? dayjs(dateTime).format("YYYY-MM-DD HH:mm")
+                    ? dayjs(dateTime).format("MM/DD/YYYY hh:mm A")
                     : "Not set"}
                 </strong>
               </Typography>
