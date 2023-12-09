@@ -75,7 +75,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
     type NewStatus = "Accepted" | "Cancelled" | "Completed";
 
     // STATE VARIABLES
-    const [appointmentDetail, setAppointmentDetail] = useState<AppointmentDetail>();
+    const [appointmentDetail, setAppointmentDetail] = useState<AppointmentDetail | undefined>(undefined);
     const [isAgreed, setIsAgreed] = useState<boolean>(false);
     const [showDisclaimerModal, setShowDisclaimerModal] = useState<boolean>(false);
     const [showAcceptModal, setShowAcceptModal] = useState<boolean>(false);
@@ -180,7 +180,8 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
     // Initial Use effect
     // Only load modal only if the modal is clicked
     useEffect(() => {
-        if(load) getAppointmentDetail();
+        if(load === true) getAppointmentDetail();
+        if(load === false) setAppointmentDetail(undefined);
     }, [load]);
 
     // Process date

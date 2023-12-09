@@ -112,7 +112,7 @@ const MapComponent: React.FC<Props> = ({ coordinates, appointments, style }) => 
   //replace this to .ENV
   const apiKey = "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM"
 
-  console.log("map appointment", appointments)
+  // console.log("map appointment", appointments)
 
 
   const zoomLevel = isAppointmentsArray ? 14 : 15;
@@ -133,7 +133,7 @@ const MapComponent: React.FC<Props> = ({ coordinates, appointments, style }) => 
 
   const initialCenter = { lat: 36.6895, lng: 139.6917 };
   const [mapCenter, setMapCenter] = useState<Coordinate>(initialCenter);
-  console.log("mapCenter", mapCenter)
+  // console.log("mapCenter", mapCenter)
 
   const moveToClosestMarker = () => {
     if (!appointments || appointments.length === 0) return;
@@ -286,7 +286,9 @@ function handleCloseDetailModal() {
 
 
   return (
-    <div style={style}>
+    <div 
+      style={style}
+    >
       <LoadScriptNext googleMapsApiKey={apiKey}>
 
         <GoogleMap
@@ -307,7 +309,7 @@ function handleCloseDetailModal() {
           <Button  variant="contained"
           color="primary"
           onClick={moveToClosestMarker}
-          sx={buttonBlack}   >Nearest Request</Button>
+          sx={buttonBlack}>Nearest Request</Button>
         )}
     </div>
   );
