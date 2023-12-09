@@ -102,10 +102,10 @@ export default function UpdatePasswordCard(): JSX.Element {
                 aria-describedby="modal-modal-description"
                 disableEnforceFocus
             >
-                <Box sx={confirmWindowStyle} className='edit-profile-container__confirm-window'>
-                    <div className='edit-profile-container__confirm-window__title'>Confirm Update Profile</div>
-                    <div className='edit-profile-container__confirm-window__description'>Are you sure you want to update?</div>
-                    <div className='edit-profile-container__confirm-window__button'>
+                <Box sx={confirmWindowStyle} className='update-password__container__confirm-window'>
+                    <div className='update-password__container__confirm-window__title'>Confirm Update Profile</div>
+                    <div className='update-password__container__confirm-window__description'>Are you sure you want to update?</div>
+                    <div className='update-password__container__confirm-window__button'>
                         <Button variant='outlined' onClick={confirmWindowHandleClose} sx={buttonWhite}>Cancel</Button>
                         <Button variant='contained' onClick={updatePasswordFunction} sx={buttonOffDark}>Confirm</Button>
                     </div>

@@ -1305,6 +1305,30 @@
     padding-top: 20px;
   }
 }
+.update-password__container__confirm-window {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  width: 300px;
+  height: 150px;
+}
+.update-password__container__confirm-window__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  font-weight: bold;
+  font-size: 20px;
+}
+.update-password__container__confirm-window__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+}
 .update-password__header {
   display: flex;
   justify-content: center;
@@ -1439,21 +1463,58 @@
 }
 
 .update-appointment {
-  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: auto;
+  flex-direction: column;
+  height: 100vh;
+  padding-top: 8vh;
+  width: 100vw;
+  height: auto;
 }
 
-.update-appointment_container {
-  background-color: white;
-  max-height: 75%;
+.update-appointment__container {
+  padding: 5px;
+}
+@media screen and (min-width: 700px) {
+  .update-appointment__container {
+    width: 700px;
+  }
+}
+.update-appointment__container__back-button {
+  position: absolute;
+  text-decoration: none;
+  color: #000000;
+}
+.update-appointment__container__back-button:hover {
+  color: #4b89a4;
+}
+.update-appointment__container__back-button__icon {
+  font-size: 32px;
+}
+.update-appointment__container__confirm-window {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: auto;
+  flex-direction: column;
+  gap: 15px;
+  width: 350px;
+  height: 150px;
+}
+.update-appointment__container__confirm-window__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  font-weight: bold;
+  font-size: 20px;
+}
+.update-appointment__container__confirm-window__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 15px;
 }
 
 .review {
