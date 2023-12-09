@@ -1,17 +1,20 @@
 'use client';
+
+// IMPORT MODULE
 import React, {useContext, useEffect, useState} from "react";
 import { ContextVariables } from "@/context-variables";
 import axios from "axios";
 import Link from "next/link";
+
+
+// IMPORT FROM MUI
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
 import { TextField, Button, Paper } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { buttonOffDark, buttonWhite } from "@/muistyle";
 import Avatar from '@mui/material/Avatar';
 import { useRouter } from 'next/navigation';
-
-// IMPORT FROM MUI
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
 
 export default function EditProfile() {
 
@@ -37,7 +40,7 @@ export default function EditProfile() {
     const [userProfile, setUserProfile] = useState<UserDetails | null>();
     // const [updated, setUpdated] = useState<Boolean>(false);
     const [firstNameUpdate, setFirstNameUpdate] = useState<string | number | readonly string[] | undefined>("");
-    const [lastNameUpdate, setLastNameUpdate] = useState<string | number | readonly string[] | undefined>(userProfile?.lastName);
+    const [lastNameUpdate, setLastNameUpdate] = useState<string | number | readonly string[] | undefined>("");
     const [aboutUpdate, setAboutUpdate] = useState<string | number | readonly string[] | undefined>("");
     // const [languageUpdate, setLanguageUpdate] = useState<string | number | readonly string[] | undefined | null | UserGetDetailLanguage[]>();
     // const [proficiencyUpdate, setProficiencyUpdate] = useState<string | number | readonly string[] | undefined | null | UserGetDetailLanguage[]>(userProfile?.userLanguage);
@@ -97,7 +100,8 @@ export default function EditProfile() {
         p: 4,
     };
 
-    function confirmWindowHandleOpen(): void {
+    function confirmWindowHandleOpen(e: any): void {
+        e.preventDefault();
         setConfirmWindowOpen(true);
     };
     function confirmWindowHandleClose(): void {
@@ -172,39 +176,41 @@ export default function EditProfile() {
                     width={200}
                     height={200}
                 /> */}
-                <div className="edit-profile-container__info-update">
-                    <label className="edit-profile-container__label">Update First Name:</label>
+                <form onSubmit={confirmWindowHandleOpen} className="edit-profile-container__info-update">
+                    {/* <label className="edit-profile-container__label">Update First Name:</label> */}
                     {/* <p className='edit-profile-p'>First Name: {userProfile?.firstName}</p> */}
                     <TextField 
+                        label='Update First Name'
                         type='text'
                         className="edit-profile-container__input"
                         id='outlined-basic'
                         variant="outlined"
                         onChange={(e) => setFirstNameUpdate(e.target.value)}
                         value={firstNameUpdate}
-                        defaultValue={userProfile?.firstName}
                         inputProps={{
                             style: {
-                              padding: '10px 14px',
+                              padding: '14px 14px',
                             },
                         }}
+                        required
                     />
 
-                    <label className="edit-profile-container__label">Update Last Name:</label>
+                    {/* <label className="edit-profile-container__label">Update Last Name:</label> */}
                     {/* <p className='edit-profile-p'>Last Name: {userProfile?.lastName}</p> */}
                     <TextField
+                        label='Update Last Name'
                         id='outlined-basic'
                         variant="outlined"
                         type='text'
                         className="edit-profile-container__input"
                         onChange={(e) => setLastNameUpdate(e.target.value)}
                         value={lastNameUpdate}
-                        defaultValue={userProfile?.lastName}
                         inputProps={{
                             style: {
-                              padding: '10px 14px',
+                              padding: '14px 14px',
                             },
                         }}
+                        required
                     />
 
                     {/* <label>Update Language:</label>
@@ -245,9 +251,10 @@ export default function EditProfile() {
                         defaultValue={userProfile?.userLanguage[userProfile?.userLanguage.length-1].certifications}
                     /> */}
                     
-                    <label className="edit-profile-container__label">Update Bio:</label>
+                    {/* <label className="edit-profile-container__label">Update Bio:</label> */}
                     {/* <p className='edit-profile-p'>Language: {userProfile?.language}</p> */}
                     <TextField
+                        label='Update Bio'
                         id='outlined-basic'
                         variant="outlined"
                         type='text'
@@ -260,15 +267,15 @@ export default function EditProfile() {
                             },
                         }}
                     />
-                </div>       
-                <div className="edit-profile-container__button-container">
-                    <Button variant="contained" sx={buttonOffDark} className='edit-profile-container__button-container__button' onClick={confirmWindowHandleOpen}>Save Changes</Button>
-                    <Link className='edit-profile-container__button-container__link' href="/profile">
-                        <Button variant='contained' sx={buttonWhite} className='edit-profile-container__button-container__button' id='edit-profile-container__profile-button'>
-                            Cancel
-                        </Button>
-                    </Link>
-                </div >
+                    <div className="edit-profile-container__button-container">
+                        <Button type='submit' variant="contained" sx={buttonOffDark} className='edit-profile-container__button-container__button'>Save Changes</Button>
+                        <Link className='edit-profile-container__button-container__link' href="/profile">
+                            <Button variant='contained' sx={buttonWhite} className='edit-profile-container__button-container__button' id='edit-profile-container__profile-button'>
+                                Cancel
+                            </Button>
+                        </Link>
+                    </div >
+                </form>       
             </div>
         </Paper>
     );

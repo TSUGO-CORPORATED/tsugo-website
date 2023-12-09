@@ -71,27 +71,27 @@
 
     &__info-update {
         @include flexCenter(column);
-        gap: 10px;
+        gap: 20px;
         // height: 80%;
         width: 100%;
         align-items: center;
         margin-top: 6px;
     }
 
-    &__label {
-        height: 7%;
-        width: 90%;
-        align-self: center;
-        margin-left: 110px;
-        margin-right: 70px;
-        color: gray;
-        font-size: 12px;
-        margin-top: 6px;
-    }
+    // &__label {
+    //     height: 7%;
+    //     width: 90%;
+    //     align-self: center;
+    //     margin-left: 110px;
+    //     margin-right: 70px;
+    //     color: gray;
+    //     font-size: 12px;
+    //     margin-top: 6px;
+    // }
     
     &__input {
         width: 80%;
-        // height: 50px;
+        height: 50px;
         padding: 0;
         font-size: 100px;
         // background-color: red;
