@@ -129,7 +129,10 @@ export default function HistoryCard() {
         </div>
       </Paper>
       <div className='history__card__appointment-container'>
-        <AppointmentBlock appointment={filteredHistory}/>
+        {filteredHistory.length !==0 ? (<AppointmentBlock appointment={filteredHistory}/>) : (
+          <div>No Ongoing Appointment</div>
+        )}
+
       </div>
     </Paper>
   );

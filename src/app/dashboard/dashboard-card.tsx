@@ -168,12 +168,18 @@ export default function DashboardCard(): JSX.Element {
                     <Paper elevation={4} className='dashboard__card__role-content__appointment-column__paper'>
                         <div className='dashboard__card__role-content__appointment-column__paper__list-title'>Ongoing Appointment</div>
                         <div className='dashboard__card__role-content__appointment-column__paper__appointment-list'>
-                            {tabValue === 0 ? (
+                            {tabValue === 0 && clientCurrentAppointment.length !== 0 && (
                                 <AppointmentBlock appointment={clientCurrentAppointment} refresh={getClientInterpreterCurrentAppointment}/>  
-                            ) : null }
-                            {tabValue === 1 ? (
+                            )}
+                            {tabValue === 0 && clientCurrentAppointment.length === 0 && (
+                                <div>No Ongoing Appointment</div>
+                            )}
+                            {tabValue === 1 && interpreterCurrentAppointment.length !== 0 && (
                                 <AppointmentBlock appointment={interpreterCurrentAppointment} refresh={getClientInterpreterCurrentAppointment}/>  
-                            ) : null}
+                            )} 
+                            {tabValue === 1 && interpreterCurrentAppointment.length === 0 && (
+                                <div>No Ongoing Appointment</div>
+                            )}
                         </div>
                     </Paper>
                 </div>

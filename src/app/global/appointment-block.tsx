@@ -30,7 +30,6 @@ interface AppointmentOverview {
 export default function AppointmentBlock({appointment, refresh}: {appointment: AppointmentOverview[], refresh?: Function}) {    
     return (
         <>
-            {appointment.length === 0 ? <div>No Ongoing Appointment</div> : null}
             {appointment?.map((appointment, index) => {
                 // STATE VARIABLES 
                 const [openDetailModal, setOpenDetailModal] = useState<boolean>(false);
