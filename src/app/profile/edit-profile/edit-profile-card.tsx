@@ -3,8 +3,6 @@ import React, {useContext, useEffect, useState} from "react";
 import { ContextVariables } from "@/context-variables";
 import axios from "axios";
 import Link from "next/link";
-import Image from "next/image";
-import profilePic from '../../../../public/default.jpg'
 import { TextField, Button, Paper } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { buttonOffDark, buttonWhite } from "@/muistyle";
@@ -85,7 +83,28 @@ export default function EditProfile() {
     //     }
     // }, [updated]);
 
-    const handleUpdate = async () => {
+    // Handle update data
+    const confirmWindowStyle = {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        borderRadius: 2,
+        // border: '2px solid #000',
+        boxShadow: 2,
+        p: 4,
+    };
+
+    function confirmWindowHandleOpen(): void {
+        setConfirmWindowOpen(true);
+    };
+    function confirmWindowHandleClose(): void {
+        setConfirmWindowOpen(false);
+    } 
+
+    async function handleUpdate() {
         // console.log("update First: ", firstNameUpdate)
         const updateProfileData = {
             userId: userProfile?.id, 
@@ -111,25 +130,29 @@ export default function EditProfile() {
         }
     }
 
-    // Confirm
-    const confirmWindowStyle = {
-        position: 'absolute' as 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        borderRadius: 2,
-        // border: '2px solid #000',
-        boxShadow: 2,
-        p: 4,
-    };
+
 
     return (
         <Paper elevation={3} className='edit-profile-container'>
             <Link href="/profile" className='profile-container__back-button'>
                 <ArrowBackIcon className='profile-container__back-button__icon'/>
             </Link>
+            <Modal
+                open={confirmWindowOpen}
+                onClose={confirmWindowHandleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                disableEnforceFocus
+            >
+                <Box sx={confirmWindowStyle} className='edit-profile-container__confirm-window'>
+                    <div className='edit-profile-container__confirm-window__title'>Confirm Update Profile</div>
+                    <div className='edit-profile-container__confirm-window__description'>Are you sure you want to update?</div>
+                    <div className='edit-profile-container__confirm-window__button'>
+                        <Button variant='outlined' onClick={confirmWindowHandleClose} sx={buttonWhite}>Cancel</Button>
+                        <Button variant='contained' onClick={handleUpdate} sx={buttonOffDark}>Confirm</Button>
+                    </div>
+                </Box>
+            </Modal>
             <div className='edit-profile-container__info'>
                 <h1 className="edit-profile-container__header">Edit Profile</h1>
                 {userPhotoUrl !== 'noPhotoUrl' ? (
@@ -239,7 +262,7 @@ export default function EditProfile() {
                     />
                 </div>       
                 <div className="edit-profile-container__button-container">
-                    <Button variant="contained" sx={buttonOffDark} className='edit-profile-container__button-container__button' onClick={handleUpdate}>Save Changes</Button>
+                    <Button variant="contained" sx={buttonOffDark} className='edit-profile-container__button-container__button' onClick={confirmWindowHandleOpen}>Save Changes</Button>
                     <Link className='edit-profile-container__button-container__link' href="/profile">
                         <Button variant='contained' sx={buttonWhite} className='edit-profile-container__button-container__button' id='edit-profile-container__profile-button'>
                             Cancel

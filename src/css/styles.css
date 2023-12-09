@@ -646,6 +646,30 @@
 .edit-profile-container__button-container__link {
   text-decoration: none;
 }
+.edit-profile-container__confirm-window {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  width: 300px;
+  height: 150px;
+}
+.edit-profile-container__confirm-window__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  font-weight: bold;
+  font-size: 20px;
+}
+.edit-profile-container__confirm-window__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+}
 
 .chat-room {
   display: flex;

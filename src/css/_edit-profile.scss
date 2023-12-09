@@ -109,6 +109,27 @@
             text-decoration: none;
         }
     }
+
+    &__confirm-window {
+        @include flexCenter(column);
+        gap: 15px;
+        width: 300px;
+        height: 150px;
+
+        &__title {
+            @include flexCenter(row); 
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        // &__description {
+        // }
+
+        &__button {
+            @include flexCenter(row);
+            gap: 10px;
+        }
+    }
     
     // &__button {
     //     margin: 6px;
