@@ -7,6 +7,8 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/ap
 import { ContextVariables } from "../../context-variables";
 import AppointmentBlock from '../global/appointment-block';
 import MapComponent from "../map-component/map";
+import Link from "next/link";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 // IMPORT FROM MUI
 import {
@@ -249,16 +251,20 @@ export default function FindRequestCard() {
       elevation={5}
       className='find-request__block'
     >
-      {/* <Box
+      <Link href="/dashboard" className='find-request__back-button'>
+        <ArrowBackIcon className='find-request__back-button__icon'/>
+      </Link>
+      <Box
         sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
-          overflow: "hidden",
+          // overflow: "hidden",
           alignItems: "flex-start",
           height: "100%",
         }}
-      > */}
-      
+        // className='find-request__block'
+      >
+
         <Box
           sx={{
             width: { xs:"100%", md: "50%" },
@@ -270,6 +276,7 @@ export default function FindRequestCard() {
             justifyContent: "flex-start"
           }}
         >
+
           <Box component="h1" sx={{ textAlign: "center", mb: 2, fontSize: { xs: '1.5rem', md: '1.5rem' } }}>
             Check Appointments
           </Box>
@@ -365,7 +372,7 @@ export default function FindRequestCard() {
           )}
           {/* <AppointmentBlock appointment={filteredAppointments} /> */}
         </Box>
-      {/* </Box> */}
+      </Box>
     </Paper>
   );
   

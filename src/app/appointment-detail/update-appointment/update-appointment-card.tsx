@@ -535,7 +535,7 @@ const [selectedSubCategory, setSelectedSubCategory] = useState(
                 value={locationName}
                 onChange={(e) => setLocationName(e.target.value)}
               />
-              <Button sx={{ buttonBlack, marginTop: { xs: '15px', md: "20px" },  }}
+              <Button sx={{ buttonOffDark, marginTop: { xs: '15px', md: "20px" },  }}
                 onClick={handleLocationSearch}>Confirm Location
                 </Button>
               {locationCoordinates && (

@@ -106,7 +106,7 @@ export default function DashboardCard(): JSX.Element {
                     }}
                 >
                     <Tab label="Client" {...a11yProps(0)} icon={<EmojiPeopleIcon />} />
-                    <Tab label="Translator" {...a11yProps(1)} icon={<RecordVoiceOverIcon />} />
+                    <Tab label="Interpreter" {...a11yProps(1)} icon={<RecordVoiceOverIcon />} />
                 </Tabs>
             </Box>
             <div className='dashboard__card__role-content'> 
@@ -115,7 +115,7 @@ export default function DashboardCard(): JSX.Element {
                         {tabValue === 0 && (
                             <>
                                 <Link href="/add-request" className='dashboard__card__role-content__button-column__link'>
-                                    <Button variant='contained' sx={buttonOffLight} size='medium' className='dashboard__card__role-content__button-column__link__button'>
+                                    <Button variant='contained' sx={buttonOffMid} size='medium' className='dashboard__card__role-content__button-column__link__button'>
                                         <div className="dashboard__card__role-content__button-column__link__button__title">
                                             <AddCircleOutlineIcon />
                                             <p>New Request</p>
@@ -125,7 +125,7 @@ export default function DashboardCard(): JSX.Element {
                                 </Link>
                                 <Link href={{
                                     pathname: "/history",
-                                    query: {slug: "client"},
+                                    query: {role: "client"},
                                 }} className='dashboard__card__role-content__button-column__link'>
                                     <Button variant='outlined' sx={buttonWhite} size='medium' className='dashboard__card__role-content__button-column__link__button'>
                                         <div className="dashboard__card__role-content__button-column__link__button__title">
@@ -140,7 +140,7 @@ export default function DashboardCard(): JSX.Element {
                         {tabValue === 1 && (
                             <>
                                 <Link href="/find-request" className='dashboard__card__role-content__button-column__link'>
-                                    <Button variant='contained' sx={buttonOffLight} size='medium' className='dashboard__card__role-content__button-column__link__button'>
+                                    <Button variant='contained' sx={buttonOffMid} size='medium' className='dashboard__card__role-content__button-column__link__button'>
                                         <div className="dashboard__card__role-content__button-column__link__button__title">
                                             <SearchIcon />
                                             <p>Find Request</p>
@@ -150,7 +150,7 @@ export default function DashboardCard(): JSX.Element {
                                 </Link>
                                 <Link href={{
                                     pathname: "/history",
-                                    query: {slug: "interpreter"},
+                                    query: {role: "interpreter"},
                                 }} className='dashboard__card__role-content__button-column__link'>
                                     <Button variant='outlined' sx={buttonWhite} size='medium' className='dashboard__card__role-content__button-column__link__button'>
                                         <div className="dashboard__card__role-content__button-column__link__button__title">

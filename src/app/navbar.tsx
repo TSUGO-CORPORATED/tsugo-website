@@ -67,7 +67,7 @@ export default function Navbar() {
         // border: '2px solid #000',
         boxShadow: 2,
         p: 4,
-      };
+    };
 
     function signOutWindowHandleOpen(): void {
         avatarHandleClose();

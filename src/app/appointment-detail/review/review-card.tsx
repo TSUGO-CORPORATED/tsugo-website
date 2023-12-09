@@ -11,6 +11,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import { buttonWhite, buttonOffMid } from '@/muistyle';
 
 
 export default function ReviewCard() {
@@ -61,7 +62,7 @@ export default function ReviewCard() {
     };
 
     return (
-        <Paper className='review__container'>
+        <Paper className='review__container' elevation={3}>
             <h1 className='review__header'>Review</h1>
             <form className='review__form' onSubmit={submitReview}>
                 {/* <label>Rating</label>
@@ -94,15 +95,15 @@ export default function ReviewCard() {
                 >
                 </TextField>
                 <br></br>
-                <Button variant='contained' className='review__submit-button' type='submit' onClick={submitReview}>Submit</Button>
+                <Button variant='contained' className='review__submit-button' type='submit' onClick={submitReview} sx={buttonOffMid}>Submit</Button>
 
                 <Link className='review__cancel-link' href={{
-                pathname: '/appointment-detail',
+                pathname: '/dashboard',
                 query: {
                     appointmentId: appointmentId,
                 }
                 }}>
-                <Button variant='contained' className='review__cancel_button'>Cancel</Button>
+                <Button variant='contained' className='review__cancel_button' sx={buttonWhite}>Cancel</Button>
             </Link>
             </form>
             

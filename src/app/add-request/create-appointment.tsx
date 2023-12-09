@@ -19,7 +19,8 @@ import { DesktopDateTimePicker } from '@mui/x-date-pickers/DesktopDateTimePicker
 import { SnackbarCloseReason } from "@mui/material/Snackbar";
 import { AlertColor } from '@mui/material';
 import { colorOffDark, colorOffLight, colorOffMid, buttonOffDark, buttonOffLight, buttonOffMid, buttonBlack, buttonWhite } from '@/muistyle';
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Link from "next/link";
 
 type Coordinates = { lat: number; lng: number; } | null;
 type StatusFilter = "Requesting" | "Accepted" | "Cancelled" | "Completed" | "";
@@ -314,7 +315,7 @@ export default function CreateAppointment () {
       <Paper
         elevation={12}
         sx={{
-          padding: { xs: 1, md: 5 },
+          padding: { xs: 1, md: 3 },
           // maxWidth: "100%",
           margin: { xs: "5px", md: "20px" },
           marginBottom: "15px",
@@ -324,7 +325,11 @@ export default function CreateAppointment () {
           boxShadow: { xs:"0px 0px 0px 0px rgba(0, 0, 0, 0)" , md:"0px 4px 8px 0px rgba(0.5, 0.5, 0.5, 0.5)"  },
         }}
       >
-        <Typography variant="h3" sx={{ textAlign: "center", mb: 2, fontWeight: "bold", fontSize: { xs: '1rem', md: '1.5rem' } }}>
+      <Link href="/dashboard" className='add-request__back-button'>
+        <ArrowBackIcon className='add-request__back-button__icon'/>
+      </Link>
+
+        <Typography variant="h3" sx={{ textAlign: "center", mb: 2, fontWeight: "bold", fontSize: { xs: '1.5rem', md: '1.5rem' } }}>
           Make an Appointment
         </Typography>
         <Box
@@ -475,7 +480,7 @@ export default function CreateAppointment () {
                 placeholder="Enter Address or Location (e.g. Tokyo Station)"
                 required
               />
-              <Button sx={{...buttonBlack,marginTop: { xs: '15px', md: "20px" },marginLeft:"10px"}}
+              <Button sx={{...buttonOffDark,marginTop: { xs: '15px', md: "20px" },marginLeft:"10px"}}
                 variant="outlined"
                 onClick={handleLocationSearch}
                 >
@@ -571,7 +576,7 @@ export default function CreateAppointment () {
               type="submit"
               variant="contained"
               onClick={handleSubmit}
-              sx={buttonBlack}
+              sx={buttonOffDark}
             >
               <div>Confirm</div>
             </Button>
@@ -670,7 +675,7 @@ export default function CreateAppointment () {
               <Button
                 onClick={handleSendRequest}
                 variant="contained"
-                sx={buttonBlack}
+                sx={buttonOffDark}
                 className="add-request__confirmation__button"
               >
                 Send Request

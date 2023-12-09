@@ -4,7 +4,7 @@ import { GoogleMap, useLoadScript, InfoWindow, Marker, LoadScriptNext } from "@r
 import Link from 'next/link';
 import AppointmentDetail from '../global/appointment-detail';
 
-import { buttonBlack } from '@/muistyle';
+import { buttonBlack, buttonOffDark } from '@/muistyle';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import format from 'date-fns/format';
@@ -242,7 +242,7 @@ function handleCloseDetailModal() {
                             </Grid>
                             <Grid xs={12}>
                                 <div className="map-block__detail">
-                                    <Button onClick={handleOpenDetailModal} variant='contained' sx={buttonBlack} size='small' className="map-block__detail__button">
+                                    <Button onClick={handleOpenDetailModal} variant='contained' sx={buttonOffDark} size='small' className="map-block__detail__button">
                                         <div className="map-block__detail__button__text">See details</div>
                                     </Button>
                                     <AppointmentDetail appointmentId={appointment.id} openDetailModal={openDetailModal} closeDetailModal={handleCloseDetailModal} load={loadModal}/>
@@ -311,7 +311,7 @@ function handleCloseDetailModal() {
           <Button  variant="contained"
           color="primary"
           onClick={moveToClosestMarker}
-          sx={buttonBlack}>Nearest Request</Button>
+          sx={buttonOffDark}>Nearest Request</Button>
         )}
     </div>
   );
