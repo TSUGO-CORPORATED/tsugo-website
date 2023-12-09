@@ -32,8 +32,24 @@
     @media screen and (min-width: 700px) {
       width: 700px;
     }
-
   }
+  
+  &__back-button {
+    position: absolute;
+    text-decoration: none;
+    color: $color-black;
+    // top: 20vh;
+    // font-size: 15px;
+
+    &:hover {
+        color: $color-off-mid;
+    }
+
+    &__icon {
+        font-size: 32px;
+    }
+}
+
   &__agree {
     color: red;
     font-weight: bold;

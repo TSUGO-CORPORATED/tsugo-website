@@ -2,7 +2,7 @@
 
 // MODULES IMPORT
 import format from 'date-fns/format';
-import { buttonBlack } from '@/muistyle';
+import { buttonBlack, buttonOffDark } from '@/muistyle';
 import React, {useContext, useState, useEffect} from 'react';
 import AppointmentDetail from './appointment-detail';
 
@@ -109,7 +109,7 @@ export default function AppointmentBlock({appointment, refresh}: {appointment: A
                             </Grid>
                             <Grid xs={12}>
                                 <div className="appointment-block__detail">
-                                    <Button onClick={assignSelectedAppointment} variant='contained' sx={buttonBlack} size='small' className="appointment-block__detail__button" data-appointmentid={appointment.id}>
+                                    <Button onClick={assignSelectedAppointment} variant='contained' sx={buttonOffDark} size='small' className="appointment-block__detail__button" data-appointmentid={appointment.id}>
                                         <div className="appointment-block__detail__button__text" data-appointmentid={appointment.id}>See details</div>
                                     </Button>
                                 </div>

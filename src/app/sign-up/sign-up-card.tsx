@@ -12,7 +12,7 @@ import { TextField,Divider, Button, Typography, Paper, Box, InputAdornment} from
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import { buttonBlack } from '@/muistyle';
+import { buttonBlack, buttonOffDark } from '@/muistyle';
 import CircularProgress from '@mui/material/CircularProgress';
 
 
@@ -258,12 +258,7 @@ if (loading) {
             type="submit"
             variant="contained"
             sx={{
-              ...buttonBlack,
-              backgroundColor: "black",
-              color: "white",
-              "&:hover": {
-                backgroundColor: "#333",
-              },
+              ...buttonOffDark,
               textTransform: "none",
               width: "100%",
               height: "56px",

@@ -13,7 +13,7 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { SnackbarCloseReason } from "@mui/material/Snackbar";
 import GoogleIcon from "@mui/icons-material/Google";
-import { buttonBlack } from "@/muistyle";
+import { buttonBlack, buttonOffDark } from "@/muistyle";
 import CircularProgress from '@mui/material/CircularProgress';
 
 function preloadImage(src:any) {
@@ -207,16 +207,11 @@ export default function LogInCard(): JSX.Element {
             type="submit"
             variant="contained"
             sx={{
-              ...buttonBlack,
-              borderRadius: '4px',
-              backgroundColor: "black",
-              color: "white",
-              "&:hover": {
-                backgroundColor: "#333",
-              },
+              ...buttonOffDark,
               textTransform: "none",
               width: "100%",
               height: "56px",
+              borderRadius: "4px",
             }}
           >
             Log In

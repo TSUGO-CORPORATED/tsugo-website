@@ -10,12 +10,13 @@
 
     &__block {
         // background-color: red;
-        @include flexCenter(row);
-        justify-content: flex-start;
+        // @include flexCenter(row);
+        // justify-content: flex-start;
         // align-self: flex-start;
         // padding: 20px;
         height: 95%;
         width: 95%;
+        padding: 10px;
 
         @media screen and (min-width: 1000px) {
             width: 1000px;
@@ -24,8 +25,26 @@
         @media screen and (max-width: 500px) {
             height: 100%;
             width: 100%;
-            @include flexCenter(column);
-            justify-content: flex-start;
+            padding: 5px;
+            // @include flexCenter(column);
+            // justify-content: flex-start;
+        }
+    }
+
+    &__back-button {
+        position: absolute;
+        // text-align: left;
+        // top: 0px;
+        // left: 10%;
+        text-decoration: none;
+        color: $color-black;
+
+        &:hover {
+            color: $color-off-mid;
+        }
+
+        &__icon {
+            font-size: 32px;
         }
     }
 

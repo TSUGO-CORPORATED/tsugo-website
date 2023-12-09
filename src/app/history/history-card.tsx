@@ -6,6 +6,7 @@ import { ContextVariables } from "../../context-variables";
 import { useSearchParams } from 'next/navigation';
 import AppointmentBlock from '../global/appointment-block';
 import { Button, TextField, Paper, Box } from "@mui/material";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { colorOffDark, colorOffLight, colorOffMid, buttonOffDark, buttonOffLight, buttonOffMid, buttonBlack, buttonWhite } from '@/muistyle';
 
 //TYPESCRIPT THING
@@ -109,12 +110,15 @@ export default function HistoryCard() {
   return (
     <Box className='history__card'>
       <Paper className='history__card__filter' elevation={2}>
+        <Link href="/dashboard" className='history__card__back-button'>
+          <ArrowBackIcon className='history__card__back-button__icon'/>
+        </Link>
         <div className='history__card__filter__header'>History</div>  
         <div className="history__card__filter__button-container">
           <Button
             variant="outlined"
             className="history__card__filter__button-container__button"
-            sx={selectedStatus === 'Accepted' ? buttonBlack : buttonWhite}
+            sx={selectedStatus === 'Accepted' ? buttonOffDark : buttonWhite}
             onClick={() => handleStatusFilter("Accepted")}
           >
             Accepted
@@ -122,7 +126,7 @@ export default function HistoryCard() {
           <Button
             variant="outlined"
             className="history__card__filter__button-container__button"
-            sx={selectedStatus === 'Cancelled' ? buttonBlack : buttonWhite}
+            sx={selectedStatus === 'Cancelled' ? buttonOffDark : buttonWhite}
             onClick={() => handleStatusFilter("Cancelled")}
           >
             Cancelled
@@ -130,7 +134,7 @@ export default function HistoryCard() {
           <Button
             variant="outlined"
             className="history__card__filter__button-container__button"
-            sx={selectedStatus === 'Completed' ? buttonBlack : buttonWhite}
+            sx={selectedStatus === 'Completed' ? buttonOffDark : buttonWhite}
             onClick={() => handleStatusFilter("Completed")}
           >
             Completed

@@ -260,7 +260,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                         </div>
                                         <div className='appointment-detail__accept-modal__button'>
                                             <Button variant='outlined' onClick={handleCloseAcceptModal} sx={buttonWhite}>Cancel</Button>
-                                            <Button variant='contained' onClick={() => handleStatusChange("Accepted")} sx={buttonBlack}>Confirm</Button>
+                                            <Button variant='contained' onClick={() => handleStatusChange("Accepted")} sx={buttonOffDark}>Confirm</Button>
                                         </div>
                                     </Box>
                                 )}
@@ -291,7 +291,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                     <div className='appointment-detail__complete-modal__title'>Confirm Complete Appointment</div>
                                     <div className='appointment-detail__complete-modal__button'>
                                         <Button variant='outlined' onClick={handleCloseCompleteModal} sx={buttonWhite}>Cancel</Button>
-                                        <Button variant='contained' onClick={() => handleStatusChange("Completed")} sx={buttonBlack}>Confirm</Button>
+                                        <Button variant='contained' onClick={() => handleStatusChange("Completed")} sx={buttonOffDark}>Confirm</Button>
                                     </div>
                                 </Box>
                             </Modal>
@@ -318,7 +318,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                     {showModal && (
                                         <Disclaimer handleCloseModal={handleCloseDisclaimerModal} />
                                     )} */}
-                                    <Button onClick={handleOpenAcceptModal} sx={buttonOffLight} variant='contained' size='small' className='appointment-detail__content__button'>
+                                    <Button onClick={handleOpenAcceptModal} sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
                                         Accept appointment
                                     </Button>
                                     {/* <Modal
@@ -349,7 +349,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                                 </div>
                                                 <div className='appointment-detail__accept-modal__button'>
                                                     <Button variant='outlined' onClick={handleCloseAcceptModal} sx={buttonWhite}>Cancel</Button>
-                                                    <Button variant='contained' onClick={() => handleStatusChange("Accepted")} sx={buttonBlack}>Confirm</Button>
+                                                    <Button variant='contained' onClick={() => handleStatusChange("Accepted")} sx={buttonOffDark}>Confirm</Button>
                                                 </div>
                                             </Box>
                                     </Modal> */}
@@ -451,7 +451,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                 <p className="appointment-detail__content__data__content">{appointmentDetail?.clientUser.firstName} {appointmentDetail?.clientUser.lastName}</p>
                             </div>
                             <div className='appointment-detail__content__data'>
-                                <label className='appointment-detail__content__data__label'>Spoken language</label>
+                                <label className='appointment-detail__content__data__label'>Communication language</label>
                                 <p className="appointment-detail__content__data__content">{appointmentDetail?.clientSpokenLanguage}</p>
                             </div>
                         </div>
@@ -465,7 +465,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                 </p>
                             </div>
                             <div className='appointment-detail__content__data appointment-detail__content__user__block__right'>
-                                <label className='appointment-detail__content__data__label'>Spoken language</label>
+                                <label className='appointment-detail__content__data__label'>Desired language</label>
                                 <p className="appointment-detail__content__data__content">{appointmentDetail?.interpreterSpokenLanguage}</p>
                             </div>
                         </div>
