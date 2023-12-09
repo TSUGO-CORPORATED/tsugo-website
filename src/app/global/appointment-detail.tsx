@@ -251,7 +251,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                                     className="add_request_checkbox"
                                                 />
                                                 <p className='appointment-detail__accept-modal__agreement__check__text'>
-                                                    I agree to the <span onClick={handleOpenDisclaimerModal} className="appointment-detail__accept-modal__agreement__check__link">disclaimer</span>
+                                                    I agree to the <span onClick={handleOpenDisclaimerModal} className="appointment-detail__accept-modal__agreement__check__link">Terms and Conditions.</span>
                                                 </p>
                                             </div>
                                             <div className='appointment-detail__accept-modal__agreement__note'>
