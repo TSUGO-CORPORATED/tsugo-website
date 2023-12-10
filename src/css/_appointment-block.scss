@@ -11,19 +11,102 @@
 
     &__grid {
         // width: 90%;
+        padding: 5px;
+        // padding-bottom: 0;
+
         @media screen and (min-width: 700px) {
             padding: 15px;
         }
 
-        &__piece {
+        &__logo {
             @include flexCenter(row);
             justify-content: flex-start;
-            padding-left: 5px;
+            gap: 5px;
+            width: 100%;
+        
+            &__text {
+                font-weight: bold;
+            }
+
+            @media screen and (min-width: 700px) {
+                font-size: 22px;
+            }
+        }
+
+        &__date-time {
+        @include flexCenter(row);
+        gap: 10px;
+        
+            &__date {
+                font-size: 18px;
+    
+                @media screen and (min-width: 700px) {
+                    font-size: 22px;
+                }
+            }
+    
+            &__time {
+                font-size: 18px;
+                display: none;
+    
+                @media screen and (min-width: 700px) {
+                    display: initial;
+                    font-size: 22px;
+                    // font-style: italic;
+                }
+            }
+        }
+
+        &__status {
+            @include flexCenter(row);
+            justify-content: flex-end;
+
+            &__text {
+                background-color: red;
+                width: fit-content;
+                padding: 2px;
+                border-radius: 3px;
+    
+                &-requested {
+                    background-color: $color-medium-grey;
+                    color: $color-black;
+                }
+    
+                &-accepted {
+                    background-color: $color-off-mid;
+                    color: $color-white;
+    
+                }
+                &-completed {
+                    background-color: $color-off-dark;
+                    color: $color-white;
+                }
+                &-cancelled {
+                    background-color: $color-red;
+                    color: $color-white;
+                }
+
+                @media screen and (min-width: 700px) {
+                    font-size: 22px;
+                }
+            }
+        }
+
+        &__piece {
+            @include flexCenter(column);
+            justify-content: flex-start;
+            align-items: flex-start;
+            // padding-left: 5px;
+            height: 100%;
 
             &__label {
+                @include flexCenter(row);
+                justify-content: flex-end;
+                // width: 70px;
                 font-weight: bold;
                 margin-right: 5px;
                 font-size: 14px;
+                color: $color-dark-grey;
 
                 @media screen and (min-width: 700px) {
                     font-size: 18px;
@@ -34,27 +117,88 @@
                 font-size: 16px;
 
                 @media screen and (min-width: 700px) {
-                    font-size: 20px;
+                    font-size: 22px;
+                }
+            }
+        }
+
+        &__location {
+            @include flexCenter(row);
+            justify-content: flex-start;
+
+            &__icon {
+                width: 30px;
+            }
+            &__text {
+                font-size: 16px;
+
+                @media screen and (min-width: 700px) {
+                    font-size: 22px;
+                }
+            }
+        }
+
+        &__last-line {
+            // padding: 0;
+            // width: 100%;
+            @include flexCenter(row);
+            justify-content: space-between;
+            // align-items: flex-end;
+
+            &__language {
+                @include flexCenter(row);
+                justify-content: flex-start;
+    
+                &__icon {
+                    width: 30px;
+                }
+                &__text {
+                    font-size: 16px;
+    
+                    @media screen and (min-width: 700px) {
+                        font-size: 22px;
+                    }
+                }
+            }
+            
+            &__button {
+                padding: 5px 10px;
+                padding-right: 0;
+                // width: 100%;
+                // height: 100%;
+
+                &__icon {
+                    // font-size: 14px;
+                }
+
+                &__text {
+                    font-size: 12px;
+
+                    @media screen and (min-width: 700px) {
+                        font-size: 18px;
+                    }
                 }
             }
         }
     }
 
-    &__detail {
-        @include flexCenter(row);
-        justify-content: flex-end;
-        padding-bottom: 5px;
-        padding-right: 5px;
-        // width: 100px;
+  
 
-        &__button {
-            @media screen and (min-width: 700px) {
-                width: 200px;
-            }
+    // &__detail {
+    //     @include flexCenter(row);
+    //     justify-content: flex-end;
+    //     padding-bottom: 5px;
+    //     padding-right: 5px;
+    //     // width: 100px;
 
-            &__text {
-                font-weight: bold;
-            }
-        }
-    }
+    //     &__button {
+    //         @media screen and (min-width: 700px) {
+    //             width: 200px;
+    //         }
+
+    //         &__text {
+    //             font-weight: bold;
+    //         }
+    //     }
+    // }
 }
