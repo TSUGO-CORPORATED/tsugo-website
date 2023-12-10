@@ -37,13 +37,20 @@ export default function ChatRoomSub(): React.JSX.Element{
     const textRef = useRef<HTMLTextAreaElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const video2Ref = useRef<HTMLVideoElement>(null);
+    let navigator:Navigator | null = null;
+    if (typeof window != "undefined") {
+        navigator = window.navigator;
+    }
+    else {
+        navigator = null;
+    }
 
     // SEARCH PARAMS
     const searchParams = useSearchParams();
     const appointmentId = searchParams.get('slug');
     // console.log(appointmentId);
 
-    let sendMessage = (message: string) => {
+    const sendMessage = (message: string) => {
         let date = (new Date()).toISOString();
         if(typeof appointmentId == "string") {
             const obj = {
@@ -58,7 +65,37 @@ export default function ChatRoomSub(): React.JSX.Element{
         }
     };
 
+    const initPeer = () => {
+        
+        peer.current = new Peer();
+        peer.current.on('connection', function (con) {
+            peer.current!.on('call', function (call) {
+                console.log("someone is calling")
+                navigator!.mediaDevices.getUserMedia({ video: true, audio: true })
+                .then((stream) => {
+                    streamRefs.current.push(stream);
+                    call.answer(stream);
+                    call.on('stream', function (remoteStream) {
+                    newVideo(remoteStream);
+                });
+            }).catch( (err) => {
+                console.log('Failed to get local stream', err);
+            });
+        });
+        socket.current!.on("disconnect-user", () => {
+            con.close();
+        })
+    });
+    peer.current.on('open', (id) => {
+        console.log("open peer")
+        peerId = id //setPeerId(id);
+        console.log("peerId is: " + peerId)
+        socket.current!.emit('video-join', peerId);
+    });
+    }
+
     const joinVideo = () => {
+        initPeer();
         navigator!.mediaDevices.getUserMedia(constraints)
             .then((stream) => {
                 const videoTracks = stream.getVideoTracks();
@@ -84,54 +121,19 @@ export default function ChatRoomSub(): React.JSX.Element{
             }
             });
         setVideoIsOpen(true);
+    };
 
-        if (peer.current!.disconnected) peer.current! = new Peer();
-        socket.current!.emit('video-join', peerId);
-    }
     const leaveVideo = () => {
         setVideoIsOpen(false);
         peer.current!.disconnect();
+        peer.current!.destroy();
         for(const stream of streamRefs.current!){
             stream.getTracks().forEach(track => track.stop());
         }
-    }
+    };
 
-        useEffect(() => { //set up socket and peer
-            console.log("setting up socket and peer...");
-            let navigator:Navigator | null = null;
-            if (typeof window != "undefined") {
-                navigator = window.navigator;
-
-            }
-            else {
-                navigator = null;
-
-            }
-            peer.current = new Peer();
-            peer.current!.on('connection', function (con) {
-                peer.current!.on('call', function (call) {
-                    console.log("someone is calling")
-                    navigator!.mediaDevices.getUserMedia({ video: true, audio: true })
-                    .then((stream) => {
-                        streamRefs.current.push(stream);
-                        call.answer(stream);
-                        call.on('stream', function (remoteStream) {
-                        newVideo(remoteStream);
-                    });
-                }).catch( (err) => {
-                    console.log('Failed to get local stream', err);
-                });
-            });
-            socket.current!.on("disconnect-user", () => {
-                con.close();
-            })
-        });
-        peer.current!.on('open', (id) => {
-            console.log("open peer")
-            peerId = id //setPeerId(id);
-        });
-
-            
+        useEffect(() => { //set up socket
+            console.log("setting up socket...");
 
             socket.current = socketIO("https://senior-project-server-8090ce16e15d.herokuapp.com/"); //TODO: Set env variable  http://localhost:8080
             socket.current.emit("CONNECT_ROOM", `{"room": ${appointmentId}}`); //TOD: Need buttons for selecting which room you want, default to 1 for now
@@ -165,24 +167,26 @@ export default function ChatRoomSub(): React.JSX.Element{
                 setMessages((prevMessages) => [...prevMessages, ...standardizedHistory]);
             });
             socket.current.on('connect-user', (userId) => {
-                console.log(userId + " " + peerId);
+                console.log(userId + " and " + peerId);
                 if (peerId == userId) return;
                 console.log("connecting")
 
-                peer.current!.connect(userId);
-                navigator!.mediaDevices.getUserMedia({ video: true, audio: true })
-                .then((stream) => {
-                    streamRefs.current.push(stream);
-                    var call = peer.current!.call(userId, stream);
-                    call.on('stream', function (remoteStream) {
-                      newVideo(remoteStream);
-                    });
-                  }).catch((err) => {
-                    console.log('Failed to get local stream', err);
-                  });
+                if(peer.current != undefined){
+                    peer.current.connect(userId);
+                    navigator!.mediaDevices.getUserMedia({ video: true, audio: true })
+                    .then((stream) => {
+                        streamRefs.current.push(stream);
+                        var call = peer.current!.call(userId, stream);
+                        call.on('stream', function (remoteStream) {
+                          newVideo(remoteStream);
+                        });
+                      }).catch((err) => {
+                        console.log('Failed to get local stream', err);
+                      });
+                }
               });
 
-            return () => {
+            return () => { //cleanupt socket peer and media streams
                 socket.current?.disconnect();
                 peer.current?.disconnect();
                 for(const stream of streamRefs.current!){
@@ -218,8 +222,6 @@ export default function ChatRoomSub(): React.JSX.Element{
             <div className="chat-room__card" >
                 <ul className="chatContainer">
                     {messages.map((message, index) => {
-                        console.log("mu:",message.user)
-                        console.log("id:",userId)
                         if(message.user == userId) {
                         return <li key={index} className="chat-room-message" > 
                             <div className="messageContainer-sent">
