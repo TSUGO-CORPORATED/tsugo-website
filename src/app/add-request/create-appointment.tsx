@@ -61,6 +61,7 @@ export default function CreateAppointment () {
   const [formErrors, setFormErrors] = useState({appointmentTitle: "", location: "", isAgreed: "" });
   const [loading, setLoading] = useState(true);
   const [initialDateTime, setInitialDateTime] = useState(dayjs());
+  const [isLocationConfirmed, setIsLocationConfirmed] = useState(false);
   
 
 
@@ -225,7 +226,7 @@ export default function CreateAppointment () {
 
       const { lat, lng } = response.data.results[0].geometry.location;
       setLocationCoordinates({ lat, lng });
-
+      setIsLocationConfirmed(true)
       const addressResponse = await axios.get(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`
       );
@@ -245,6 +246,7 @@ export default function CreateAppointment () {
     }
   };
 
+  const isConfirmButtonDisabled = appointmentType === "In-Person" && !isLocationConfirmed
 
   //Submit Func =>swithcing to Confirm
   const handleSubmit = async (event: React.FormEvent) => {
@@ -260,16 +262,22 @@ export default function CreateAppointment () {
     if (!appointmentTitle) {
       setFormErrors(prev => ({ ...prev, appointmentTitle: "Please enter Title" }));
       hasErrors = true;
+      let errorMessage= "Please enter Title" 
+      setAlertMessage(errorMessage);
     }
 
     if (appointmentType === "In-Person" && !location) {
       setFormErrors(prev => ({ ...prev, location: "Please set Location" }));
       hasErrors = true;
+      let errorMessage= "Please set Location" 
+      setAlertMessage(errorMessage);
     }
 
     if (!isAgreed) {
       setFormErrors(prev => ({ ...prev, isAgreed: "Please agree to the Terms and Conditions" }));
       hasErrors = true;
+      let errorMessage=  "Please agree to the Terms and Conditions"
+      setAlertMessage(errorMessage);
     }
 
     if (hasErrors) {
@@ -496,13 +504,13 @@ export default function CreateAppointment () {
               // boxShadow: { xs:"0px 0px 0px 0px rgba(0, 0, 0, 0)" , md:"0px 4px 8px 0px rgba(0.3, 0.3, 0.3, 0.5)"  },
             }}>
               <TextField sx={{marginTop:"20px",width:{xs:"96%",md: "98%"}, marginLeft:"10px",marginRight:"10px"}}
-                label="Adress/Location"
+                label="Adress/Location. Press CONFIRM LOCATION after you enter"
                 type="text"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 error={!!formErrors.location}
                 helperText={formErrors.location}
-                placeholder="Enter Address or Location (e.g. Tokyo Station)"
+                placeholder="Enter Address or Location (e.g. Tokyo Station)   "
                 required
               />
               <Button sx={{...buttonOffDark,marginTop: { xs: '15px', md: "20px" },marginLeft:"10px"}}
@@ -602,6 +610,7 @@ export default function CreateAppointment () {
               variant="contained"
               onClick={handleSubmit}
               sx={buttonOffDark}
+              disabled={isConfirmButtonDisabled}
             >
               <div>Confirm</div>
             </Button>

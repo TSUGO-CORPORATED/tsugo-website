@@ -12,7 +12,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import format from 'date-fns/format';
 import { Button } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-
+import Box from '@mui/material/Box';
 
 
 // INTERFACE 
@@ -137,6 +137,7 @@ const MapComponent: React.FC<Props> = ({ coordinates, appointments, style }) => 
   const initialCenter = { lat: 36.6895, lng: 139.6917 };
   const [mapCenter, setMapCenter] = useState<Coordinate>(initialCenter);
   const [loading, setLoading] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0)
  
   // console.log("mapCenter", mapCenter)
 
@@ -171,6 +172,23 @@ const MapComponent: React.FC<Props> = ({ coordinates, appointments, style }) => 
     }
   };
 
+  const moveToNextLocation = () => {
+    if (appointments && appointments.length > 0) {
+      const nextIndex = (currentIndex + 1) % appointments.length;
+      setCurrentIndex(nextIndex);
+  
+      const nextAppointment = appointments[nextIndex];
+      setMapCenter({ 
+        lat: Number(nextAppointment.locationLatitude), 
+        lng: Number(nextAppointment.locationLongitude) 
+      });
+    }
+  };
+  
+
+
+
+
   function handleOpenDetailModal() {
     setOpenDetailModal(true);
     setLoadModal(true);
@@ -179,7 +197,7 @@ function handleCloseDetailModal() {
     setOpenDetailModal(false);
 }
 
-  const infoWindowStyle = {
+const infoWindowStyle = {
     backgroundColor: 'white',
     overflow:"hidden"
      };
@@ -305,10 +323,23 @@ function handleCloseDetailModal() {
         </GoogleMap>
       </LoadScriptNext>
       {appointments && appointments.length > 0 && (
+        <div >
+          <Box display="flex" justifyContent="center" alignItems="center" gap={2}>
           <Button  variant="contained"
           color="primary"
           onClick={moveToClosestMarker}
           sx={buttonOffDark}>Nearest Request</Button>
+
+          <Button
+          variant="contained"
+          color="primary"
+          onClick={moveToNextLocation}
+          sx={buttonOffDark}
+        >
+          Next Location
+        </Button>
+        </Box>
+        </div>
         )}
     </div>
   );
