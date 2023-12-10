@@ -196,10 +196,21 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
     const tempDateTime = appointmentDetail?.appointmentDateTime;
     const convertedDateTime = tempDateTime ? format(new Date(tempDateTime), "EEE',' dd MMM yy', 'hh':'mm") : null;
     
-    
+    // Process location name
+    const locationName = appointmentDetail?.locationName ? appointmentDetail.locationName : '-';
+    const words = locationName.split(" ");
+
+    for (let i = 0; i < words.length; i++) {
+        words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+    }
+
+    const processLocationName = words.join(" ");
+
+    // LOADING
     if (loading) {
         return <CircularProgress />; 
       }
+
     // JSX ELEMENTS       
     return (
         <Modal
@@ -447,7 +458,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                             </div>
                             <div className='appointment-detail__content__data'>
                                 <label className='appointment-detail__content__data__label'>Category</label>
-                                <p className="appointment-detail__content__data__content">{appointmentDetail?.mainCategory ? appointmentDetail?.mainCategory + "-" + appointmentDetail?.subCategory: '-'}</p>
+                                <p className="appointment-detail__content__data__content">{appointmentDetail?.mainCategory ? appointmentDetail?.mainCategory + " - " + appointmentDetail?.subCategory: '-'}</p>
                             </div>
                             <div className='appointment-detail__content__data'>
                                 <label className='appointment-detail__content__data__label'>Memo</label>
@@ -491,7 +502,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                         </div>
                         <div className='appointment-detail__content__data'>
                             <label className='appointment-detail__content__data__label'>Location name</label>
-                            <p className="appointment-detail__content__data__content">{appointmentDetail?.locationName ? appointmentDetail?.locationName : '-'}</p>
+                            <p className="appointment-detail__content__data__content">{processLocationName}</p>
                         </div>
                         <div className='appointment-detail__content__data'>
                             <label className='appointment-detail__content__data__label'>Location address</label>

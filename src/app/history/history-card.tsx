@@ -165,7 +165,7 @@ export default function HistoryCard() {
           />
         </div>
       </Paper>
-      <Paper className='history__card__appointment-container' elevation={2}>
+      <Paper className='history__card__appointment-container' elevation={0}>
         {filteredHistory.length !==0 ? (<AppointmentBlock appointment={filteredHistory}/>) : (
           <div>No Ongoing Appointment</div>
         )}
