@@ -388,7 +388,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                         query: { appointmentId: appointmentDetail?.id }
                                     }}>
                                         {/* <button className='chat_room_button'>Update appointment</button> */}
-                                        <Button sx={buttonWhite} variant='contained' size='small' className='appointment-detail__content__button'>
+                                        <Button sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
                                             Update Appointment
                                         </Button>
                                     </Link>
@@ -410,7 +410,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                         pathname: '/appointment-detail/chat-room',  
                                         query: { slug: appointmentDetail?.id }
                                     }}>
-                                        <Button sx={buttonWhite} variant='contained' size='small' className='appointment-detail__content__button'>
+                                        <Button sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
                                             Go to chat room
                                         </Button>
                                     </Link>
@@ -418,7 +418,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                         pathname: '/appointment-detail/update-appointment',  
                                         query: { appointmentId: appointmentDetail?.id }
                                     }}>
-                                        <Button sx={buttonWhite} variant='contained' size='small' className='appointment-detail__content__button'>
+                                        <Button sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
                                             Update Details
                                         </Button>
                                     </Link>

@@ -127,13 +127,21 @@ export default function HistoryCard() {
         </Link>
         <div className='history__card__filter__header'>History</div>  
         <div className="history__card__filter__button-container">
-          <Button
+          {/* <Button
             variant="outlined"
             className="history__card__filter__button-container__button"
             sx={selectedStatus === 'Accepted' ? buttonOffDark : buttonWhite}
             onClick={() => handleStatusFilter("Accepted")}
           >
             Accepted
+          </Button> */}
+          <Button
+            variant="outlined"
+            className="history__card__filter__button-container__button"
+            sx={selectedStatus === 'Completed' ? buttonOffDark : buttonWhite}
+            onClick={() => handleStatusFilter("Completed")}
+          >
+            Completed
           </Button>
           <Button
             variant="outlined"
@@ -142,14 +150,6 @@ export default function HistoryCard() {
             onClick={() => handleStatusFilter("Cancelled")}
           >
             Cancelled
-          </Button>
-          <Button
-            variant="outlined"
-            className="history__card__filter__button-container__button"
-            sx={selectedStatus === 'Completed' ? buttonOffDark : buttonWhite}
-            onClick={() => handleStatusFilter("Completed")}
-          >
-            Completed
           </Button>
         </div>
         <div className="history__card__filter__search-bar-container">

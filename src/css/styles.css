@@ -187,6 +187,7 @@
   height: 100vh;
   padding-top: 8vh;
   width: 100vw;
+  width: 99vw;
 }
 .dashboard__card {
   padding: 20px;
@@ -199,14 +200,18 @@
     align-items: center;
   }
 }
+.dashboard__card__tab {
+  height: 10%;
+}
 .dashboard__card__role-content {
+  height: 90%;
   width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: flex-start;
   padding-top: 10px;
   gap: 20px;
 }
@@ -217,6 +222,7 @@
     align-items: center;
     flex-direction: column;
     justify-content: flex-start;
+    gap: 10px;
   }
 }
 .dashboard__card__role-content__button-column {
@@ -225,13 +231,12 @@
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
-  height: 100%;
   text-decoration: none;
   width: 40%;
 }
 @media screen and (max-width: 700px) {
   .dashboard__card__role-content__button-column {
-    height: auto;
+    height: 15%;
     width: 100%;
   }
 }
@@ -316,16 +321,18 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100%;
   justify-content: flex-start;
+  height: 100%;
   width: 60%;
 }
 @media screen and (max-width: 700px) {
   .dashboard__card__role-content__appointment-column {
     width: 100%;
+    height: 85%;
   }
 }
 .dashboard__card__role-content__appointment-column__paper {
+  height: 100%;
   width: 100%;
   padding: 10px;
 }
@@ -339,6 +346,7 @@
   font-weight: bold;
   font-size: 28px;
   padding: 10px;
+  height: 8%;
 }
 .dashboard__card__role-content__appointment-column__paper__appointment-list {
   display: flex;
@@ -347,7 +355,8 @@
   flex-direction: column;
   justify-content: flex-start;
   padding: 10px;
-  height: 100%;
+  height: 92%;
+  overflow-y: scroll;
 }
 
 .profile {
@@ -971,7 +980,7 @@
   gap: 20px;
   padding: 20px;
 }
-@media (max-width: 1000px) {
+@media (max-width: 700px) {
   .history__card {
     display: flex;
     justify-content: center;
@@ -999,10 +1008,15 @@
   font-size: 32px;
 }
 .history__card__filter {
-  width: 100%;
+  width: 40%;
   display: flex;
   flex-direction: column;
   padding: 5px;
+}
+@media screen and (max-width: 700px) {
+  .history__card__filter {
+    width: 100%;
+  }
 }
 .history__card__filter__header {
   display: flex;
@@ -1026,7 +1040,7 @@
   padding: 5px;
 }
 .history__card__filter__button-container__button {
-  width: 30%;
+  width: 47%;
   height: 50px;
 }
 @media (max-width: 600px) {
@@ -1058,10 +1072,15 @@
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
-  width: 98%;
+  width: 60%;
   padding: 8px;
   height: 100%;
   overflow-y: scroll;
+}
+@media screen and (max-width: 700px) {
+  .history__card__appointment-container {
+    width: 100%;
+  }
 }
 
 .appointment-detail {

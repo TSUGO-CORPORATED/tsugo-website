@@ -118,7 +118,7 @@ export default function Navbar() {
                                                 height: 50, 
                                             }}
                                         />  
-                                        <p className='navbar__cont__left__link__button__text'>Tsugo/都合</p>
+                                        <p className='navbar__cont__left__link__button__text'>Tsugo</p>
                                     </Button>
                                 </Link>
                             </div>
@@ -138,7 +138,7 @@ export default function Navbar() {
                     ) : (
                         <>
                             <div className='navbar__cont__left'>
-                                <Link href="/" className='navbar__cont__left__link'>
+                                <Link href="/dashboard" className='navbar__cont__left__link'>
                                     <Button variant='text' className='navbar__cont__left__link__button'>
                                         <Avatar
                                             // component='img' 
@@ -149,7 +149,7 @@ export default function Navbar() {
                                                 height: 50, 
                                             }}
                                         />  
-                                        <p className='navbar__cont__left__link__button__text'>Tsugo/都合</p>
+                                        <p className='navbar__cont__left__link__button__text'>Tsugo</p>
                                     </Button>
                                 </Link>
                             </div>
