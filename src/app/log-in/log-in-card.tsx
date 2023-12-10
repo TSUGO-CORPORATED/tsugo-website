@@ -212,6 +212,7 @@ export default function LogInCard(): JSX.Element {
               width: "100%",
               height: "56px",
               borderRadius: "4px",
+              fontSize: '18px'
             }}
           >
             Log In
