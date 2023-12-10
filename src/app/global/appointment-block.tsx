@@ -5,6 +5,7 @@ import format from 'date-fns/format';
 import { buttonBlack, buttonOffDark } from '@/muistyle';
 import React, {useContext, useState, useEffect} from 'react';
 import AppointmentDetail from './appointment-detail';
+import dayjs, { Dayjs } from "dayjs";
 
 // IMPORT FROM MUI
 import Paper from '@mui/material/Paper';
@@ -67,8 +68,8 @@ export default function AppointmentBlock({appointment, refresh}: {appointment: A
                 const tempDateTime = appointment.appointmentDateTime;
                 // console.log(tempDateTime)
                 const dateObject = new Date(tempDateTime)
-                const convertedDate = tempDateTime ? format(dateObject, "MM/dd/yy") : null;
-                const convertedTime = tempDateTime ? format(dateObject, "HH:mm") : null;
+                const convertedDate = tempDateTime ? dayjs(tempDateTime).format("MM/DD/YYYY ") : null;
+                const convertedTime = tempDateTime ? dayjs(tempDateTime).format("HH:mm") : null;
                 // const convertedDateTime = tempDateTime ? format(dateObject, "MM/dd/yy HH:mm") : null;
 
                 // Process status

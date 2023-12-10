@@ -447,6 +447,7 @@ export default function CreateAppointment () {
                   } 
                 }}
                 label="Date and Time"
+                ampm={false}
                 minDate = {dayjs()}
               />
             ) : (
@@ -460,6 +461,7 @@ export default function CreateAppointment () {
                   }
                 }}
                 label="Date and Time"
+                ampm={false}
                 minDate = {dayjs()}
               />
             )}
@@ -673,7 +675,7 @@ export default function CreateAppointment () {
                 Date and Time:{" "}
                 <strong>
                   {dateTime
-                    ? dayjs(dateTime).format("MM/DD/YYYY hh:mm A")
+                    ? dayjs(dateTime).format("MM/DD/YYYY HH:mm ")
                     : "Not set"}
                 </strong>
               </Typography>

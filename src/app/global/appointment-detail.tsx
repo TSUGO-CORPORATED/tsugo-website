@@ -10,6 +10,7 @@ import format from 'date-fns/format';
 import Disclaimer from '../disclaimer';
 import { colorOffDark, colorOffLight, colorOffMid, buttonOffDark, buttonOffLight, buttonOffMid, buttonBlack, buttonWhite, buttonRed } from '@/muistyle';
 import { usePathname } from 'next/navigation';
+import dayjs, { Dayjs } from "dayjs";
 
 // MUI IMPORT
 import CloseIcon from '@mui/icons-material/Close';
@@ -194,7 +195,8 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
 
     // Process date
     const tempDateTime = appointmentDetail?.appointmentDateTime;
-    const convertedDateTime = tempDateTime ? format(new Date(tempDateTime), "EEE',' dd MMM yy', 'hh':'mm") : null;
+    const convertedDateTime = tempDateTime ? dayjs(tempDateTime).format("MM/DD/YYYY HH:mm ") : null;
+
     
     // Process location name
     const locationName = appointmentDetail?.locationName ? appointmentDetail.locationName : '-';
