@@ -5,7 +5,10 @@ import axios from "axios";
 import { ContextVariables } from "../../context-variables";
 import { useSearchParams } from 'next/navigation';
 import AppointmentBlock from '../global/appointment-block';
-import { Button, TextField, Paper } from "@mui/material";
+import { Button, TextField, Paper, Box } from "@mui/material";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { colorOffDark, colorOffLight, colorOffMid, buttonOffDark, buttonOffLight, buttonOffMid, buttonBlack, buttonWhite } from '@/muistyle';
+import CircularProgress from '@mui/material/CircularProgress';
 
 //TYPESCRIPT THING
 type Appointment = {
@@ -27,13 +30,14 @@ type StatusFilter = "Requested" | "Accepted" | "Cancelled" | "Completed" | "";
 
 export default function HistoryCard() {
   const [history, setHistory] = useState<Appointment[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
   const [filteredHistory, setFilteredHistory] = useState<Appointment[]>([]);
-  const { userId } = useContext(ContextVariables);
+    const [loading, setLoading] = useState(true);
   
+  const { userId } = useContext(ContextVariables);
   const searchParams = useSearchParams();
-  const role = searchParams.get('slug');
+  const role = searchParams.get('role');
 
   //USEEFFECT TO GET HISTORY DATA FROM BACKEND
   async function fetchHistory () {
@@ -50,26 +54,47 @@ export default function HistoryCard() {
       console.error("Error fetching History:", error);
     }
   };
-
   useEffect(() => {
     fetchHistory();
+    setLoading(false);
   }, []);
 
   function getFilteredHistory () {
-    return history.filter((eachHistory) => {
-      const titleLower = eachHistory.appointmentTitle?.toLowerCase();
-      const desireLanguageLower = eachHistory.interpreterSpokenLanguage?.toLowerCase();
-      const communicateLanguageLower = eachHistory.clientSpokenLanguage?.toLowerCase();
-      const locationNameString = eachHistory.locationName?.toLowerCase();
+    return history.filter((appointment) => {
+      // const titleLower = eachHistory.appointmentTitle?.toLowerCase();
+      // const desireLanguageLower = eachHistory.interpreterSpokenLanguage?.toLowerCase();
+      // const communicateLanguageLower = eachHistory.clientSpokenLanguage?.toLowerCase();
+      // const locationNameString = eachHistory.locationName?.toLowerCase();
 
       const searchMatch =
-      searchTerm === "" ||
-      titleLower?.includes(searchTerm.toLowerCase()) ||
-      desireLanguageLower?.includes(searchTerm.toLowerCase()) ||
-      communicateLanguageLower?.includes(searchTerm.toLowerCase()) ||
-      locationNameString?.includes(searchTerm.toLowerCase());      
+      String(appointment.id)
+        ?.includes(searchKeyword.toLowerCase()) ||
+      appointment.appointmentTitle
+        ?.toLowerCase()
+        .includes(searchKeyword.toLowerCase()) ||
+      appointment.appointmentType
+        ?.toLowerCase()
+        .includes(searchKeyword.toLowerCase()) ||
+      appointment.clientSpokenLanguage
+        ?.toLowerCase()
+        .includes(searchKeyword.toLowerCase()) ||
+      appointment.interpreterSpokenLanguage
+        ?.toLowerCase()
+        .includes(searchKeyword.toLowerCase()) ||
+      appointment.locationName
+        ?.toLowerCase()
+      //   .includes(searchKeyword.toLowerCase()) ||
+      // appointment.locationAdress
+        ?.toLowerCase()
+        .includes(searchKeyword.toLowerCase()) ||
+      appointment.mainCategory
+        ?.toLowerCase()
+        .includes(searchKeyword.toLowerCase()) ||
+      appointment.subCategory
+        ?.toLowerCase()
+        .includes(searchKeyword.toLowerCase());     
 
-      const statusMatch = selectedStatus === "" || eachHistory.status === selectedStatus;
+      const statusMatch = selectedStatus === "" || appointment.status === selectedStatus;
 
       return searchMatch && statusMatch;
     });
@@ -78,62 +103,81 @@ export default function HistoryCard() {
   useEffect(() => {
     const newFilteredHistory = getFilteredHistory();
     setFilteredHistory(newFilteredHistory);
-  }, [searchTerm, selectedStatus, history]);
+  }, [searchKeyword, selectedStatus, history]);
 
-  const handleStatusFilter = (status: StatusFilter) => {
+  function handleStatusFilter(status: StatusFilter) {
     setSelectedStatus(status);
   };
 
+  function clearFilter() {
+    handleStatusFilter('');
+    setSearchKeyword('');
+  }
+
+  if (loading) {
+    return <CircularProgress />; 
+  }
+
+  // JSX ELEMENTS   
   return (
-    <Paper className='history__card'>
-      <div className='history__card__header'>History</div>
-      <Paper className='history__card__filter'>
-        <div className="history__card__button-container">
+    <Box className='history__card'>
+      <Paper className='history__card__filter' elevation={2}>
+        <Link href="/dashboard" className='history__card__back-button'>
+          <ArrowBackIcon className='history__card__back-button__icon'/>
+        </Link>
+        <div className='history__card__filter__header'>History</div>  
+        <div className="history__card__filter__button-container">
           <Button
             variant="outlined"
-            className="history__ongoing__button"
+            className="history__card__filter__button-container__button"
+            sx={selectedStatus === 'Accepted' ? buttonOffDark : buttonWhite}
             onClick={() => handleStatusFilter("Accepted")}
           >
             Accepted
           </Button>
           <Button
             variant="outlined"
-            className="history__cancelled__button"
+            className="history__card__filter__button-container__button"
+            sx={selectedStatus === 'Cancelled' ? buttonOffDark : buttonWhite}
             onClick={() => handleStatusFilter("Cancelled")}
           >
             Cancelled
           </Button>
           <Button
             variant="outlined"
-            className="history__completed__button"
+            className="history__card__filter__button-container__button"
+            sx={selectedStatus === 'Completed' ? buttonOffDark : buttonWhite}
             onClick={() => handleStatusFilter("Completed")}
           >
             Completed
           </Button>
-          <Button
-            variant="outlined"
-            className="history__reset__button"
-            onClick={() => handleStatusFilter("")}
-          >
-            Clear
-          </Button>
         </div>
-        <div className="history__search-bar-container">
+        <div className="history__card__filter__search-bar-container">
           <TextField
             variant="outlined"
-            className="history__search-bar"
+            className="history__card__filter__search-bar-container__search-bar"
             type="text"
             placeholder="Search..."
-            onChange={(e) => setSearchTerm(e.target.value)}
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
           />
         </div>
+        <div className="history__card__filter__clear-filter">
+          <Button
+              variant="outlined"
+              className="history__card__filter__clear-filter__button"
+              sx={buttonWhite}
+              onClick={clearFilter}
+            >
+              Clear filter
+            </Button>
+        </div>
       </Paper>
-      <div className='history__card__appointment-container'>
+      <Paper className='history__card__appointment-container' elevation={0}>
         {filteredHistory.length !==0 ? (<AppointmentBlock appointment={filteredHistory}/>) : (
           <div>No Ongoing Appointment</div>
         )}
-
-      </div>
-    </Paper>
+      </Paper>
+    </Box>
   );
 }

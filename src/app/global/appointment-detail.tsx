@@ -10,6 +10,7 @@ import format from 'date-fns/format';
 import Disclaimer from '../disclaimer';
 import { colorOffDark, colorOffLight, colorOffMid, buttonOffDark, buttonOffLight, buttonOffMid, buttonBlack, buttonWhite, buttonRed } from '@/muistyle';
 import { usePathname } from 'next/navigation';
+import dayjs, { Dayjs } from "dayjs";
 
 // MUI IMPORT
 import CloseIcon from '@mui/icons-material/Close';
@@ -21,6 +22,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import CircularProgress from '@mui/material/CircularProgress';
 
 // MODAL
 const detailModalStyle = {
@@ -81,7 +83,8 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
     const [showAcceptModal, setShowAcceptModal] = useState<boolean>(false);
     const [showCancelModal, setShowCancelModal] = useState<boolean>(false);
     const [showCompleteModal, setShowCompleteModal] = useState<boolean>(false);
-    
+    const [loading, setLoading] = useState(true);
+
     const router = useRouter();
     const pathname = usePathname();
     // console.log(pathname);
@@ -180,14 +183,37 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
     // Initial Use effect
     // Only load modal only if the modal is clicked
     useEffect(() => {
-        if(load === true) getAppointmentDetail();
-        if(load === false) setAppointmentDetail(undefined);
+        if(load === true) {
+            getAppointmentDetail()
+            setLoading(false);
+        };
+        if(load === false) {
+            setAppointmentDetail(undefined);
+            setLoading(false);
+        };
     }, [load]);
 
     // Process date
     const tempDateTime = appointmentDetail?.appointmentDateTime;
-    const convertedDateTime = tempDateTime ? format(new Date(tempDateTime), "EEE',' dd MMM yy', 'hh':'mm") : null;
+    const convertedDateTime = tempDateTime ? dayjs(tempDateTime).format("MM/DD/YYYY HH:mm ") : null;
+
     
+    // Process location name
+    const locationName = appointmentDetail?.locationName ? appointmentDetail.locationName : '-';
+    const words = locationName.split(" ");
+
+    for (let i = 0; i < words.length; i++) {
+        words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+    }
+
+    const processLocationName = words.join(" ");
+
+    // LOADING
+    if (loading) {
+        return <CircularProgress />; 
+      }
+
+    // JSX ELEMENTS       
     return (
         <Modal
             open={openDetailModal}
@@ -251,7 +277,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                                     className="add_request_checkbox"
                                                 />
                                                 <p className='appointment-detail__accept-modal__agreement__check__text'>
-                                                    I agree to the <span onClick={handleOpenDisclaimerModal} className="appointment-detail__accept-modal__agreement__check__link">disclaimer</span>
+                                                    I agree to the <span onClick={handleOpenDisclaimerModal} className="appointment-detail__accept-modal__agreement__check__link">Terms and Conditions.</span>
                                                 </p>
                                             </div>
                                             <div className='appointment-detail__accept-modal__agreement__note'>
@@ -260,7 +286,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                         </div>
                                         <div className='appointment-detail__accept-modal__button'>
                                             <Button variant='outlined' onClick={handleCloseAcceptModal} sx={buttonWhite}>Cancel</Button>
-                                            <Button variant='contained' onClick={() => handleStatusChange("Accepted")} sx={buttonBlack}>Confirm</Button>
+                                            <Button variant='contained' onClick={() => handleStatusChange("Accepted")} sx={buttonOffDark}>Confirm</Button>
                                         </div>
                                     </Box>
                                 )}
@@ -270,7 +296,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                 onClose={handleCloseCancelModal}
                                 aria-labelledby="modal-modal-title"
                                 aria-describedby="modal-modal-description"
-                                // sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'} }}
+                                // sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'}  }}
                             >
                                 <Box sx={detailModalStyle} className='appointment-detail__cancel-modal'>
                                     <div className='appointment-detail__cancel-modal__title'>Confirm Cancel Appointment</div>
@@ -291,7 +317,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                     <div className='appointment-detail__complete-modal__title'>Confirm Complete Appointment</div>
                                     <div className='appointment-detail__complete-modal__button'>
                                         <Button variant='outlined' onClick={handleCloseCompleteModal} sx={buttonWhite}>Cancel</Button>
-                                        <Button variant='contained' onClick={() => handleStatusChange("Completed")} sx={buttonBlack}>Confirm</Button>
+                                        <Button variant='contained' onClick={() => handleStatusChange("Completed")} sx={buttonOffDark}>Confirm</Button>
                                     </div>
                                 </Box>
                             </Modal>
@@ -318,7 +344,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                     {showModal && (
                                         <Disclaimer handleCloseModal={handleCloseDisclaimerModal} />
                                     )} */}
-                                    <Button onClick={handleOpenAcceptModal} sx={buttonOffLight} variant='contained' size='small' className='appointment-detail__content__button'>
+                                    <Button onClick={handleOpenAcceptModal} sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
                                         Accept appointment
                                     </Button>
                                     {/* <Modal
@@ -349,7 +375,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                                 </div>
                                                 <div className='appointment-detail__accept-modal__button'>
                                                     <Button variant='outlined' onClick={handleCloseAcceptModal} sx={buttonWhite}>Cancel</Button>
-                                                    <Button variant='contained' onClick={() => handleStatusChange("Accepted")} sx={buttonBlack}>Confirm</Button>
+                                                    <Button variant='contained' onClick={() => handleStatusChange("Accepted")} sx={buttonOffDark}>Confirm</Button>
                                                 </div>
                                             </Box>
                                     </Modal> */}
@@ -434,7 +460,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                             </div>
                             <div className='appointment-detail__content__data'>
                                 <label className='appointment-detail__content__data__label'>Category</label>
-                                <p className="appointment-detail__content__data__content">{appointmentDetail?.mainCategory ? appointmentDetail?.mainCategory + "-" + appointmentDetail?.subCategory: '-'}</p>
+                                <p className="appointment-detail__content__data__content">{appointmentDetail?.mainCategory ? appointmentDetail?.mainCategory + " - " + appointmentDetail?.subCategory: '-'}</p>
                             </div>
                             <div className='appointment-detail__content__data'>
                                 <label className='appointment-detail__content__data__label'>Memo</label>
@@ -451,7 +477,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                 <p className="appointment-detail__content__data__content">{appointmentDetail?.clientUser.firstName} {appointmentDetail?.clientUser.lastName}</p>
                             </div>
                             <div className='appointment-detail__content__data'>
-                                <label className='appointment-detail__content__data__label'>Spoken language</label>
+                                <label className='appointment-detail__content__data__label'>Communication language</label>
                                 <p className="appointment-detail__content__data__content">{appointmentDetail?.clientSpokenLanguage}</p>
                             </div>
                         </div>
@@ -465,7 +491,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                 </p>
                             </div>
                             <div className='appointment-detail__content__data appointment-detail__content__user__block__right'>
-                                <label className='appointment-detail__content__data__label'>Spoken language</label>
+                                <label className='appointment-detail__content__data__label'>Desired language</label>
                                 <p className="appointment-detail__content__data__content">{appointmentDetail?.interpreterSpokenLanguage}</p>
                             </div>
                         </div>
@@ -478,7 +504,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                         </div>
                         <div className='appointment-detail__content__data'>
                             <label className='appointment-detail__content__data__label'>Location name</label>
-                            <p className="appointment-detail__content__data__content">{appointmentDetail?.locationName ? appointmentDetail?.locationName : '-'}</p>
+                            <p className="appointment-detail__content__data__content">{processLocationName}</p>
                         </div>
                         <div className='appointment-detail__content__data'>
                             <label className='appointment-detail__content__data__label'>Location address</label>

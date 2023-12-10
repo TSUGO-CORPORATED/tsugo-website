@@ -7,6 +7,9 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/ap
 import { ContextVariables } from "../../context-variables";
 import AppointmentBlock from '../global/appointment-block';
 import MapComponent from "../map-component/map";
+import Link from "next/link";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 
 // IMPORT FROM MUI
 import {
@@ -14,6 +17,7 @@ import {
   TextField, RadioGroup, FormControlLabel,useTheme,
   Radio, Checkbox, Button, Modal
 } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 
 // TYPE INTERFACE
 type Appointment = {
@@ -57,6 +61,7 @@ export default function FindRequestCard() {
   const [currentPosition, setCurrentPosition] = useState({});
   const [popUpAppointments, setPopUpAppointments] = useState<Appointment[]>([]);
   const [selectedInterpreterLanguage, setSelectedInterpreterLanguage] = useState<string>("");
+  const [loading, setLoading] = useState(true);
   // const [selectedClientLanguage, setSelectedClientLanguage] = useState("");
 
   const languages = [
@@ -97,7 +102,10 @@ export default function FindRequestCard() {
     }
   };
   useEffect(() => {
-    if (userId !== 0) fetchAppointments();
+    if (userId !== 0) {
+      fetchAppointments();
+      setLoading(false);
+     }
   }, [userId]);
 
   // APPLY FILTER TO APPOINTMENT LIST 
@@ -232,7 +240,11 @@ export default function FindRequestCard() {
   //   .filter((coord) => coord !== null) as Coordinate[];
   // console.log("findTSX", mapCoordinates);
 
-  // JSX ELEMENTS
+
+  if (loading) {
+    return <CircularProgress />; 
+  }
+    // JSX ELEMENTS
   return (
     <Paper
       // sx={{
@@ -249,16 +261,20 @@ export default function FindRequestCard() {
       elevation={5}
       className='find-request__block'
     >
-      {/* <Box
+      <Link href="/dashboard" className='find-request__back-button'>
+        <ArrowBackIcon className='find-request__back-button__icon'/>
+      </Link>
+      <Box
         sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
-          overflow: "hidden",
+          // overflow: "hidden",
           alignItems: "flex-start",
           height: "100%",
         }}
-      > */}
-      
+        // className='find-request__block'
+      >
+
         <Box
           sx={{
             width: { xs:"100%", md: "50%" },
@@ -270,6 +286,7 @@ export default function FindRequestCard() {
             justifyContent: "flex-start"
           }}
         >
+
           <Box component="h1" sx={{ textAlign: "center", mb: 2, fontSize: { xs: '1.5rem', md: '1.5rem' } }}>
             Check Appointments
           </Box>
@@ -365,7 +382,7 @@ export default function FindRequestCard() {
           )}
           {/* <AppointmentBlock appointment={filteredAppointments} /> */}
         </Box>
-      {/* </Box> */}
+      </Box>
     </Paper>
   );
   

@@ -12,7 +12,6 @@ import { buttonWhite, buttonRed } from '@/muistyle';
 // import { IoMdGlobe } from 'react-icons/io';
 // import LanguageSwitcher from './languageswitcher';
 
-
 // From MUI
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Logout from '@mui/icons-material/Logout';
@@ -67,7 +66,7 @@ export default function Navbar() {
         // border: '2px solid #000',
         boxShadow: 2,
         p: 4,
-      };
+    };
 
     function signOutWindowHandleOpen(): void {
         avatarHandleClose();
@@ -108,9 +107,18 @@ export default function Navbar() {
                     {userUid == 'noUid' ? (
                         <>
                             <div className='navbar__cont__left'>
-                                <Link href="/" >
-                                    <Button variant='text' className='navbar__cont__left__logo'>
-                                        Tsugo/都合
+                                <Link href="/" className='navbar__cont__left__link'>
+                                    <Button variant='text' className='navbar__cont__left__link__button'>
+                                        <Avatar
+                                            // component='img' 
+                                            src='/logo2.png' 
+                                            sx={{ 
+                                                // display: { xs: "none", md: "block" },
+                                                width: 50, 
+                                                height: 50, 
+                                            }}
+                                        />  
+                                        <p className='navbar__cont__left__link__button__text'>Tsugo/都合</p>
                                     </Button>
                                 </Link>
                             </div>
@@ -130,7 +138,20 @@ export default function Navbar() {
                     ) : (
                         <>
                             <div className='navbar__cont__left'>
-                                <Link href="/dashboard" className='navbar__cont__left__logo'>Tsugo/都合</Link>
+                                <Link href="/" className='navbar__cont__left__link'>
+                                    <Button variant='text' className='navbar__cont__left__link__button'>
+                                        <Avatar
+                                            // component='img' 
+                                            src='/logo2.png' 
+                                            sx={{ 
+                                                // display: { xs: "none", md: "block" },
+                                                width: 50, 
+                                                height: 50, 
+                                            }}
+                                        />  
+                                        <p className='navbar__cont__left__link__button__text'>Tsugo/都合</p>
+                                    </Button>
+                                </Link>
                             </div>
                             <div className='navbar__cont__right'>
                                 <Button onClick={avatarHandleClick}>

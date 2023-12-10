@@ -1,4 +1,5 @@
 'use client';
+//MODULE IMPORT
 import React, { useState, useContext,useEffect } from "react";
 import axios from "axios";
 import { GoogleMap, LoadScript, Marker,useLoadScript } from "@react-google-maps/api";
@@ -6,8 +7,10 @@ import { useRouter } from 'next/navigation';
 import { ContextVariables } from "../../context-variables";
 import MapComponent from "../map-component/map"
 import Disclaimer from '../disclaimer';
-import {Paper,TextFieldProps , Modal ,Snackbar,  Alert, TextField,SelectChangeEvent, Button,Radio, Select, MenuItem, FormControl, InputLabel, Checkbox, FormControlLabel,Typography,Box, RadioGroup, Link as MuiLink } from '@mui/material';
 import dayjs, { Dayjs } from "dayjs";
+import Link from "next/link";
+//IMPORT FROM MUI
+import {Paper,TextFieldProps , Modal ,Snackbar,  Alert, TextField,SelectChangeEvent, Button,Radio, Select, MenuItem, FormControl, InputLabel, Checkbox, FormControlLabel,Typography,Box, RadioGroup, Link as MuiLink } from '@mui/material';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { useMediaQuery } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -15,25 +18,27 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
 import { DesktopDateTimePicker } from '@mui/x-date-pickers/DesktopDateTimePicker';
-// import { DesktopDateTimePicker, MobileDateTimePicker } from '@mui/x-date-pickers';
 import { SnackbarCloseReason } from "@mui/material/Snackbar";
 import { AlertColor } from '@mui/material';
 import { colorOffDark, colorOffLight, colorOffMid, buttonOffDark, buttonOffLight, buttonOffMid, buttonBlack, buttonWhite } from '@/muistyle';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import CircularProgress from '@mui/material/CircularProgress';
 
-
+// INTERFACE 
 type Coordinates = { lat: number; lng: number; } | null;
 type StatusFilter = "Requesting" | "Accepted" | "Cancelled" | "Completed" | "";
 type MainCategoriesType = {
   [key: string]: string[];
 };
 
+// PAGE COMPONENT
 export default function CreateAppointment () {
-
-
+ 
   const router = useRouter();
   const { userId } = useContext(ContextVariables);
   const isMobile = useMediaQuery("(max-width:600px)");
-  //State settings
+
+ //USE STATE VARIABLES&settings
   const [appointmentTitle, setAppointmentTitle] = useState("");
   const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs());
   const [location, setLocation] = useState("");
@@ -54,59 +59,14 @@ export default function CreateAppointment () {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState<AlertColor>("success");
   const [formErrors, setFormErrors] = useState({appointmentTitle: "", location: "", isAgreed: "" });
-  //use Effect on appointment change => clears the location input
-  useEffect(() => {
-    setLocation("");
-  }, [appointmentType]);
+  const [loading, setLoading] = useState(true);
+  const [initialDateTime, setInitialDateTime] = useState(dayjs());
+  const [isLocationConfirmed, setIsLocationConfirmed] = useState(false);
+  
+
 
   //   //this is my apikey for temporary but its not working !!
   const apiKey = "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM";
-
-
-  //helper Func combining 2 location search func
-  const handleError = (errorMessage: string) => {
-    setAlertMessage(errorMessage);
-    setAlertSeverity("error");
-    setOpenSnackbar(true);
-  };
-
-  const handleLocationSearch = async () => {
-    try {
-      const response = await axios.get(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-          location
-        )}&key=${apiKey}`
-      );
-
-      if (response.data.results.length === 0) {
-        let errorMessage = "No results found for the given location.";
-        handleError(errorMessage);
-        throw new Error("No results found for the given location.");
-      }
-
-      const { lat, lng } = response.data.results[0].geometry.location;
-      setLocationCoordinates({ lat, lng });
-
-      const addressResponse = await axios.get(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`
-      );
-
-      if (addressResponse.data.results.length === 0) {
-        let errorMessage = "No address found for the given coordinates.";
-        handleError(errorMessage);
-        throw new Error("No address found for the given coordinates.");
-      }
-
-      const fetchedAddress = addressResponse.data.results[0].formatted_address;
-      setAddress(fetchedAddress);
-      setError("");
-    } catch (error) {
-      console.error("Error in location search: ", error);
-      setError("An unknown error occurred.");
-    }
-  };
-
-
 
   //select box lists
   const languages = [
@@ -128,7 +88,7 @@ export default function CreateAppointment () {
     "Turkish",
   ];
   const mainCategories: MainCategoriesType = {
-    Business: [
+    "Business": [
       "Company Visits",
       "Product Descriptions",
       "Market Research",
@@ -136,7 +96,7 @@ export default function CreateAppointment () {
       "Internal Presentations",
       "Others",
     ],
-    Educational: [
+    "Educational": [
       "School Education",
       "Universities and Colleges",
       "Academic Lectures",
@@ -146,7 +106,7 @@ export default function CreateAppointment () {
       "Parent-Teacher Meetings",
       "Others",
     ],
-    Tourism: [
+    "Tourism": [
       "Tourist Guidance",
       "Travel Assistance",
       "Guided Tours",
@@ -156,7 +116,7 @@ export default function CreateAppointment () {
       "Shopping and Ordering in Tourism",
       "Others",
     ],
-    Communication: ["Phone", "Video", "Online Meetings", "Webinars", "Others"],
+    "Communication": ["Phone", "Video", "Online Meetings", "Webinars", "Others"],
     "Culture and Arts": [
       "Art Exhibitions",
       "Museum Guiding",
@@ -165,7 +125,7 @@ export default function CreateAppointment () {
       "Literature and Books",
       "Others",
     ],
-    Technical: [
+    "Technical": [
       "Engineering",
       "IT and Software",
       "Scientific Research",
@@ -173,14 +133,14 @@ export default function CreateAppointment () {
       "Environmental Technology",
       "Others",
     ],
-    Sports: [
+    "Sports": [
       "Sports Events",
       "Athlete Support",
       "Interviews",
       "Sports Training",
       "Others",
     ],
-    Entertainment: [
+    "Entertainment": [
       "Movies and TV Shows",
       "Entertainment Events",
       "Live Shows",
@@ -211,7 +171,7 @@ export default function CreateAppointment () {
       "General Consultation and Information",
       "Others",
     ],
-    Hospital: [
+    "Hospital": [
       "General Medical Consultation",
       "Vaccination Procedures",
       "Health Consultation",
@@ -225,7 +185,7 @@ export default function CreateAppointment () {
       "Language Learning Workshops",
       "Others",
     ],
-    Others: ["Others"],
+    "Others": ["Others"],
   };
 
   
@@ -242,33 +202,89 @@ export default function CreateAppointment () {
     setSelectedSubCategory(mainCategories[category][0]);
   };
 
+
+   //helper Func combining 2 location search func
+   const handleError = (errorMessage: string) => {
+    setAlertMessage(errorMessage);
+    setAlertSeverity("error");
+    setOpenSnackbar(true);
+  };
+
+  const handleLocationSearch = async () => {
+    try {
+      const response = await axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+          location
+        )}&key=${apiKey}`
+      );
+
+      if (response.data.results.length === 0) {
+        let errorMessage = "No results found for the given location.";
+        handleError(errorMessage);
+        throw new Error("No results found for the given location.");
+      }
+
+      const { lat, lng } = response.data.results[0].geometry.location;
+      setLocationCoordinates({ lat, lng });
+      setIsLocationConfirmed(true)
+      const addressResponse = await axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`
+      );
+
+      if (addressResponse.data.results.length === 0) {
+        let errorMessage = "No address found for the given coordinates.";
+        handleError(errorMessage);
+        throw new Error("No address found for the given coordinates.");
+      }
+
+      const fetchedAddress = addressResponse.data.results[0].formatted_address;
+      setAddress(fetchedAddress);
+      setError("");
+    } catch (error) {
+      console.error("Error in location search: ", error);
+      setError("An unknown error occurred.");
+    }
+  };
+
+  const isConfirmButtonDisabled = appointmentType === "In-Person" && !isLocationConfirmed
+
   //Submit Func =>swithcing to Confirm
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setFormErrors({ appointmentTitle: "", location: "", isAgreed: "" });
     setError("");
     let hasErrors = false;
+    if (dayjs(dateTime).isSame(initialDateTime, 'minute')) {
+      setDateTime(dayjs().add(1, 'day'));
+    }
 
     // 
     if (!appointmentTitle) {
       setFormErrors(prev => ({ ...prev, appointmentTitle: "Please enter Title" }));
       hasErrors = true;
+      let errorMessage= "Please enter Title" 
+      setAlertMessage(errorMessage);
     }
 
     if (appointmentType === "In-Person" && !location) {
       setFormErrors(prev => ({ ...prev, location: "Please set Location" }));
       hasErrors = true;
+      let errorMessage= "Please set Location" 
+      setAlertMessage(errorMessage);
     }
 
     if (!isAgreed) {
       setFormErrors(prev => ({ ...prev, isAgreed: "Please agree to the Terms and Conditions" }));
       hasErrors = true;
+      let errorMessage=  "Please agree to the Terms and Conditions"
+      setAlertMessage(errorMessage);
     }
 
     if (hasErrors) {
       return;
     }
     setIsConfirmed(true);
+    setLoading(false);
   };
 
   //handler Func to send to Server
@@ -307,14 +323,23 @@ export default function CreateAppointment () {
     }
   };
 
+    //use Effect on appointment type change => clears the location input
+    useEffect(() => {
+      setLocation("");
+    }, [appointmentType]);
 
-  //HTML
+
+  // if (loading) {
+  //   return <CircularProgress />; 
+  // }
+  
+  //JSX Elements
   return (
     <div className="add-request__container">
       <Paper
         elevation={12}
         sx={{
-          padding: { xs: 1, md: 5 },
+          padding: { xs: 1, md: 3 },
           // maxWidth: "100%",
           margin: { xs: "5px", md: "20px" },
           marginBottom: "15px",
@@ -324,7 +349,11 @@ export default function CreateAppointment () {
           boxShadow: { xs:"0px 0px 0px 0px rgba(0, 0, 0, 0)" , md:"0px 4px 8px 0px rgba(0.5, 0.5, 0.5, 0.5)"  },
         }}
       >
-        <Typography variant="h3" sx={{ textAlign: "center", mb: 2, fontWeight: "bold", fontSize: { xs: '1rem', md: '1.5rem' } }}>
+      <Link href="/dashboard" className='add-request__back-button'>
+        <ArrowBackIcon className='add-request__back-button__icon'/>
+      </Link>
+
+        <Typography variant="h3" sx={{ textAlign: "center", mb: 2, fontWeight: "bold", fontSize: { xs: '1.5rem', md: '1.5rem' } }}>
           Make an Appointment
         </Typography>
         <Box
@@ -337,7 +366,7 @@ export default function CreateAppointment () {
             fullWidth
             onChange={(e) => setAppointmentTitle(e.target.value)}
             error={!!formErrors.appointmentTitle}
-            helperText={formErrors.appointmentTitle}
+            helperText='Please give the appointment a title. Ex: Help with city hall'
           />
           <FormControl fullWidth variant="outlined">
             <InputLabel shrink>Main Category</InputLabel>
@@ -377,6 +406,7 @@ export default function CreateAppointment () {
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="Please enter any additional information here..."
+            helperText='Please describe what the appointment is about. Ex: Need English-Japanese translation for registering new home address'
             fullWidth
           />
           <FormControl fullWidth>
@@ -417,21 +447,30 @@ export default function CreateAppointment () {
             {isMobile ? (
               <MobileDateTimePicker
                 value={dateTime}
-                onChange={(newDateTime) => setDateTime(newDateTime)}
-                // components={{
-                //   TextField: CustomTextField,
-                // }}
+                onChange={(newDateTime) => {
+
+                  if (dayjs(newDateTime).isSame(initialDateTime, 'minute')) {
+                    setDateTime(dayjs().add(1, 'day'));
+                  } else {
+                    setDateTime(newDateTime);
+                  } 
+                }}
                 label="Date and Time"
+                ampm={false}
                 minDate = {dayjs()}
               />
             ) : (
               <DesktopDateTimePicker
                 value={dateTime}
-                onChange={(newDateTime) => setDateTime(newDateTime)}
-                // components={{
-                //   TextField: CustomTextField,
-                // }}
+                onChange={(newDateTime) => {
+                  if (dayjs(newDateTime).isSame(initialDateTime ,'minute')) {
+                    setDateTime(dayjs().add(1, 'day'));
+                  } else {
+                    setDateTime(newDateTime);
+                  }
+                }}
                 label="Date and Time"
+                ampm={false}
                 minDate = {dayjs()}
               />
             )}
@@ -466,16 +505,16 @@ export default function CreateAppointment () {
               // boxShadow: { xs:"0px 0px 0px 0px rgba(0, 0, 0, 0)" , md:"0px 4px 8px 0px rgba(0.3, 0.3, 0.3, 0.5)"  },
             }}>
               <TextField sx={{marginTop:"20px",width:{xs:"96%",md: "98%"}, marginLeft:"10px",marginRight:"10px"}}
-                label="Adress/Location"
+                label="Adress/Location. Press CONFIRM LOCATION after you enter"
                 type="text"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 error={!!formErrors.location}
                 helperText={formErrors.location}
-                placeholder="Enter Address or Location (e.g. Tokyo Station)"
+                placeholder="Enter Address or Location (e.g. Tokyo Station)   "
                 required
               />
-              <Button sx={{...buttonBlack,marginTop: { xs: '15px', md: "20px" },marginLeft:"10px"}}
+              <Button sx={{...buttonOffDark,marginTop: { xs: '15px', md: "20px" },marginLeft:"10px"}}
                 variant="outlined"
                 onClick={handleLocationSearch}
                 >
@@ -571,7 +610,8 @@ export default function CreateAppointment () {
               type="submit"
               variant="contained"
               onClick={handleSubmit}
-              sx={buttonBlack}
+              sx={buttonOffDark}
+              disabled={isConfirmButtonDisabled}
             >
               <div>Confirm</div>
             </Button>
@@ -645,7 +685,7 @@ export default function CreateAppointment () {
                 Date and Time:{" "}
                 <strong>
                   {dateTime
-                    ? dayjs(dateTime).format("YYYY-MM-DD HH:mm")
+                    ? dayjs(dateTime).format("MM/DD/YYYY HH:mm ")
                     : "Not set"}
                 </strong>
               </Typography>
@@ -670,7 +710,7 @@ export default function CreateAppointment () {
               <Button
                 onClick={handleSendRequest}
                 variant="contained"
-                sx={buttonBlack}
+                sx={buttonOffDark}
                 className="add-request__confirmation__button"
               >
                 Send Request

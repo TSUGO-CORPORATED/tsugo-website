@@ -19,6 +19,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
+import CircularProgress from '@mui/material/CircularProgress';
 
 // INTERFACE 
 interface AppointmentOverview {
@@ -41,9 +42,8 @@ export default function DashboardCard(): JSX.Element {
     // STATE VARIABLES
     const [clientCurrentAppointment, setClientCurrentAppointment] = useState<AppointmentOverview[]>([]);
     const [interpreterCurrentAppointment, setInterpreterCurrentAppointment] = useState<AppointmentOverview[]>([]);
-
     const [tabValue, setTabValue] = useState<number>(0);
-    
+    const [loading, setLoading] = useState(true);
     // CONTEXT VARIABLES
     const { userId, userFirstName, userLastName } = useContext(ContextVariables);
     // console.log(userId, userFirstName, userLastName);
@@ -77,10 +77,15 @@ export default function DashboardCard(): JSX.Element {
     useEffect(() => {
         if (userId !== 0) {
             getClientInterpreterCurrentAppointment();
+            setLoading(false);
         }
     }, [userId]);
 
-    // JSX ELEMENTS
+   
+    if (loading) {
+        return <CircularProgress />; 
+      }
+     // JSX ELEMENTS
     return (
         <div className='dashboard__card'>
             <Box sx={{ borderBottom: 2, borderColor: 'divider' }}>
@@ -106,7 +111,7 @@ export default function DashboardCard(): JSX.Element {
                     }}
                 >
                     <Tab label="Client" {...a11yProps(0)} icon={<EmojiPeopleIcon />} />
-                    <Tab label="Translator" {...a11yProps(1)} icon={<RecordVoiceOverIcon />} />
+                    <Tab label="Interpreter" {...a11yProps(1)} icon={<RecordVoiceOverIcon />} />
                 </Tabs>
             </Box>
             <div className='dashboard__card__role-content'> 
@@ -115,7 +120,7 @@ export default function DashboardCard(): JSX.Element {
                         {tabValue === 0 && (
                             <>
                                 <Link href="/add-request" className='dashboard__card__role-content__button-column__link'>
-                                    <Button variant='contained' sx={buttonOffLight} size='medium' className='dashboard__card__role-content__button-column__link__button'>
+                                    <Button variant='contained' sx={buttonOffMid} size='medium' className='dashboard__card__role-content__button-column__link__button'>
                                         <div className="dashboard__card__role-content__button-column__link__button__title">
                                             <AddCircleOutlineIcon />
                                             <p>New Request</p>
@@ -125,7 +130,7 @@ export default function DashboardCard(): JSX.Element {
                                 </Link>
                                 <Link href={{
                                     pathname: "/history",
-                                    query: {slug: "client"},
+                                    query: {role: "client"},
                                 }} className='dashboard__card__role-content__button-column__link'>
                                     <Button variant='outlined' sx={buttonWhite} size='medium' className='dashboard__card__role-content__button-column__link__button'>
                                         <div className="dashboard__card__role-content__button-column__link__button__title">
@@ -140,7 +145,7 @@ export default function DashboardCard(): JSX.Element {
                         {tabValue === 1 && (
                             <>
                                 <Link href="/find-request" className='dashboard__card__role-content__button-column__link'>
-                                    <Button variant='contained' sx={buttonOffLight} size='medium' className='dashboard__card__role-content__button-column__link__button'>
+                                    <Button variant='contained' sx={buttonOffMid} size='medium' className='dashboard__card__role-content__button-column__link__button'>
                                         <div className="dashboard__card__role-content__button-column__link__button__title">
                                             <SearchIcon />
                                             <p>Find Request</p>
@@ -150,7 +155,7 @@ export default function DashboardCard(): JSX.Element {
                                 </Link>
                                 <Link href={{
                                     pathname: "/history",
-                                    query: {slug: "interpreter"},
+                                    query: {role: "interpreter"},
                                 }} className='dashboard__card__role-content__button-column__link'>
                                     <Button variant='outlined' sx={buttonWhite} size='medium' className='dashboard__card__role-content__button-column__link__button'>
                                         <div className="dashboard__card__role-content__button-column__link__button__title">

@@ -1,7 +1,7 @@
 'use client';
 
 // MODULES IMPORT
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { auth } from '../../firebase';
@@ -12,7 +12,18 @@ import { TextField,Divider, Button, Typography, Paper, Box, InputAdornment} from
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import { buttonBlack } from '@/muistyle';
+import { buttonBlack, buttonOffDark } from '@/muistyle';
+import CircularProgress from '@mui/material/CircularProgress';
+
+
+function preloadImage(src:any) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = src;
+    img.onload = resolve;
+    img.onerror = reject;
+  });
+}
 
 // PAGE COMPONENT
 export default function SignUpCard(): JSX.Element {
@@ -20,9 +31,40 @@ export default function SignUpCard(): JSX.Element {
   const [password, setPassword] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
+  const [randomImage, setRandomImage] = useState('')
+  const [loading, setLoading] = useState(true);
 
   const router = useRouter();
 
+
+  const images = [
+    '/randompics/1.jpg',
+    '/randompics/2.jpg',
+    '/randompics/3.jpg',
+    '/randompics/4.jpg',
+ 
+    '/randompics/6.jpg',
+    '/randompics/7.jpg',
+    '/randompics/8.jpg',
+    '/randompics/9.jpg',
+    '/randompics/10.jpg',
+    '/randompics/11.jpg',
+    '/randompics/12.jpg',
+    '/randompics/13.jpg',
+    '/randompics/14.jpg',
+    '/randompics/15.jpg',
+    '/randompics/16.jpg',
+    '/randompics/17.jpg',
+    '/randompics/18.jpg',
+    '/randompics/19.jpg',
+    '/randompics/20.jpg',
+    '/randompics/21.jpg',
+    '/randompics/22.jpg',
+    '/randompics/23.jpg',
+    '/randompics/24.jpg',
+    '/randompics/25.jpg',
+   
+  ];
 
   async function passwordSignUp(e: any): Promise<void> {
     e.preventDefault();
@@ -75,6 +117,24 @@ export default function SignUpCard(): JSX.Element {
       });
   }
 
+  useEffect(() => {
+    const loadingImages = async () => {
+      try {
+        await Promise.all(images.map(image => preloadImage(image)));
+        const randomIndex = Math.floor(Math.random() * images.length);
+        setRandomImage(images[randomIndex]);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error loading images:", error);
+      }
+    };
+
+    loadingImages();  }, []);
+
+
+if (loading) {
+  return <CircularProgress />; 
+    }    
   return (
     <Box
       sx={{
@@ -83,8 +143,8 @@ export default function SignUpCard(): JSX.Element {
         justifyContent: "center",
         borderRadius: "16px",
         alignItems: "center",
-        width: { xs: "90%", md: "90%" },
-        height: { xs: "auto", md: "70vh" },
+        width: { xs: "90%", md: "1000px" },
+        height: { xs: "auto", md: "72vh" },
         margin: "0 auto",
         flexDirection: { xs: "column", md: "row" }, 
       }}
@@ -94,19 +154,19 @@ export default function SignUpCard(): JSX.Element {
         sx={{
           display: { xs: "none", md: "block" },
           width: { md: "50%" },
-          height: { md: "115%" },
+          height: { md: "100%" },
           backgroundSize: "cover",
           backgroundPosition: "center",
           borderRadius: "16px 0 0 16px", 
         }}
-        src="/rice.jpg"
+        src={randomImage} 
       />
       <Box
         // elevation={3}
         sx={{
           padding: 4,
           paddingTop: { xs: 3, md: 5 }, 
-          height: "80vh",
+          height: "72vh",
           overflow: 'auto', 
           width: { xs: "100%", md: "45%" },
           borderRadius: { xs: "16px", md: "0 16px 16px 0" },
@@ -198,12 +258,7 @@ export default function SignUpCard(): JSX.Element {
             type="submit"
             variant="contained"
             sx={{
-              ...buttonBlack,
-              backgroundColor: "black",
-              color: "white",
-              "&:hover": {
-                backgroundColor: "#333",
-              },
+              ...buttonOffDark,
               textTransform: "none",
               width: "100%",
               height: "56px",

@@ -1,11 +1,18 @@
 'use client';
 
+// IMPORT MODULES
 import React, {useContext, useState} from "react";
 import { ContextVariables } from "@/context-variables";
 import Link from "next/link";
 import { updatePassword, reauthenticateWithCredential, EmailAuthProvider, signOut } from 'firebase/auth';
 import { auth } from "../../../firebase";
 import { useRouter } from 'next/navigation';
+
+// IMPORT MUI
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { buttonOffDark, buttonWhite } from "@/muistyle";
 import { TextField, Button, Paper } from '@mui/material';
 
 
@@ -13,14 +20,37 @@ export default function UpdatePasswordCard(): JSX.Element {
     // STATE VARIABLES
     const [oldPassword, setOldPassword] = useState<string>("");
     const [newPassword, setNewPassword] = useState<string>("");
+    const [confirmWindowOpen, setConfirmWindowOpen] = useState<boolean>(false);
 
     const { userEmail } = useContext(ContextVariables);
 
     const router = useRouter();
 
     // HELPER FUNCTION
-    async function updatePasswordFunction(event: React.FormEvent) {
-        event.preventDefault();
+    // Handle update password
+    const confirmWindowStyle = {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        borderRadius: 2,
+        // border: '2px solid #000',
+        boxShadow: 2,
+        p: 4,
+    };
+
+    function confirmWindowHandleOpen(e: any): void {
+        e.preventDefault()
+        setConfirmWindowOpen(true);
+    };
+    function confirmWindowHandleClose(): void {
+        setConfirmWindowOpen(false);
+    } 
+
+    async function updatePasswordFunction(e: any) {
+        e.preventDefault();
         if (auth.currentUser) {
             const user = auth.currentUser;
 
@@ -50,49 +80,69 @@ export default function UpdatePasswordCard(): JSX.Element {
                 }).catch((error) => {
                     // An error ocurred
                     console.log(error);
+                    alert("Sorry, fail to change password")
                 });
             }).catch((error) => {
                 // An error ocurred
                 console.log(error);
+                alert("Sorry, fail to change password")
             });
         }
     }
 
     return (
         <Paper elevation={3} className="update-password__container">
-            <h1 className="update-password__header">Change Password</h1>
-            
-            <form onSubmit={updatePasswordFunction}>
-                <div className='update-password__form'>
-                    <label className='update-password__label'>Old password:</label>
+            <Link href="/profile" className='update-password__container__back-button'>
+                <ArrowBackIcon className='update-password__container__back-button__icon'/>
+            </Link>
+            <Modal
+                open={confirmWindowOpen}
+                onClose={confirmWindowHandleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                disableEnforceFocus
+            >
+                <Box sx={confirmWindowStyle} className='update-password__container__confirm-window'>
+                    <div className='update-password__container__confirm-window__title'>Confirm Update Profile</div>
+                    <div className='update-password__container__confirm-window__description'>Are you sure you want to update?</div>
+                    <div className='update-password__container__confirm-window__button'>
+                        <Button variant='outlined' onClick={confirmWindowHandleClose} sx={buttonWhite}>Cancel</Button>
+                        <Button variant='contained' onClick={updatePasswordFunction} sx={buttonOffDark}>Confirm</Button>
+                    </div>
+                </Box>
+            </Modal>
+            <div className="update-password__container__info">
+                <h1 className="update-password__header">Change Password</h1>
+                <p>Please input your old password and new password</p>
+                <form className='update-password__form' onSubmit={confirmWindowHandleOpen}>
+                    {/* <label className='update-password__label'>Old password:</label> */}
                     <TextField 
+                        label='Old password'
                         variant="outlined"
-                        type="text" 
+                        type="password" 
                         value={oldPassword} 
                         onChange={(e) => setOldPassword(e.target.value)} 
                         required 
                         className='update-password__input' 
                     />
-                </div>
-                <div className='update-password__form'>
-                    <label className='update-password__label'>New password:</label>
+                    {/* <label className='update-password__label'>New password:</label> */}
                     <TextField 
+                        label='New password'
                         variant="outlined"
-                        type="text" 
+                        type="password" 
                         value={newPassword} 
                         onChange={(e) => setNewPassword(e.target.value)} 
                         required 
                         className='update-password__input' 
                     />
-                </div>
-                <div className="update-password__button_box">
-                    <Button variant="contained" type="submit" className='update-password__submit_button'>Confirm</Button>
-                </div>
-            </form>
-
-            <Link href='/profile'>
-                <Button variant="contained" className='update-password__profile-button'>Cancel</Button>
-            </Link>
+                    <div className="update-password__button-box">
+                        <Button type='submit' variant="contained" sx={buttonOffDark} className="update-password__button-box__button">Confirm</Button>
+                        <Link href='/profile'>
+                            <Button variant="contained" sx={buttonWhite} className="update-password__button-box__button">Cancel</Button>
+                        </Link>
+                    </div>
+                </form>
+            </div>
         </Paper>
     );
 }
