@@ -66,6 +66,7 @@ export default function ChatRoomSub(): React.JSX.Element{
     };
 
     const initPeer = () => {
+        
         peer.current = new Peer();
         peer.current.on('connection', function (con) {
             peer.current!.on('call', function (call) {
@@ -126,6 +127,7 @@ export default function ChatRoomSub(): React.JSX.Element{
     const leaveVideo = () => {
         setVideoIsOpen(false);
         peer.current!.disconnect();
+        peer.current!.destroy();
         for(const stream of streamRefs.current!){
             stream.getTracks().forEach(track => track.stop());
         }
