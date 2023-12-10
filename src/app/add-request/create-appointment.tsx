@@ -366,7 +366,7 @@ export default function CreateAppointment () {
             fullWidth
             onChange={(e) => setAppointmentTitle(e.target.value)}
             error={!!formErrors.appointmentTitle}
-            helperText={formErrors.appointmentTitle}
+            helperText='Please give the appointment a title. Ex: Help with city hall'
           />
           <FormControl fullWidth variant="outlined">
             <InputLabel shrink>Main Category</InputLabel>
@@ -406,6 +406,7 @@ export default function CreateAppointment () {
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="Please enter any additional information here..."
+            helperText='Please describe what the appointment is about. Ex: Need English-Japanese translation for registering new home address'
             fullWidth
           />
           <FormControl fullWidth>

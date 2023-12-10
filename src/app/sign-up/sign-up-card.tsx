@@ -143,8 +143,8 @@ if (loading) {
         justifyContent: "center",
         borderRadius: "16px",
         alignItems: "center",
-        width: { xs: "90%", md: "90%" },
-        height: { xs: "auto", md: "70vh" },
+        width: { xs: "90%", md: "1000px" },
+        height: { xs: "auto", md: "72vh" },
         margin: "0 auto",
         flexDirection: { xs: "column", md: "row" }, 
       }}
@@ -154,7 +154,7 @@ if (loading) {
         sx={{
           display: { xs: "none", md: "block" },
           width: { md: "50%" },
-          height: { md: "115%" },
+          height: { md: "100%" },
           backgroundSize: "cover",
           backgroundPosition: "center",
           borderRadius: "16px 0 0 16px", 
@@ -166,7 +166,7 @@ if (loading) {
         sx={{
           padding: 4,
           paddingTop: { xs: 3, md: 5 }, 
-          height: "80vh",
+          height: "72vh",
           overflow: 'auto', 
           width: { xs: "100%", md: "45%" },
           borderRadius: { xs: "16px", md: "0 16px 16px 0" },

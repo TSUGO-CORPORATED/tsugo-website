@@ -133,8 +133,8 @@ export default function LogInCard(): JSX.Element {
         margin: "0 auto",
         borderRadius: "16px",
         flexDirection: { xs: "column", md: "row" },
-        width: { xs: "90%", md: "90%" },
-        height: { xs: "auto", md: "70vh" }
+        width: { xs: "90%", md: "1000px" },
+        height: { xs: "auto", md: "72vh" }
       }}
     >
       <Box
