@@ -119,7 +119,6 @@ export default function ChatRoomSub(): React.JSX.Element{
             });
         setVideoIsOpen(true);
 
-        if (peer.current!.disconnected) peer.current! = new Peer();
         socket.current!.emit('video-join', peerId);
     };
 
@@ -166,7 +165,7 @@ export default function ChatRoomSub(): React.JSX.Element{
                 setMessages((prevMessages) => [...prevMessages, ...standardizedHistory]);
             });
             socket.current.on('connect-user', (userId) => {
-                console.log(userId + " " + peerId);
+                console.log(userId + " and " + peerId);
                 if (peerId == userId) return;
                 console.log("connecting")
 
