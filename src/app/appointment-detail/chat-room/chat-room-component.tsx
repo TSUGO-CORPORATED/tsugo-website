@@ -70,6 +70,7 @@ export default function ChatRoomSub(): React.JSX.Element{
         peer.current.on('connection', function (con) {
             peer.current!.on('call', function (call) {
                 console.log("someone is calling")
+                socket.current!.emit('video-join', peerId);
                 navigator!.mediaDevices.getUserMedia({ video: true, audio: true })
                 .then((stream) => {
                     streamRefs.current.push(stream);
