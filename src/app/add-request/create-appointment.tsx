@@ -639,7 +639,7 @@ export default function CreateAppointment () {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "80%",
+            // width: "80%",
             boxShadow: 24,
             overflowY: "auto",
           }}
@@ -710,18 +710,16 @@ export default function CreateAppointment () {
               <Button
                 onClick={handleSendRequest}
                 variant="contained"
-                sx={buttonOffDark}
-                className="add-request__confirmation__button"
+                sx={buttonOffDark} 
               >
-                Send Request
+                <p className="add-request__confirmation__button">Send Request</p>
               </Button>
               <Button
                 onClick={() => setIsConfirmed(false)}
                 variant="outlined"
                 sx={buttonWhite}
-                className="add-request__confirmation__button"
               >
-                Back to Form
+                <p className="add-request__confirmation__button">Back to Form</p>
               </Button>
             </Box>
           </Paper>

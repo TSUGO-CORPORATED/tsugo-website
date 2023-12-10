@@ -60,12 +60,12 @@ export default function Navbar() {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        // width: 400,
         bgcolor: 'background.paper',
         borderRadius: 2,
         // border: '2px solid #000',
         boxShadow: 2,
-        p: 4,
+        // p: 4,
     };
 
     function signOutWindowHandleOpen(): void {
@@ -124,13 +124,13 @@ export default function Navbar() {
                             </div>
                             <div className='navbar__cont__right'>
                                 <Link href="/sign-up">
-                                    <Button variant='text' className='navbar__cont__right__sign-up'>
-                                        Sign up
+                                    <Button variant='text' >
+                                        <p className='navbar__cont__right__sign-up'>Sign up</p>
                                     </Button>
                                 </Link>
                                 <Link href="/log-in" >
-                                    <Button variant='text' className='navbar__cont__right__log-in'>
-                                        Log in
+                                    <Button variant='text' >
+                                        <p className='navbar__cont__right__log-in'>Log in</p>
                                     </Button>
                                 </Link>
                             </div>
@@ -241,8 +241,8 @@ export default function Navbar() {
                                         <div className='navbar__cont__right__sign-out-window__title'>Confirm Log-out</div>
                                         <div className='navbar__cont__right__sign-out-window__description'>Are you sure you want to log-out?</div>
                                         <div className='navbar__cont__right__sign-out-window__button'>
-                                            <Button variant='outlined' onClick={signOutWindowHandleClose} sx={buttonWhite}>Cancel</Button>
-                                            <Button variant='contained' onClick={userSignOut} sx={buttonRed}>Confirm</Button>
+                                            <Button variant='outlined' onClick={signOutWindowHandleClose} sx={buttonWhite}><p>Cancel</p></Button>
+                                            <Button variant='contained' onClick={userSignOut} sx={buttonRed}><p>Confirm</p></Button>
                                         </div>
                                     </Box>
                                 </Modal>

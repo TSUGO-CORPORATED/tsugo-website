@@ -1,11 +1,11 @@
 .appointment-detail {
-width: 350px;
-height: 750px;
-padding: 15px;
+    width: 350px;
+    height: 750px;
+    padding: 15px;
 
-@media screen and (min-width: 700px) {
-    width: 600px;
-}
+    @media screen and (min-width: 700px) {
+        width: 600px;
+    }
 
     &__header {
         @include flexCenter(row);
@@ -140,11 +140,6 @@ padding: 15px;
         // background-color: red;
         padding-right: 10px;
 
-        &__divider {
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-    
         &__data {
         @include flexCenter(column);
         align-items: flex-start;
@@ -162,9 +157,8 @@ padding: 15px;
         }
     
         &__button {
-            // color: yellow;
-            width: 200px;
-            font-size: 12px;
+            width: 160px;
+            font-size: 11px;
         }
     
         &__primary {
@@ -201,10 +195,6 @@ padding: 15px;
                     font-weight: bold;
                     color: $color-dark-grey;
                     margin-bottom: 5px;
-                }
-    
-                &__divider {
-                    margin-right: 10px;
                 }
     
                 // &__right {
@@ -259,9 +249,6 @@ padding: 15px;
                         overflow-wrap: break-word;
                         width: 140px;
                     }
-                }
-                &__divider {
-                    margin-right: 10px;
                 }
             }
         }

@@ -253,7 +253,7 @@ const infoWindowStyle = {
                             </Grid>
                             <Grid xs={12}>
                                 <div className="map-block__detail">
-                                    <Button onClick={handleOpenDetailModal} variant='contained' sx={buttonOffDark} size='small' className="map-block__detail__button">
+                                    <Button onClick={handleOpenDetailModal} variant='contained' sx={buttonOffDark} className="map-block__detail__button">
                                         <div className="map-block__detail__button__text">See details</div>
                                     </Button>
                                     <AppointmentDetail appointmentId={appointment.id} openDetailModal={openDetailModal} closeDetailModal={handleCloseDetailModal} load={loadModal}/>

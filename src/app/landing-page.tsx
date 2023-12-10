@@ -32,7 +32,7 @@ export default function LandingPage(): JSX.Element {
                     }
                 }}
             /> */}
-            <Link href="/log-in" className='home__landing-page__log-in-link'><Button variant='contained' sx={buttonOffLight} className='home-page__login__div'>Get Started</Button></Link>
+            <Link href="/log-in" className='home__landing-page__log-in-link'><Button variant='contained' sx={buttonOffLight}><p className='home-page__login__div'>Get Started</p></Button></Link>
             <video className='home__landing-page__video' autoPlay loop muted playsInline controls={false}>
                 <source src='/videos/tokyo.mp4' />
                 Your browser does not support the video tag.

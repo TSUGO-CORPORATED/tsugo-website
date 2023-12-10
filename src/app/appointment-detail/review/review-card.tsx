@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Button, TextField, Paper } from '@mui/material';
+import { Button, TextField, Paper, Box } from '@mui/material';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
@@ -27,8 +27,8 @@ export default function ReviewCard() {
     const searchParams = useSearchParams();
     const appointmentId = searchParams.get('appointmentId');
     const role = searchParams.get('role');
-    console.log("ID",appointmentId);
-    console.log("role",role);
+    // console.log("ID",appointmentId);
+    // console.log("role",role);
 
     // HELPER FUNCTION
     async function submitReview(event: React.FormEvent) {
@@ -64,7 +64,7 @@ export default function ReviewCard() {
     return (
         <Paper className='review__container' elevation={3}>
             <h1 className='review__header'>Review</h1>
-            <form className='review__form' onSubmit={submitReview}>
+            <Box className='review__form' onSubmit={submitReview}>
                 {/* <label>Rating</label>
                 <select value={reviewRating} onChange={(e) => setReviewRating(Number(e.target.value))} required>
                 <option disabled> -- Select Rating -- </option>
@@ -95,18 +95,19 @@ export default function ReviewCard() {
                 >
                 </TextField>
                 <br></br>
-                <Button variant='contained' className='review__submit-button' type='submit' onClick={submitReview} sx={buttonOffMid}>Submit</Button>
+                <div className='review__button'>
+                    <Button variant='contained' type='submit' sx={buttonOffMid} className='review__button__submit-button'><p className='review__button__submit-button__text'>Submit</p></Button>
+                    <Link className='review__button__cancel-link' href={{
+                        pathname: '/dashboard',
+                        query: {
+                            appointmentId: appointmentId,
+                        }
+                    }}>
+                        <Button variant='contained' sx={buttonWhite} className='review__button__cancel-button'><p className='review__button__cancel-button__text'>Cancel</p></Button>
+                    </Link>
+                </div>
+            </Box>
 
-                <Link className='review__cancel-link' href={{
-                pathname: '/dashboard',
-                query: {
-                    appointmentId: appointmentId,
-                }
-                }}>
-                <Button variant='contained' className='review__cancel_button' sx={buttonWhite}>Cancel</Button>
-            </Link>
-            </form>
-            
         </Paper>
     );
 }
