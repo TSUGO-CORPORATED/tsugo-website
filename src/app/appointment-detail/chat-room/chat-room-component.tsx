@@ -88,6 +88,8 @@ export default function ChatRoomSub(): React.JSX.Element{
     peer.current.on('open', (id) => {
         console.log("open peer")
         peerId = id //setPeerId(id);
+        console.log("peerId is: " + peerId)
+        socket.current!.emit('video-join', peerId);
     });
     }
 
@@ -118,8 +120,6 @@ export default function ChatRoomSub(): React.JSX.Element{
             }
             });
         setVideoIsOpen(true);
-
-        socket.current!.emit('video-join', peerId);
     };
 
     const leaveVideo = () => {
@@ -220,8 +220,6 @@ export default function ChatRoomSub(): React.JSX.Element{
             <div className="chat-room__card" >
                 <ul className="chatContainer">
                     {messages.map((message, index) => {
-                        console.log("mu:",message.user)
-                        console.log("id:",userId)
                         if(message.user == userId) {
                         return <li key={index} className="chat-room-message" > 
                             <div className="messageContainer-sent">
