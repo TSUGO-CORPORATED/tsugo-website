@@ -209,7 +209,7 @@ export default function Profile() {
                     {/* <button onClick={checkProvider}>Check provider</button> */}
 
                     <Link className='profile-container__delete-link' href="/profile/delete-account">
-                        <Button variant='outlined' sx={buttonRed} className='profile-container__delete-button' id='profile-container__delete-button'>
+                        <Button variant='outlined' sx={{...buttonWhite, color: 'red', borderColor: 'red'}} className='profile-container__delete-button' id='profile-container__delete-button'>
                             Delete Account
                         </Button>
                     </Link>

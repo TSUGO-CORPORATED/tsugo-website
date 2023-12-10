@@ -54,7 +54,6 @@ export default function HistoryCard() {
       console.error("Error fetching History:", error);
     }
   };
-
   useEffect(() => {
     fetchHistory();
     setLoading(false);
@@ -106,13 +105,19 @@ export default function HistoryCard() {
     setFilteredHistory(newFilteredHistory);
   }, [searchKeyword, selectedStatus, history]);
 
-  const handleStatusFilter = (status: StatusFilter) => {
+  function handleStatusFilter(status: StatusFilter) {
     setSelectedStatus(status);
   };
+
+  function clearFilter() {
+    handleStatusFilter('');
+    setSearchKeyword('');
+  }
 
   if (loading) {
     return <CircularProgress />; 
   }
+
   // JSX ELEMENTS   
   return (
     <Box className='history__card'>
@@ -146,14 +151,6 @@ export default function HistoryCard() {
           >
             Completed
           </Button>
-          <Button
-            variant="outlined"
-            className="history__card__filter__button-container__button"
-            sx={buttonWhite}
-            onClick={() => handleStatusFilter("")}
-          >
-            Clear
-          </Button>
         </div>
         <div className="history__card__filter__search-bar-container">
           <TextField
@@ -161,8 +158,19 @@ export default function HistoryCard() {
             className="history__card__filter__search-bar-container__search-bar"
             type="text"
             placeholder="Search..."
+            value={searchKeyword}
             onChange={(e) => setSearchKeyword(e.target.value)}
           />
+        </div>
+        <div className="history__card__filter__clear-filter">
+          <Button
+              variant="outlined"
+              className="history__card__filter__clear-filter__button"
+              sx={buttonWhite}
+              onClick={clearFilter}
+            >
+              Clear filter
+            </Button>
         </div>
       </Paper>
       <Paper className='history__card__appointment-container' elevation={0}>

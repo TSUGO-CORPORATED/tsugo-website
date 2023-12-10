@@ -1022,10 +1022,11 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  padding: 5px;
 }
 .history__card__filter__button-container__button {
-  width: 23%;
+  width: 30%;
   height: 50px;
 }
 @media (max-width: 600px) {
@@ -1035,6 +1036,7 @@
 }
 .history__card__filter__search-bar-container {
   width: 100%;
+  margin-top: 5px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1043,6 +1045,12 @@
   width: 100%;
   justify-content: center;
   margin: 5px;
+}
+.history__card__filter__clear-filter {
+  padding: 5px;
+}
+.history__card__filter__clear-filter__button {
+  width: 100%;
 }
 .history__card__appointment-container {
   display: flex;
@@ -1773,7 +1781,7 @@
   padding-left: 10px;
   padding-right: 10px;
 }
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1000px) {
   .navbar {
     display: flex;
     justify-content: center;
@@ -1790,18 +1798,33 @@
   height: 100%;
   width: 100%;
 }
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1000px) {
   .navbar__cont {
-    width: 1200px;
+    width: 1000px;
   }
 }
-.navbar__cont__left__logo {
+.navbar__cont__left__link {
+  text-decoration: none;
+}
+.navbar__cont__left__link__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
   padding: 8px 24px;
   text-align: center;
   text-decoration: none;
-  color: #fffffa;
-  font-weight: bold;
   border-radius: 20px;
+}
+.navbar__cont__left__link__button__text {
+  font-weight: bold;
+  color: #fffffa;
+}
+@media screen and (max-width: 1000px) {
+  .navbar__cont__left__link__button__text {
+    display: none;
+  }
 }
 .navbar__cont__right {
   display: flex;
