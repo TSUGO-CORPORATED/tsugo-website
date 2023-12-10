@@ -5,7 +5,7 @@ import React, { useState, useEffect, useRef, useContext, use } from 'react';
 import { ContextVariables } from '../../../context-variables';
 import { useSearchParams } from 'next/navigation';
 import { Interface } from "readline";
-import { Button } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import moment from 'moment';
 
 //import cv from 'opencv4nodejs';
@@ -29,7 +29,7 @@ export default function ChatRoomSub(): React.JSX.Element{
 
     const [messages, setMessages] = useState<chatMessage[]>([]);
     const [error, setError] = useState<any>(null); //TODO: Determine type properly
-    //const [peerId, setPeerId] = useState<string>();
+    const [videoIsOpen, setVideoIsOpen] = useState(false);
     let peerId = "";
     const peer = useRef<Peer>();
     const socket = useRef<Socket>();
@@ -83,11 +83,13 @@ export default function ChatRoomSub(): React.JSX.Element{
                 console.error(`getUserMedia error: ${error.name}`, error);
             }
             });
+        setVideoIsOpen(true);
 
         if (peer.current!.disconnected) peer.current! = new Peer();
         socket.current!.emit('video-join', peerId);
     }
     const leaveVideo = () => {
+        setVideoIsOpen(false);
         peer.current!.disconnect();
         for(const stream of streamRefs.current!){
             stream.getTracks().forEach(track => track.stop());
@@ -204,7 +206,15 @@ export default function ChatRoomSub(): React.JSX.Element{
           
 
     return (
-        <div className="chat-room__container">  
+        <Paper className="chat-room__container">  
+        <div className="chat-room__video-container">
+                <video className="chat-room__video" ref={videoRef} width="320" height="240" autoPlay >
+                    No Source!
+                </video>
+                <video className="chat-room__video" ref={video2Ref} width="320" height="240" autoPlay>
+                    No Source!
+                </video>
+            </div>
             <div className="chat-room__card" >
                 <ul className="chatContainer">
                     {messages.map((message, index) => {
@@ -213,14 +223,14 @@ export default function ChatRoomSub(): React.JSX.Element{
                         if(message.user == userId) {
                         return <li key={index} className="chat-room-message" > 
                             <div className="messageContainer-sent">
-                                <p className="chat-room__message__username">User:{message.user} </p> 
+                                <p className="chat-room__message__username">User: {message.user} </p> 
                                 <p className="chat-room__message__content">{message.content} </p> 
                                 <p className="chat-room__message__timestamp">{moment(message.timestamp).fromNow()} </p>
                             </div> 
                         </li>} else {
                         return <li key={index} className="chat-room-message" > 
                             <div className="messageContainer-rec">
-                                <p className="chat-room__message__username">User:{message.user} </p> 
+                                <p className="chat-room__message__username">User: {message.user} </p> 
                                 <p className="chat-room__message__content"> {message.content} </p> 
                                 <p className="chat-room__message__timestamp"> {moment(message.timestamp).fromNow()} </p>
                             </div> 
@@ -229,19 +239,14 @@ export default function ChatRoomSub(): React.JSX.Element{
                 </ul>
             </div>
             <textarea ref={textRef} className="chat-room-text-input" placeholder="..."></textarea>
-            <Button variant="contained" className="chat-room-send-button" onClick={() => {if(textRef.current!.value != null) sendMessage(textRef.current!.value)}}>Send</Button>
-            <div className="chat-room__video-container">
-                <video className="chat-room__video" ref={videoRef} width="320" height="240" controls>
-                    No Source!
-                </video>
-                <video className="chat-room__video" ref={video2Ref} width="320" height="240" controls>
-                    No Source!
-                </video>
+            
+            <div className="ButtonContainer">   
+            {videoIsOpen ? <Button className="videoButton" onClick={leaveVideo} > Stop Camera </Button>
+                     : <Button className="videoButton" onClick={joinVideo}> Start Camera </Button>
+                }
+            <Button variant="contained" className="chat-room-send-button" onClick={() => {if(textRef.current!.value != null) sendMessage(textRef.current!.value)}}>Send</Button> 
+
             </div>
-            <div>
-            <Button onClick={joinVideo}> Start Camera </Button>
-            <Button onClick={leaveVideo} > Stop Camera </Button>
-            </div>
-        </div>
+        </Paper>
     )
 }
