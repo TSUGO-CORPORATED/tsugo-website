@@ -5,7 +5,7 @@ import SkipLogIn from '../auth/skip-log-in';
 
 // PAGE NAME
 export const metadata: Metadata = {
-    title: 'Sign Up',
+    title: 'Tsugo',
 }
 
 // PAGE COMPONENT

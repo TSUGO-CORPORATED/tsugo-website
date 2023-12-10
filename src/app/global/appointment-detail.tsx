@@ -8,14 +8,45 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import format from 'date-fns/format';
 import Disclaimer from '../disclaimer';
+import { colorOffDark, colorOffLight, colorOffMid, buttonOffDark, buttonOffLight, buttonOffMid, buttonBlack, buttonWhite, buttonRed } from '@/muistyle';
+import { usePathname } from 'next/navigation';
+import dayjs, { Dayjs } from "dayjs";
+
+// MUI IMPORT
+import CloseIcon from '@mui/icons-material/Close';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import CircularProgress from '@mui/material/CircularProgress';
+
+// MODAL
+const detailModalStyle = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    // border: '2px solid #000',
+    borderRadius: 2,
+    // boxShadow: 24,
+    p: 4,
+};
 
 // PAGE COMPONENT
-export default function AppointmentDetail({appointmentId}: {appointmentId: number}): JSX.Element {
+export default function AppointmentDetail({appointmentId, openDetailModal, closeDetailModal, refresh, load}: {appointmentId: number, openDetailModal: boolean, closeDetailModal: any, refresh?: Function, load: boolean}): JSX.Element {
     // TYPESCRIPT DATA TYPES
     interface AppointmentDetail {
         id: number;
         appointmentTitle: string,
         appointmentType: string,
+        mainCategory: string | null,
+        subCategory: string | null,
         clientSpokenLanguage: string;
         interpreterSpokenLanguage: string;
         locationName: string | null;
@@ -46,10 +77,17 @@ export default function AppointmentDetail({appointmentId}: {appointmentId: numbe
     type NewStatus = "Accepted" | "Cancelled" | "Completed";
 
     // STATE VARIABLES
-    const [appointmentDetail, setAppointmentDetail] = useState<AppointmentDetail>();
-    const [isAgreed, setIsAgreed] = useState(false);
-    const [showModal, setShowModal] = useState(false);
+    const [appointmentDetail, setAppointmentDetail] = useState<AppointmentDetail | undefined>(undefined);
+    const [isAgreed, setIsAgreed] = useState<boolean>(false);
+    const [showDisclaimerModal, setShowDisclaimerModal] = useState<boolean>(false);
+    const [showAcceptModal, setShowAcceptModal] = useState<boolean>(false);
+    const [showCancelModal, setShowCancelModal] = useState<boolean>(false);
+    const [showCompleteModal, setShowCompleteModal] = useState<boolean>(false);
+    const [loading, setLoading] = useState(true);
+
     const router = useRouter();
+    const pathname = usePathname();
+    // console.log(pathname);
 
     // CONTEXT VARIABLES
     const { userId } = useContext(ContextVariables);
@@ -63,18 +101,7 @@ export default function AppointmentDetail({appointmentId}: {appointmentId: numbe
         setAppointmentDetail(retrievedData.data);
     }
 
-    // function FormattedDateTime(input:any) {
-    //     const dateTime = new Date(input);
-    //     return dateTime.toLocaleString('en-US', {
-    //       month: '2-digit',
-    //       day: '2-digit',
-    //       year: 'numeric',
-    //       hour: '2-digit',
-    //       minute: '2-digit',
-    //       hour12: true
-    //     });
-    //   }
-
+    // Handle status change
     async function handleStatusChange(newStatus: NewStatus) {
         try {
             // Updating appointment status in the backend server
@@ -92,11 +119,27 @@ export default function AppointmentDetail({appointmentId}: {appointmentId: numbe
                 default:
                 return;
             }
-            await axios.patch(url);
-            alert(`Appointment ${newStatus} successfully!`);
 
-            // Redirect to homepage
-            router.push('/dashboard');
+            // Guard clause to prevent accepting request without agreeing
+            if (newStatus === 'Accepted' && isAgreed === false) {
+                alert('You must agree to the disclaimer first');
+                return;
+            } 
+
+            // Updating backend
+            await axios.patch(url);
+            // alert(`Appointment ${newStatus} successfully!`);
+
+            // Refresh or redirect to dashboard
+            if (pathname === '/dashboard') {
+                // router.replace('/dashboard');
+                setShowAcceptModal(false);
+                setShowCancelModal(false);
+                closeDetailModal();
+                if(refresh) refresh();
+            } else {
+                router.push('/dashboard');
+            }
             
         } catch (error) {
           console.error(`Error updating appointment status: `, error);
@@ -104,182 +147,395 @@ export default function AppointmentDetail({appointmentId}: {appointmentId: numbe
         }
     };
 
-    const handleOpenModal = () => {
-        setShowModal(true);
+    // Handle accept modal
+    function handleOpenAcceptModal () {
+        setShowAcceptModal(true);
+    }
+    function handleCloseAcceptModal () {
+        setShowAcceptModal(false);
+    }
+
+    // Handle cancel modal
+    function handleOpenCancelModal () {
+        setShowCancelModal(true);
+    }
+    function handleCloseCancelModal () {
+        setShowCancelModal(false);
+    }
+
+    // Handle complete modal
+    function handleOpenCompleteModal () {
+        setShowCompleteModal(true);
+    }
+    function handleCloseCompleteModal () {
+        setShowCompleteModal(false);
+    }
+
+    // Handle agreement modal
+    const handleOpenDisclaimerModal = () => {
+        setShowDisclaimerModal(true);
       };
     
-      const handleCloseModal = () => {
-        setShowModal(false);
-      };
+    const handleCloseDisclaimerModal = () => {
+        setShowDisclaimerModal(false);
+    };
     
     // Initial Use effect
+    // Only load modal only if the modal is clicked
     useEffect(() => {
-        getAppointmentDetail();
-    }, []);
+        if(load === true) {
+            getAppointmentDetail()
+            setLoading(false);
+        };
+        if(load === false) {
+            setAppointmentDetail(undefined);
+            setLoading(false);
+        };
+    }, [load]);
 
     // Process date
     const tempDateTime = appointmentDetail?.appointmentDateTime;
-    const convertedDateTime = tempDateTime ? format(new Date(tempDateTime), "EEE',' dd MMM yy, hh mm") : null;
-    
-    return (
-        <div className='appointment-detail_page'>
-            <div className='appointment-detail__content__element'>
-                <div className='appointment-detail__content__element_1'>
-                    <div className='appointment-detail__id'>
-                        <p className="appointment-detail__label">ID: </p>{appointmentDetail?.id}
-                    </div>
-                    <div className='appointment-detail__status'>
-                        <p className="appointment-detail__label">Status:</p>{appointmentDetail?.status}
-                    </div>
-                    <div className='appointment-detail__title'>
-                        <p className="appointment-detail__label">Title:</p>{appointmentDetail?.appointmentTitle}
-                    </div>
-                    <div className='appointment-detail__type'>
-                        <p className="appointment-detail__label">Type:</p>{appointmentDetail?.appointmentType}
-                    </div>
-                </div>
-                <div className='appointment-detail__content__element_2'>
-                    <div className='appointment-detail__client_firstname'>
-                        <p className="appointment-detail__label">Client Firstname:</p>{appointmentDetail?.clientUser.firstName}
-                    </div>
-                    <div className='appointment-detail__client_lastname'>
-                        <p className="appointment-detail__label">Client Lastname:</p>{appointmentDetail?.clientUser.lastName}
-                    </div>
-                    <div className='appointment-detail__client_profile_picture'>
-                        <p className="appointment-detail__label"></p>{appointmentDetail?.clientUser.profilePicture}
-                    </div>
-                    <div className='appointment-detail__client_spoken_language'>
-                        <p className="appointment-detail__label">Spoken language:</p>{appointmentDetail?.clientSpokenLanguage}
-                    </div>
-                    <div className='appointment-detail__interpreter_firstname'>
-                        <p className="appointment-detail__label">Interpreter Firstname:</p>{appointmentDetail?.interpreterUser?.firstName}
-                    </div>
-                    <div className='appointment-detail__interpreter_lastname'>
-                        <p className="appointment-detail__label">Interpreter Lastname:</p>{appointmentDetail?.interpreterUser?.lastName}
-                    </div>
-                    <div className='appointment-detail__interpreter_profile_picture'>
-                        {appointmentDetail?.interpreterUser?.profilePicture}
-                    </div>
-                    <div className='appointment-detail__interpreter_spoken_language'>
-                        <p className="appointment-detail__label">Interpreter Spoken language:</p>{appointmentDetail?.interpreterSpokenLanguage}
-                    </div>
-                </div>
-                <div className='appointment-detail__content__element_3'>
-                    <div className='appointment-detail__location_name'>
-                        <p className="appointment-detail__label">Location Name:</p>{appointmentDetail?.locationName}
-                    </div>
-                    <div className='appointment-detail__location_name'>
-                        <p className="appointment-detail__label">Location Address:</p>{appointmentDetail?.locationAddress}
-                    </div>
-                    <div className='appointment-detail__converted_date_time'>
-                        <p className="appointment-detail__label">Date Time:</p>{convertedDateTime}
-                    </div>
-                    <div className='appointment-detail__note'>
-                        <p className="appointment-detail__label">Note:</p>{appointmentDetail?.appointmentNote}
-                    </div>
-                </div>
-                <div className='appointment-detail__content__element_4'>
-                    <div className='appointment-detail__review_client_rating'>
-                        <p>review client thumb</p>
-                        <p>
-                            {appointmentDetail?.reviewClientThumb === true ? 'Yes' : null}
-                            {appointmentDetail?.reviewClientThumb === false ? 'No' : null}
-                        </p>
-                    </div>
-                    <div className='appointment-detail__review_client_note'>
-                        <p>review client note</p><p>{appointmentDetail?.reviewClientNote}</p>
+    const convertedDateTime = tempDateTime ? dayjs(tempDateTime).format("MM/DD/YYYY HH:mm ") : null;
 
-                    </div>
-                    <div className='appointment-detail__review_interpreter_rating'>
-                        <p>review interpreter thumb</p>
-                        <p>
-                            {appointmentDetail?.reviewInterpreterThumb === true ? 'Yes' : null}
-                            {appointmentDetail?.reviewInterpreterThumb === false ? 'No' : null}
-                        </p>
-                    </div>
-                    <div className='appointment-detail__review_interpreter_note'>
-                        <p>review interpreter note</p><p>{appointmentDetail?.reviewInterpreterNote}</p>
-                    </div>
+    
+    // Process location name
+    const locationName = appointmentDetail?.locationName ? appointmentDetail.locationName : '-';
+    const words = locationName.split(" ");
+
+    for (let i = 0; i < words.length; i++) {
+        words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+    }
+
+    const processLocationName = words.join(" ");
+
+    // LOADING
+    if (loading) {
+        return <CircularProgress />; 
+      }
+
+    // JSX ELEMENTS       
+    return (
+        <Modal
+            open={openDetailModal}
+            onClose={closeDetailModal}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            // sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'} }}
+        >
+            <Box sx={detailModalStyle} className='appointment-detail'>
+                <div className='appointment-detail__header'>
+                    <p className='appointment-detail__header__title'>Appointment Detail</p>              
+                    <Button onClick={closeDetailModal} sx={{color: 'black', minWidth: '0'}} variant='text' className="appointment-detail__header__link-button">
+                        <CloseIcon />
+                    </Button>
                 </div>
-            </div>
-            <div className='appointment-detail__button_box'>
-                <div className='appointment-detail__buttons'>
-                    {/* change status button */}
-                    {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId !== userId && (
-                        <>            
-                        <div className="appointment-detail_check_box">
-                        <label className="appointment-detail_check_label">
-                            <input
-                            type="checkbox"
-                            checked={isAgreed}
-                            onChange={(e) => setIsAgreed(e.target.checked)}
-                            required
-                            className="add_request_checkbox"
-                            />
-                            <span className="appointment-detail_agree">
-                                I agree to the <span onClick={handleOpenModal} className="appointment-detail_disclaimer-link">Disclaimer</span><br></br>
-                                Our site prohibits any financial transactions through its platform and<br></br>
-                                accepts no liability for any issues arising from interpretation services.
-                            </span>
-                        </ label>
+                <div className='appointment-detail__content'>
+                    <div className='appointment-detail__content__primary'>
+                        <div className='appointment-detail__content__primary__info'>
+                            <div className='appointment-detail__content__data'>
+                                <label className='appointment-detail__content__data__label'>ID</label>
+                                <p className="appointment-detail__content__data__content">{appointmentDetail?.id}</p>
+                            </div>
+                            <div className='appointment-detail__content__data'>
+                                <label className='appointment-detail__content__data__label'>Status</label>
+                                <p className="appointment-detail__content__data__content">{appointmentDetail?.status}</p>
+                            </div>
+                            <div className='appointment-detail__content__data'>
+                                <label className='appointment-detail__content__data__label'>Type</label>
+                                <p className="appointment-detail__content__data__content">{appointmentDetail?.appointmentType}</p>
+                            </div>
                         </div>
-                        {showModal && (
-                        <Disclaimer handleCloseModal={handleCloseModal} />
+                        <div className='appointment-detail__content__primary__buttons'>
+                            {/* Modal confirmation */}
+                            <Modal
+                                open={showAcceptModal}
+                                onClose={handleCloseAcceptModal}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                                // sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'} }}
+                            >
+                                {showDisclaimerModal ? (
+                                    <Box sx={detailModalStyle} className='appointment-detail__disclaimer-modal'>
+                                        {/* <Disclaimer handleCloseModal={handleCloseDisclaimerModal}/> */}
+                                        <div className="appointment-detail__disclaimer-modal__box">
+                                            <Button onClick={handleCloseDisclaimerModal} sx={{color: 'black', minWidth: '0', minHeight: '0'}} variant='text' className="appointment-detail__disclaimer-modal__box__button">
+                                                <CloseIcon />
+                                            </Button>
+                                        </div>
+                                        <Disclaimer />
+                                    </Box>
+                                ) : (
+                                    <Box sx={detailModalStyle} className='appointment-detail__accept-modal'>
+                                        <div className='appointment-detail__accept-modal__title'>Confirm Accept Appointment</div>
+                                        <div className='appointment-detail__accept-modal__agreement'>
+                                            <div className='appointment-detail__accept-modal__agreement__check'>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={isAgreed}
+                                                    onChange={(e) => setIsAgreed(e.target.checked)}
+                                                    required
+                                                    className="add_request_checkbox"
+                                                />
+                                                <p className='appointment-detail__accept-modal__agreement__check__text'>
+                                                    I agree to the <span onClick={handleOpenDisclaimerModal} className="appointment-detail__accept-modal__agreement__check__link">Terms and Conditions.</span>
+                                                </p>
+                                            </div>
+                                            <div className='appointment-detail__accept-modal__agreement__note'>
+                                                Note: our site prohibits any financial transactions through its platform and accepts no liability for any issues arising from interpretation services.
+                                            </div>
+                                        </div>
+                                        <div className='appointment-detail__accept-modal__button'>
+                                            <Button variant='outlined' onClick={handleCloseAcceptModal} sx={buttonWhite}>Cancel</Button>
+                                            <Button variant='contained' onClick={() => handleStatusChange("Accepted")} sx={buttonOffDark}>Confirm</Button>
+                                        </div>
+                                    </Box>
+                                )}
+                            </Modal>
+                            <Modal
+                                open={showCancelModal}
+                                onClose={handleCloseCancelModal}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                                // sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'}  }}
+                            >
+                                <Box sx={detailModalStyle} className='appointment-detail__cancel-modal'>
+                                    <div className='appointment-detail__cancel-modal__title'>Confirm Cancel Appointment</div>
+                                    <div className='appointment-detail__cancel-modal__button'>
+                                        <Button variant='outlined' onClick={handleCloseCancelModal} sx={buttonWhite}>Cancel</Button>
+                                        <Button variant='contained' onClick={() => handleStatusChange("Cancelled")} sx={buttonRed}>Confirm</Button>
+                                    </div>
+                                </Box>
+                            </Modal>
+                            <Modal
+                                open={showCompleteModal}
+                                onClose={handleCloseCompleteModal}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                                // sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'} }}
+                            >
+                                <Box sx={detailModalStyle} className='appointment-detail__complete-modal'>
+                                    <div className='appointment-detail__complete-modal__title'>Confirm Complete Appointment</div>
+                                    <div className='appointment-detail__complete-modal__button'>
+                                        <Button variant='outlined' onClick={handleCloseCompleteModal} sx={buttonWhite}>Cancel</Button>
+                                        <Button variant='contained' onClick={() => handleStatusChange("Completed")} sx={buttonOffDark}>Confirm</Button>
+                                    </div>
+                                </Box>
+                            </Modal>
+
+                            {/* Change status button */}
+                            {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId !== userId && (
+                                <>            
+                                    {/* <div className="appointment-detail__content_check_box">
+                                    <label className="appointment-detail__content_check_label">
+                                        <input
+                                        type="checkbox"
+                                        checked={isAgreed}
+                                        onChange={(e) => setIsAgreed(e.target.checked)}
+                                        required
+                                        className="add_request_checkbox"
+                                        />
+                                        <span className="appointment-detail__content_agree">
+                                            I agree to the <span onClick={handleOpenDisclaimerModal} className="appointment-detail_disclaimer-link">Disclaimer</span><br></br>
+                                            Our site prohibits any financial transactions through its platform and<br></br>
+                                            accepts no liability for any issues arising from interpretation services.
+                                        </span>
+                                    </ label>
+                                    </div>
+                                    {showModal && (
+                                        <Disclaimer handleCloseModal={handleCloseDisclaimerModal} />
+                                    )} */}
+                                    <Button onClick={handleOpenAcceptModal} sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
+                                        Accept appointment
+                                    </Button>
+                                    {/* <Modal
+                                        open={showAcceptModal}
+                                        onClose={handleCloseAcceptModal}
+                                        aria-labelledby="modal-modal-title"
+                                        aria-describedby="modal-modal-description"
+                                        // sx={{ '& .MuiBackdrop-root': { backgroundColor: 'rgba(0,0,0,0.2)'} }}
+                                    >
+                                            <Box sx={detailModalStyle} className='appointment-detail__accept-modal'>
+                                                <div className='appointment-detail__accept-modal__title'>Confirm Accept Appointment</div>
+                                                <div className='appointment-detail__accept-modal__agreement'>
+                                                    <div className='appointment-detail__accept-modal__agreement__check'>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={isAgreed}
+                                                            onChange={(e) => setIsAgreed(e.target.checked)}
+                                                            required
+                                                            className="add_request_checkbox"
+                                                        />
+                                                        <p className='appointment-detail__accept-modal__agreement__check__text'>
+                                                            I agree to the <span onClick={handleOpenDisclaimerModal} className="appointment-detail__accept-modal__agreement__check__link">disclaimer</span>
+                                                        </p>
+                                                    </div>
+                                                    <div className='appointment-detail__accept-modal__agreement__note'>
+                                                        Note: our site prohibits any financial transactions through its platform and accepts no liability for any issues arising from interpretation services.
+                                                    </div>
+                                                </div>
+                                                <div className='appointment-detail__accept-modal__button'>
+                                                    <Button variant='outlined' onClick={handleCloseAcceptModal} sx={buttonWhite}>Cancel</Button>
+                                                    <Button variant='contained' onClick={() => handleStatusChange("Accepted")} sx={buttonOffDark}>Confirm</Button>
+                                                </div>
+                                            </Box>
+                                    </Modal> */}
+                                </>
                             )}
-                            <button onClick={() => handleStatusChange("Accepted")} className='accept_button'>Accept</button>
-                        </>
-                    )}
-                    {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId === userId && (
-                        <>
-                            <button onClick={() => handleStatusChange("Cancelled")} className='cancel_button'>Cancel</button>
-                            <Link href={{
-                                pathname: '/appointment-detail/update-appointment',  
-                                query: { appointmentId: appointmentDetail?.id }
-                            }}>
-                                <button className='chat_room_button'>Update appointment</button>
-                            </Link>
-                        </>
-                    )}
-                    {appointmentDetail?.status === "Accepted" && appointmentDetail.clientUserId === userId && (
-                        <>
-                            <button onClick={() => handleStatusChange("Cancelled")} className='cancel_button'>Cancel</button>
-                            <button onClick={() => handleStatusChange("Completed")} className='complete_button'>Complete</button>
-                        </>
-                    )}
-                    {appointmentDetail?.status === "Accepted" && (
-                        <>
-                            <Link href={{
-                                pathname: '/appointment-detail/chat-room',  
-                                query: { slug: appointmentDetail?.id }
-                            }}>
-                                <button className='chat_room_button'>Go to chat room</button>
-                            </Link>
-                            <Link href={{
-                                pathname: '/appointment-detail/update-appointment',  
-                                query: { appointmentId: appointmentDetail?.id }
-                            }}>
-                                <button className='chat_room_button'>Update appointment</button>
-                            </Link>
-                        </>
-                    )}
-                    {appointmentDetail?.status === "Completed"
-                        && ((userId === appointmentDetail.clientUserId && appointmentDetail.reviewClientThumb === null) || (userId === appointmentDetail.interpreterUserId && appointmentDetail.reviewInterpreterThumb === null))
-                        && (
-                            <>
-                                <Link href={{
-                                    pathname: '/appointment-detail/review',
-                                    query: {
-                                        appointmentId: appointmentDetail?.id,
-                                        role: userId === appointmentDetail.clientUserId ? 'client' : 'interpreter',
-                                    }
-                                }}>
-                                    <button className='appointment-detail_add_review_button'>Add review</button>
-                                </Link>
-                            </>
-                        
-                    )} <button className='back_to_dashboard'  onClick={() => router.push("/dashboard")}>Go back to the list</button>
+                            {appointmentDetail?.status === "Requested" && appointmentDetail.clientUserId === userId && (
+                                <>
+                                    <Link href={{
+                                        pathname: '/appointment-detail/update-appointment',  
+                                        query: { appointmentId: appointmentDetail?.id }
+                                    }}>
+                                        {/* <button className='chat_room_button'>Update appointment</button> */}
+                                        <Button sx={buttonWhite} variant='contained' size='small' className='appointment-detail__content__button'>
+                                            Update Appointment
+                                        </Button>
+                                    </Link>
+                                    <Button onClick={handleOpenCancelModal} sx={buttonRed} variant='contained' size='small' className='appointment-detail__content__button'>
+                                        Cancel appointment
+                                    </Button>
+                                </>
+                            )}
+                            {appointmentDetail?.status === "Accepted" && (
+                                <>
+                                    {appointmentDetail.clientUserId === userId && (
+                                        <>
+                                            <Button onClick={handleOpenCompleteModal} sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
+                                                Complete appointment
+                                            </Button>
+                                        </>
+                                    )}
+                                    <Link href={{
+                                        pathname: '/appointment-detail/chat-room',  
+                                        query: { slug: appointmentDetail?.id }
+                                    }}>
+                                        <Button sx={buttonWhite} variant='contained' size='small' className='appointment-detail__content__button'>
+                                            Go to chat room
+                                        </Button>
+                                    </Link>
+                                    <Link href={{
+                                        pathname: '/appointment-detail/update-appointment',  
+                                        query: { appointmentId: appointmentDetail?.id }
+                                    }}>
+                                        <Button sx={buttonWhite} variant='contained' size='small' className='appointment-detail__content__button'>
+                                            Update Details
+                                        </Button>
+                                    </Link>
+                                    {appointmentDetail?.status === "Accepted" && appointmentDetail.clientUserId === userId && (
+                                        <>
+                                         <Button onClick={handleOpenCancelModal} sx={buttonRed} variant='contained' size='small' className='appointment-detail__content__button'>
+                                            Cancel appointment
+                                        </Button>
+                                        </>
+                                    )}
+                                </>
+                            )}
+                            {appointmentDetail?.status === "Completed"
+                                && ((userId === appointmentDetail.clientUserId && appointmentDetail.reviewClientThumb === null) || (userId === appointmentDetail.interpreterUserId && appointmentDetail.reviewInterpreterThumb === null))
+                                && (
+                                    <>
+                                        <Link href={{
+                                            pathname: '/appointment-detail/review',
+                                            query: {
+                                                appointmentId: appointmentDetail?.id,
+                                                role: userId === appointmentDetail.clientUserId ? 'client' : 'interpreter',
+                                            }
+                                        }}>
+                                            <Button sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
+                                                Add review
+                                            </Button>
+                                        </Link>
+                                    </>
+                                
+                            )} 
+                        </div>
+                    </div>
+                    <Divider className='appointment-detail__content__divider'/>
+                    <div className='appointment-detail__content__detail'>
+                        <div className='appointment-detail__content__detail__header'>
+                            <div className='appointment-detail__content__data'>
+                                <label className='appointment-detail__content__data__label'>Title</label>
+                                <p className="appointment-detail__content__data__content">{appointmentDetail?.appointmentTitle}</p>
+                            </div>
+                            <div className='appointment-detail__content__data'>
+                                <label className='appointment-detail__content__data__label'>Category</label>
+                                <p className="appointment-detail__content__data__content">{appointmentDetail?.mainCategory ? appointmentDetail?.mainCategory + " - " + appointmentDetail?.subCategory: '-'}</p>
+                            </div>
+                            <div className='appointment-detail__content__data'>
+                                <label className='appointment-detail__content__data__label'>Memo</label>
+                                <p className="appointment-detail__content__data__content">{appointmentDetail?.appointmentNote ? appointmentDetail?.appointmentNote : '-'}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <Divider className='appointment-detail__content__divider'/>
+                    <div className='appointment-detail__content__user'>
+                        <div className='appointment-detail__content__user__block'>
+                            <p className='appointment-detail__content__user__block__title'>Client</p>
+                            <div className='appointment-detail__content__data'>
+                                <label className='appointment-detail__content__data__label'>Name</label>
+                                <p className="appointment-detail__content__data__content">{appointmentDetail?.clientUser.firstName} {appointmentDetail?.clientUser.lastName}</p>
+                            </div>
+                            <div className='appointment-detail__content__data'>
+                                <label className='appointment-detail__content__data__label'>Communication language</label>
+                                <p className="appointment-detail__content__data__content">{appointmentDetail?.clientSpokenLanguage}</p>
+                            </div>
+                        </div>
+                        <Divider orientation='vertical' variant="middle" flexItem className='appointment-detail__content__user__block__divider'/>
+                        <div className='appointment-detail__content__user__block'>
+                            <p className='appointment-detail__content__user__block__title'>Interpreter</p>
+                            <div className='appointment-detail__content__data appointment-detail__content__user__block__right'>
+                                <label className='appointment-detail__content__data__label'>Name</label>
+                                <p className="appointment-detail__content__data__content">
+                                    {appointmentDetail?.interpreterUser?.firstName ? (<>{appointmentDetail?.interpreterUser?.firstName} {appointmentDetail?.interpreterUser?.lastName}</>) : ('-')}
+                                </p>
+                            </div>
+                            <div className='appointment-detail__content__data appointment-detail__content__user__block__right'>
+                                <label className='appointment-detail__content__data__label'>Desired language</label>
+                                <p className="appointment-detail__content__data__content">{appointmentDetail?.interpreterSpokenLanguage}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <Divider className='appointment-detail__content__divider'/>
+                    <div className='appointment-detail__content__location-time'>
+                        <div className='appointment-detail__content__data'>
+                            <label className='appointment-detail__content__data__label'>Date and time</label>
+                            <p className="appointment-detail__content__data__content">{convertedDateTime}</p>
+                        </div>
+                        <div className='appointment-detail__content__data'>
+                            <label className='appointment-detail__content__data__label'>Location name</label>
+                            <p className="appointment-detail__content__data__content">{processLocationName}</p>
+                        </div>
+                        <div className='appointment-detail__content__data'>
+                            <label className='appointment-detail__content__data__label'>Location address</label>
+                            <p className="appointment-detail__content__data__content">{appointmentDetail?.locationAddress ? appointmentDetail?.locationAddress : '-'}</p>
+                        </div>
+                    </div>
+                    <Divider className='appointment-detail__content__divider'/>
+                    <div className='appointment-detail__content__review'>
+                        <p className='appointment-detail__content__review__header'>Review</p>
+                        <div className='appointment-detail__content__review__user'>
+                            <div className='appointment-detail__content__review__user__block'>
+                                <p className='appointment-detail__content__review__user__block__title'>Client</p>
+                                <div className='appointment-detail__content__review__user__block__thumb'>
+                                    {appointmentDetail?.reviewClientThumb === true ? <ThumbUpIcon  sx={{fontSize:'30px'}}/> : <ThumbUpOffAltIcon sx={{fontSize:'30px'}} />}
+                                    {appointmentDetail?.reviewClientThumb === false ? <ThumbDownIcon sx={{fontSize:'30px'}}/> : <ThumbDownOffAltIcon sx={{fontSize:'30px'}}/>}
+                                </div>
+                                <div className='appointment-detail__content__review__user__block__note'>{appointmentDetail?.reviewClientNote ? appointmentDetail?.reviewClientNote : 'No review yet'}</div>
+                            </div>
+                            <Divider orientation='vertical' variant="middle" flexItem className='appointment-detail__content__review__user__divider'/>
+                            <div className='appointment-detail__content__review__user__block'>
+                                <p className='appointment-detail__content__review__user__block__title'>Interpreter</p>
+                                <div className='appointment-detail__content__review__user__block__thumb'>
+                                    {appointmentDetail?.reviewInterpreterThumb === true ? <ThumbUpIcon  sx={{fontSize:'30px'}}/> : <ThumbUpOffAltIcon sx={{fontSize:'30px'}} />}
+                                    {appointmentDetail?.reviewInterpreterThumb === false ? <ThumbDownIcon sx={{fontSize:'30px'}}/> : <ThumbDownOffAltIcon sx={{fontSize:'30px'}}/>}
+                                </div>
+                                <p className='appointment-detail__content__review__user__block__note'>{appointmentDetail?.reviewInterpreterNote ? appointmentDetail?.reviewInterpreterNote : 'No review yet'}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </Box>
+        </Modal>
     )
 }

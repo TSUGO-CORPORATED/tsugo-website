@@ -1,43 +1,112 @@
 .find-request {
-    @include flexCenter(column);
-    height: 100vh;
-    width: 100vw;
+    @include background();
+    // @include flexCenter(column);
+    // height: 100vh;
+    // width: 100vw;
     // background-image: url(../../public/tokyo.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 40%;
+    // background-size: cover;
+    // background-repeat: no-repeat;
+    // background-position: 40%;
 
-    &__card {
-        @include pageCard();
+    &__block {
+        // background-color: red;
+        // @include flexCenter(row);
+        // justify-content: flex-start;
+        // align-self: flex-start;
+        // padding: 20px;
+        height: 95%;
+        width: 95%;
+        padding: 10px;
 
-        &__header {
-            @include flexCenter(column);
-            font-weight: bold;
-            font-size: 36px;
-            // padding: 1em;
-            height: 10%;
+        @media screen and (min-width: 1000px) {
+            width: 1000px;
         }
 
-        &__filter {
-            height: 10%;
-        }
-
-        &__map-container {
-            width: 90%;
-            height: 50%;
-        }
-
-        &__appointment-container {
-            // border: 2px solid black;
-            @include flexCenter(column);
-            justify-content: flex-start;
+        @media screen and (max-width: 500px) {
+            height: 100%;
             width: 100%;
-            height: 30%;
-            // overflow-y: auto;
-        
-            &__appointment {
-                border: 1px solid black;
-            }
+            padding: 5px;
+            // @include flexCenter(column);
+            // justify-content: flex-start;
         }
     }
+
+    &__back-button {
+        position: absolute;
+        // text-align: left;
+        // top: 0px;
+        // left: 10%;
+        text-decoration: none;
+        color: $color-black;
+
+        &:hover {
+            color: $color-off-mid;
+        }
+
+        &__icon {
+            font-size: 32px;
+        }
+    }
+
+    &__map {
+        width: 100%;
+        height: 400px;
+        // @include flexCenter(column);
+
+        @media screen and (max-width: 500px) {
+            width: 100%;
+            height: 250px;
+        }
+    }
+
+    &__select-language {
+        // width: 100%;
+        // height: 100px;
+        height: 40px;
+
+        // @media screen and (max-width: 500px) {
+        //     width: 100%;
+        //     height: 30px;
+        // }
+    }
+
+    &__appointment {
+        font-size: 16px;
+        height: 100%;
+        @include flexCenter(row);
+    }
+
+    // &__card {
+    //     @include pageCard(); 
+
+    //     &__header {
+    //         @include flexCenter(column);
+    //         font-weight: bold;
+    //         font-size: 36px;
+    //         padding: 0px;
+    //         height: 10%;
+    //     }
+
+    //     &__filter {
+    //         height: 10%;
+    //     }
+ 
+    //     &__map-container {
+    //         width: 90%;
+    //         height: 50%;
+    //     }
+
+    //     &__appointment-container {
+    //         // border: 2px solid black;
+    //         @include flexCenter(column);
+    //         justify-content: flex-start;
+    //         width: 100%;
+    //         height: 30%;
+    //         // overflow-y: auto;
+        
+    //         &__appointment {
+    //             border: 1px solid black;
+    //         }
+    //     }
+    // }
 }

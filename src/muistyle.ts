@@ -1,6 +1,6 @@
-export const colorOffDark = '#251605';
-export const colorOffMid = '#9F6BA0';
-export const colorOffLight = '#D8BCAB';
+export const colorOffDark = '#061920'; // 6, 25,32
+export const colorOffMid = '#4b89a4'; // 75, 137, 164
+export const colorOffLight = '#fef9e1'; // 254, 249, 225
 
 export const buttonWhite =  { 
     color: 'black', 
@@ -11,6 +11,8 @@ export const buttonWhite =  {
         backgroundColor: '#cfcfcf',
         color:'white',
     },
+    fontWeight: 'bold',
+    fontFamily: 'Lusitana'
 };
 
 export const buttonBlack =  { 
@@ -22,6 +24,8 @@ export const buttonBlack =  {
         backgroundColor: '#343434',
         color:'white',
     },
+    fontWeight: 'bold',
+    fontFamily: 'Lusitana'
 };
 
 export const buttonRed = { 
@@ -33,6 +37,8 @@ export const buttonRed = {
         backgroundColor: '#ba000d',
         color:'white',
     },
+    fontWeight: 'bold',
+    fontFamily: 'Lusitana'
 };
 
 export const buttonOffDark = { 
@@ -40,30 +46,36 @@ export const buttonOffDark = {
     backgroundColor: colorOffDark, 
     borderColor: 'black',
     '&:hover': {
-        borderColor: 'white',
-        backgroundColor: '#343434',
         color:'white',
+        backgroundColor: '#0d3646',
+        borderColor: 'black',
     },
+    fontWeight: 'bold',
+    fontFamily: 'Lusitana'
 };
 
 export const buttonOffMid = { 
     color: 'white', 
     backgroundColor: colorOffMid, 
-    borderColor: 'red',
+    borderColor: 'black',
     '&:hover': {
-        borderColor: 'white',
-        backgroundColor: '#6a4b6c',
+        borderColor: 'black',
+        backgroundColor: '#6fc7ef',
         color:'white',
     },
+    fontWeight: 'bold',
+    fontFamily: 'Lusitana'
 };
 
 export const buttonOffLight = { 
-    color: 'white', 
+    color: 'black', 
     backgroundColor: colorOffLight, 
     borderColor: 'red',
     '&:hover': {
-        borderColor: 'white',
-        backgroundColor: '#a49083',
         color:'white',
+        backgroundColor: '#f1ecd5',
+        borderColor: 'black',
     },
+    fontWeight: 'bold',
+    fontFamily: 'Lusitana'
 };
