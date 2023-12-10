@@ -532,6 +532,7 @@ if (loading) {
               {isMobile ? (
                 <MobileDateTimePicker
                   value={dateTime}
+                  ampm={false}
                   onChange={(newDateTime) => {
                     if (newDateTime !== null) {
                       setDateTime(newDateTime);
@@ -543,6 +544,7 @@ if (loading) {
               ) : (
                 <DesktopDateTimePicker
                   value={dateTime}
+                  ampm={false}
                   onChange={(newDateTime) => {
                     if (newDateTime !== null) {
                       setDateTime(newDateTime);
