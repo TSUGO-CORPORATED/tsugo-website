@@ -220,7 +220,7 @@ export default function UpdateAppointmentCard() {
  
 
   useEffect(() => {
-    setLocationName("");
+    if (appointmentType !== "In-Person") setLocationName("");
   }, [appointmentType]);
 
   const apiKey = "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM";
@@ -266,12 +266,12 @@ export default function UpdateAppointmentCard() {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    // width: 400,
     bgcolor: 'background.paper',
     borderRadius: 2,
     // border: '2px solid #000',
     boxShadow: 2,
-    p: 4,
+    // p: 4,
 };
 
 function confirmWindowHandleOpen(e: any): void {

@@ -30,12 +30,12 @@ const detailModalStyle = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    // width: 400,
     bgcolor: 'background.paper',
     // border: '2px solid #000',
     borderRadius: 2,
-    // boxShadow: 24,
-    p: 4,
+    boxShadow: 2,
+    // p: 4,
 };
 
 // PAGE COMPONENT
@@ -344,8 +344,8 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                     {showModal && (
                                         <Disclaimer handleCloseModal={handleCloseDisclaimerModal} />
                                     )} */}
-                                    <Button onClick={handleOpenAcceptModal} sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
-                                        Accept appointment
+                                    <Button onClick={handleOpenAcceptModal} sx={buttonOffMid} variant='contained'>
+                                        <p className='appointment-detail__content__button'>Accept appointment</p>
                                     </Button>
                                     {/* <Modal
                                         open={showAcceptModal}
@@ -388,12 +388,12 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                         query: { appointmentId: appointmentDetail?.id }
                                     }}>
                                         {/* <button className='chat_room_button'>Update appointment</button> */}
-                                        <Button sx={buttonWhite} variant='contained' size='small' className='appointment-detail__content__button'>
-                                            Update Appointment
+                                        <Button sx={buttonOffMid} variant='contained' >
+                                            <p className='appointment-detail__content__button'>Update Appointment</p>
                                         </Button>
                                     </Link>
-                                    <Button onClick={handleOpenCancelModal} sx={buttonRed} variant='contained' size='small' className='appointment-detail__content__button'>
-                                        Cancel appointment
+                                    <Button onClick={handleOpenCancelModal} sx={buttonRed} variant='contained'>
+                                        <p className='appointment-detail__content__button'>Cancel appointment</p>
                                     </Button>
                                 </>
                             )}
@@ -401,8 +401,8 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                 <>
                                     {appointmentDetail.clientUserId === userId && (
                                         <>
-                                            <Button onClick={handleOpenCompleteModal} sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
-                                                Complete appointment
+                                            <Button onClick={handleOpenCompleteModal} sx={buttonOffMid} variant='contained'>
+                                                <p className='appointment-detail__content__button'>Complete appointment</p>
                                             </Button>
                                         </>
                                     )}
@@ -410,22 +410,22 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                         pathname: '/appointment-detail/chat-room',  
                                         query: { slug: appointmentDetail?.id }
                                     }}>
-                                        <Button sx={buttonWhite} variant='contained' size='small' className='appointment-detail__content__button'>
-                                            Go to chat room
+                                        <Button sx={buttonOffMid} variant='contained'>
+                                            <p className='appointment-detail__content__button'>Go to chat room</p>
                                         </Button>
                                     </Link>
                                     <Link href={{
                                         pathname: '/appointment-detail/update-appointment',  
                                         query: { appointmentId: appointmentDetail?.id }
                                     }}>
-                                        <Button sx={buttonWhite} variant='contained' size='small' className='appointment-detail__content__button'>
-                                            Update Details
+                                        <Button sx={buttonOffMid} variant='contained'>
+                                            <p className='appointment-detail__content__button'>Update Details</p>
                                         </Button>
                                     </Link>
                                     {appointmentDetail?.status === "Accepted" && appointmentDetail.clientUserId === userId && (
                                         <>
-                                         <Button onClick={handleOpenCancelModal} sx={buttonRed} variant='contained' size='small' className='appointment-detail__content__button'>
-                                            Cancel appointment
+                                         <Button onClick={handleOpenCancelModal} sx={buttonRed} variant='contained'>
+                                            <p className='appointment-detail__content__button'>Cancel appointment</p>
                                         </Button>
                                         </>
                                     )}
@@ -442,8 +442,8 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                                 role: userId === appointmentDetail.clientUserId ? 'client' : 'interpreter',
                                             }
                                         }}>
-                                            <Button sx={buttonOffMid} variant='contained' size='small' className='appointment-detail__content__button'>
-                                                Add review
+                                            <Button sx={buttonOffMid} variant='contained'>
+                                                <p className='appointment-detail__content__button'>Add review</p>
                                             </Button>
                                         </Link>
                                     </>
@@ -451,7 +451,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                             )} 
                         </div>
                     </div>
-                    <Divider className='appointment-detail__content__divider'/>
+                    <Divider sx={{marginTop: '10px', marginBottom: '10px'}}/>
                     <div className='appointment-detail__content__detail'>
                         <div className='appointment-detail__content__detail__header'>
                             <div className='appointment-detail__content__data'>
@@ -468,7 +468,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                             </div>
                         </div>
                     </div>
-                    <Divider className='appointment-detail__content__divider'/>
+                    <Divider sx={{marginTop: '10px', marginBottom: '10px'}}/>
                     <div className='appointment-detail__content__user'>
                         <div className='appointment-detail__content__user__block'>
                             <p className='appointment-detail__content__user__block__title'>Client</p>
@@ -481,7 +481,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                 <p className="appointment-detail__content__data__content">{appointmentDetail?.clientSpokenLanguage}</p>
                             </div>
                         </div>
-                        <Divider orientation='vertical' variant="middle" flexItem className='appointment-detail__content__user__block__divider'/>
+                        <Divider orientation='vertical' variant="middle" flexItem sx={{marginRight: '10px'}}/>
                         <div className='appointment-detail__content__user__block'>
                             <p className='appointment-detail__content__user__block__title'>Interpreter</p>
                             <div className='appointment-detail__content__data appointment-detail__content__user__block__right'>
@@ -496,7 +496,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                             </div>
                         </div>
                     </div>
-                    <Divider className='appointment-detail__content__divider'/>
+                    <Divider sx={{marginTop: '10px', marginBottom: '10px'}}/>
                     <div className='appointment-detail__content__location-time'>
                         <div className='appointment-detail__content__data'>
                             <label className='appointment-detail__content__data__label'>Date and time</label>
@@ -511,7 +511,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                             <p className="appointment-detail__content__data__content">{appointmentDetail?.locationAddress ? appointmentDetail?.locationAddress : '-'}</p>
                         </div>
                     </div>
-                    <Divider className='appointment-detail__content__divider'/>
+                    <Divider sx={{marginTop: '10px', marginBottom: '10px'}}/>
                     <div className='appointment-detail__content__review'>
                         <p className='appointment-detail__content__review__header'>Review</p>
                         <div className='appointment-detail__content__review__user'>
@@ -523,7 +523,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                 </div>
                                 <div className='appointment-detail__content__review__user__block__note'>{appointmentDetail?.reviewClientNote ? appointmentDetail?.reviewClientNote : 'No review yet'}</div>
                             </div>
-                            <Divider orientation='vertical' variant="middle" flexItem className='appointment-detail__content__review__user__divider'/>
+                            <Divider orientation='vertical' variant="middle" flexItem sx={{marginRight: '10px'}}/>
                             <div className='appointment-detail__content__review__user__block'>
                                 <p className='appointment-detail__content__review__user__block__title'>Interpreter</p>
                                 <div className='appointment-detail__content__review__user__block__thumb'>

@@ -144,68 +144,20 @@ export default function AppointmentBlock({appointment, refresh}: {appointment: A
                             </Grid>
                             <Grid xs={12}>
                                 <div className='appointment-block__grid__location'>
-                                    <PlaceIcon className='appointment-block__grid__location__icon'/>
+                                    <div className='appointment-block__grid__location__icon'><PlaceIcon/></div>
                                     <p className='appointment-block__grid__location__text'>{processLocationName}</p>
                                 </div>
                             </Grid>
                             <Grid xs={12} className='appointment-block__grid__last-line'>
                                 <div className='appointment-block__grid__last-line__language'>
-                                    <GTranslateIcon className='appointment-block__grid__last-line__language__icon'/>
+                                    <div className='appointment-block__grid__last-line__language__icon'><GTranslateIcon/></div>
                                     <p className='appointment-block__grid__last-line__language__text'>{appointment.clientSpokenLanguage + " - " + appointment.interpreterSpokenLanguage}</p>
                                 </div>
-                                <Button onClick={assignSelectedAppointment} variant='contained' sx={buttonOffDark} className='appointment-block__grid__last-line__button' data-appointmentid={appointment.id}>
+                                <Button onClick={assignSelectedAppointment} variant='contained' sx={{...buttonOffDark, padding: '5px 10px', paddingRight: '0'}} className='appointment-block__grid__last-line__button' data-appointmentid={appointment.id}>
                                     <p className='appointment-block__grid__last-line__button__text' data-appointmentid={appointment.id}>Details</p>
                                     <KeyboardArrowRightIcon className='appointment-block__grid__last-line__button__icon' data-appointmentid={appointment.id}/>
                                 </Button>
                             </Grid>
-                            {/* logo when desktop, based on category */}
-
-
-
-
-
-                            {/* <Grid xs={6}>
-                                <div className='appointment-block__grid__piece'>
-                                    <label className='appointment-block__grid__piece__label'>ID:</label>
-                                    <p className='appointment-block__grid__piece__data'>{appointment.id}</p>
-                                </div>
-                            </Grid> */}
-                            {/* <Grid xs={6}>
-                                <div className='appointment-block__grid__piece'>
-                                    <label className='appointment-block__grid__piece__label'>Status:</label>
-                                    <p className='appointment-block__grid__piece__data'>{appointment.status}</p>
-                                </div>
-                            </Grid> */}
-                            {/* <Grid xs={6}>
-                                <div className='appointment-block__grid__piece'>
-                                    <label className='appointment-block__grid__piece__label'>Date:</label>
-                                    <p className='appointment-block__grid__piece__data'>{convertedDateTime}</p>
-                                </div>
-                            </Grid> */}
-                            {/* <Grid xs={6}>
-                                <div className='appointment-block__grid__piece'>
-                                    <label className='appointment-block__grid__piece__label'>Type:</label>
-                                    <p className='appointment-block__grid__piece__data'>{appointment.appointmentType}</p>
-                                </div>
-                            </Grid> */}
-                            {/* <Grid xs={12}>
-                                <div className='appointment-block__grid__piece'>
-                                    <label className='appointment-block__grid__piece__label'>Title:</label>
-                                    <p className='appointment-block__grid__piece__data'>{appointment.appointmentTitle}</p>
-                                </div>
-                            </Grid>
-                            <Grid xs={12}>
-                                <div className='appointment-block__grid__piece'>
-                                    <label className='appointment-block__grid__piece__label'>Category:</label>
-                                    <p className='appointment-block__grid__piece__data'>{appointment.mainCategory ? appointment.mainCategory + "-" + appointment.subCategory : '-'}</p>
-                                </div>
-                            </Grid> */}
-                            {/* <Grid xs={12}>
-                                <div className='appointment-block__grid__piece'>
-                                    <label className='appointment-block__grid__piece__label'>Location:</label>
-                                    <p className='appointment-block__grid__piece__data'>{appointment.locationName ? appointment.locationName : '-' }</p>
-                                </div>
-                            </Grid> */}
                         </Grid>
                     </Paper>
                 )

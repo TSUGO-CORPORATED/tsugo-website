@@ -70,14 +70,15 @@
   }
 
   &__confirmation {
+    width: 90%;
     @media screen and (min-width: 500px) {
-      width: 500px;
+      width: 450px;
     }
 
     &__button {
       // color: red;
       @media screen and (max-width: 500px) {
-        width: 125px;
+        width: 100px;
         font-size: 12px;
       }
     }

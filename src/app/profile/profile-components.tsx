@@ -8,7 +8,7 @@ import Link from 'next/link';
 import Avatar from '@mui/material/Avatar';
 import { TextField, Button, Paper } from '@mui/material';
 import { auth } from "../../firebase";
-import { buttonOffDark, buttonRed, buttonWhite } from '@/muistyle';
+import { buttonOffDark, buttonOffMid, buttonRed, buttonWhite } from '@/muistyle';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -200,7 +200,7 @@ export default function Profile() {
 
                     {provider === "password" && (
                         <Link className='profile-container__password-link' href="/profile/update-password">
-                            <Button variant='contained' sx={buttonWhite} className='profile-container__password-button' id='profile-container__password-button'>
+                            <Button variant='contained' sx={buttonOffMid} className='profile-container__password-button' id='profile-container__password-button'>
                                 Update password
                             </Button>
                         </Link>
