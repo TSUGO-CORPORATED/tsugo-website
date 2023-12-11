@@ -165,7 +165,7 @@ export default function ChatRoomSub(): React.JSX.Element{
             console.log("setting up socket...");
             initInterlocutorName();
 
-            socket.current = socketIO("https://senior-project-server-8090ce16e15d.herokuapp.com/"); //TODO: Set env variable  http://localhost:8080
+            socket.current = socketIO(`${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}`); //TODO: Set env variable  http://localhost:8080
             socket.current.emit("CONNECT_ROOM", `{"room": ${appointmentId}}`); //TOD: Need buttons for selecting which room you want, default to 1 for now
 
             socket.current.on("connect", () => {

@@ -6,21 +6,21 @@ import { getAuth, Auth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 type config = {
-  apiKey: string,
-  authDomain: string,
-  projectId: string,
-  storageBucket: string,
-  messagingSenderId: string,
-  appId: string
+  apiKey: string | undefined,
+  authDomain: string | undefined,
+  projectId: string | undefined,
+  storageBucket: string | undefined,
+  messagingSenderId: string | undefined,
+  appId: string | undefined
 }
 
 const firebaseConfig: config = {
-  apiKey: "AIzaSyA807o7zbpvUjuGOku5oMudiJTCh85-SOs",
-  authDomain: "senior-project-b33ea.firebaseapp.com",
-  projectId: "senior-project-b33ea",
-  storageBucket: "senior-project-b33ea.appspot.com",
-  messagingSenderId: "25987002189",
-  appId: "1:25987002189:web:282ca14b7578db08359104"
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID
 };
 
 // Initialize Firebase

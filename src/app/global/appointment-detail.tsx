@@ -95,7 +95,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
     // HELPER FUNCTION
     // Get appointment detail information
     async function getAppointmentDetail(): Promise<void> {
-        const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/detail/${appointmentId}`;
+        const url: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment/detail/${appointmentId}`;
         const retrievedData = await axios.get(url);
         console.log(retrievedData.data);
         setAppointmentDetail(retrievedData.data);
@@ -108,13 +108,13 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
             let url;
             switch (newStatus) {
                 case "Accepted":
-                url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/accept/${appointmentId}/${userId}`;
+                url = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment/accept/${appointmentId}/${userId}`;
                 break;
                 case "Cancelled":
-                url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/cancel/${appointmentId}`;
+                url = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment/cancel/${appointmentId}`;
                 break;
                 case "Completed":
-                url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/complete/${appointmentId}`;
+                url = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment/complete/${appointmentId}`;
                 break;
                 default:
                 return;
@@ -414,19 +414,19 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
                                             <p className='appointment-detail__content__button'>Go to chat room</p>
                                         </Button>
                                     </Link>
-                                    <Link href={{
-                                        pathname: '/appointment-detail/update-appointment',  
-                                        query: { appointmentId: appointmentDetail?.id }
-                                    }}>
-                                        <Button sx={buttonOffMid} variant='contained'>
-                                            <p className='appointment-detail__content__button'>Update Details</p>
-                                        </Button>
-                                    </Link>
-                                    {appointmentDetail?.status === "Accepted" && appointmentDetail.clientUserId === userId && (
+                                    {appointmentDetail.clientUserId === userId && (
                                         <>
-                                         <Button onClick={handleOpenCancelModal} sx={buttonRed} variant='contained'>
-                                            <p className='appointment-detail__content__button'>Cancel appointment</p>
-                                        </Button>
+                                            <Link href={{
+                                                pathname: '/appointment-detail/update-appointment',  
+                                                query: { appointmentId: appointmentDetail?.id }
+                                            }}>
+                                                <Button sx={buttonOffMid} variant='contained'>
+                                                    <p className='appointment-detail__content__button'>Update Details</p>
+                                                </Button>
+                                            </Link>
+                                            <Button onClick={handleOpenCancelModal} sx={buttonRed} variant='contained'>
+                                                <p className='appointment-detail__content__button'>Cancel appointment</p>
+                                            </Button>
                                         </>
                                     )}
                                 </>
