@@ -1,18 +1,22 @@
 'use client';
 import socketIO, { Socket } from "socket.io-client";
 import { Peer } from "peerjs";
+import axios from "axios";
 import React, { useState, useEffect, useRef, useContext, use } from 'react';
 import { ContextVariables } from '../../../context-variables';
 import { useSearchParams } from 'next/navigation';
 import { Interface } from "readline";
 import { Button, Paper } from "@mui/material";
 import moment from 'moment';
+import { buttonOffMid } from "@/muistyle";
 
 //import cv from 'opencv4nodejs';
 
 interface chatMessage {
     appointment: number,
     user: number,
+    firstName: string,
+    lastName: string,
     content: string,
     timestamp: string
 }
@@ -23,11 +27,13 @@ const constraints = {
   };
 
 export default function ChatRoomSub(): React.JSX.Element{
-    const { userId } = useContext(ContextVariables);
+    const { userId, userFirstName, userLastName } = useContext(ContextVariables);
     
 
 
     const [messages, setMessages] = useState<chatMessage[]>([]);
+    const [interlocutorFirstName, setInterlocutorFirstName] = useState<string | null>(null);
+    const [interlocutorLastName, setInterlocutorLastName] = useState<string | null>(null);
     const [error, setError] = useState<any>(null); //TODO: Determine type properly
     const [videoIsOpen, setVideoIsOpen] = useState(false);
     let peerId = "";
@@ -56,6 +62,8 @@ export default function ChatRoomSub(): React.JSX.Element{
             const obj = {
                 appointment: parseInt(appointmentId),
                 user: userId,
+                firstName: userFirstName,
+                lastName: userLastName,
                 content: message,
                 timestamp: date
             }
@@ -63,6 +71,27 @@ export default function ChatRoomSub(): React.JSX.Element{
             const jsobj = JSON.stringify(obj);
             if(socket.current!.connected) socket.current!.send(jsobj);
         }
+    };
+
+    const initInterlocutorName = async () => {
+        try {
+            const timeframe = "history"; 
+            const url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/detail/${appointmentId}`;
+            const response = await axios.get(url);
+            console.log(response)
+            if(response.data.clientUserId == userId) {
+                setInterlocutorFirstName(response.data.interpreterUser.firstName);
+                setInterlocutorLastName(response.data.interpreterUser.lastName);
+            }
+            else if(response.data.interpreterUserId == userId) {
+                setInterlocutorFirstName(response.data.clientUser.firstName);
+                setInterlocutorLastName(response.data.clientUser.lastName);
+            }
+           
+            
+          } catch (error) {
+            console.error("Error fetching History:", error);
+          }
     };
 
     const initPeer = () => {
@@ -134,6 +163,7 @@ export default function ChatRoomSub(): React.JSX.Element{
 
         useEffect(() => { //set up socket
             console.log("setting up socket...");
+            initInterlocutorName();
 
             socket.current = socketIO("https://senior-project-server-8090ce16e15d.herokuapp.com/"); //TODO: Set env variable  http://localhost:8080
             socket.current.emit("CONNECT_ROOM", `{"room": ${appointmentId}}`); //TOD: Need buttons for selecting which room you want, default to 1 for now
@@ -225,14 +255,14 @@ export default function ChatRoomSub(): React.JSX.Element{
                         if(message.user == userId) {
                         return <li key={index} className="chat-room-message" > 
                             <div className="messageContainer-sent">
-                                <p className="chat-room__message__username">User: {message.user} </p> 
+                                <p className="chat-room__message__username">Me </p> 
                                 <p className="chat-room__message__content">{message.content} </p> 
                                 <p className="chat-room__message__timestamp">{moment(message.timestamp).fromNow()} </p>
                             </div> 
                         </li>} else {
                         return <li key={index} className="chat-room-message" > 
                             <div className="messageContainer-rec">
-                                <p className="chat-room__message__username">User: {message.user} </p> 
+                                <p className="chat-room__message__username">{interlocutorFirstName} {interlocutorLastName}</p> 
                                 <p className="chat-room__message__content"> {message.content} </p> 
                                 <p className="chat-room__message__timestamp"> {moment(message.timestamp).fromNow()} </p>
                             </div> 
@@ -240,14 +270,16 @@ export default function ChatRoomSub(): React.JSX.Element{
                     })}
                 </ul>
             </div>
-            <textarea ref={textRef} className="chat-room-text-input" placeholder="..."></textarea>
+            <textarea ref={textRef} className="chat-room-text-input" placeholder="message" 
+            onKeyDown={(key) => {if(key.key == "Enter" && textRef.current!.value != null) {sendMessage(textRef.current!.value)}}}></textarea>
             
             <div className="ButtonContainer">   
-            {videoIsOpen ? <Button className="videoButton" onClick={leaveVideo} > Stop Camera </Button>
-                     : <Button className="videoButton" onClick={joinVideo}> Start Camera </Button>
+            {videoIsOpen ? <Button sx={buttonOffMid} variant="contained" className="videoButton" onClick={leaveVideo} > Stop Camera </Button>
+                     : <Button sx={buttonOffMid} variant="contained" className="videoButton" onClick={joinVideo}> Start Camera </Button>
                 }
-            <Button variant="contained" className="chat-room-send-button" onClick={() => {if(textRef.current!.value != null) sendMessage(textRef.current!.value)}}>Send</Button> 
-
+            <Button sx={buttonOffMid} variant="contained" className="chat-room-send-button" 
+            onClick={() => {if(textRef.current!.value != null) sendMessage(textRef.current!.value)}} 
+            > Send </Button> 
             </div>
         </Paper>
     )
