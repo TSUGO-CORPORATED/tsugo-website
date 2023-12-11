@@ -416,7 +416,7 @@ if (loading) {
         }}
       >
         <Link href="/dashboard" className='update-appointment__container__back-button'>
-          <ArrowBackIcon className='update-appointment__container__back-button__icon'/>
+          <ArrowBackIcon sx={{fontSize: "32px"}}/>
         </Link>
         <Modal
           open={confirmWindowOpen}

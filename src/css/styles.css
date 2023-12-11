@@ -388,9 +388,6 @@
 .profile-container__back-button:hover {
   color: #4b89a4;
 }
-.profile-container__back-button__icon {
-  font-size: 32px;
-}
 .profile-container__info {
   display: flex;
   justify-content: center;
@@ -521,9 +518,6 @@
 .add-request__back-button:hover {
   color: #4b89a4;
 }
-.add-request__back-button__icon {
-  font-size: 32px;
-}
 .add-request__agree {
   color: red;
   font-weight: bold;
@@ -599,9 +593,6 @@
 .find-request__back-button:hover {
   color: #4b89a4;
 }
-.find-request__back-button__icon {
-  font-size: 32px;
-}
 .find-request__map {
   width: 100%;
   height: 400px;
@@ -652,9 +643,6 @@
 }
 .edit-profile-container__back-button:hover {
   color: #4b89a4;
-}
-.edit-profile-container__back-button__icon {
-  font-size: 32px;
 }
 .edit-profile-container__info {
   width: 100%;
@@ -1095,9 +1083,6 @@
 }
 .history__card__back-button:hover {
   color: #4b89a4;
-}
-.history__card__back-button__icon {
-  font-size: 32px;
 }
 .history__card__filter {
   width: 40%;
@@ -1559,9 +1544,6 @@
 .update-password__container__back-button:hover {
   color: #4b89a4;
 }
-.update-password__container__back-button__icon {
-  font-size: 32px;
-}
 .update-password__container__info {
   display: flex;
   justify-content: center;
@@ -1667,9 +1649,6 @@
 .delete-account__container__back-button:hover {
   color: #4b89a4;
 }
-.delete-account__container__back-button__icon {
-  font-size: 32px;
-}
 .delete-account__container__info {
   display: flex;
   justify-content: center;
@@ -1771,9 +1750,6 @@
 .update-appointment__container__back-button:hover {
   color: #4b89a4;
 }
-.update-appointment__container__back-button__icon {
-  font-size: 32px;
-}
 .update-appointment__container__confirm-window {
   display: flex;
   justify-content: center;
@@ -1834,9 +1810,6 @@
 }
 .review__back-button:hover {
   color: #4b89a4;
-}
-.review__back-button__icon {
-  font-size: 32px;
 }
 .review__header {
   width: 100%;
@@ -2031,6 +2004,8 @@
 }
 .navbar__cont__right__avatar:hover {
   background-color: #f3f3f3;
+  font-weight: bold;
+  transform: scale(1.1);
 }
 .navbar__cont__right__avatar__first-name {
   margin-right: 5px;
@@ -2054,9 +2029,15 @@
   width: 100%;
 }
 .navbar__cont__right__avatar__profile-link__box__text {
+  font-size: 18px;
   color: #000000;
   font-weight: 550;
   width: 100%;
+}
+@media screen and (min-width: 700px) {
+  .navbar__cont__right__avatar__profile-link__box__text {
+    font-size: 20px;
+  }
 }
 .navbar__cont__right__avatar__dashboard-link {
   text-decoration: none;
@@ -2068,6 +2049,11 @@
   flex-direction: row;
   color: #000000;
   font-weight: 550;
+}
+@media screen and (min-width: 700px) {
+  .navbar__cont__right__avatar__dashboard-link__block {
+    font-size: 16px;
+  }
 }
 .navbar__cont__right__avatar__sign-out {
   display: flex;
@@ -2081,6 +2067,11 @@
   font-weight: 550;
   color: #000000;
   width: 100%;
+}
+@media screen and (min-width: 700px) {
+  .navbar__cont__right__avatar__sign-out__text {
+    font-size: 16px;
+  }
 }
 .navbar__cont__right__sign-out-window {
   display: flex;

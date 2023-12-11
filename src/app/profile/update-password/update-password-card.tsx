@@ -93,7 +93,7 @@ export default function UpdatePasswordCard(): JSX.Element {
     return (
         <Paper elevation={3} className="update-password__container">
             <Link href="/profile" className='update-password__container__back-button'>
-                <ArrowBackIcon className='update-password__container__back-button__icon'/>
+                <ArrowBackIcon sx={{fontSize: "32px"}}/>
             </Link>
             <Modal
                 open={confirmWindowOpen}

@@ -183,12 +183,12 @@ export default function Navbar() {
                                         overflow: 'visible',
                                         filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
                                         mt: 1.5,
-                                        '& .MuiAvatar-root': {
-                                            width: 32,
-                                            height: 32,
-                                            ml: -0.5,
-                                            mr: 1,
-                                        },
+                                        // '& .MuiAvatar-root': {
+                                        //     width: {xs: 32, md: 50},
+                                        //     height: {xs: 32, md: 50},
+                                        //     ml: -0.5,
+                                        //     mr: 1,
+                                        // },
                                         '&:before': {
                                             content: '""',
                                             display: 'block',
@@ -209,7 +209,11 @@ export default function Navbar() {
                                     <MenuItem onClick={avatarHandleClose}>
                                         <Link href="/profile" className='navbar__cont__right__avatar__profile-link'>
                                             <div className='navbar__cont__right__avatar__profile-link__box'>
-                                                <Avatar />
+                                                <Avatar sx={{
+                                                    width: { xs: "30px", md: "35px" },
+                                                    height: { xs: "30px", md: "35px" },
+                                                    mr: 1
+                                                }}/>
                                                 <div className='navbar__cont__right__avatar__profile-link__box__text'>Profile</div>
                                             </div>
                                         </Link>
@@ -219,7 +223,7 @@ export default function Navbar() {
                                         <Link href="/dashboard" className='navbar__cont__right__avatar__dashboard-link'>
                                             <div className='navbar__cont__right__avatar__dashboard-link__block'>
                                                 <ListItemIcon>
-                                                    <HomeIcon/>
+                                                    <HomeIcon sx={{fontSize: {xs:'26px', md: '28px'}}}/>
                                                 </ListItemIcon>
                                                 Dashboard
                                             </div>
@@ -228,7 +232,7 @@ export default function Navbar() {
                                     <MenuItem onClick={signOutWindowHandleOpen}>
                                         <div className='navbar__cont__right__avatar__sign-out'>
                                             <ListItemIcon>
-                                                <Logout/>
+                                                <Logout sx={{fontSize: {xs:'26px', md: '28px'}}}/>
                                             </ListItemIcon>
                                             <p className='navbar__cont__right__avatar__sign-out__text'>Sign Out</p>
                                         </div>

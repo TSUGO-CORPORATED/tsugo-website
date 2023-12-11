@@ -122,6 +122,8 @@
     
                 &:hover {
                     background-color: $color-light-grey;
+                    font-weight: bold;
+                    transform: scale(1.1);
                 }
 
                 &__first-name {
@@ -143,9 +145,14 @@
                         width: 100%;
                         
                         &__text {
+                            font-size: 18px;
                             color: $color-black;
                             font-weight: 550;
                             width: 100%;
+
+                            @media screen and (min-width: 700px) {
+                                font-size: 20px;
+                            }
                         }
                     }
                 }
@@ -158,6 +165,10 @@
                         @include flexCenter(row);
                         color: $color-black;
                         font-weight: 550;
+
+                        @media screen and (min-width: 700px) {
+                            font-size: 16px;
+                        }
                     }
                 }
     
@@ -170,6 +181,10 @@
                         font-weight: 550;
                         color: $color-black;
                         width: 100%;
+
+                        @media screen and (min-width: 700px) {
+                            font-size: 16px;
+                        }
                     }
                 }
             }

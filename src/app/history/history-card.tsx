@@ -123,7 +123,7 @@ export default function HistoryCard() {
     <Box className='history__card'>
       <Paper className='history__card__filter' elevation={2}>
         <Link href="/dashboard" className='history__card__back-button'>
-          <ArrowBackIcon className='history__card__back-button__icon'/>
+          <ArrowBackIcon sx={{fontSize: "32px"}}/>
         </Link>
         <div className='history__card__filter__header'>History</div>  
         <div className="history__card__filter__button-container">
