@@ -762,6 +762,10 @@
   width: 100%;
   padding: 5px;
   background-color: black;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  border-bottom: 2px solid #4b89a4;
 }
 .chat-room__card {
   width: 100%;
@@ -794,6 +798,14 @@
   overflow-y: scroll;
 }
 
+.chatContainer::-webkit-scrollbar-track {
+  background-color: white;
+}
+
+.chatContainer::-webkit-scrollbar-thumb {
+  background-color: rgb(109, 199, 240);
+}
+
 .messageContainer {
   display: flex;
   flex-direction: column;
@@ -808,25 +820,41 @@
   width: 95%;
   height: 10%;
   margin: 10px;
+  padding: 2px;
   align-self: center;
   justify-self: center;
   resize: none;
 }
 
+.chat-room-text-input:focus::-moz-placeholder {
+  color: transparent;
+}
+
+.chat-room-text-input:focus::placeholder {
+  color: transparent;
+}
+
 .messageContainer-rec {
-  background-color: #9F6BA0;
+  background-color: rgb(109, 199, 240);
   text-align: left;
   border-radius: 10px;
   padding: 12px;
   word-wrap: break-word;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 70%;
 }
 
 .messageContainer-sent {
-  background-color: lightgray;
+  background-color: #fef9e1;
   text-align: right;
   border-radius: 10px;
   padding: 12px;
   word-wrap: break-word;
+  width: -moz-fit-content;
+  width: fit-content;
+  float: right;
+  max-width: 70%;
 }
 
 .ButtonContainer {
@@ -840,7 +868,6 @@
 .videoButton {
   width: 40%;
   height: 100%;
-  background-color: gray;
   color: white;
 }
 
