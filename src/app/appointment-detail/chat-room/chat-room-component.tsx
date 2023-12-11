@@ -212,10 +212,10 @@ export default function ChatRoomSub(): React.JSX.Element{
     return (
         <Paper className="chat-room__container">  
         <div className="chat-room__video-container">
-                <video className="chat-room__video" ref={videoRef} width="320" height="240" autoPlay >
+                <video className="chat-room__video" ref={videoRef} width="320" height="240" autoPlay playsInline>
                     No Source!
                 </video>
-                <video className="chat-room__video" ref={video2Ref} width="320" height="240" autoPlay>
+                <video className="chat-room__video" ref={video2Ref} width="320" height="240" autoPlay playsInline>
                     No Source!
                 </video>
             </div>
