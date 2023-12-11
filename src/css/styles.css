@@ -1872,8 +1872,9 @@
 .navbar__cont__left__link__button__text {
   font-weight: bold;
   color: #fffffa;
+  font-size: 18px;
 }
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 700px) {
   .navbar__cont__left__link__button__text {
     display: none;
   }
@@ -1896,6 +1897,11 @@
   background-color: rgb(56, 56, 56);
   color: #fffffa;
 }
+@media screen and (min-width: 700px) {
+  .navbar__cont__right__sign-up {
+    font-size: 16px;
+  }
+}
 .navbar__cont__right__log-in {
   padding: 8px 24px;
   text-decoration: none;
@@ -1909,6 +1915,11 @@
   transform: scale(1.1);
   background-color: #fffffa;
   color: #000000;
+}
+@media screen and (min-width: 700px) {
+  .navbar__cont__right__log-in {
+    font-size: 16px;
+  }
 }
 .navbar__cont__right__avatar {
   display: flex;
@@ -1931,21 +1942,37 @@
 .navbar__cont__right__avatar__first-name {
   margin-right: 5px;
 }
-.navbar__cont__right__avatar__profile {
+@media screen and (min-width: 700px) {
+  .navbar__cont__right__avatar__first-name {
+    font-size: 16px;
+    margin-right: 10px;
+  }
+}
+.navbar__cont__right__avatar__profile-link {
+  text-decoration: none;
+  width: 100%;
+}
+.navbar__cont__right__avatar__profile-link__box {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  text-decoration: none;
+  justify-content: flex-start;
+  width: 100%;
+}
+.navbar__cont__right__avatar__profile-link__box__text {
   color: #000000;
   font-weight: 550;
+  width: 100%;
 }
-.navbar__cont__right__avatar__dashboard {
+.navbar__cont__right__avatar__dashboard-link {
+  text-decoration: none;
+}
+.navbar__cont__right__avatar__dashboard-link__block {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  text-decoration: none;
   color: #000000;
   font-weight: 550;
 }
@@ -1954,9 +1981,13 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
+  width: 100%;
+}
+.navbar__cont__right__avatar__sign-out__text {
   text-decoration: none;
-  color: #000000;
   font-weight: 550;
+  color: #000000;
+  width: 100%;
 }
 .navbar__cont__right__sign-out-window {
   display: flex;
