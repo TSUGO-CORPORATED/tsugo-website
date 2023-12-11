@@ -262,7 +262,7 @@ export default function FindRequestCard() {
       className='find-request__block'
     >
       <Link href="/dashboard" className='find-request__back-button'>
-        <ArrowBackIcon className='find-request__back-button__icon'/>
+        <ArrowBackIcon sx={{fontSize: "32px"}}/>
       </Link>
       <Box
         sx={{

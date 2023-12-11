@@ -93,7 +93,7 @@ export default function DeleteAccountCard(): JSX.Element {
     return (
         <Paper elevation={3} className="delete-account__container">
             <Link href="/profile" className='delete-account__container__back-button'>
-                <ArrowBackIcon className='delete-account__container__back-button__icon'/>
+                <ArrowBackIcon sx={{fontSize: "32px"}}/>
             </Link>
             <Modal
                 open={confirmWindowOpen}
