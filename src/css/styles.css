@@ -805,6 +805,9 @@
   border-radius: 10px;
   padding: 12px;
   word-wrap: break-word;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 70%;
 }
 
 .messageContainer-sent {
@@ -813,6 +816,10 @@
   border-radius: 10px;
   padding: 12px;
   word-wrap: break-word;
+  width: -moz-fit-content;
+  width: fit-content;
+  float: right;
+  max-width: 70%;
 }
 
 .ButtonContainer {

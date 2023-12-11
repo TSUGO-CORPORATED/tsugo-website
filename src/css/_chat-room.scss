@@ -113,6 +113,9 @@ background-color: white;
     border-radius: 10px;
     padding: 12px;
     word-wrap: break-word;
+    width: fit-content;
+    max-width: 70%;
+    
 }
 
 .messageContainer-sent {
@@ -121,6 +124,10 @@ background-color: white;
     border-radius: 10px;
     padding: 12px;
     word-wrap: break-word;
+    width: fit-content;
+    float: right;
+    max-width: 70%;
+    
 }
 
 .ButtonContainer {
