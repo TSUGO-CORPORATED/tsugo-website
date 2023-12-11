@@ -7,6 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import { Interface } from "readline";
 import { Button, Paper } from "@mui/material";
 import moment from 'moment';
+import { buttonOffMid } from "@/muistyle";
 
 //import cv from 'opencv4nodejs';
 
@@ -240,14 +241,16 @@ export default function ChatRoomSub(): React.JSX.Element{
                     })}
                 </ul>
             </div>
-            <textarea ref={textRef} className="chat-room-text-input" placeholder="..."></textarea>
+            <textarea ref={textRef} className="chat-room-text-input" placeholder="message" 
+            onKeyDown={(key) => {if(key.key == "Enter" && textRef.current!.value != null) {sendMessage(textRef.current!.value)}}}></textarea>
             
             <div className="ButtonContainer">   
-            {videoIsOpen ? <Button className="videoButton" onClick={leaveVideo} > Stop Camera </Button>
-                     : <Button className="videoButton" onClick={joinVideo}> Start Camera </Button>
+            {videoIsOpen ? <Button sx={buttonOffMid} variant="contained" className="videoButton" onClick={leaveVideo} > Stop Camera </Button>
+                     : <Button sx={buttonOffMid} variant="contained" className="videoButton" onClick={joinVideo}> Start Camera </Button>
                 }
-            <Button variant="contained" className="chat-room-send-button" onClick={() => {if(textRef.current!.value != null) sendMessage(textRef.current!.value)}}>Send</Button> 
-
+            <Button sx={buttonOffMid} variant="contained" className="chat-room-send-button" 
+            onClick={() => {if(textRef.current!.value != null) sendMessage(textRef.current!.value)}} 
+            > Send </Button> 
             </div>
         </Paper>
     )
