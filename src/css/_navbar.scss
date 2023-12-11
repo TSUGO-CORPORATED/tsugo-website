@@ -14,7 +14,7 @@
     border-bottom-color: $color-off-mid;
     // box-sizing: border-box;
     
-    background-color: black;
+    background-color: $color-off-dark;
     position: fixed;
     width: 100%;
     height: 8vh;
@@ -51,8 +51,9 @@
                     &__text {
                         font-weight: bold;
                         color: $color-white;
+                        font-size: 18px;
 
-                        @media screen and (max-width: 1000px) {
+                        @media screen and (max-width: 700px) {
                             display: none;
                         }
                     }
@@ -78,6 +79,10 @@
                     background-color: rgb(56, 56, 56);
                     color: $color-white;
                 } 
+
+                @media screen and (min-width: 700px) {
+                    font-size: 16px;
+                }
             }
         
             &__log-in {
@@ -87,11 +92,16 @@
                 color: $color-black;
                 font-weight: bold;
                 border-radius: 20px;
+
                 &:hover {
                     font-weight: bold;
                     transform: scale(1.1);
                     background-color: $color-white;
                     color: $color-black;
+                }
+
+                @media screen and (min-width: 700px) {
+                    font-size: 16px;
                 }
             }
     
@@ -113,30 +123,54 @@
                 &:hover {
                     background-color: $color-light-grey;
                 }
-    
+
                 &__first-name {
                     margin-right: 5px;
+
+                    @media screen and (min-width: 700px) {
+                        font-size: 16px;
+                        margin-right: 10px;
+                    }
                 }
     
-                &__profile {
-                    @include flexCenter(row);
+                &__profile-link {
                     text-decoration: none;
-                    color: $color-black;
-                    font-weight: 550;
+                    width: 100%;
+
+                    &__box {
+                        @include flexCenter(row);
+                        justify-content: flex-start;
+                        width: 100%;
+                        
+                        &__text {
+                            color: $color-black;
+                            font-weight: 550;
+                            width: 100%;
+                        }
+                    }
                 }
+
     
-                &__dashboard {
-                    @include flexCenter(row);
+                &__dashboard-link {
                     text-decoration: none;
-                    color: $color-black;
-                    font-weight: 550;
+
+                    &__block {
+                        @include flexCenter(row);
+                        color: $color-black;
+                        font-weight: 550;
+                    }
                 }
     
                 &__sign-out {
                     @include flexCenter(row);
-                    text-decoration: none;
-                    color: $color-black;
-                    font-weight: 550;
+                    width: 100%;
+
+                    &__text {
+                        text-decoration: none;
+                        font-weight: 550;
+                        color: $color-black;
+                        width: 100%;
+                    }
                 }
             }
     
