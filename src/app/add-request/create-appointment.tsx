@@ -66,7 +66,7 @@ export default function CreateAppointment () {
 
 
   //   //this is my apikey for temporary but its not working !!
-  const apiKey = "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM";
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
 
   //select box lists
   const languages = [
@@ -312,7 +312,7 @@ export default function CreateAppointment () {
       };
       console.log("reqData", requestData);
       await axios.post(
-        "https://senior-project-server-8090ce16e15d.herokuapp.com/appointment",
+        `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment`,
         requestData
       );
       // alert("Request sent successfully!");

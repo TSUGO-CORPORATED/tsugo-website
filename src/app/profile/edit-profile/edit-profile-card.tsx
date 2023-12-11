@@ -36,7 +36,7 @@ export default function EditProfile() {
         certifications?: string | null,
       }
 
-    const url: string = 'https://senior-project-server-8090ce16e15d.herokuapp.com/user/';
+    const url: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/user/`;
     const { userId, userFirstName, userLastName, userUid, userPhotoUrl } = useContext(ContextVariables);
     const [userProfile, setUserProfile] = useState<UserDetails | null>();
     // const [updated, setUpdated] = useState<Boolean>(false);
@@ -165,11 +165,29 @@ export default function EditProfile() {
                 {userPhotoUrl !== 'noPhotoUrl' ? (
                     <Avatar 
                         src={userPhotoUrl} 
-                        sx={{ width: 200, height: 200 }}
+                        sx={{ 
+                            width: {
+                                xs: '200px',
+                                md: '225px'
+                            }, 
+                            height: {
+                                xs: '200px',
+                                md: '225px'
+                            }, 
+                        }}
                     />  
                     ) : (
                         <Avatar 
-                        sx={{ width: 200, height: 200 }}
+                        sx={{ 
+                            width: {
+                                xs: '200px',
+                                md: '225px'
+                            }, 
+                            height: {
+                                xs: '200px',
+                                md: '225px'
+                            }, 
+                        }}
                     />  
                 )}
                 {/* <Image 
@@ -271,10 +289,12 @@ export default function EditProfile() {
                         }}
                     />
                     <div className="edit-profile-container__button-container">
-                        <Button type='submit' variant="contained" sx={buttonOffDark} className='edit-profile-container__button-container__button'>Save Changes</Button>
+                        <Button type='submit' variant="contained" sx={buttonOffDark}>
+                            <div className='edit-profile-container__button-container__button'>Save Changes</div>
+                        </Button>
                         <Link className='edit-profile-container__button-container__link' href="/profile">
-                            <Button variant='contained' sx={buttonWhite} className='edit-profile-container__button-container__button' id='edit-profile-container__profile-button'>
-                                Cancel
+                            <Button variant='contained' sx={buttonWhite}>
+                                <div className='edit-profile-container__button-container__button'>Cancel</div>
                             </Button>
                         </Link>
                     </div >

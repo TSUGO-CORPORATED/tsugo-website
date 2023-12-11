@@ -12,6 +12,7 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import { buttonWhite, buttonOffMid } from '@/muistyle';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 export default function ReviewCard() {
@@ -40,7 +41,7 @@ export default function ReviewCard() {
             reviewNote: reviewNote,
         }
         console.log("reveiwdata", reviewData);
-        const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/review`;
+        const url: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment/review`;
         await axios.patch(url, reviewData);
         alert('Review submitted successfully!');
         router.push(`/appointment-detail?appointmentId=${appointmentId}`);
@@ -63,6 +64,9 @@ export default function ReviewCard() {
 
     return (
         <Paper className='review__container' elevation={3}>
+            <Link href="/dashboard" className='review__back-button'>
+                <ArrowBackIcon className='review__back-button__icon'/>
+            </Link>
             <h1 className='review__header'>Review</h1>
             <Box className='review__form' onSubmit={submitReview}>
                 {/* <label>Rating</label>

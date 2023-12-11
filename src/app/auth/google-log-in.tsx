@@ -33,7 +33,7 @@ export default function GoogleLogIn(): JSX.Element {
     
             // If account is new, register to server 
             // const url1: string = `http://localhost:8080/user/check/${user.email}`;
-            const url1: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/user/check/${user.email}`;
+            const url1: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/user/check/${user.email}`;
             const checkUserAvailability: boolean = await axios.get(url1).then(res => res.data);
             if (!checkUserAvailability) {
               // Registering user to the backend
@@ -48,7 +48,7 @@ export default function GoogleLogIn(): JSX.Element {
               };
       
               // const url2: string = 'http://localhost:8080/user';
-              const url2: string = 'https://senior-project-server-8090ce16e15d.herokuapp.com/user';
+              const url2: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/user`;
               await axios.post(url2, newUserData)
                 .then(res => {
                   // console.log(res);

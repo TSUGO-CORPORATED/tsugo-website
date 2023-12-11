@@ -30,7 +30,7 @@ export default function Profile() {
         certifications?: string | null,
       }
 
-    const url: string = 'https://senior-project-server-8090ce16e15d.herokuapp.com/user/';
+    const url: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/user/`;
     const { userId, userFirstName, userLastName, userUid, userPhotoUrl } = useContext(ContextVariables);
     const [userProfile, setUserProfile] = useState<UserDetails | null>();
     const [updated, setUpdated] = useState<Boolean>(false);
@@ -139,11 +139,29 @@ export default function Profile() {
                 {userPhotoUrl !== 'noPhotoUrl' ? (
                     <Avatar 
                         src={userPhotoUrl} 
-                        sx={{ width: 200, height: 200 }}
+                        sx={{ 
+                            width: {
+                                xs: '200px',
+                                md: '225px'
+                            }, 
+                            height: {
+                                xs: '200px',
+                                md: '225px'
+                            }, 
+                        }}
                     />  
                     ) : (
                         <Avatar 
-                        sx={{ width: 200, height: 200 }}
+                        sx={{ 
+                            width: {
+                                xs: '200px',
+                                md: '225px'
+                            }, 
+                            height: {
+                                xs: '200px',
+                                md: '225px'
+                            }, 
+                        }}
                     />  
                 )}
 
@@ -184,35 +202,27 @@ export default function Profile() {
                     <label className='profile-container__label'>Bio:</label>
                     <p className='profile-container__profile-p'>{userProfile?.about}</p>
                 </div>
-            
                 <div className='profile-container__button-container'>
                     <Link className='profile-container__edit-link' href="/profile/edit-profile">
-                        <Button variant='contained' sx={buttonOffDark} className='profile-container__profile-button' id='profile-container__edit-button'>
-                            Edit Profile
+                        <Button variant='contained' sx={buttonOffDark}>
+                            <div className='profile-container__profile-button'>Edit Profile</div>
                         </Button>
                     </Link>
-
-
-                    {/* <button className='profile-container__profile-button'>help/support</button>
-                    <button className='profile-container__profile-button'>Agreement</button> */}
-
-
-
                     {provider === "password" && (
                         <Link className='profile-container__password-link' href="/profile/update-password">
-                            <Button variant='contained' sx={buttonOffMid} className='profile-container__password-button' id='profile-container__password-button'>
-                                Update password
+                            <Button variant='contained' sx={buttonOffMid} >
+                                <div className='profile-container__password-button'>Update password</div>
                             </Button>
                         </Link>
                     )}    
-
-                    {/* <button onClick={checkProvider}>Check provider</button> */}
-
                     <Link className='profile-container__delete-link' href="/profile/delete-account">
-                        <Button variant='outlined' sx={{...buttonWhite, color: 'red', borderColor: 'red'}} className='profile-container__delete-button' id='profile-container__delete-button'>
-                            Delete Account
+                        <Button variant='outlined' sx={{...buttonWhite, color: 'red', borderColor: 'red'}}>
+                            <div className='profile-container__delete-button'>Delete Account</div>
                         </Button>
                     </Link>
+                    {/* <button onClick={checkProvider}>Check provider</button>
+                    <button className='profile-container__profile-button'>help/support</button>
+                    <button className='profile-container__profile-button'>Agreement</button>  */}
                 </div>
             </div>
         </Paper>

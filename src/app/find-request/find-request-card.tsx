@@ -92,7 +92,7 @@ export default function FindRequestCard() {
   async function fetchAppointments() {
     try {
       const response = await axios.get(
-        `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/find/${userId}`
+        `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment/find/${userId}`
       );
       // console.log(response)
       setAppointments(response.data);

@@ -68,7 +68,7 @@ export default function DeleteAccountCard(): JSX.Element {
                 // If user re-authenticated, change password
                 deleteUser(user).then(async () => {
                     // Delete in the back end database         
-                    const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/user/${userUid}`;           
+                    const url: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/user/${userUid}`;           
                     await axios.delete(url);
 
                     // Delete successful.
@@ -113,20 +113,19 @@ export default function DeleteAccountCard(): JSX.Element {
             </Modal>
             <div className="delete-account__container__info">
                 <h1 className="delete-account__header">Delete Account</h1>
-                <form onSubmit={confirmWindowHandleOpen}>
-                    <div className='delete-account__form'>
-                        {/* <label className='delete-account__label'>Confirm password:</label> */}
-                        <p className="delete-account__message">Confirm your password to delete your account.</p>
-                        <TextField
-                            label='Confirm password'
-                            variant="outlined" 
-                            type="text" 
-                            value={confirmPassword} 
-                            onChange={(e) => setConfirmPassword(e.target.value)} 
-                            required 
-                            className='delete-account__input' 
-                        />
-                    </div>
+                <form onSubmit={confirmWindowHandleOpen} className='delete-account__form'>
+                    {/* <label className='delete-account__label'>Confirm password:</label> */}
+                    <p className="delete-account__message">Confirm your password to delete your account.</p>
+                    <TextField
+                        label='Confirm password'
+                        variant="outlined" 
+                        type="text" 
+                        value={confirmPassword} 
+                        onChange={(e) => setConfirmPassword(e.target.value)} 
+                        required 
+                        sx={{width: '70%'}}
+                        className='delete-account__input' 
+                    />
                     <div className="delete-account__button-box">
                         <Button variant="outlined" type="submit" className='delete-account__button' sx={{...buttonWhite, color: 'red', borderColor: 'red'}}>Confirm delete account</Button>
                         <Link href='/profile'>

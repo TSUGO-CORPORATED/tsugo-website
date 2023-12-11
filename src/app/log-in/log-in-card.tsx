@@ -134,7 +134,7 @@ export default function LogInCard(): JSX.Element {
         borderRadius: "16px",
         flexDirection: { xs: "column", md: "row" },
         width: { xs: "90%", md: "1000px" },
-        height: { xs: "auto", md: "72vh" }
+        height: { xs: "auto", md: "65vh" }
       }}
     >
       <Box
@@ -146,7 +146,7 @@ export default function LogInCard(): JSX.Element {
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
-        src={randomImage} 
+        src='/logo.png'
       />
       <Box
         // elevation={5}
