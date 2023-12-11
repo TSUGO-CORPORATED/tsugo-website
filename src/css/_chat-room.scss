@@ -33,12 +33,14 @@
         display: flex;
         flex-direction: row;
         gap: 5px;
+        
+        border-bottom: 2px solid $color-off-mid;
+
     }
 
     &__card {
         width: 100%;
         height: 50%;
-        
     }
 
     &__video {
