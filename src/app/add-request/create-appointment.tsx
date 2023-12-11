@@ -310,7 +310,7 @@ export default function CreateAppointment () {
         appointmentNote: note,
         locationAddress: address,
       };
-      console.log("reqData", requestData);
+      // console.log("reqData", requestData);
       await axios.post(
         "https://senior-project-server-8090ce16e15d.herokuapp.com/appointment",
         requestData

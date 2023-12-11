@@ -13,7 +13,7 @@ export default function GoogleLogIn(): JSX.Element {
     auth.useDeviceLanguage();
 
     async function googleSignUp(): Promise<void> {
-        console.log('test')
+        // console.log('test')
 
 
     

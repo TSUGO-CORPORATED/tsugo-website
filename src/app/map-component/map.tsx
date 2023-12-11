@@ -163,8 +163,8 @@ const MapComponent: React.FC<Props> = ({ coordinates, appointments, style }) => 
     });
 
     if (closestMarker && closestMarker.locationLatitude !== undefined && closestMarker.locationLongitude !== undefined) {
-      console.log("currentP", startLat, startLng)
-      console.log("Closest Marker:", closestMarker.locationLatitude, closestMarker.locationLongitude);
+      // console.log("currentP", startLat, startLng)
+      // console.log("Closest Marker:", closestMarker.locationLatitude, closestMarker.locationLongitude);
       setLastSelectedMarker(closestMarker);
       setMapCenter({ lat: Number(closestMarker.locationLatitude), lng: Number(closestMarker.locationLongitude) });
     } else {

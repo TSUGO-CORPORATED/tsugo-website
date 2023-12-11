@@ -97,7 +97,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
     async function getAppointmentDetail(): Promise<void> {
         const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/detail/${appointmentId}`;
         const retrievedData = await axios.get(url);
-        console.log(retrievedData.data);
+        // console.log(retrievedData.data);
         setAppointmentDetail(retrievedData.data);
     }
 

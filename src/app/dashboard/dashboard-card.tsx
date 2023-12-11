@@ -65,7 +65,7 @@ export default function DashboardCard(): JSX.Element {
     async function getClientInterpreterCurrentAppointment(): Promise<void> {
         const urlClient: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/client/current/${userId}`;
         const retrievedDataClient = await axios.get(urlClient);
-        console.log(retrievedDataClient);
+        // console.log(retrievedDataClient);
         setClientCurrentAppointment(retrievedDataClient.data);
 
         const urlInterpreter: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/interpreter/current/${userId}`;

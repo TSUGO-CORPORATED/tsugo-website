@@ -55,7 +55,7 @@ export default function AppointmentBlock({appointment, refresh}: {appointment: A
 
     function assignSelectedAppointment (e: any): void {
         const tempSelectedAppointment = Number(e.target.dataset.appointmentid);
-        console.log(tempSelectedAppointment);
+        // console.log(tempSelectedAppointment);
         setSelectedAppointment(tempSelectedAppointment);
         handleOpenDetailModal()
     }
