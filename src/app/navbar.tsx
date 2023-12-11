@@ -60,12 +60,12 @@ export default function Navbar() {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        // width: 400,
         bgcolor: 'background.paper',
         borderRadius: 2,
         // border: '2px solid #000',
         boxShadow: 2,
-        p: 4,
+        // p: 4,
     };
 
     function signOutWindowHandleOpen(): void {
@@ -118,19 +118,19 @@ export default function Navbar() {
                                                 height: 50, 
                                             }}
                                         />  
-                                        <p className='navbar__cont__left__link__button__text'>Tsugo/都合</p>
+                                        <p className='navbar__cont__left__link__button__text'>Tsugo</p>
                                     </Button>
                                 </Link>
                             </div>
                             <div className='navbar__cont__right'>
                                 <Link href="/sign-up">
-                                    <Button variant='text' className='navbar__cont__right__sign-up'>
-                                        Sign up
+                                    <Button variant='text' >
+                                        <p className='navbar__cont__right__sign-up'>Sign up</p>
                                     </Button>
                                 </Link>
                                 <Link href="/log-in" >
-                                    <Button variant='text' className='navbar__cont__right__log-in'>
-                                        Log in
+                                    <Button variant='text' >
+                                        <p className='navbar__cont__right__log-in'>Log in</p>
                                     </Button>
                                 </Link>
                             </div>
@@ -138,7 +138,7 @@ export default function Navbar() {
                     ) : (
                         <>
                             <div className='navbar__cont__left'>
-                                <Link href="/" className='navbar__cont__left__link'>
+                                <Link href="/dashboard" className='navbar__cont__left__link'>
                                     <Button variant='text' className='navbar__cont__left__link__button'>
                                         <Avatar
                                             // component='img' 
@@ -149,7 +149,7 @@ export default function Navbar() {
                                                 height: 50, 
                                             }}
                                         />  
-                                        <p className='navbar__cont__left__link__button__text'>Tsugo/都合</p>
+                                        <p className='navbar__cont__left__link__button__text'>Tsugo</p>
                                     </Button>
                                 </Link>
                             </div>
@@ -160,11 +160,11 @@ export default function Navbar() {
                                         {userPhotoUrl !== 'noPhotoUrl' ? (
                                         <Avatar 
                                             src={userPhotoUrl} 
-                                            sx={{ width: 25, height: 25 }}
+                                            sx={{ width: 30, height: 30 }}
                                         />  
                                         ) : (
                                             <Avatar 
-                                            sx={{ width: 25, height: 25 }}
+                                            sx={{ width: 30, height: 30 }}
                                         />  
                                         )}
                                         <MoreVertIcon 
@@ -207,26 +207,30 @@ export default function Navbar() {
                                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                 >
                                     <MenuItem onClick={avatarHandleClose}>
-                                        <Link href="/profile" className='navbar__cont__right__avatar__profile'>
-                                            <Avatar />
-                                            Profile
+                                        <Link href="/profile" className='navbar__cont__right__avatar__profile-link'>
+                                            <div className='navbar__cont__right__avatar__profile-link__box'>
+                                                <Avatar />
+                                                <div className='navbar__cont__right__avatar__profile-link__box__text'>Profile</div>
+                                            </div>
                                         </Link>
                                     </MenuItem>
                                     <Divider />
                                     <MenuItem onClick={avatarHandleClose}>
-                                        <Link href="/dashboard" className='navbar__cont__right__avatar__dashboard'>
-                                            <ListItemIcon>
-                                                <HomeIcon fontSize="small" />
-                                            </ListItemIcon>
-                                            Dashboard
+                                        <Link href="/dashboard" className='navbar__cont__right__avatar__dashboard-link'>
+                                            <div className='navbar__cont__right__avatar__dashboard-link__block'>
+                                                <ListItemIcon>
+                                                    <HomeIcon/>
+                                                </ListItemIcon>
+                                                Dashboard
+                                            </div>
                                         </Link>
                                     </MenuItem>
                                     <MenuItem onClick={signOutWindowHandleOpen}>
                                         <div className='navbar__cont__right__avatar__sign-out'>
                                             <ListItemIcon>
-                                                <Logout fontSize="small" />
+                                                <Logout/>
                                             </ListItemIcon>
-                                            Sign Out
+                                            <p className='navbar__cont__right__avatar__sign-out__text'>Sign Out</p>
                                         </div>
                                     </MenuItem>
                                 </Menu>
@@ -241,8 +245,8 @@ export default function Navbar() {
                                         <div className='navbar__cont__right__sign-out-window__title'>Confirm Log-out</div>
                                         <div className='navbar__cont__right__sign-out-window__description'>Are you sure you want to log-out?</div>
                                         <div className='navbar__cont__right__sign-out-window__button'>
-                                            <Button variant='outlined' onClick={signOutWindowHandleClose} sx={buttonWhite}>Cancel</Button>
-                                            <Button variant='contained' onClick={userSignOut} sx={buttonRed}>Confirm</Button>
+                                            <Button variant='outlined' onClick={signOutWindowHandleClose} sx={buttonWhite}><p>Cancel</p></Button>
+                                            <Button variant='contained' onClick={userSignOut} sx={buttonRed}><p>Confirm</p></Button>
                                         </div>
                                     </Box>
                                 </Modal>

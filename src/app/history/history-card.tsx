@@ -43,7 +43,7 @@ export default function HistoryCard() {
   async function fetchHistory () {
     try {
       const timeframe = "history"; 
-      const url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/${role}/${timeframe}/${userId}`;
+      const url = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment/overview/${role}/${timeframe}/${userId}`;
       const response = await axios.get(url);
       // console.log(userId)
       // console.log(role)
@@ -127,13 +127,21 @@ export default function HistoryCard() {
         </Link>
         <div className='history__card__filter__header'>History</div>  
         <div className="history__card__filter__button-container">
-          <Button
+          {/* <Button
             variant="outlined"
             className="history__card__filter__button-container__button"
             sx={selectedStatus === 'Accepted' ? buttonOffDark : buttonWhite}
             onClick={() => handleStatusFilter("Accepted")}
           >
             Accepted
+          </Button> */}
+          <Button
+            variant="outlined"
+            className="history__card__filter__button-container__button"
+            sx={selectedStatus === 'Completed' ? buttonOffDark : buttonWhite}
+            onClick={() => handleStatusFilter("Completed")}
+          >
+            Completed
           </Button>
           <Button
             variant="outlined"
@@ -142,14 +150,6 @@ export default function HistoryCard() {
             onClick={() => handleStatusFilter("Cancelled")}
           >
             Cancelled
-          </Button>
-          <Button
-            variant="outlined"
-            className="history__card__filter__button-container__button"
-            sx={selectedStatus === 'Completed' ? buttonOffDark : buttonWhite}
-            onClick={() => handleStatusFilter("Completed")}
-          >
-            Completed
           </Button>
         </div>
         <div className="history__card__filter__search-bar-container">

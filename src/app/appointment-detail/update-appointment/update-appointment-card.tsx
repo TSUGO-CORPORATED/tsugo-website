@@ -220,10 +220,10 @@ export default function UpdateAppointmentCard() {
  
 
   useEffect(() => {
-    setLocationName("");
+    if (appointmentType !== "In-Person") setLocationName("");
   }, [appointmentType]);
 
-  const apiKey = "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM";
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
   const isMobile = useMediaQuery("(max-width:600px)");
   const router = useRouter();
 
@@ -234,7 +234,7 @@ export default function UpdateAppointmentCard() {
   // HELPER FUNCTION
   // Get appointment detail information
   async function getAppointmentDetail(): Promise<void> {
-    const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/detail/${appointmentId}`;
+    const url: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment/detail/${appointmentId}`;
     const retrievedData = await axios.get(url);
     const data: AppointmentDetail = retrievedData.data;
     console.log("detail", data);
@@ -266,12 +266,12 @@ export default function UpdateAppointmentCard() {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    // width: 400,
     bgcolor: 'background.paper',
     borderRadius: 2,
     // border: '2px solid #000',
     boxShadow: 2,
-    p: 4,
+    // p: 4,
 };
 
 function confirmWindowHandleOpen(e: any): void {
@@ -303,7 +303,7 @@ function confirmWindowHandleClose(): void {
       };
       console.log("update", data);
 
-      const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment`;
+      const url: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment`;
       await axios.put(url, data);
 
       alert("Appointment update successfully!");

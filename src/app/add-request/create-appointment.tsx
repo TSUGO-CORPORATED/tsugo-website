@@ -66,7 +66,7 @@ export default function CreateAppointment () {
 
 
   //   //this is my apikey for temporary but its not working !!
-  const apiKey = "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM";
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
 
   //select box lists
   const languages = [
@@ -312,7 +312,7 @@ export default function CreateAppointment () {
       };
       console.log("reqData", requestData);
       await axios.post(
-        "https://senior-project-server-8090ce16e15d.herokuapp.com/appointment",
+        `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment`,
         requestData
       );
       // alert("Request sent successfully!");
@@ -639,7 +639,7 @@ export default function CreateAppointment () {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "80%",
+            // width: "80%",
             boxShadow: 24,
             overflowY: "auto",
           }}
@@ -710,18 +710,16 @@ export default function CreateAppointment () {
               <Button
                 onClick={handleSendRequest}
                 variant="contained"
-                sx={buttonOffDark}
-                className="add-request__confirmation__button"
+                sx={buttonOffDark} 
               >
-                Send Request
+                <p className="add-request__confirmation__button">Send Request</p>
               </Button>
               <Button
                 onClick={() => setIsConfirmed(false)}
                 variant="outlined"
                 sx={buttonWhite}
-                className="add-request__confirmation__button"
               >
-                Back to Form
+                <p className="add-request__confirmation__button">Back to Form</p>
               </Button>
             </Box>
           </Paper>

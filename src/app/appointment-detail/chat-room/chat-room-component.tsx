@@ -1,18 +1,22 @@
 'use client';
 import socketIO, { Socket } from "socket.io-client";
 import { Peer } from "peerjs";
+import axios from "axios";
 import React, { useState, useEffect, useRef, useContext, use } from 'react';
 import { ContextVariables } from '../../../context-variables';
 import { useSearchParams } from 'next/navigation';
 import { Interface } from "readline";
 import { Button, Paper } from "@mui/material";
 import moment from 'moment';
+import { buttonOffMid } from "@/muistyle";
 
 //import cv from 'opencv4nodejs';
 
 interface chatMessage {
     appointment: number,
     user: number,
+    firstName: string,
+    lastName: string,
     content: string,
     timestamp: string
 }
@@ -23,11 +27,13 @@ const constraints = {
   };
 
 export default function ChatRoomSub(): React.JSX.Element{
-    const { userId } = useContext(ContextVariables);
+    const { userId, userFirstName, userLastName } = useContext(ContextVariables);
     
 
 
     const [messages, setMessages] = useState<chatMessage[]>([]);
+    const [interlocutorFirstName, setInterlocutorFirstName] = useState<string | null>(null);
+    const [interlocutorLastName, setInterlocutorLastName] = useState<string | null>(null);
     const [error, setError] = useState<any>(null); //TODO: Determine type properly
     const [videoIsOpen, setVideoIsOpen] = useState(false);
     let peerId = "";
@@ -37,18 +43,27 @@ export default function ChatRoomSub(): React.JSX.Element{
     const textRef = useRef<HTMLTextAreaElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const video2Ref = useRef<HTMLVideoElement>(null);
+    let navigator:Navigator | null = null;
+    if (typeof window != "undefined") {
+        navigator = window.navigator;
+    }
+    else {
+        navigator = null;
+    }
 
     // SEARCH PARAMS
     const searchParams = useSearchParams();
     const appointmentId = searchParams.get('slug');
     // console.log(appointmentId);
 
-    let sendMessage = (message: string) => {
+    const sendMessage = (message: string) => {
         let date = (new Date()).toISOString();
         if(typeof appointmentId == "string") {
             const obj = {
                 appointment: parseInt(appointmentId),
                 user: userId,
+                firstName: userFirstName,
+                lastName: userLastName,
                 content: message,
                 timestamp: date
             }
@@ -58,7 +73,58 @@ export default function ChatRoomSub(): React.JSX.Element{
         }
     };
 
+    const initInterlocutorName = async () => {
+        try {
+            const timeframe = "history"; 
+            const url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/detail/${appointmentId}`;
+            const response = await axios.get(url);
+            console.log(response)
+            if(response.data.clientUserId == userId) {
+                setInterlocutorFirstName(response.data.interpreterUser.firstName);
+                setInterlocutorLastName(response.data.interpreterUser.lastName);
+            }
+            else if(response.data.interpreterUserId == userId) {
+                setInterlocutorFirstName(response.data.clientUser.firstName);
+                setInterlocutorLastName(response.data.clientUser.lastName);
+            }
+           
+            
+          } catch (error) {
+            console.error("Error fetching History:", error);
+          }
+    };
+
+    const initPeer = () => {
+        
+        peer.current = new Peer();
+        peer.current.on('connection', function (con) {
+            peer.current!.on('call', function (call) {
+                console.log("someone is calling")
+                navigator!.mediaDevices.getUserMedia({ video: true, audio: true })
+                .then((stream) => {
+                    streamRefs.current.push(stream);
+                    call.answer(stream);
+                    call.on('stream', function (remoteStream) {
+                    newVideo(remoteStream);
+                });
+            }).catch( (err) => {
+                console.log('Failed to get local stream', err);
+            });
+        });
+        socket.current!.on("disconnect-user", () => {
+            con.close();
+        })
+    });
+    peer.current.on('open', (id) => {
+        console.log("open peer")
+        peerId = id //setPeerId(id);
+        console.log("peerId is: " + peerId)
+        socket.current!.emit('video-join', peerId);
+    });
+    }
+
     const joinVideo = () => {
+        initPeer();
         navigator!.mediaDevices.getUserMedia(constraints)
             .then((stream) => {
                 const videoTracks = stream.getVideoTracks();
@@ -84,56 +150,22 @@ export default function ChatRoomSub(): React.JSX.Element{
             }
             });
         setVideoIsOpen(true);
+    };
 
-        if (peer.current!.disconnected) peer.current! = new Peer();
-        socket.current!.emit('video-join', peerId);
-    }
     const leaveVideo = () => {
         setVideoIsOpen(false);
         peer.current!.disconnect();
+        peer.current!.destroy();
         for(const stream of streamRefs.current!){
             stream.getTracks().forEach(track => track.stop());
         }
-    }
+    };
 
-        useEffect(() => { //set up socket and peer
-            console.log("setting up socket and peer...");
-            let navigator:Navigator | null = null;
-            if (typeof window != "undefined") {
-                navigator = window.navigator;
+        useEffect(() => { //set up socket
+            console.log("setting up socket...");
+            initInterlocutorName();
 
-            }
-            else {
-                navigator = null;
-
-            }
-            peer.current = new Peer();
-            peer.current!.on('connection', function (con) {
-                peer.current!.on('call', function (call) {
-                    console.log("someone is calling")
-                    navigator!.mediaDevices.getUserMedia({ video: true, audio: true })
-                    .then((stream) => {
-                        streamRefs.current.push(stream);
-                        call.answer(stream);
-                        call.on('stream', function (remoteStream) {
-                        newVideo(remoteStream);
-                    });
-                }).catch( (err) => {
-                    console.log('Failed to get local stream', err);
-                });
-            });
-            socket.current!.on("disconnect-user", () => {
-                con.close();
-            })
-        });
-        peer.current!.on('open', (id) => {
-            console.log("open peer")
-            peerId = id //setPeerId(id);
-        });
-
-            
-
-            socket.current = socketIO("https://senior-project-server-8090ce16e15d.herokuapp.com/"); //TODO: Set env variable  http://localhost:8080
+            socket.current = socketIO(`${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}`); //TODO: Set env variable  http://localhost:8080
             socket.current.emit("CONNECT_ROOM", `{"room": ${appointmentId}}`); //TOD: Need buttons for selecting which room you want, default to 1 for now
 
             socket.current.on("connect", () => {
@@ -165,24 +197,26 @@ export default function ChatRoomSub(): React.JSX.Element{
                 setMessages((prevMessages) => [...prevMessages, ...standardizedHistory]);
             });
             socket.current.on('connect-user', (userId) => {
-                console.log(userId + " " + peerId);
+                console.log(userId + " and " + peerId);
                 if (peerId == userId) return;
                 console.log("connecting")
 
-                peer.current!.connect(userId);
-                navigator!.mediaDevices.getUserMedia({ video: true, audio: true })
-                .then((stream) => {
-                    streamRefs.current.push(stream);
-                    var call = peer.current!.call(userId, stream);
-                    call.on('stream', function (remoteStream) {
-                      newVideo(remoteStream);
-                    });
-                  }).catch((err) => {
-                    console.log('Failed to get local stream', err);
-                  });
+                if(peer.current != undefined){
+                    peer.current.connect(userId);
+                    navigator!.mediaDevices.getUserMedia({ video: true, audio: true })
+                    .then((stream) => {
+                        streamRefs.current.push(stream);
+                        var call = peer.current!.call(userId, stream);
+                        call.on('stream', function (remoteStream) {
+                          newVideo(remoteStream);
+                        });
+                      }).catch((err) => {
+                        console.log('Failed to get local stream', err);
+                      });
+                }
               });
 
-            return () => {
+            return () => { //cleanupt socket peer and media streams
                 socket.current?.disconnect();
                 peer.current?.disconnect();
                 for(const stream of streamRefs.current!){
@@ -208,29 +242,27 @@ export default function ChatRoomSub(): React.JSX.Element{
     return (
         <Paper className="chat-room__container">  
         <div className="chat-room__video-container">
-                <video className="chat-room__video" ref={videoRef} width="320" height="240" autoPlay >
+                <video className="chat-room__video" ref={videoRef} width="320" height="240" autoPlay playsInline>
                     No Source!
                 </video>
-                <video className="chat-room__video" ref={video2Ref} width="320" height="240" autoPlay>
+                <video className="chat-room__video" ref={video2Ref} width="320" height="240" autoPlay playsInline>
                     No Source!
                 </video>
             </div>
             <div className="chat-room__card" >
                 <ul className="chatContainer">
                     {messages.map((message, index) => {
-                        console.log("mu:",message.user)
-                        console.log("id:",userId)
                         if(message.user == userId) {
                         return <li key={index} className="chat-room-message" > 
                             <div className="messageContainer-sent">
-                                <p className="chat-room__message__username">User: {message.user} </p> 
+                                <p className="chat-room__message__username">Me </p> 
                                 <p className="chat-room__message__content">{message.content} </p> 
                                 <p className="chat-room__message__timestamp">{moment(message.timestamp).fromNow()} </p>
                             </div> 
                         </li>} else {
                         return <li key={index} className="chat-room-message" > 
                             <div className="messageContainer-rec">
-                                <p className="chat-room__message__username">User: {message.user} </p> 
+                                <p className="chat-room__message__username">{interlocutorFirstName} {interlocutorLastName}</p> 
                                 <p className="chat-room__message__content"> {message.content} </p> 
                                 <p className="chat-room__message__timestamp"> {moment(message.timestamp).fromNow()} </p>
                             </div> 
@@ -238,14 +270,16 @@ export default function ChatRoomSub(): React.JSX.Element{
                     })}
                 </ul>
             </div>
-            <textarea ref={textRef} className="chat-room-text-input" placeholder="..."></textarea>
+            <textarea ref={textRef} className="chat-room-text-input" placeholder="message" 
+            onKeyDown={(key) => {if(key.key == "Enter" && textRef.current!.value != null) {sendMessage(textRef.current!.value)}}}></textarea>
             
             <div className="ButtonContainer">   
-            {videoIsOpen ? <Button className="videoButton" onClick={leaveVideo} > Stop Camera </Button>
-                     : <Button className="videoButton" onClick={joinVideo}> Start Camera </Button>
+            {videoIsOpen ? <Button sx={buttonOffMid} variant="contained" className="videoButton" onClick={leaveVideo} > Stop Camera </Button>
+                     : <Button sx={buttonOffMid} variant="contained" className="videoButton" onClick={joinVideo}> Start Camera </Button>
                 }
-            <Button variant="contained" className="chat-room-send-button" onClick={() => {if(textRef.current!.value != null) sendMessage(textRef.current!.value)}}>Send</Button> 
-
+            <Button sx={buttonOffMid} variant="contained" className="chat-room-send-button" 
+            onClick={() => {if(textRef.current!.value != null) sendMessage(textRef.current!.value)}} 
+            > Send </Button> 
             </div>
         </Paper>
     )

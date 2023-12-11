@@ -187,6 +187,7 @@
   height: 100vh;
   padding-top: 8vh;
   width: 100vw;
+  width: 99vw;
 }
 .dashboard__card {
   padding: 20px;
@@ -199,14 +200,18 @@
     align-items: center;
   }
 }
+.dashboard__card__tab {
+  height: 10%;
+}
 .dashboard__card__role-content {
+  height: 90%;
   width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: flex-start;
   padding-top: 10px;
   gap: 20px;
 }
@@ -217,6 +222,7 @@
     align-items: center;
     flex-direction: column;
     justify-content: flex-start;
+    gap: 10px;
   }
 }
 .dashboard__card__role-content__button-column {
@@ -225,13 +231,12 @@
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
-  height: 100%;
   text-decoration: none;
   width: 40%;
 }
 @media screen and (max-width: 700px) {
   .dashboard__card__role-content__button-column {
-    height: auto;
+    height: 15%;
     width: 100%;
   }
 }
@@ -316,16 +321,18 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100%;
   justify-content: flex-start;
+  height: 100%;
   width: 60%;
 }
 @media screen and (max-width: 700px) {
   .dashboard__card__role-content__appointment-column {
     width: 100%;
+    height: 85%;
   }
 }
 .dashboard__card__role-content__appointment-column__paper {
+  height: 100%;
   width: 100%;
   padding: 10px;
 }
@@ -339,6 +346,7 @@
   font-weight: bold;
   font-size: 28px;
   padding: 10px;
+  height: 8%;
 }
 .dashboard__card__role-content__appointment-column__paper__appointment-list {
   display: flex;
@@ -347,7 +355,8 @@
   flex-direction: column;
   justify-content: flex-start;
   padding: 10px;
-  height: 100%;
+  height: 92%;
+  overflow-y: scroll;
 }
 
 .profile {
@@ -367,8 +376,8 @@
 }
 @media screen and (min-width: 700px) {
   .profile-container {
-    width: 400px;
-    height: 700px;
+    width: 700px;
+    height: 90%;
   }
 }
 .profile-container__back-button {
@@ -396,12 +405,10 @@
   width: 100%;
   text-align: center;
 }
-.profile-container__profile-pic {
-  border-radius: 50%;
-  border: 2px solid darkgray;
-  width: 200px;
-  height: 200px;
-  margin-top: 12px;
+@media screen and (min-width: 700px) {
+  .profile-container__header {
+    font-size: 40px;
+  }
 }
 .profile-container__info-container {
   display: flex;
@@ -420,6 +427,11 @@
   color: gray;
   font-size: 14px;
 }
+@media screen and (min-width: 700px) {
+  .profile-container__label {
+    font-size: 16px;
+  }
+}
 .profile-container__profile-p {
   height: 15%;
   font-size: 24px;
@@ -428,6 +440,11 @@
   margin-left: 30px;
   margin-right: 30px;
   margin-bottom: 10px;
+}
+@media screen and (min-width: 700px) {
+  .profile-container__profile-p {
+    font-size: 26px;
+  }
 }
 .profile-container__button-container {
   width: 100%;
@@ -447,20 +464,35 @@
 .profile-container__password-link {
   margin: 6px;
 }
-
-#profile-container__edit-button {
+.profile-container__profile-button {
   align-self: center;
   width: 200px;
 }
-
-#profile-container__delete-button {
+@media screen and (min-width: 700px) {
+  .profile-container__profile-button {
+    width: 300px;
+    font-size: 16px;
+  }
+}
+.profile-container__delete-button {
   align-self: center;
   width: 200px;
 }
-
-#profile-container__password-button {
+@media screen and (min-width: 700px) {
+  .profile-container__delete-button {
+    width: 300px;
+    font-size: 16px;
+  }
+}
+.profile-container__password-button {
   align-self: center;
   width: 200px;
+}
+@media screen and (min-width: 700px) {
+  .profile-container__password-button {
+    width: 300px;
+    font-size: 16px;
+  }
 }
 
 .add-request {
@@ -511,14 +543,17 @@
     height: 200px;
   }
 }
+.add-request__confirmation {
+  width: 90%;
+}
 @media screen and (min-width: 500px) {
   .add-request__confirmation {
-    width: 500px;
+    width: 450px;
   }
 }
 @media screen and (max-width: 500px) {
   .add-request__confirmation__button {
-    width: 125px;
+    width: 100px;
     font-size: 12px;
   }
 }
@@ -606,8 +641,8 @@
 }
 @media screen and (min-width: 700px) {
   .edit-profile-container {
-    width: 400px;
-    height: 700px;
+    width: 700px;
+    height: 90%;
   }
 }
 .edit-profile-container__back-button {
@@ -635,6 +670,11 @@
   width: 100%;
   text-align: center;
 }
+@media screen and (min-width: 700px) {
+  .edit-profile-container__header {
+    font-size: 40px;
+  }
+}
 .edit-profile-container__info-update {
   display: flex;
   justify-content: center;
@@ -659,7 +699,13 @@
   gap: 15px;
 }
 .edit-profile-container__button-container__button {
-  width: 150px;
+  width: 200px;
+}
+@media screen and (min-width: 700px) {
+  .edit-profile-container__button-container__button {
+    width: 300px;
+    font-size: 16px;
+  }
 }
 .edit-profile-container__button-container__link {
   text-decoration: none;
@@ -716,6 +762,10 @@
   width: 100%;
   padding: 5px;
   background-color: black;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  border-bottom: 2px solid #4b89a4;
 }
 .chat-room__card {
   width: 100%;
@@ -748,6 +798,14 @@
   overflow-y: scroll;
 }
 
+.chatContainer::-webkit-scrollbar-track {
+  background-color: white;
+}
+
+.chatContainer::-webkit-scrollbar-thumb {
+  background-color: rgb(109, 199, 240);
+}
+
 .messageContainer {
   display: flex;
   flex-direction: column;
@@ -762,25 +820,41 @@
   width: 95%;
   height: 10%;
   margin: 10px;
+  padding: 2px;
   align-self: center;
   justify-self: center;
   resize: none;
 }
 
+.chat-room-text-input:focus::-moz-placeholder {
+  color: transparent;
+}
+
+.chat-room-text-input:focus::placeholder {
+  color: transparent;
+}
+
 .messageContainer-rec {
-  background-color: #9F6BA0;
+  background-color: rgb(109, 199, 240);
   text-align: left;
   border-radius: 10px;
   padding: 12px;
   word-wrap: break-word;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 70%;
 }
 
 .messageContainer-sent {
-  background-color: lightgray;
+  background-color: #fef9e1;
   text-align: right;
   border-radius: 10px;
   padding: 12px;
   word-wrap: break-word;
+  width: -moz-fit-content;
+  width: fit-content;
+  float: right;
+  max-width: 70%;
 }
 
 .ButtonContainer {
@@ -794,7 +868,6 @@
 .videoButton {
   width: 40%;
   height: 100%;
-  background-color: gray;
   color: white;
 }
 
@@ -969,10 +1042,6 @@
     font-size: 22px;
   }
 }
-.appointment-block__grid__last-line__button {
-  padding: 5px 10px;
-  padding-right: 0;
-}
 .appointment-block__grid__last-line__button__text {
   font-size: 12px;
 }
@@ -1003,7 +1072,7 @@
   gap: 20px;
   padding: 20px;
 }
-@media (max-width: 1000px) {
+@media (max-width: 700px) {
   .history__card {
     display: flex;
     justify-content: center;
@@ -1031,10 +1100,15 @@
   font-size: 32px;
 }
 .history__card__filter {
-  width: 100%;
+  width: 40%;
   display: flex;
   flex-direction: column;
   padding: 5px;
+}
+@media screen and (max-width: 700px) {
+  .history__card__filter {
+    width: 100%;
+  }
 }
 .history__card__filter__header {
   display: flex;
@@ -1058,7 +1132,7 @@
   padding: 5px;
 }
 .history__card__filter__button-container__button {
-  width: 30%;
+  width: 47%;
   height: 50px;
 }
 @media (max-width: 600px) {
@@ -1090,10 +1164,15 @@
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
-  width: 98%;
+  width: 60%;
   padding: 8px;
   height: 100%;
   overflow-y: scroll;
+}
+@media screen and (max-width: 700px) {
+  .history__card__appointment-container {
+    width: 100%;
+  }
 }
 
 .appointment-detail {
@@ -1253,10 +1332,6 @@
   height: 700px;
   padding-right: 10px;
 }
-.appointment-detail__content__divider {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
 .appointment-detail__content__data {
   display: flex;
   justify-content: center;
@@ -1274,8 +1349,8 @@
   font-weight: bold;
 }
 .appointment-detail__content__button {
-  width: 200px;
-  font-size: 12px;
+  width: 160px;
+  font-size: 11px;
 }
 .appointment-detail__content__primary {
   display: flex;
@@ -1318,9 +1393,6 @@
   font-weight: bold;
   color: #838383;
   margin-bottom: 5px;
-}
-.appointment-detail__content__user__block__divider {
-  margin-right: 10px;
 }
 .appointment-detail__content__review {
   width: 100%;
@@ -1375,9 +1447,6 @@
   overflow-wrap: break-word;
   width: 140px;
 }
-.appointment-detail__content__review__user__divider {
-  margin-right: 10px;
-}
 
 .home {
   display: flex;
@@ -1387,6 +1456,8 @@
   height: 100vh;
   padding-top: 8vh;
   width: 100vw;
+  width: 100vw;
+  height: 100vh;
 }
 .home__landing-page {
   display: flex;
@@ -1394,8 +1465,8 @@
   align-items: center;
   flex-direction: column;
   background-color: black;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
 }
 .home__landing-page__video {
@@ -1405,6 +1476,7 @@
      object-fit: cover;
   -o-object-position: right bottom;
      object-position: right bottom;
+  filter: brightness(50%);
 }
 .home__landing-page__header-group {
   display: flex;
@@ -1435,12 +1507,23 @@
   z-index: 2;
   text-align: center;
 }
+.home__landing-page__slogan {
+  position: absolute;
+  z-index: 2;
+  color: white;
+  margin-top: 200px;
+  font-size: 20pt;
+  justify-self: center;
+  align-self: center;
+  text-align: center;
+  width: 90%;
+}
 .home__landing-page__log-in-link {
   color: black;
   z-index: 2;
   position: absolute;
   justify-self: center;
-  margin-top: 200px;
+  margin-top: 400px;
 }
 
 @media (min-width: 700px) {
@@ -1458,14 +1541,14 @@
   width: 100vw;
 }
 .update-password__container {
+  padding: 10px;
   width: 100%;
   height: 100%;
-  padding: 10px;
 }
 @media screen and (min-width: 700px) {
   .update-password__container {
-    width: 400px;
-    height: 400px;
+    width: 700px;
+    height: 50%;
   }
 }
 .update-password__container__back-button {
@@ -1498,6 +1581,39 @@
     padding-top: 20px;
   }
 }
+.update-password__container__info__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.update-password__container__info__form {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.update-password__container__info__form__input {
+  width: 100%;
+}
+.update-password__container__info__form__button-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+.update-password__container__info__form__button-box__button {
+  width: 200px;
+}
+@media screen and (min-width: 700px) {
+  .update-password__container__info__form__button-box__button {
+    width: 300px;
+    font-size: 16px;
+  }
+}
 .update-password__container__confirm-window {
   display: flex;
   justify-content: center;
@@ -1522,34 +1638,6 @@
   flex-direction: row;
   gap: 10px;
 }
-.update-password__header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-}
-.update-password__form {
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.update-password__input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-.update-password__button-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 10px;
-}
-.update-password__button-box__button {
-  width: 150px;
-}
 
 .delete-account {
   display: flex;
@@ -1561,14 +1649,14 @@
   width: 100vw;
 }
 .delete-account__container {
+  padding: 10px;
   width: 100%;
   height: 100%;
-  padding: 10px;
 }
 @media screen and (min-width: 700px) {
   .delete-account__container {
-    width: 500px;
-    height: 350px;
+    width: 700px;
+    height: 40%;
   }
 }
 .delete-account__container__back-button {
@@ -1605,8 +1693,10 @@
   margin: 10px 0;
   width: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-  align-items: flex-start;
+  gap: 30px;
 }
 .delete-account__label {
   font-weight: bold;
@@ -1622,13 +1712,11 @@
 .delete-account__button {
   width: 250px;
 }
-.delete-account__message {
-  margin-bottom: 25px;
-}
-.delete-account__input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
+@media screen and (min-width: 700px) {
+  .delete-account__button {
+    width: 300px;
+    font-size: 16px;
+  }
 }
 .delete-account__confirm-window {
   display: flex;
@@ -1663,6 +1751,7 @@
   height: 100vh;
   padding-top: 8vh;
   width: 100vw;
+  width: 98%;
   height: auto;
 }
 
@@ -1724,6 +1813,7 @@
   height: 95%;
   display: flex;
   flex-direction: column;
+  padding: 10px;
 }
 @media (min-width: 700px) {
   .review__container {
@@ -1736,6 +1826,17 @@
     width: 100%;
     padding: 5px;
   }
+}
+.review__back-button {
+  position: absolute;
+  text-decoration: none;
+  color: #000000;
+}
+.review__back-button:hover {
+  color: #4b89a4;
+}
+.review__back-button__icon {
+  font-size: 32px;
 }
 .review__header {
   width: 100%;
@@ -1788,24 +1889,36 @@
   margin: 6px;
   align-self: center;
 }
-.review__submit-button {
-  width: 50%;
+.review__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.review__button__submit-button {
   align-self: center;
   margin-bottom: 12px;
 }
-.review__cancel-link {
-  width: 50%;
+.review__button__submit-button__text {
+  width: 250px;
+}
+.review__button__cancel-link {
   display: flex;
   flex-direction: column;
   justify-self: center;
   align-self: center;
   text-decoration: none;
 }
+.review__button__cancel-button__text {
+  width: 250px;
+}
 
 .navbar {
   border-style: solid;
-  border-bottom-color: #fef9e1;
-  background-color: black;
+  border-bottom-color: #4b89a4;
+  background-color: #061920;
   position: fixed;
   width: 100%;
   height: 8vh;
@@ -1852,8 +1965,9 @@
 .navbar__cont__left__link__button__text {
   font-weight: bold;
   color: #fffffa;
+  font-size: 18px;
 }
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 700px) {
   .navbar__cont__left__link__button__text {
     display: none;
   }
@@ -1876,6 +1990,11 @@
   background-color: rgb(56, 56, 56);
   color: #fffffa;
 }
+@media screen and (min-width: 700px) {
+  .navbar__cont__right__sign-up {
+    font-size: 16px;
+  }
+}
 .navbar__cont__right__log-in {
   padding: 8px 24px;
   text-decoration: none;
@@ -1889,6 +2008,11 @@
   transform: scale(1.1);
   background-color: #fffffa;
   color: #000000;
+}
+@media screen and (min-width: 700px) {
+  .navbar__cont__right__log-in {
+    font-size: 16px;
+  }
 }
 .navbar__cont__right__avatar {
   display: flex;
@@ -1911,21 +2035,37 @@
 .navbar__cont__right__avatar__first-name {
   margin-right: 5px;
 }
-.navbar__cont__right__avatar__profile {
+@media screen and (min-width: 700px) {
+  .navbar__cont__right__avatar__first-name {
+    font-size: 16px;
+    margin-right: 10px;
+  }
+}
+.navbar__cont__right__avatar__profile-link {
+  text-decoration: none;
+  width: 100%;
+}
+.navbar__cont__right__avatar__profile-link__box {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  text-decoration: none;
+  justify-content: flex-start;
+  width: 100%;
+}
+.navbar__cont__right__avatar__profile-link__box__text {
   color: #000000;
   font-weight: 550;
+  width: 100%;
 }
-.navbar__cont__right__avatar__dashboard {
+.navbar__cont__right__avatar__dashboard-link {
+  text-decoration: none;
+}
+.navbar__cont__right__avatar__dashboard-link__block {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  text-decoration: none;
   color: #000000;
   font-weight: 550;
 }
@@ -1934,9 +2074,13 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
+  width: 100%;
+}
+.navbar__cont__right__avatar__sign-out__text {
   text-decoration: none;
-  color: #000000;
   font-weight: 550;
+  color: #000000;
+  width: 100%;
 }
 .navbar__cont__right__sign-out-window {
   display: flex;
@@ -1975,6 +2119,6 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: black;
+  background: #061920;
   border-radius: 10px;
 }/*# sourceMappingURL=styles.css.map */

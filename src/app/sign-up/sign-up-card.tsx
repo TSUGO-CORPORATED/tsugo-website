@@ -72,7 +72,7 @@ export default function SignUpCard(): JSX.Element {
     
     // Guard function, abort function if account is already registered
     // const url: string = `http://localhost:8080/user/check/${email}`;
-    const url: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/user/check/${email}`;
+    const url: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/user/check/${email}`;
     const checkUserAvailability: boolean = await axios.get(url).then(res => res.data);
     if (checkUserAvailability) {
       alert('You are already registered, please log in');
@@ -94,7 +94,7 @@ export default function SignUpCard(): JSX.Element {
           lastName: lastName,
         };
         // const url: string = 'http://localhost:8080/user';
-        const url: string = 'https://senior-project-server-8090ce16e15d.herokuapp.com/user';
+        const url: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/user`;
         await axios.post(url, newUserData)
           .then(res => {
             // console.log(res);
@@ -144,7 +144,7 @@ if (loading) {
         borderRadius: "16px",
         alignItems: "center",
         width: { xs: "90%", md: "1000px" },
-        height: { xs: "auto", md: "72vh" },
+        height: { xs: "auto", md: "65vh" },
         margin: "0 auto",
         flexDirection: { xs: "column", md: "row" }, 
       }}
@@ -159,14 +159,14 @@ if (loading) {
           backgroundPosition: "center",
           borderRadius: "16px 0 0 16px", 
         }}
-        src={randomImage} 
+        src='/logo.png'
       />
       <Box
         // elevation={3}
         sx={{
-          padding: 4,
-          paddingTop: { xs: 3, md: 5 }, 
-          height: "72vh",
+          padding: 3,
+          paddingTop: { xs: 2, md: 2 }, 
+          height: {xs: '72vh', md: '65vh'},
           overflow: 'auto', 
           width: { xs: "100%", md: "45%" },
           borderRadius: { xs: "16px", md: "0 16px 16px 0" },
@@ -188,7 +188,7 @@ if (loading) {
           // }
         }}
       >
-        <Typography variant="h4" sx={{ textAlign: "center", mb: 2, mt: { xs: 2, md: 4 }, fontSize: {xs: "20px", md: "34px"} }}>
+        <Typography variant="h4" sx={{ textAlign: "center", mb: 2, mt: { xs: 1, md: 1 }, fontSize: {xs: "30px", md: "34px"} }}>
           Create Account
         </Typography>
         <GoogleLogIn />
@@ -263,6 +263,7 @@ if (loading) {
               width: "100%",
               height: "56px",
               borderRadius: "4px", 
+              fontSize: '18px'
             }}
           >
             Sign Up

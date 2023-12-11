@@ -63,12 +63,12 @@ export default function DashboardCard(): JSX.Element {
 
     // Get client and interpreter current appointment
     async function getClientInterpreterCurrentAppointment(): Promise<void> {
-        const urlClient: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/client/current/${userId}`;
+        const urlClient: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment/overview/client/current/${userId}`;
         const retrievedDataClient = await axios.get(urlClient);
-        console.log(retrievedDataClient);
+        // console.log(retrievedDataClient);
         setClientCurrentAppointment(retrievedDataClient.data);
 
-        const urlInterpreter: string = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/overview/interpreter/current/${userId}`;
+        const urlInterpreter: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment/overview/interpreter/current/${userId}`;
         const retrievedDataInterpreter = await axios.get(urlInterpreter);
         // console.log(retrievedDataInterpreter);
         setInterpreterCurrentAppointment(retrievedDataInterpreter.data);
@@ -88,7 +88,10 @@ export default function DashboardCard(): JSX.Element {
      // JSX ELEMENTS
     return (
         <div className='dashboard__card'>
-            <Box sx={{ borderBottom: 2, borderColor: 'divider' }}>
+            <Box 
+                // sx={{ borderBottom: 2, borderColor: 'divider' }}
+                className='dashboard__card__tab'
+            >
                 <Tabs 
                     value={tabValue} 
                     onChange={handleTabChange} 
@@ -107,7 +110,9 @@ export default function DashboardCard(): JSX.Element {
                             // backgroundColor: '#f3f3f3',
                             fontWeight: 'bold',
                             fontSize: 20,
-                        }
+                        },
+                        borderBottom: 2, 
+                        borderColor: 'divider' 
                     }}
                 >
                     <Tab label="Client" {...a11yProps(0)} icon={<EmojiPeopleIcon />} />
@@ -120,7 +125,7 @@ export default function DashboardCard(): JSX.Element {
                         {tabValue === 0 && (
                             <>
                                 <Link href="/add-request" className='dashboard__card__role-content__button-column__link'>
-                                    <Button variant='contained' sx={buttonOffMid} size='medium' className='dashboard__card__role-content__button-column__link__button'>
+                                    <Button variant='contained' sx={buttonOffMid} className='dashboard__card__role-content__button-column__link__button'>
                                         <div className="dashboard__card__role-content__button-column__link__button__title">
                                             <AddCircleOutlineIcon />
                                             <p>New Request</p>
@@ -132,7 +137,7 @@ export default function DashboardCard(): JSX.Element {
                                     pathname: "/history",
                                     query: {role: "client"},
                                 }} className='dashboard__card__role-content__button-column__link'>
-                                    <Button variant='outlined' sx={buttonWhite} size='medium' className='dashboard__card__role-content__button-column__link__button'>
+                                    <Button variant='contained' sx={buttonOffMid} className='dashboard__card__role-content__button-column__link__button'>
                                         <div className="dashboard__card__role-content__button-column__link__button__title">
                                             <LibraryBooksIcon />
                                             <p>Open History</p>
@@ -145,7 +150,7 @@ export default function DashboardCard(): JSX.Element {
                         {tabValue === 1 && (
                             <>
                                 <Link href="/find-request" className='dashboard__card__role-content__button-column__link'>
-                                    <Button variant='contained' sx={buttonOffMid} size='medium' className='dashboard__card__role-content__button-column__link__button'>
+                                    <Button variant='contained' sx={buttonOffMid} className='dashboard__card__role-content__button-column__link__button'>
                                         <div className="dashboard__card__role-content__button-column__link__button__title">
                                             <SearchIcon />
                                             <p>Find Request</p>
@@ -157,7 +162,7 @@ export default function DashboardCard(): JSX.Element {
                                     pathname: "/history",
                                     query: {role: "interpreter"},
                                 }} className='dashboard__card__role-content__button-column__link'>
-                                    <Button variant='outlined' sx={buttonWhite} size='medium' className='dashboard__card__role-content__button-column__link__button'>
+                                    <Button variant='contained' sx={buttonOffMid} className='dashboard__card__role-content__button-column__link__button'>
                                         <div className="dashboard__card__role-content__button-column__link__button__title">
                                             <LibraryBooksIcon />
                                             <p>Open History</p>

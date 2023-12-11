@@ -117,7 +117,7 @@ const MapComponent: React.FC<Props> = ({ coordinates, appointments, style }) => 
   const isCoordinatesArray = Array.isArray(coordinates);
   const isAppointmentsArray = Array.isArray(appointments)
   //replace this to .ENV
-  const apiKey = "AIzaSyDTDbQpsF1sCz8luY6QQO7i1WuLPEI-_jM"
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
   const zoomLevel = isAppointmentsArray ? 14 : 15;
   // console.log("map appointment", appointments)
 
@@ -253,7 +253,7 @@ const infoWindowStyle = {
                             </Grid>
                             <Grid xs={12}>
                                 <div className="map-block__detail">
-                                    <Button onClick={handleOpenDetailModal} variant='contained' sx={buttonOffDark} size='small' className="map-block__detail__button">
+                                    <Button onClick={handleOpenDetailModal} variant='contained' sx={buttonOffDark} className="map-block__detail__button">
                                         <div className="map-block__detail__button__text">See details</div>
                                     </Button>
                                     <AppointmentDetail appointmentId={appointment.id} openDetailModal={openDetailModal} closeDetailModal={handleCloseDetailModal} load={loadModal}/>
@@ -306,8 +306,8 @@ const infoWindowStyle = {
     <div 
       style={style}
     >
+      {apiKey && (
       <LoadScriptNext googleMapsApiKey={apiKey}>
-
         <GoogleMap
           mapContainerStyle={style || { width: '300px', height: '300px' }}
           center={mapCenter}
@@ -322,6 +322,7 @@ const infoWindowStyle = {
           }  */}
         </GoogleMap>
       </LoadScriptNext>
+      )}
       {appointments && appointments.length > 0 && (
         <div >
           <Box display="flex" justifyContent="center" alignItems="center" gap={2}>

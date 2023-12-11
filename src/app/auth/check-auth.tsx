@@ -28,7 +28,7 @@ export default function CheckAuth(): JSX.Element {
 
         // Retrieve user data from backend database
         // const url: string = `http://localhost:8080/user/${user.uid}`;
-        const url: string = ` https://senior-project-server-8090ce16e15d.herokuapp.com/user/${user.uid}`;
+        const url: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/user/${user.uid}`;
         const userData = await axios.get(url);
         // console.log(userData);
 

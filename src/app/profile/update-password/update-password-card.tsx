@@ -33,12 +33,12 @@ export default function UpdatePasswordCard(): JSX.Element {
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        // width: 400,
         bgcolor: 'background.paper',
         borderRadius: 2,
         // border: '2px solid #000',
         boxShadow: 2,
-        p: 4,
+        // p: 4,
     };
 
     function confirmWindowHandleOpen(e: any): void {
@@ -112,10 +112,9 @@ export default function UpdatePasswordCard(): JSX.Element {
                 </Box>
             </Modal>
             <div className="update-password__container__info">
-                <h1 className="update-password__header">Change Password</h1>
+                <h1 className="update-password__container__info__header">Change Password</h1>
                 <p>Please input your old password and new password</p>
-                <form className='update-password__form' onSubmit={confirmWindowHandleOpen}>
-                    {/* <label className='update-password__label'>Old password:</label> */}
+                <Box className='update-password__container__info__form' onSubmit={confirmWindowHandleOpen}>
                     <TextField 
                         label='Old password'
                         variant="outlined"
@@ -123,9 +122,8 @@ export default function UpdatePasswordCard(): JSX.Element {
                         value={oldPassword} 
                         onChange={(e) => setOldPassword(e.target.value)} 
                         required 
-                        className='update-password__input' 
+                        className='update-password__container__info__form__input' 
                     />
-                    {/* <label className='update-password__label'>New password:</label> */}
                     <TextField 
                         label='New password'
                         variant="outlined"
@@ -133,15 +131,15 @@ export default function UpdatePasswordCard(): JSX.Element {
                         value={newPassword} 
                         onChange={(e) => setNewPassword(e.target.value)} 
                         required 
-                        className='update-password__input' 
+                        className='update-password__container__info__form__input' 
                     />
-                    <div className="update-password__button-box">
-                        <Button type='submit' variant="contained" sx={buttonOffDark} className="update-password__button-box__button">Confirm</Button>
+                    <div className="update-password__container__info__form__button-box">
+                        <Button type='submit' variant="contained" sx={buttonOffDark} className="update-password__container__info__form__button-box__button">Confirm</Button>
                         <Link href='/profile'>
-                            <Button variant="contained" sx={buttonWhite} className="update-password__button-box__button">Cancel</Button>
+                            <Button variant="contained" sx={buttonWhite} className="update-password__container__info__form__button-box__button">Cancel</Button>
                         </Link>
                     </div>
-                </form>
+                </Box>
             </div>
         </Paper>
     );
