@@ -80,12 +80,12 @@ export default function DeleteAccountCard(): JSX.Element {
                 }).catch((error) => {
                     // An error ocurred
                     console.log(error);
-                    alert('Failed to delete account');
+                    // alert('Failed to delete account');
                 });
             }).catch((error) => {
                 // An error ocurred
                 console.log(error);
-                alert('Failed to delete account');
+                // alert('Failed to delete account');
             });
         }
     }

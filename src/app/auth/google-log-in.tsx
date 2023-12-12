@@ -52,7 +52,7 @@ export default function GoogleLogIn(): JSX.Element {
               await axios.post(url2, newUserData)
                 .then(res => {
                   // console.log(res);
-                  alert(res.data);
+                  // alert(res.data);
                 })
                 .catch(error => console.log(error)); 
             }

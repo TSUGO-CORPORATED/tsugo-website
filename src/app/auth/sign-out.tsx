@@ -25,7 +25,7 @@ export default function SignOut() {
         setUserEmail('noEmail');
         setUserPhotoUrl('noPhotoUrl');
 
-        alert('sign out successful');
+        // alert('sign out successful');
 
         // push to homepage
         router.push('/');
