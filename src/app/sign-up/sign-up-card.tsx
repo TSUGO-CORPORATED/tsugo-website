@@ -99,6 +99,7 @@ export default function SignUpCard(): JSX.Element {
           .then(res => {
             // console.log(res);
             // alert(res.data);
+            alert("Account successfully created, please log-in");
           })
           .catch(error => console.log(error)); 
 
