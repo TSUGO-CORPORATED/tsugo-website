@@ -310,7 +310,7 @@ export default function CreateAppointment () {
         appointmentNote: note,
         locationAddress: address,
       };
-      console.log("reqData", requestData);
+      // console.log("reqData", requestData);
       await axios.post(
         `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment`,
         requestData

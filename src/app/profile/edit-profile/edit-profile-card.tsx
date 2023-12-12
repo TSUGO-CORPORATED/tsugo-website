@@ -64,8 +64,8 @@ export default function EditProfile() {
             // setProficiencyUpdate(fetchUserProfile.data.userLanguage[0].proficiency);
             // setCertificationUpdate(fetchUserProfile.data.userLanguage[0].certifications);
             
-            console.log("lu",fetchUserProfile.data.userLanguage[0])
-            console.log("user profile: ", fetchUserProfile.data)
+            // console.log("lu",fetchUserProfile.data.userLanguage[0])
+            // console.log("user profile: ", fetchUserProfile.data)
         } catch(error) {
             console.log("error: ", error);
         }

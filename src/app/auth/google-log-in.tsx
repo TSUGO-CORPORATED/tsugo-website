@@ -6,14 +6,17 @@ import axios from "axios"
 import { useRouter } from 'next/navigation';
 import GoogleIcon from '@mui/icons-material/Google';
 import Button from '@mui/material/Button';
+import { usePathname } from 'next/navigation';
 
 export default function GoogleLogIn(): JSX.Element {
     const router = useRouter();
     const provider = new GoogleAuthProvider();
     auth.useDeviceLanguage();
+    const pathname = usePathname();
+    console.log(pathname);
 
     async function googleSignUp(): Promise<void> {
-        console.log('test')
+        // console.log('test')
 
 
     
@@ -35,6 +38,7 @@ export default function GoogleLogIn(): JSX.Element {
             // const url1: string = `http://localhost:8080/user/check/${user.email}`;
             const url1: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/user/check/${user.email}`;
             const checkUserAvailability: boolean = await axios.get(url1).then(res => res.data);
+            // console.log(checkUserAvailability);
             if (!checkUserAvailability) {
               // Registering user to the backend
               const firstName = user.displayName?.split(" ", 2)[0];
@@ -46,6 +50,7 @@ export default function GoogleLogIn(): JSX.Element {
                 firstName: firstName,
                 lastName: lastName,
               };
+              // console.log(newUserData);
       
               // const url2: string = 'http://localhost:8080/user';
               const url2: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/user`;
@@ -53,11 +58,13 @@ export default function GoogleLogIn(): JSX.Element {
                 .then(res => {
                   // console.log(res);
                   // alert(res.data);
+
+                  router.push('/dashboard');
                 })
                 .catch(error => console.log(error)); 
             }
     
-            router.push('/dashboard');
+
     
         }).catch((error) => {
             // Handle Errors here.
@@ -68,6 +75,8 @@ export default function GoogleLogIn(): JSX.Element {
             // The AuthCredential type that was used.
             const credential = GoogleAuthProvider.credentialFromError(error);
             // ...
+
+            console.log(error);
         });
     }
 
@@ -93,8 +102,8 @@ export default function GoogleLogIn(): JSX.Element {
           width: '100%',
           justifyContent: 'center', 
       }}
-  >
-      Sign up with Google
-  </Button>
+      >
+        {pathname === '/log-in' ? 'Sign-in with Google' : 'Sign-up with Google'}
+      </Button>
     )
 }

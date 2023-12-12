@@ -63,7 +63,7 @@ export default function UpdatePasswordCard(): JSX.Element {
             // console.log(oldPassword);
             // console.log(credential);
             reauthenticateWithCredential(user, credential).then(() => {
-                console.log('verified');
+                // console.log('verified');
                 // If user re-authenticated, change password
                 updatePassword(user, newPassword).then(() => {
                     // Update successful.
