@@ -84,7 +84,7 @@ export default function SignUpCard(): JSX.Element {
       .then(async (userCredintial) => {
         // Indicate success
         // console.log(userCredintial);
-        alert("Create user successful in firebase");
+        // alert("Create user successful in firebase");
 
         // Registering user to the backend
         const newUserData = {
@@ -98,7 +98,7 @@ export default function SignUpCard(): JSX.Element {
         await axios.post(url, newUserData)
           .then(res => {
             // console.log(res);
-            alert(res.data);
+            // alert(res.data);
           })
           .catch(error => console.log(error)); 
 

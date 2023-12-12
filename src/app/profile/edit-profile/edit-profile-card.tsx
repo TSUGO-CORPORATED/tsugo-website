@@ -125,7 +125,7 @@ export default function EditProfile() {
         };
         // console.log(updateProfileData)
         const returnedData = await axios.put(url, updateProfileData).catch(error => {
-            window.alert(error.response.data);
+            // window.alert(error.response.data);
         });
         // setUpdated(true);
 

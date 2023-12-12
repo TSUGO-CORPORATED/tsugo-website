@@ -306,7 +306,7 @@ function confirmWindowHandleClose(): void {
       const url: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment`;
       await axios.put(url, data);
 
-      alert("Appointment update successfully!");
+      // alert("Appointment update successfully!");
       router.push(`/dashboard`);
     } catch (error) {
       console.error("Error sending request: ", error);

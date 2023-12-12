@@ -44,8 +44,8 @@ export default function ReviewCard() {
         console.log("reveiwdata", reviewData);
         const url: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment/review`;
         await axios.patch(url, reviewData);
-        alert('Review submitted successfully!');
-        router.push(`/appointment-detail?appointmentId=${appointmentId}`);
+        // alert('Review submitted successfully!');
+        router.push(`/dashboard`);
     };
 
     useEffect(() => {
@@ -69,7 +69,7 @@ export default function ReviewCard() {
                 <ArrowBackIcon sx={{fontSize: "32px"}}/>
             </Link>
             <h1 className='review__header'>Review</h1>
-            <Box className='review__form' onSubmit={submitReview}>
+            <Box component='form' className='review__form' onSubmit={submitReview}>
                 {/* <label>Rating</label>
                 <select value={reviewRating} onChange={(e) => setReviewRating(Number(e.target.value))} required>
                 <option disabled> -- Select Rating -- </option>
