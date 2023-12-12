@@ -76,7 +76,7 @@ export default function ChatRoomSub(): React.JSX.Element{
     const initInterlocutorName = async () => {
         try {
             const timeframe = "history"; 
-            const url = `https://senior-project-server-8090ce16e15d.herokuapp.com/appointment/detail/${appointmentId}`;
+            const url = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment/detail/${appointmentId}`;
             const response = await axios.get(url);
             console.log(response)
             if(response.data.clientUserId == userId) {
