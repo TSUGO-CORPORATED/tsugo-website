@@ -15,6 +15,7 @@ import { buttonWhite, buttonOffMid } from '@/muistyle';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
+
 export default function ReviewCard() {
     // STATE VARIABLES
     const [reviewThumb, setReviewThumb] = useState<boolean | undefined>();
