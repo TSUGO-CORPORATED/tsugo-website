@@ -237,7 +237,7 @@ export default function UpdateAppointmentCard() {
     const url: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment/detail/${appointmentId}`;
     const retrievedData = await axios.get(url);
     const data: AppointmentDetail = retrievedData.data;
-    console.log("detail", data);
+    // console.log("detail", data);
 
     // const processedDateTime = data.appointmentDateTime.substring(0, 16);
     // appointmentTitle: appointmentTitle,
@@ -301,7 +301,7 @@ function confirmWindowHandleClose(): void {
         locationLongitude: locationCoordinates?.lng,
         appointmentNote: appointmentNote,
       };
-      console.log("update", data);
+      // console.log("update", data);
 
       const url: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment`;
       await axios.put(url, data);
@@ -329,7 +329,7 @@ function confirmWindowHandleClose(): void {
       }
 
       const { lat, lng } = response.data.results[0].geometry.location;
-      console.log({ lat, lng });
+      // console.log({ lat, lng });
       setError("");
       setLocationCoordinates({ lat, lng });
       return true;
@@ -363,7 +363,7 @@ function confirmWindowHandleClose(): void {
       }
 
       const fetchedAddress = response.data.results[0].formatted_address;
-      console.log(fetchedAddress);
+      // console.log(fetchedAddress);
       setLocationAddress(fetchedAddress);
     } catch (error) {
       console.error("Error fetching address: ", error);
