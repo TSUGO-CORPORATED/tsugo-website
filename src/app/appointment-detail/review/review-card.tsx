@@ -41,7 +41,7 @@ export default function ReviewCard() {
             reviewThumb: reviewThumb,
             reviewNote: reviewNote,
         }
-        console.log("reveiwdata", reviewData);
+        // console.log("reveiwdata", reviewData);
         const url: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment/review`;
         await axios.patch(url, reviewData);
         // alert('Review submitted successfully!');
@@ -49,7 +49,7 @@ export default function ReviewCard() {
     };
 
     useEffect(() => {
-        console.log("thumb",reviewThumb);
+        // console.log("thumb",reviewThumb);
     }, [reviewThumb]);
 
     const handleThumbClick = (isThumbUp: boolean) => {

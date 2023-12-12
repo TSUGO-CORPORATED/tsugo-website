@@ -64,7 +64,7 @@ export default function DeleteAccountCard(): JSX.Element {
             // console.log(oldPassword);
             // console.log(credential);
             reauthenticateWithCredential(user, credential).then(() => {
-                console.log('verified');
+                // console.log('verified');
                 // If user re-authenticated, change password
                 deleteUser(user).then(async () => {
                     // Delete in the back end database         
