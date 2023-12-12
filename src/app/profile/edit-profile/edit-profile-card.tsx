@@ -142,7 +142,7 @@ export default function EditProfile() {
     return (
         <Paper elevation={3} className='edit-profile-container'>
             <Link href="/profile" className='profile-container__back-button'>
-                <ArrowBackIcon className='profile-container__back-button__icon'/>
+                <ArrowBackIcon sx={{fontSize: "32px"}}/>
             </Link>
             <Modal
                 open={confirmWindowOpen}

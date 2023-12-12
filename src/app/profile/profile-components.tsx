@@ -132,7 +132,7 @@ export default function Profile() {
     return (
         <Paper elevation={3} className='profile-container'>
             <Link href="/dashboard" className='profile-container__back-button'>
-                <ArrowBackIcon className='profile-container__back-button__icon'/>
+                <ArrowBackIcon sx={{fontSize: "32px"}}/>
             </Link>
             <div className='profile-container__info'>
                 <h1 className='profile-container__header'>{userProfile?.firstName} {userProfile?.lastName}</h1>

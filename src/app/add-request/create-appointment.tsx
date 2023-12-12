@@ -350,7 +350,7 @@ export default function CreateAppointment () {
         }}
       >
       <Link href="/dashboard" className='add-request__back-button'>
-        <ArrowBackIcon className='add-request__back-button__icon'/>
+        <ArrowBackIcon sx={{fontSize: "32px"}}/>
       </Link>
 
         <Typography variant="h3" sx={{ textAlign: "center", mb: 2, fontWeight: "bold", fontSize: { xs: '1.5rem', md: '1.5rem' } }}>

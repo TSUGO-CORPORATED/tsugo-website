@@ -65,7 +65,7 @@ export default function ReviewCard() {
     return (
         <Paper className='review__container' elevation={3}>
             <Link href="/dashboard" className='review__back-button'>
-                <ArrowBackIcon className='review__back-button__icon'/>
+                <ArrowBackIcon sx={{fontSize: "32px"}}/>
             </Link>
             <h1 className='review__header'>Review</h1>
             <Box className='review__form' onSubmit={submitReview}>
