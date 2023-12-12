@@ -157,7 +157,7 @@ export default function CreateAppointment () {
       "Others",
     ],
     "Municipal Services": [
-      "Resident Registration and Civil Status Procedures",
+      "Resident Registration",
       "Passport and ID Renewal",
       "Taxes and Local Tax Consultation",
       "Public Service Applications",
