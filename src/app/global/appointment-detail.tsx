@@ -97,7 +97,7 @@ export default function AppointmentDetail({appointmentId, openDetailModal, close
     async function getAppointmentDetail(): Promise<void> {
         const url: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/appointment/detail/${appointmentId}`;
         const retrievedData = await axios.get(url);
-        console.log(retrievedData.data);
+        // console.log(retrievedData.data);
         setAppointmentDetail(retrievedData.data);
     }
 

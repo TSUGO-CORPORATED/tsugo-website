@@ -48,7 +48,7 @@ export default function HistoryCard() {
       // console.log(userId)
       // console.log(role)
       // console.log(url);
-      console.log("history",response.data);
+      // console.log("history",response.data);
       setHistory(response.data);
     } catch (error) {
       console.error("Error fetching History:", error);
