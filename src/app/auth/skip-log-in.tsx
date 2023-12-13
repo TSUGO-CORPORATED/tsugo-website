@@ -10,14 +10,17 @@ export default function SkipLogIn() {
   const router = useRouter();
 
   useEffect(() => {
-    const listen = onAuthStateChanged(auth, (user: any) => {
-      // console.log(user);
-      if (user) router.push('/dashboard');
-    });
+    // console.log(auth);
+    if (auth.currentUser) router.push('/dashboard');
 
-    return () => {
-      listen();
-    }
+    // This is a broken feature applied as it keeps listening to log in, interfering with sign up
+    // const listen = onAuthStateChanged(auth, (user: any) => {
+    //   console.log(user);
+    //   if (user) router.push('/dashboard');
+    // });
+    // return () => {
+    //   listen();
+    // }
       // this unmount the listen function so that it does not have to be run twice
   }, []);
 
