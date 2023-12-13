@@ -13,7 +13,7 @@ export default function GoogleLogIn(): JSX.Element {
     const provider = new GoogleAuthProvider();
     auth.useDeviceLanguage();
     const pathname = usePathname();
-    console.log(pathname);
+    // console.log(pathname);
 
     async function googleSignUp(): Promise<void> {
         // console.log('test')
@@ -54,17 +54,15 @@ export default function GoogleLogIn(): JSX.Element {
       
               // const url2: string = 'http://localhost:8080/user';
               const url2: string = `${process.env.NEXT_PUBLIC_DATABASE_SERVER_URL}/user`;
-              await axios.post(url2, newUserData)
-                .then(res => {
-                  // console.log(res);
-                  // alert(res.data);
-
-                  router.push('/dashboard');
-                })
-                .catch(error => console.log(error)); 
+              const response = await axios.post(url2, newUserData);
+                // .then(res => {
+                //   console.log(res);
+                //   alert(res.data);
+                // })
+                // .catch(error => console.log(error)); 
+              console.log(response);
             }
-    
-
+            router.push('/dashboard');
     
         }).catch((error) => {
             // Handle Errors here.
