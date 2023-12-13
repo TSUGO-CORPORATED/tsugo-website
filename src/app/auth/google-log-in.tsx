@@ -60,7 +60,7 @@ export default function GoogleLogIn(): JSX.Element {
                 //   alert(res.data);
                 // })
                 // .catch(error => console.log(error)); 
-              console.log(response);
+              // console.log(response);
             }
             router.push('/dashboard');
     
