@@ -1,4 +1,20 @@
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+    <h3 align="center">Tsugo</h3>
+
+  <p align="center">
+    Making language support always "Tsugo" for you!
+  </p>
+</div>
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Table of Contents
+
+
+## Description
+
 
 ## Getting Started
 
