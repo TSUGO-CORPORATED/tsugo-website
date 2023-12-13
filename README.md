@@ -47,7 +47,7 @@ If you have any suggestions that would make this app better, please contact us a
 <!-- CONTACT -->
 ## Contact
 
-Email - jacareview@gmail.com
+Email - tsugo.corporated@gmail.com
 
 Project URL: [www.tsugo.online](www.tsugo.online)
 
