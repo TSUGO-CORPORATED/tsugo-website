@@ -9,7 +9,7 @@ import axios from 'axios';
 import { usePathname } from 'next/navigation';
 
 export default function CheckAuth(): JSX.Element {
-  const router = useRouter();
+  // const router = useRouter();
   const { userUid, setUserId, setUserUid, setUserFirstName, setUserLastName, setUserEmail, setUserPhotoUrl } = useContext(ContextVariables);
   const pathname = usePathname();
   // const { userId, userFirstName, userLastName, userPhotoUrl } = useContext(ContextVariables);
@@ -41,7 +41,7 @@ export default function CheckAuth(): JSX.Element {
         if (user.photoURL) setUserPhotoUrl(user.photoURL);
       } else if (!user) {
         // Redirect to sign in if there is no log in, unless if it is in homepage
-        if (pathname !== '/') router.push("/log-in");
+        // if (pathname !== '/') router.push("/log-in");
       }
     });
 
