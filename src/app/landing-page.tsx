@@ -13,9 +13,9 @@ export default function LandingPage(): JSX.Element {
     return (
         <div className='home__landing-page'>
             <div className='home__landing-page__header-group'>
-                <h1 className='home__landing-page__header-group__text' id='home__landing-page__header__text__welcome'>Welcome</h1>
-                {/* <h1 className='home__landing-page__header-group__text' id='home__landing-page__header__text__to'> to </h1>
-                <h1 className='home__landing-page__header-group__text' id='home__landing-page__header__text__tsugo'>Tsugo</h1> */}
+                <h1 className='home__landing-page__header-group__text' id='home__landing-page__header__text__welcome' data-testid='heading-welcome'>Welcome</h1>
+                <h1 className='home__landing-page__header-group__text' id='home__landing-page__header__text__to' data-testid='heading-to'> to </h1>
+                <h1 className='home__landing-page__header-group__text' id='home__landing-page__header__text__tsugo' data-testid='heading-tsugo'>Tsugo</h1>
             </div>
             <p className='home__landing-page__slogan'>Where Connections Blossom - Making Language Support Always "Tsugo" for You!</p>
             {/* <Box
@@ -34,7 +34,7 @@ export default function LandingPage(): JSX.Element {
                     }
                 }}
             /> */}
-            <Link href="/log-in" className='home__landing-page__log-in-link'><Button variant='contained' sx={buttonOffLight}><p className='home-page__login__div'>Get Started</p></Button></Link>
+            <Link href="/log-in" className='home__landing-page__log-in-link' data-testid='link'><Button variant='contained' sx={buttonOffLight}><p className='home-page__login__div'>Get Started</p></Button></Link>
             <video className='home__landing-page__video' autoPlay loop muted playsInline controls={false}>
                 <source src='/videos/sakura.mp4' />
                 Your browser does not support the video tag.
