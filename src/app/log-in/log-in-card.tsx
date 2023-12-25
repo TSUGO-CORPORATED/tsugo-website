@@ -8,22 +8,23 @@ import { useState,useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import GoogleLogIn from '../auth/google-log-in';
-import { TextField,Divider,  Button,  Typography,  Paper,  Box,  InputAdornment,  Snackbar,  Alert,} from "@mui/material";
+import { TextField, Divider,  Button,  Typography,  Paper,  Box,  InputAdornment,  Snackbar,  Alert,} from "@mui/material";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { SnackbarCloseReason } from "@mui/material/Snackbar";
-import GoogleIcon from "@mui/icons-material/Google";
 import { buttonBlack, buttonOffDark } from "@/muistyle";
-import CircularProgress from '@mui/material/CircularProgress';
+import LogInForm from './log-in-form';
+// import CircularProgress from '@mui/material/CircularProgress';
 
-function preloadImage(src:any) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.src = src;
-    img.onload = resolve;
-    img.onerror = reject;
-  });
-}
+// Feature for rendering random image is currently disabled
+// function preloadImage(src:any) {
+//   return new Promise((resolve, reject) => {
+//     const img = new Image();
+//     img.src = src;
+//     img.onload = resolve;
+//     img.onerror = reject;
+//   });
+// }
 
 
 // PAGE COMPONENT
@@ -32,56 +33,54 @@ export default function LogInCard(): JSX.Element {
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [open, setOpen] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
-  const [alertSeverity, setAlertSeverity] = useState("success");
-  const [randomImage, setRandomImage] = useState('')
-  const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState<boolean>(false);
+  const [alertMessage, setAlertMessage] = useState<string>("");
+  const [alertSeverity, setAlertSeverity] = useState<string>("success");
+  // const [randomImage, setRandomImage] = useState<string>('')
+  // const [loading, setLoading] = useState<boolean>(true);
 
   const router = useRouter();
-  const images = [
-    '/randompics/1.jpg',
-    '/randompics/2.jpg',
-    '/randompics/3.jpg',
-    '/randompics/4.jpg',
- 
-    '/randompics/6.jpg',
-    '/randompics/7.jpg',
-    '/randompics/8.jpg',
-    '/randompics/9.jpg',
-    '/randompics/10.jpg',
-    '/randompics/11.jpg',
-    '/randompics/12.jpg',
-    '/randompics/13.jpg',
-    '/randompics/14.jpg',
-    '/randompics/15.jpg',
-    '/randompics/16.jpg',
-    '/randompics/17.jpg',
-    '/randompics/18.jpg',
-    '/randompics/19.jpg',
-    '/randompics/20.jpg',
-    '/randompics/21.jpg',
-    '/randompics/22.jpg',
-    '/randompics/23.jpg',
-    '/randompics/24.jpg',
-    '/randompics/25.jpg',
-   
-  ];
+  // const images = [
+  //   '/randompics/1.jpg',
+  //   '/randompics/2.jpg',
+  //   '/randompics/3.jpg',
+  //   '/randompics/4.jpg',
+  //   '/randompics/6.jpg',
+  //   '/randompics/7.jpg',
+  //   '/randompics/8.jpg',
+  //   '/randompics/9.jpg',
+  //   '/randompics/10.jpg',
+  //   '/randompics/11.jpg',
+  //   '/randompics/12.jpg',
+  //   '/randompics/13.jpg',
+  //   '/randompics/14.jpg',
+  //   '/randompics/15.jpg',
+  //   '/randompics/16.jpg',
+  //   '/randompics/17.jpg',
+  //   '/randompics/18.jpg',
+  //   '/randompics/19.jpg',
+  //   '/randompics/20.jpg',
+  //   '/randompics/21.jpg',
+  //   '/randompics/22.jpg',
+  //   '/randompics/23.jpg',
+  //   '/randompics/24.jpg',
+  //   '/randompics/25.jpg',
+  // ];
   
-  useEffect(() => {
-    const loadingImages = async () => {
-      try {
-        await Promise.all(images.map(image => preloadImage(image)));
-        const randomIndex = Math.floor(Math.random() * images.length);
-        setRandomImage(images[randomIndex]);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error loading images:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const loadingImages = async () => {
+  //     try {
+  //       await Promise.all(images.map(image => preloadImage(image)));
+  //       const randomIndex = Math.floor(Math.random() * images.length);
+  //       setRandomImage(images[randomIndex]);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error("Error loading images:", error);
+  //     }
+  //   };
 
-    loadingImages();  }, []);
-
+  //   loadingImages();  
+  // }, []);
 
   async function logIn(e: any): Promise<void> {
     e.preventDefault();
@@ -120,9 +119,9 @@ export default function LogInCard(): JSX.Element {
     setOpen(false);
   };
 
-  if (loading) {
-    return <CircularProgress />; 
-  }
+  // if (loading) {
+  //   return <CircularProgress />; 
+  // }
   return (
     <Box
       sx={{
@@ -147,6 +146,7 @@ export default function LogInCard(): JSX.Element {
           backgroundPosition: "center",
         }}
         src='/logo.png'
+        data-testid='logo'
       />
       <Box
         // elevation={5}
@@ -163,80 +163,17 @@ export default function LogInCard(): JSX.Element {
           justifyContent: "center",
         }}
       >
-        <Typography variant="h4" sx={{ textAlign: "center", mb: 2, fontSize: {xs: "20px", md: "34px"}  }}>
+        <Typography 
+          variant="h4" 
+          sx={{ textAlign: "center", mb: 2, fontSize: {xs: "20px", md: "34px"}  
+          }}
+          data-testid='heading'
+        >
           Log In to Your Account
         </Typography>
         <GoogleLogIn />
         <Divider sx={{ my: 2 }} />
-        <Box
-          component="form"
-          onSubmit={logIn}
-          sx={{ display: "flex", flexDirection: "column", gap: 3 }}
-        >
-          <TextField
-            label="Email"
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <MailOutlineIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            label="Password"
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LockOutlinedIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{
-              ...buttonOffDark,
-              textTransform: "none",
-              width: "100%",
-              height: "56px",
-              borderRadius: "4px",
-              fontSize: '18px'
-            }}
-          >
-            Log In
-          </Button>
-        </Box>
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
-          <Typography>Don't have an account?</Typography>
-          <Link href="/sign-up">
-            <Typography
-              sx={{
-                ml: 1,
-                color: "primary.main",
-                cursor: "pointer",
-                textDecoration: "none",
-                "&:hover": {
-                    
-                  color: "secondary.main", 
-                },
-              }}
-            >
-              Sign Up
-            </Typography>
-          </Link>
-        </Box>
+        <LogInForm handleSubmit={logIn} email={email} password={password} setEmail={setEmail} setPassword={setPassword}/>
         <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
             {alertMessage}

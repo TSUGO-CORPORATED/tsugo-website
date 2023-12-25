@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 }
 
 // PAGE COMPONENT
-export default function LogIn(): JSX.Element {
+export default async function LogIn() {
   return (
       <div className="log-in">
         <SkipLogIn />

@@ -1,8 +1,7 @@
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
-import LandingPage from '../src/app/landing-page';
+import LandingPage from '@/app/landing-page';
 import CheckAuth from '@/app/auth/check-auth';
-import useRouter from 'next/navigation';
 import React, { ReactElement } from 'react';
 
 
@@ -20,29 +19,6 @@ jest.mock('next/navigation', () => ({
   },
 }));
 
-
-describe("Test button to log-in", () => {
-  test('should exist', () => {
-    render(<LandingPage />);
-    const button = screen.getByRole('button');
-    expect(button).toBeInTheDocument();
-  });
-
-  describe('links', () => {
-    jest.mock(
-      'next/link',
-      () =>
-        ({ children, ...rest }: { children: ReactElement }) =>
-          React.cloneElement(children, { ...rest }),
-    );
-
-    it('should redirect to / when clicking on "The React Parks" text', () => {
-      render(<LandingPage />);
-      const button = screen.getByTestId('link');
-      expect(button.getAttribute('href')).toBe('/log-in');
-    })
-  });
-});
 
 describe('Check landing page components', () => {
   test('render the landing page component succesfully', () => {
@@ -75,4 +51,27 @@ describe('Check landing page components', () => {
     expect(headingTsugo).toHaveTextContent('Tsugo');
     expect(description).toBeVisible();
   })
+});
+
+describe("Test button to log-in", () => {
+  test('should exist', () => {
+    render(<LandingPage />);
+    const button = screen.getByRole('button');
+    expect(button).toBeInTheDocument();
+  });
+
+  describe('links', () => {
+    // jest.mock(
+    //   'next/link',
+    //   () =>
+    //     ({ children, ...rest }: { children: ReactElement }) =>
+    //       React.cloneElement(children, { ...rest }),
+    // );
+
+    it('should redirect to / when clicking on "The React Parks" text', () => {
+      render(<LandingPage />);
+      const button = screen.getByTestId('link');
+      expect(button.getAttribute('href')).toBe('/log-in');
+    })
+  });
 });
