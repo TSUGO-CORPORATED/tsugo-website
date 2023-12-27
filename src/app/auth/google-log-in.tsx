@@ -100,6 +100,7 @@ export default function GoogleLogIn(): JSX.Element {
           width: '100%',
           justifyContent: 'center', 
       }}
+      data-testid='google-button'
       >
         {pathname === '/log-in' ? 'Sign-in with Google' : 'Sign-up with Google'}
       </Button>

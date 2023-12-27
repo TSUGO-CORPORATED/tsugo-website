@@ -68,7 +68,7 @@ describe("Test button to log-in", () => {
     //       React.cloneElement(children, { ...rest }),
     // );
 
-    it('should redirect to / when clicking on "The React Parks" text', () => {
+    test('should redirect to /log-in', () => {
       render(<LandingPage />);
       const button = screen.getByTestId('link');
       expect(button.getAttribute('href')).toBe('/log-in');

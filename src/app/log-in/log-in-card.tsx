@@ -5,14 +5,10 @@ import React, { SyntheticEvent, } from "react";
 import { auth } from '../../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState,useEffect } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import GoogleLogIn from '../auth/google-log-in';
 import { TextField, Divider,  Button,  Typography,  Paper,  Box,  InputAdornment,  Snackbar,  Alert,} from "@mui/material";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { SnackbarCloseReason } from "@mui/material/Snackbar";
-import { buttonBlack, buttonOffDark } from "@/muistyle";
 import LogInForm from './log-in-form';
 // import CircularProgress from '@mui/material/CircularProgress';
 

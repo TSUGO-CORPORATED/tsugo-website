@@ -9,21 +9,19 @@ import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import axios from 'axios';
 import GoogleLogIn from '../auth/google-log-in';
 import { TextField,Divider, Button, Typography, Paper, Box, InputAdornment} from '@mui/material';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import { buttonBlack, buttonOffDark } from '@/muistyle';
-import CircularProgress from '@mui/material/CircularProgress';
+import SignUpForm from './sign-up-form';
+import SignUp from './page';
+// import CircularProgress from '@mui/material/CircularProgress';
 
-
-function preloadImage(src:any) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.src = src;
-    img.onload = resolve;
-    img.onerror = reject;
-  });
-}
+// Feature for rendering random image is currently disabled
+// function preloadImage(src:any) {
+//   return new Promise((resolve, reject) => {
+//     const img = new Image();
+//     img.src = src;
+//     img.onload = resolve;
+//     img.onerror = reject;
+//   });
+// }
 
 // PAGE COMPONENT
 export default function SignUpCard(): JSX.Element {
@@ -31,40 +29,37 @@ export default function SignUpCard(): JSX.Element {
   const [password, setPassword] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
-  const [randomImage, setRandomImage] = useState('')
-  const [loading, setLoading] = useState(true);
+  // const [randomImage, setRandomImage] = useState('')
+  // const [loading, setLoading] = useState(true);
 
   const router = useRouter();
 
-
-  const images = [
-    '/randompics/1.jpg',
-    '/randompics/2.jpg',
-    '/randompics/3.jpg',
-    '/randompics/4.jpg',
- 
-    '/randompics/6.jpg',
-    '/randompics/7.jpg',
-    '/randompics/8.jpg',
-    '/randompics/9.jpg',
-    '/randompics/10.jpg',
-    '/randompics/11.jpg',
-    '/randompics/12.jpg',
-    '/randompics/13.jpg',
-    '/randompics/14.jpg',
-    '/randompics/15.jpg',
-    '/randompics/16.jpg',
-    '/randompics/17.jpg',
-    '/randompics/18.jpg',
-    '/randompics/19.jpg',
-    '/randompics/20.jpg',
-    '/randompics/21.jpg',
-    '/randompics/22.jpg',
-    '/randompics/23.jpg',
-    '/randompics/24.jpg',
-    '/randompics/25.jpg',
-   
-  ];
+  // const images = [
+  //   '/randompics/1.jpg',
+  //   '/randompics/2.jpg',
+  //   '/randompics/3.jpg',
+  //   '/randompics/4.jpg',
+  //   '/randompics/6.jpg',
+  //   '/randompics/7.jpg',
+  //   '/randompics/8.jpg',
+  //   '/randompics/9.jpg',
+  //   '/randompics/10.jpg',
+  //   '/randompics/11.jpg',
+  //   '/randompics/12.jpg',
+  //   '/randompics/13.jpg',
+  //   '/randompics/14.jpg',
+  //   '/randompics/15.jpg',
+  //   '/randompics/16.jpg',
+  //   '/randompics/17.jpg',
+  //   '/randompics/18.jpg',
+  //   '/randompics/19.jpg',
+  //   '/randompics/20.jpg',
+  //   '/randompics/21.jpg',
+  //   '/randompics/22.jpg',
+  //   '/randompics/23.jpg',
+  //   '/randompics/24.jpg',
+  //   '/randompics/25.jpg',
+  // ];
 
   async function passwordSignUp(e: any): Promise<void> {
     e.preventDefault();
@@ -118,24 +113,25 @@ export default function SignUpCard(): JSX.Element {
       });
   }
 
-  useEffect(() => {
-    const loadingImages = async () => {
-      try {
-        await Promise.all(images.map(image => preloadImage(image)));
-        const randomIndex = Math.floor(Math.random() * images.length);
-        setRandomImage(images[randomIndex]);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error loading images:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const loadingImages = async () => {
+  //     try {
+  //       await Promise.all(images.map(image => preloadImage(image)));
+  //       const randomIndex = Math.floor(Math.random() * images.length);
+  //       setRandomImage(images[randomIndex]);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error("Error loading images:", error);
+  //     }
+  //   };
 
-    loadingImages();  }, []);
+  //   loadingImages();  
+  // }, []);
 
 
-if (loading) {
-  return <CircularProgress />; 
-    }    
+  // if (loading) {
+  //   return <CircularProgress />; 
+  // }    
   return (
     <Box
       sx={{
@@ -149,6 +145,7 @@ if (loading) {
         margin: "0 auto",
         flexDirection: { xs: "column", md: "row" }, 
       }}
+      data-testid='cardContainer'
     >
       <Box
         component="img"
@@ -161,6 +158,7 @@ if (loading) {
           borderRadius: "16px 0 0 16px", 
         }}
         src='/logo.png'
+        data-testid='logo'
       />
       <Box
         // elevation={3}
@@ -189,90 +187,19 @@ if (loading) {
           // }
         }}
       >
-        <Typography variant="h4" sx={{ textAlign: "center", mb: 2, mt: { xs: 1, md: 1 }, fontSize: {xs: "30px", md: "34px"} }}>
+        <Typography 
+          variant="h4" 
+          sx={{ textAlign: "center", mb: 2, mt: { xs: 1, md: 1 }, fontSize: {xs: "30px", md: "34px"} }}
+          data-testid='heading'
+        >
           Create Account
         </Typography>
         <GoogleLogIn />
         <Divider sx={{ my: 2 }} />
-        <Box component="form" onSubmit={passwordSignUp} sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-          <TextField
-            label="Email"
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <MailOutlineIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            label="Password"
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LockOutlinedIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            label="First Name"
-            type="text"
-            placeholder="Enter your first name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <PersonOutlineIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            label="Last Name"
-            type="text"
-            placeholder="Enter your last name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <PersonOutlineIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{
-              ...buttonOffDark,
-              textTransform: "none",
-              width: "100%",
-              height: "56px",
-              borderRadius: "4px", 
-              fontSize: '18px'
-            }}
-          >
-            Sign Up
-          </Button>
-        </Box>
+        <SignUpForm handleSubmit={passwordSignUp} email={email} password={password} firstName={firstName} lastName={lastName} setEmail={setEmail} setPassword={setPassword} setFirstName={setFirstName} setLastName={setLastName}/>
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-          <Typography>Already have an account?</Typography>
-          <Link href="/log-in">
+          <Typography data-testid='haveAccountText'>Already have an account?</Typography>
+          <Link href="/log-in" data-testid='logInLink'>
             <Typography
               sx={{
                 ml: 1,
