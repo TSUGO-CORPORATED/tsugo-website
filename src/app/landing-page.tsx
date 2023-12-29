@@ -3,12 +3,18 @@
 // MODULES IMPORT
 import Link from 'next/link';
 import React from 'react';
+import { useRouter } from 'next/navigation';
+import en from '../../locales/en';
+import ja from '../../locales/ja';
 import { Button } from '@mui/material';
 import { buttonOffLight } from '@/muistyle';
 import Box from '@mui/material/Box';
 
 // PAGE COMPONENT
 export default function LandingPage(): JSX.Element {
+    // const router = useRouter();
+    // const { locale } = router;
+    // const t = locale === 'ja' ? ja : en;
     return (
         <div className='home__landing-page'>
             <div className='home__landing-page__header-group'>
